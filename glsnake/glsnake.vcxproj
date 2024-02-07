@@ -160,6 +160,7 @@
     <ClCompile Include="grid.cpp" />
     <ClCompile Include="gridsnake.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="component.h" />
@@ -169,6 +170,12 @@
     <ClInclude Include="gridobjectcomponent.h" />
     <ClInclude Include="gridsnake.h" />
     <ClInclude Include="palette.h" />
+    <ClInclude Include="shader.h" />
+    <ClInclude Include="spriterenderer.h" />
+    <ClInclude Include="transform.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="states.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

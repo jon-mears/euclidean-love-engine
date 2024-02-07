@@ -19,7 +19,7 @@ int Game::glInit() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	window = glfwCreateWindow(600, 600, "GLSnake", NULL, NULL);
+	window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
 	if (window == NULL) {
 		std::cout << "Failed to create GLFW window" << std::endl;
 
@@ -45,7 +45,7 @@ int Game::glInit() {
 
 int Game::init() {
 	if (glInit() == -1) return -1;
-	if (userInit() == -1) return -1;
+	init_states[Init_State]();
 	return 0;
 }
 
@@ -55,7 +55,7 @@ void Game::process_input() {
 	}
 }
 
-void Game::loop() {
+void Game::start() {
 	while (!glfwWindowShouldClose(window)) {
 		process_input();
 		update();
@@ -75,5 +75,6 @@ void Game::draw() {
 }
 
 void Game::deinit() {
+	std::for_each(objects.begin(), objects.end(), [](GameObject* go) {delete go;});
 	glfwTerminate();
 }
