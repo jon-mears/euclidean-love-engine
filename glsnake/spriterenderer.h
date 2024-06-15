@@ -1,31 +1,37 @@
 #ifndef SPRITERENDERER_H
 #define SPRITERENDERER_H
 
-#include "component.h"
 #include "gameobject.h"
+#include "shader.h"
+#include "renderer.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include <glm/glm.hpp>
 
-enum {
-	TEXTURE,
-	COLOR
+enum : char {
+	COLOR,
+	TEXTURE
 };
 
-class SpriteRenderer : public Component {
+class SpriteRenderer : public Renderer {
 private:
-	glm::vec3 color;
+	void static_init();
 
-	static GLuint program;
+	union {
+		glm::vec4 color;
+		GLuint texture;
+	};
+	char type;
+	
+	static Shader* s;
 	static bool static_inited;
-
+	static GLuint VAO;
+	
 public:
-	SpriteRenderer(GameObject* go) : Component(go), color({1.0f, 1.0f, 1.0f}) {
-		
-	}
-
+	SpriteRenderer(GameObject* go);
+	void set_color(float r, float g, float b, float a);
 	~SpriteRenderer() = default;
 };
 #endif

@@ -1,25 +1,22 @@
 #ifndef STATES_H
 #define STATES_H
 
-#include "game.h"
+class Game;
+class Camera;
+class GameObject;
 
 typedef void (*StateFunc)(Game*);
+typedef void (*UniformUpdater)(GameObject*, Camera*);
 
 /* name the game states (0-valued state is the initial state) */
 enum class State : int {
 	SNAKE = 0
 };
 
-extern const State Init_State = static_cast<State>(0);
-
-/* define init funcs per game state */
-void init_snake(Game *g) {
+extern const State Init_State;
 	
-}
+void uniform_updater(GameObject* go, Camera* c);
+void init_snake(Game* g);
+void deinit_snake(Game* g);
 
-void deinit_snake(Game *g) {
-	
-}
-
-void empty(Game *g) { return; }
 #endif

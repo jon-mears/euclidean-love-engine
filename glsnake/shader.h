@@ -6,20 +6,29 @@
 
 #include <map>
 #include <string>
-#include <array>
+#include <glm/glm.hpp>
+
+class Uniform;
 
 class Shader {
 private:
 	GLuint program;
-	std::map<std::string, GLuint> uniforms;
+	GLuint vshader = -1;
+	GLuint fshader = -1;
+
+	const char* vsource;
+	const char* fsource;
+
+	std::map<std::string, Uniform*> _uniforms;
 
 public:
-	Shader(const char* vertexShaderSource, const char* fragmentShaderSource);
-
-	void set_uniform(const std::string& uniform_name, float f1);
-	void set_uniform(const std::string& uniform_name, float f1, float f2);
-	void set_uniform(const std::string& uniform_name, float f1, float f2, float f3);
-	void set_uniform(const std::string& uniform_name, float f1, float f2, float f3, float f4);
+	void vertex(const char* source);
+	void fragment(const char* source);
+	void enable();
+	void disable();
+	//void set_uniform(const std::string& name, const glm::mat4& value);
+	void compile();
+	std::map<std::string, Uniform*> uniforms();
 };
 
 #endif

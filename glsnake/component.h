@@ -1,24 +1,21 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
-#include "gameobject.h"
+class GameObject;
 
 class Component {
-
-private:
+protected:
 	GameObject* go;
 public:
-	virtual ~Component();
+	virtual ~Component() = default;
 
 	virtual void start() = 0;
 	virtual void update() = 0;
 
 	template <typename C>
-	Component* get_component() {
-		return go->get_component<C>();
-	}
-
-	Component(GameObject* go) : go(go) { }
+	C* get_component();
+	Component(GameObject* gameobject);
 };
 
+#include "component.tpp"
 #endif

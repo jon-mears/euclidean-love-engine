@@ -2,50 +2,30 @@
 #define GAMEOBJECT_H
 
 #include <vector>
-#include <algorithm>
-#include <typeinfo>
 
-#include "component.h"
+class Component;
+class Game;
 
 class GameObject {
 private:
 	std::vector<Component*> components;
+	Game* _game;
 
 public:
+	GameObject(Game* game);
 
 	template <typename C>
-	void add_component() {
-		components.push_back(new C(this));
-	}
+	C* add_component();
 
 	template <typename C>
-	void remove_component() {
-		auto it = std::find_if(components.begin(), components.end(), [](Component* c) {
-				return typeid(C) == typeid(*c);
-			});
-
-		if (it == components.end()) return;
-
-		delete* it;
-		components.erase(it);
-	}
+	void remove_component();
 
 	template <typename C>
-	Component* get_component() {
-		auto it = std::find_if(components.begin(), components.end(), [](Component* c) {
-			return typeid(C) == typeid(*c);
-			});
+	C* get_component();
 
-		if (it == componentes.end()) return nullptr;
-
-		return *it;
-	}
-
-	void start();
-	void update() {
-		for (Component* c : components) {
-			c->update();
-		}
-	}
+	void update();
+	Game* game();
 };
+
+#include "gameobject.tpp"
 #endif

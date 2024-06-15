@@ -3,58 +3,73 @@
 #include <iostream>
 #include <sstream>
 #include <ios>
+#include <string>
+#include <utility>
+#include <map>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-void Shader::set_uniform(const std::string &uniform_name, float f1) {
-	glUniform1f(uniforms[uniform_name], f1);
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+#include "factories.h"
+#include "uniform.h"
+
+void Shader::enable() {
+	glUseProgram(program);
 }
 
-void Shader::set_uniform(const std::string& uniform_name, float f1, float f2) {
-	glUniform2f(uniforms[uniform_name], f1, f2);
+void Shader::disable() {
+	glUseProgram(0);
 }
 
-void Shader::set_uniform(const std::string& uniform_name, float f1, float f2, float f3) {
-	glUniform3f(uniforms[uniform_name], f1, f2, f3);
-}
-
-void Shader::set_uniform(const std::string& uniform_name, float f1, float f2, float f3, float f4) {
-	glUniform4f(uniforms[uniform_name], f1, f2, f3, f4);
-}
-
-Shader::Shader(const char* vertexShaderSource, const char* fragmentShaderSource) : program(0) {
+void Shader::vertex(const char* source) {
 	char infoLog[512];
 	GLint success;
-	
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 
-	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+	vsource = source;
 
-	glCompileShader(vertexShader);
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+	vshader = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vshader, 1, &source, NULL);
+	glCompileShader(vshader);
+
+	glGetShaderiv(vshader, GL_COMPILE_STATUS, &success);
 
 	if (!success) {
-		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+		glGetShaderInfoLog(vshader, 512, NULL, infoLog);
 		std::cout << "ERROR COMPILING VERTEX SHADER\n" << infoLog << std::endl;
 		std::exit(-1);
 	}
+}
 
-	glCompileShader(fragmentShader);
-	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+void Shader::fragment(const char* source) {
+	char infoLog[512];
+	GLint success;
+
+	fsource = source;
+
+	fshader = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fshader, 1, &source, NULL);
+	glCompileShader(fshader);
+
+	glGetShaderiv(fshader, GL_COMPILE_STATUS, &success);
 
 	if (!success) {
-		glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+		glGetShaderInfoLog(fshader, 512, NULL, infoLog);
 		std::cout << "ERROR COMPILING FRAGMENT SHADER\n" << infoLog << std::endl;
 		std::exit(-1);
 	}
+}
+
+void Shader::compile() {
+	char infoLog[512];
+	GLint success;
 
 	this->program = glCreateProgram();
 
-	glAttachShader(this->program, vertexShader);
-	glAttachShader(this->program, fragmentShader);
+	glAttachShader(this->program, vshader);
+	glAttachShader(this->program, fshader);
 
 	glLinkProgram(this->program);
 	glGetProgramiv(this->program, GL_LINK_STATUS, &success);
@@ -65,33 +80,57 @@ Shader::Shader(const char* vertexShaderSource, const char* fragmentShaderSource)
 		std::exit(-1);
 	}	
 
-	glUseProgram(this->program);
+	std::string word, type, var;
 
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
-
-	std::istringstream vertexStream(vertexShaderSource);
-	std::string word;
-
+	std::istringstream vertexStream(vsource);
 	while (vertexStream && word != "main") {
 		vertexStream >> word;
-		
+
 		if (word == "uniform") {
-			vertexStream >> word; // ignore the type
-			vertexStream >> word;
-			uniforms[word] = glGetUniformLocation(this->program, word.c_str());
+			vertexStream >> type;
+			vertexStream >> var;
+			var = var.substr(0, var.size() - 1); // get rid of semicolon at end
+			GLuint loc = glGetUniformLocation(this->program, var.c_str());
+
+			_uniforms[var] = Factories::make_uniform(var, loc, type);
 		}
 	}
 
-	std::istringstream fragmentStream(fragmentShaderSource);
-
+	std::istringstream fragmentStream(fsource);
 	while (fragmentStream && word != "main") {
 		fragmentStream >> word;
 
 		if (word == "uniform") {
-			fragmentStream >> word; // ignore the type
-			fragmentStream >> word;
-			uniforms[word] = glGetUniformLocation(this->program, word.c_str());
+			fragmentStream >> type;
+			fragmentStream >> var;
+			var = var.substr(0, var.size() - 1); // get rid of semicolon at end
+			GLuint loc = glGetUniformLocation(this->program, var.c_str());
+
+			_uniforms[var] = Factories::make_uniform(var, loc, type);
 		}
 	}
 }
+
+std::map<std::string, Uniform*> Shader::uniforms() {
+	return _uniforms;
+}
+
+//void Shader::set_uniform(const std::string& s, const glm::mat4& mat) {
+//	
+//	//for (std::pair<const std::string, Uniform*>& it : uniforms) {
+//	//	std::cout << "uniform: " << it.first << std::endl;
+//
+//	//	if ()
+//	//}
+//	
+//	if (!uniforms.count(s)) {
+//		std::cout << "error :: attempt to access non-existent uniform " << s << std::endl;
+//		exit(-1);
+//	}
+//
+//	uniforms[s]->set(mat);
+//
+//	enable();
+//	uniforms[s]->upload();
+//	disable();
+//}
