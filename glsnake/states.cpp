@@ -10,6 +10,10 @@
 #include "vertexdata.h"
 #include "modelcomponent.h"
 #include "controller.h"
+#include "PuckMovement.hpp"
+#include "primitives.hpp"
+#include "shader.h"
+#include "perspective.h"
 
 #include <glm/glm.hpp>
 #include <iostream>
@@ -29,117 +33,96 @@ void uniform_updater(GameObject* go, Camera* c) {
 	glm::mat4 MVP = proj * view * model;
 
 	sc->set_uniform("uMVP", MVP);
+	sc->upload_uniforms();
 }
 
-void init_snake(Game* g) {
+void init_snake(Game* game) {
 	// specify shaders we want to use 
-	Shader* vcs = g->add_shader("Vertex Color Shader");
 
-	const char* vertex_src = "#version 330 core\n"
-		"layout (location=0) in vec3 aPos;\n"
-		"layout (location=1) in vec3 aColor;\n"
-		"out vec3 vColor;\n"
-		"uniform mat4 uMVP;\n"
-		"void main() {\n"
-		"	gl_Position = uMVP*vec4(aPos, 1.0f);\n"
-		"	vColor = aColor;\n"
-		"}";
+	Shader* color_shader = new Shader();
+	color_shader->name("Color Shader");
 
-	const char* fragment_src = "#version 330 core\n"
-		"in vec3 vColor;\n"
-		"out vec4 diffuse_color;\n"
-		"uniform vec3 uColor;\n"
-		"void main() {\n"
-		"	diffuse_color = vec4(uColor * vColor, 1.0f);\n"
-		"}";
-
-	vcs->vertex(vertex_src);
-	vcs->fragment(fragment_src);
-	vcs->compile();
-
-	Shader* scs = g->add_shader("Solid Color Shader");
-
-	vertex_src = "#version 330 core\n"
-		"layout (location=0) in vec3 aPos;\n"
+	std::string vertex_src = "#version 330 core\n"
+		"@POSITION in vec3 aPos;\n"
 		"uniform mat4 uMVP;\n"
 		"void main() {\n"
 		"	gl_Position = uMVP*vec4(aPos, 1.0f);\n"
 		"}";
 
-	fragment_src = "#version 330 core\n"
+	std::string fragment_src = "#version 330 core\n"
 		"out vec4 diffuse_color;\n"
 		"uniform vec3 uColor;\n"
 		"void main() {\n"
 		"	diffuse_color = vec4(uColor, 1.0f);\n"
 		"}";
 
-	scs->vertex(vertex_src);
-	scs->fragment(fragment_src);
-	scs->compile();
+	color_shader->vertex(vertex_src);
+	color_shader->fragment(fragment_src);
+	color_shader->compile();
+
+	game->add_shader(color_shader);
 
 	// specify models we want to use
 
-	Model* m = g->add_model("Rectangle");
-
-	VertexData aPos = {
-		{-0.5f, 0.5f, 0.0f},   // top left
-		{-0.5f, -0.5f, 0.0f},  // bottom left
-		{0.5, -0.5f, 0.0f},   // bottom right
-		{-0.5f, 0.5f, 0.0f},   // top left
-		{0.5f, 0.5f, 0.0f},    // top right
-		{0.5f, -0.5f, 0.0f}    // bottom right
-	};
-
-	VertexData aColor = {
-		{1.0f, 0.0f, 0.0f},  // top left (red)
-		{0.0f, 1.0f, 0.0f},  // bottom left (green)
-		{0.0f, 0.0f, 1.0f},  // bottom right (blue)
-		{1.0f, 0.0f, 0.0f},  // top left (red)
-		{1.0f, 1.0f, 0.0f},  // top right (yellow)
-		{0.0f, 0.0f, 1.0f}   // bottom right (blue)
-	};
-
-	m->vertex_attrib(0, aPos);
-	m->vertex_attrib(1, aColor);
-	m->compile();
+	Model* plane = Primitives::plane(static_cast<char>(Attribute::POSITION));
+	plane->compile();
+	game->add_model(plane);
 
 	// specify gameobjects we want to use
 
-	GameObject* sq = g->add_gameobject("Rectangle");
-	GameObject* c = g->add_gameobject("Main Camera");
+	GameObject* paddle = new GameObject();
+	paddle->name("Paddle");
 
-	c->add_component<Transform>();
-	Camera* cc = c->add_component<Camera>();
+	Transform* tpaddle = paddle->add_component<Transform>();
+	tpaddle->set_scale(0.25f, 0.25f, 0.25f);
+	tpaddle->set_pos(-0.5f, 0.0f, 0.0f);
+	tpaddle->set_window(game->window("Pong"));
 
-	Transform *t = sq->add_component<Transform>();
-	ShaderComponent* sc = sq->add_component<ShaderComponent>();
-	ModelComponent* mc = sq->add_component<ModelComponent>();
-	Orthographic* pc = sq->add_component<Orthographic>();
-	sq->add_component<Controller>();
+	paddle->add_component<Orthographic>();
 
-	sc->add_updater(uniform_updater);
+	ModelComponent* model_paddle = paddle->add_component<ModelComponent>();
+	model_paddle->set_model(plane);
 
-	// alternatively,
-	// auto scr = sq->add_component<SolidColorRenderer>();
-	// auto sqm = sq->add_component<SquareMesh>();
+	ShaderComponent* shader_paddle = paddle->add_component<ShaderComponent>();
+	shader_paddle->set_shader(color_shader);
+	shader_paddle->set_uniform("uColor", glm::vec3{ 0.0f, 0.0f, 1.0f });
+	shader_paddle->add_updater(uniform_updater);
 
-	cc->add_viewable(sq);
+	game->add_gameobject(paddle);
 
-	//Shader* theShader = g->shader("Solid Color Shader");
-	//std::cout << "solid color shader has " << theShader->uniforms.size() << " uniforms" << std::endl;
+	GameObject* paddle2 = new GameObject();
+	paddle2->name("Paddle_2");
 
-	//Shader* theOtherShader = g->shader("Vertex Color Shader");
-	//std::cout << "vertex color shader has " << theOtherShader->uniforms.size() << " uniforms" << std::endl;
+	Transform* tpaddle2 = paddle2->add_component<Transform>();
+	tpaddle2->set_scale(0.25f, 0.25f, 0.25f);
+	tpaddle2->set_pos(0.5f, 0.0f, 0.0f);
+	tpaddle2->set_window(game->window("Pong"));
 
-	sc->set_shader(g->shader("Vertex Color Shader"));
+	paddle2->add_component<Orthographic>();
 
-	sc->set_uniform("uColor", glm::vec3{ 1.0f, 1.0f, 1.0f });
-	mc->set_model(g->model("Rectangle"));
+	ModelComponent* model_paddle2 = paddle2->add_component<ModelComponent>();
+	model_paddle2->set_model(plane);
 
-	//t->translate(0.5f, 0.0f, 0.0f);
-	//t->scale(2.0f, 1.0f, 1.0f);
+	ShaderComponent* shader_paddle2 = paddle2->add_component<ShaderComponent>();
+	shader_paddle2->set_shader(color_shader);
+	shader_paddle2->set_uniform("uColor", glm::vec3{ 1.0f, 0.0f, 0.0f });
+	shader_paddle2->add_updater(uniform_updater);
+
+	game->add_gameobject(paddle2);
+
+	GameObject* camera = new GameObject();
+	camera->name("Camera");
+
+	Transform* tcamera = camera->add_component<Transform>();
+	tcamera->set_window(game->window("Pong"));
+
+	Camera* ccamera = camera->add_component<Camera>();
+	ccamera->add_viewable(paddle);
+	ccamera->add_viewable(paddle2);
+
+	game->add_gameobject(camera);
 }
 
-void deinit_snake(Game* g) {
+void deinit_snake(Game* game) {
 
 }

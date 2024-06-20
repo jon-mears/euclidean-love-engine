@@ -30,13 +30,15 @@ void Camera::draw() {
 		if (sc == nullptr)
 			throw "NEED A SHADERCOMPONENT TO RENDER!!!";
 		if (mc == nullptr)
-			throw "NEED A MODELCOMPONENT TO RENDER!!!";
+			throw "NEED A MODELCOMPONENT TO RENDER!!!";	
 
 		sc->update_uniforms(this);
 		sc->upload_uniforms();
 
 		sc->enable();
 		mc->enable();
+
+
 
 		glDrawArrays(GL_TRIANGLES, 0, mc->num_vertices());
 	}

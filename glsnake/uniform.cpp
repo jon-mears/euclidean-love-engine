@@ -10,6 +10,44 @@
 
 Uniform::Uniform(const std::string &name, GLuint loc) : name(name), loc(loc) { }
 
+// static
+std::string Uniform::encode(std::string name, GLuint loc, std::string type) {
+	return name + ":" + std::to_string(loc) + ":" + type;
+}
+
+// static
+Uniform* Uniform::decode(const std::string& code) {
+	size_t colon_pos1 = code.find(":");
+	size_t colon_pos2 = code.find(":", colon_pos1 + 1);
+
+	if (colon_pos1 == std::string::npos) {
+		std::cout << "uniform codes must contain a colon!" << std::endl;
+		std::exit(-1);
+	}
+
+	if (colon_pos2 == std::string::npos) {
+		std::cout << "uniform codes must contain two colons!" << std::endl;
+		std::exit(-1);
+	}
+
+	std::string name = code.substr(0, colon_pos1);
+	std::string loc = code.substr(colon_pos1 + 1, colon_pos2 - colon_pos1 - 1);
+	std::string type = code.substr(colon_pos2 + 1);
+
+	if (type == "vec3") {
+		return new Uniform3f(name, std::atoi(loc.c_str()));
+	}
+
+	else if (type == "mat4") {
+		return new UniformMat4(name, std::atoi(loc.c_str()));
+	}
+
+	else {
+		std::cout << "this has not yet been implemented." << std::endl;
+		std::exit(-1);
+	}
+}
+
 void Uniform::set(float v0) {
 	throw "ERROR :: CANNOT SET " + name + " TO FLOAT";
 }

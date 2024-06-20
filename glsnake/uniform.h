@@ -14,6 +14,9 @@ protected:
 public:
 	std::string name;
 	Uniform(const std::string &name, GLuint loc);
+
+	static std::string encode(std::string name, GLuint loc, std::string type);
+	static Uniform* decode(const std::string& code);
 	virtual void upload() = 0;
 
 	virtual void set(float v0);

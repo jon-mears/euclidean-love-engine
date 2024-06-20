@@ -10,7 +10,7 @@ namespace Factories {
 	Uniform* make_uniform(std::string name, GLuint loc, std::string type) {
 		if (type == "float") {
 			return new Uniform1f(name, loc);
-		}
+		}	
 		else if (type == "vec2") {
 			return new Uniform2f(name, loc);
 		}

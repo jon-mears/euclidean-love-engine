@@ -160,40 +160,53 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\..\Code\glad\glad.c" />
+    <ClCompile Include="aabb.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="component.cpp" />
     <ClCompile Include="controller.cpp" />
     <ClCompile Include="factories.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gameobject.cpp" />
+    <ClCompile Include="glsltranslator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="modelcomponent.cpp" />
     <ClCompile Include="orthographic.cpp" />
     <ClCompile Include="perspective.cpp" />
+    <ClCompile Include="primitives.cpp" />
     <ClCompile Include="projection.cpp" />
+    <ClCompile Include="PuckMovement.cpp" />
     <ClCompile Include="resources.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="shadercomponent.cpp" />
     <ClCompile Include="states.cpp" />
+    <ClCompile Include="stb.cpp" />
     <ClCompile Include="subject.cpp" />
     <ClCompile Include="transform.cpp" />
     <ClCompile Include="uniform.cpp" />
     <ClCompile Include="vertexdata.cpp" />
+    <ClCompile Include="volumes.cpp" />
+    <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\..\Code\stb\stb_image.h" />
+    <ClInclude Include="aabb.hpp" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="component.h" />
     <ClInclude Include="controller.h" />
     <ClInclude Include="factories.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameobject.h" />
+    <ClInclude Include="glsltranslator.hpp" />
+    <ClInclude Include="image2d.hpp" />
     <ClInclude Include="model.h" />
     <ClInclude Include="modelcomponent.h" />
     <ClInclude Include="observer.hpp" />
     <ClInclude Include="orthographic.h" />
     <ClInclude Include="perspective.h" />
+    <ClInclude Include="primitives.hpp" />
     <ClInclude Include="projection.h" />
+    <ClInclude Include="PuckMovement.hpp" />
     <ClInclude Include="resources.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="shadercomponent.h" />
@@ -201,6 +214,7 @@
     <ClInclude Include="transform.h" />
     <ClInclude Include="uniform.h" />
     <ClInclude Include="vertexdata.h" />
+    <ClInclude Include="window.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="component.tpp" />

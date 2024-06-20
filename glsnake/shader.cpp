@@ -16,6 +16,9 @@
 #include "factories.h"
 #include "uniform.h"
 
+#include "model.h"
+#include "glsltranslator.hpp"
+
 void Shader::enable() {
 	glUseProgram(program);
 }
@@ -24,14 +27,15 @@ void Shader::disable() {
 	glUseProgram(0);
 }
 
-void Shader::vertex(const char* source) {
+void Shader::vertex(std::string &source) {
 	char infoLog[512];
 	GLint success;
 
-	vsource = source;
+	GLSL_Translator::translate(source);
+	vsource = source.c_str();
 
 	vshader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vshader, 1, &source, NULL);
+	glShaderSource(vshader, 1, &vsource, NULL);
 	glCompileShader(vshader);
 
 	glGetShaderiv(vshader, GL_COMPILE_STATUS, &success);
@@ -43,14 +47,17 @@ void Shader::vertex(const char* source) {
 	}
 }
 
-void Shader::fragment(const char* source) {
+void Shader::fragment(std::string &source) {
+
 	char infoLog[512];
 	GLint success;
 
-	fsource = source;
+	GLSL_Translator::translate(source);
+
+	fsource = source.c_str();
 
 	fshader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fshader, 1, &source, NULL);
+	glShaderSource(fshader, 1, &fsource, NULL);
 	glCompileShader(fshader);
 
 	glGetShaderiv(fshader, GL_COMPILE_STATUS, &success);
@@ -65,6 +72,8 @@ void Shader::fragment(const char* source) {
 void Shader::compile() {
 	char infoLog[512];
 	GLint success;
+
+	std::cout << fsource << std::endl;
 
 	this->program = glCreateProgram();
 
@@ -92,7 +101,18 @@ void Shader::compile() {
 			var = var.substr(0, var.size() - 1); // get rid of semicolon at end
 			GLuint loc = glGetUniformLocation(this->program, var.c_str());
 
-			_uniforms[var] = Factories::make_uniform(var, loc, type);
+			//_uniforms[var] = Factories::make_uniform(var, loc, type);
+			mUniformCodes.push_back(Uniform::encode(var, loc, type));
+		}
+
+		if (word == "in") {
+			vertexStream >> type;
+			vertexStream >> var;
+			var = var.substr(0, var.size() - 1); // get rid of semicolon at end
+			GLuint loc = glGetAttribLocation(program, var.c_str());
+
+			mAttribName2Loc[var] = loc;
+			mAttribName2Type[var] = Attribute::NONE;
 		}
 	}
 
@@ -106,31 +126,24 @@ void Shader::compile() {
 			var = var.substr(0, var.size() - 1); // get rid of semicolon at end
 			GLuint loc = glGetUniformLocation(this->program, var.c_str());
 
-			_uniforms[var] = Factories::make_uniform(var, loc, type);
+			//_uniforms[var] = Factories::make_uniform(var, loc, type);
+			mUniformCodes.push_back(Uniform::encode(var, loc, type));
 		}
 	}
 }
 
-std::map<std::string, Uniform*> Shader::uniforms() {
-	return _uniforms;
+std::vector<std::string> &Shader::uniform_codes() {
+	return mUniformCodes;
 }
 
-//void Shader::set_uniform(const std::string& s, const glm::mat4& mat) {
-//	
-//	//for (std::pair<const std::string, Uniform*>& it : uniforms) {
-//	//	std::cout << "uniform: " << it.first << std::endl;
-//
-//	//	if ()
-//	//}
-//	
-//	if (!uniforms.count(s)) {
-//		std::cout << "error :: attempt to access non-existent uniform " << s << std::endl;
-//		exit(-1);
-//	}
-//
-//	uniforms[s]->set(mat);
-//
-//	enable();
-//	uniforms[s]->upload();
-//	disable();
-//}
+std::string &Shader::name() {
+	return mName;
+}
+
+void Shader::name(const std::string &name) {
+	mName = name;
+}
+
+void Shader::label_attrib(const std::string& name, Attribute attrib) {
+	mAttribName2Type[name] = attrib;
+}

@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-Transform::Transform(GameObject* gameobject) : Component(gameobject), pos(), rot(), sca(1) { }
+Transform::Transform(GameObject* gameobject) : Component(gameobject), pos(), rot(), sca(1), mpWindow(NULL) { }
 
 void Transform::set_posv(const glm::vec3& nPos) {
 	pos = nPos;
@@ -69,7 +69,7 @@ void Transform::scale(const float x, const float y, const float z) {
 	sca.z *= z;
 }
 
-glm::vec3 Transform::position() {
+glm::vec3 &Transform::position() {
 	return pos;
 }
 
@@ -90,6 +90,14 @@ glm::mat4 Transform::model_matrix() {
 	model = glm::scale(model, sca);
 
 	return model;
+}
+
+void Transform::set_window(Window *pWindow) {
+	mpWindow = pWindow;
+}
+
+Window* Transform::window() {
+	return mpWindow;
 }
 
 void Transform::start() { }

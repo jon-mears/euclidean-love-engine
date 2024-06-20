@@ -15,7 +15,11 @@ ShaderComponent::ShaderComponent(GameObject* gameobject) : Component(gameobject)
 
 void ShaderComponent::set_shader(Shader* s) {
 	shader = s;
-	uniforms = s->uniforms();
+
+	for (std::vector<std::string>::iterator it = s->uniform_codes().begin(); it != s->uniform_codes().end(); ++it) {
+		Uniform* u = Uniform::decode(*it);
+		uniforms[u->name] = u;
+	}
 }
 
 void ShaderComponent::start() { }

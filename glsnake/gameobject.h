@@ -2,17 +2,19 @@
 #define GAMEOBJECT_H
 
 #include <vector>
+#include <string>
 
 class Component;
 class Game;
+class Window;
 
 class GameObject {
 private:
 	std::vector<Component*> components;
-	Game* _game;
+	std::string mName;
 
 public:
-	GameObject(Game* game);
+	GameObject();
 
 	template <typename C>
 	C* add_component();
@@ -24,7 +26,10 @@ public:
 	C* get_component();
 
 	void update();
-	Game* game();
+	void start();
+
+	std::string& name();
+	void name(const std::string &name);
 };
 
 #include "gameobject.tpp"

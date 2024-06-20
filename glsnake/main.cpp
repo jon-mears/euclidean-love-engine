@@ -1,19 +1,19 @@
 #include "game.h"
 #include "states.h"
+#include "window.hpp"
+
+#include <glm/glm.hpp>
 
 int main() {
-	Game* g = new Game("glSnake", 600, 600);
-	g->register_state(State::SNAKE, init_snake, deinit_snake);
+	Game::instance()->add_window(new Window("Pong", 600, 600, glm::vec4{1.0f, 0.0f, 0.0f, 1.0f}));
+	Game::instance()->register_state(State::SNAKE, init_snake, deinit_snake);
 
-	if (g->init() == -1) {
-		delete g;
+	if (Game::instance()->init() == -1) {
 		return -1;
 	}
 
-	g->loop();
-	g->deinit();
-
-	delete g;
+	Game::instance()->loop();
+	Game::instance()->deinit();
 
 	return 0;
 }

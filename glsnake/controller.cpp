@@ -7,26 +7,19 @@
 #include "transform.h"
 #include "game.h"
 #include "gameobject.h"
+#include "window.hpp"
 
 void Controller::start() { }
 
 void Controller::update() { 
 	Transform* t = get_component<Transform>();
 
-	if (glfwGetKey(go->game()->window(), GLFW_KEY_W) == GLFW_PRESS) {
+	if (t->window()->press(Key::W)) {
 		t->translate(0.0f, 0.001f, 0.0f);
 	}
 
-	if (glfwGetKey(go->game()->window(), GLFW_KEY_A) == GLFW_PRESS) {
-		t->translate(-0.001f, 0.0f, 0.0f);
-	}
-
-	if (glfwGetKey(go->game()->window(), GLFW_KEY_S) == GLFW_PRESS) {
+	if (t->window()->press(Key::S)) {
 		t->translate(0.0f, -0.001f, 0.0f);
-	}
-
-	if (glfwGetKey(go->game()->window(), GLFW_KEY_D) == GLFW_PRESS) {
-		t->translate(0.001f, 0.0f, 0.0f);
 	}
 }
 

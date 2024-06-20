@@ -15,12 +15,7 @@
 #include "gameobject.h"
 #include "states.h"
 #include "transform.h"
-
-namespace {
-	void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
-		glViewport(0, 0, width, height);
-	}
-}	
+#include "window.hpp"
 
 int Game::glInit() {
 	glfwInit();
@@ -28,15 +23,11 @@ int Game::glInit() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	_window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
-	if (_window == NULL) {
-		std::cout << "Failed to create GLFW window" << std::endl;
+	for (std::pair<const std::string, Window*>& item : mWindows) {
 
-		glfwTerminate();
-		return -1;
+		Window* pWindow = item.second;
+		if (pWindow->glInit() == -1) return -1;
 	}
-
-	glfwMakeContextCurrent(_window);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
@@ -44,15 +35,10 @@ int Game::glInit() {
 		return -1;
 	}
 
-	glViewport(0, 0, width, height);
-	glfwSetFramebufferSizeCallback(_window, framebuffer_size_callback);
-
-	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-
 	return 0;
 }
 
-int Game::init() {
+int Game::init() {	
 	if (glInit() == -1) return -1;
 
 	if (!init_states.count(Init_State)) {
@@ -61,47 +47,22 @@ int Game::init() {
 	}
 
 	init_states[Init_State](this);
+
+	for (std::pair<const std::string, GameObject*>& item : gameobjects) {
+		GameObject* go = item.second;
+		go->start();
+	}
+
 	return 0;
 }
 
-void Game::process_input() {
-	if (glfwGetKey(_window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-		glfwSetWindowShouldClose(_window, true);
-	}
-
-	//if (glfwGetKey(_window, GLFW_KEY_W) == GLFW_PRESS) {
-	//	GameObject* go = gameobject("Rectangle");
-	//	Transform* t = go->get_component<Transform>();
-	//	t->translate(0.0f, 0.001f, 0.0f);
-	//}
-
-	//if (glfwGetKey(_window, GLFW_KEY_A) == GLFW_PRESS) {
-	//	GameObject* go = gameobject("Rectangle");
-	//	Transform* t = go->get_component<Transform>();
-	//	t->translate(-0.001f, 0.0f, 0.0f);
-	//}
-
-	//if (glfwGetKey(_window, GLFW_KEY_S) == GLFW_PRESS) {
-	//	GameObject* go = gameobject("Rectangle");
-	//	Transform* t = go->get_component<Transform>();
-	//	t->translate(0.0f, -0.001f, 0.0f);
-	//}
-
-	//if (glfwGetKey(_window, GLFW_KEY_D) == GLFW_PRESS) {
-	//	GameObject* go = gameobject("Rectangle");
-	//	Transform* t = go->get_component<Transform>();
-	//	t->translate(0.001f, 0.0f, 0.0f);
-	//}
-}
-
 void Game::loop() {
-	while (!glfwWindowShouldClose(_window)) {
-		process_input();
+	while (!should_close()) {
 		update();
 		draw();
 
-		glfwSwapBuffers(_window);
-		glfwPollEvents();
+		swap_buffers();
+		poll_events();
 	}
 }
 
@@ -126,7 +87,6 @@ void Game::draw() {
 }
 
 void Game::deinit() {
-
 	for (std::pair<const std::string, GameObject*>& item : gameobjects) {
 		GameObject* go = item.second;
 		delete go;
@@ -140,37 +100,104 @@ void Game::register_state(State s, StateFunc init, StateFunc deinit) {
 	deinit_states[s] = deinit;
 }
 
-Shader* Game::add_shader(std::string name) {
+//Shader* Game::add_shader(std::string name) {
+//	if (name == "")
+//		name = "shader_" + std::to_string(shaders.size() + 1);
+//
+//	if (shaders.count(name))
+//		throw "a shader named " + name + " already exists.";
+//
+//	shaders[name] = new Shader();
+//	return shaders[name];
+//}
+
+void Game::add_shader(Shader* pShader) {
+	std::string& name = pShader->name();
+	
 	if (name == "")
-		name = "shader_" + std::to_string(shaders.size() + 1);
+		name = "shader";
 
-	if (shaders.count(name))
-		throw "a shader named " + name + " already exists.";
+	if (shaders.count(name)) {
+		int num = 1;
+		size_t num_idx = name.size() + 1;
 
-	shaders[name] = new Shader();
-	return shaders[name];
+		name = name + "_" + std::to_string(num);
+		while (shaders.count(name)) {
+			++num;
+
+			name = name.replace(num_idx, name.size() - num_idx, std::to_string(num));
+		}
+	}
+
+	shaders[name] = pShader;
 }
 
-Model* Game::add_model(std::string name) {
+//Model* Game::add_model(std::string name) {
+//	if (name == "")
+//		name = "model_" + std::to_string(models.size() + 1);
+//
+//	if (models.count(name))
+//		throw "a model named " + name + " already exists.";
+//
+//	models[name] = new Model();
+//	return models[name];
+//}
+
+void Game::add_model(Model* pModel) {
+	std::string& name = pModel->name();
+
 	if (name == "")
-		name = "model_" + std::to_string(models.size() + 1);
+		name = "model";
 
-	if (models.count(name))
-		throw "a model named " + name + " already exists.";
+	if (models.count(name)) {
+		int num = 1;
+		size_t num_idx = name.size() + 1;
 
-	models[name] = new Model();
-	return models[name];
+		name = name + "_" + std::to_string(num);
+		while (models.count(name)) {
+			++num;
+
+			name = name.replace(num_idx, name.size() - num_idx, std::to_string(num));
+		}
+	}
+
+	models[name] = pModel;
 }
 
-GameObject* Game::add_gameobject(std::string name) {
+void Game::add_window(Window* pWindow) {
+	mWindows[pWindow->title()] = pWindow;
+}
+
+//GameObject* Game::add_gameobject(std::string name) {
+//	if (name == "")
+//		name = "object_" + std::to_string(gameobjects.size() + 1);
+//
+//	if (gameobjects.count(name))
+//		throw "an object named " + name + " already exists";
+//
+//	gameobjects[name] = new GameObject();
+//	return gameobjects[name];
+//}
+
+void Game::add_gameobject(GameObject* pGameObject) {
+	std::string& name = pGameObject->name();
+
 	if (name == "")
-		name = "object_" + std::to_string(gameobjects.size() + 1);
+		name = "gameobject";
 
-	if (gameobjects.count(name))
-		throw "an object named " + name + " already exists";
+	if (gameobjects.count(name)) {
+		int num = 1;
+		size_t num_idx = name.size() + 1;
 
-	gameobjects[name] = new GameObject(this);
-	return gameobjects[name];
+		name = name + "_" + std::to_string(num);
+		while (gameobjects.count(name)) {
+			++num;
+
+			name = name.replace(num_idx, name.size() - num_idx, std::to_string(num));
+		}
+	}
+
+	gameobjects[name] = pGameObject;
 }
 
 Shader* Game::shader(const std::string& name) {
@@ -185,8 +212,35 @@ GameObject* Game::gameobject(const std::string& name) {
 	return gameobjects[name];
 }
 
-GLFWwindow* Game::window() {
-	return _window;
+Window* Game::window(const std::string& name) {
+	return mWindows[name];
 }
 
-Game::Game(std::string t, int w, int h) : _window(nullptr), width(w), height(h), title(t), shaders(), models(), gameobjects() { }
+Game::Game() : shaders(), models(), gameobjects(), mWindows() { }
+
+bool Game::should_close() {
+	for (std::map<std::string, Window*>::iterator it = mWindows.begin(), it_next = it; it != mWindows.end(); it = it_next) {
+		++it_next;
+
+		Window* pWindow = it->second;
+		if (pWindow->should_close()) mWindows.erase(it);
+	}
+
+	return !mWindows.size();
+}
+
+void Game::swap_buffers() {
+	for (std::pair<const std::string, Window*>& item : mWindows) {
+		Window* pWindow = item.second;
+		pWindow->swap_buffers();
+	}
+}
+
+void Game::poll_events() {
+	glfwPollEvents();
+}
+
+Game *Game::instance() {
+	static Game* game = new Game();
+	return game;
+}

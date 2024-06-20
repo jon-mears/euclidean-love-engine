@@ -1,8 +1,11 @@
 #include "gameobject.h"
 #include "component.h"
 #include "game.h"
+#include "window.hpp"
 
-GameObject::GameObject(Game* game) : _game(game) { }
+#include <string>
+
+GameObject::GameObject() : components(), mName("") { }
 
 void GameObject::update() {
 	for (Component* c : components) {
@@ -10,6 +13,16 @@ void GameObject::update() {
 	}
 }
 
-Game* GameObject::game() {
-	return _game;
+void GameObject::start() {
+	for (Component* c : components) {
+		c->start();
+	}
+}
+
+std::string& GameObject::name() {
+	return mName;
+}
+
+void GameObject::name(const std::string& name) {
+	mName = name;
 }

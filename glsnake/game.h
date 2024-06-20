@@ -15,6 +15,7 @@ class Model;
 class GameObject;
 class Game;
 class Camera;
+class Window;
 
 typedef void (*StateFunc)(Game*);
 typedef void (*UniformUpdater)(GameObject*, Camera*);
@@ -35,36 +36,40 @@ private:
 	// */
 	//int userInit();
 
-	void process_input();
 	void update();
 	void draw();
 
-	GLFWwindow* _window;
-	int width, height;
-	std::string title;
 	std::map<State, StateFunc> init_states;
 	std::map<State, StateFunc> deinit_states;
 
 	std::map<std::string, Shader*> shaders;
 	std::map<std::string, Model*> models;
 	std::map<std::string, GameObject*> gameobjects;
+	std::map<std::string, Window*> mWindows;
+
+	Game();
+
+	bool should_close();
+	void swap_buffers();
+	inline void poll_events();
 	
 public:
-	Game(std::string t = "", int w = 600, int h = 600);
-
 	void register_state(State s, StateFunc init, StateFunc deinit);
 
 	int init();
 	void loop();
 	void deinit();
 
-	Shader* add_shader(std::string name);
-	Model* add_model(std::string name);
-	GameObject* add_gameobject(std::string name);
+	void add_shader(Shader *pShader);
+	void add_model(Model *pModel);
+	void add_gameobject(GameObject *pGameObject);
+	void add_window(Window* window);
+
 	Shader* shader(const std::string& name);
 	Model* model(const std::string& name);
 	GameObject* gameobject(const std::string& name);
+	Window* window(const std::string& name);
 
-	GLFWwindow* window();
+	static Game *instance();
 };
 #endif

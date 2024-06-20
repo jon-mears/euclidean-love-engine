@@ -8,6 +8,5 @@
 Orthographic::Orthographic(GameObject* gameobject) : Projection(gameobject), left(-1), right(1), bottom(-1), top(1) { }
 
 glm::mat4 Orthographic::projection_matrix() {
-	//return glm::ortho(left, right, bottom, top);
-	return glm::mat4(1);
+	return glm::ortho(left, right, bottom, top);
 }
