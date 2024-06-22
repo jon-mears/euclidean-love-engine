@@ -12,6 +12,8 @@ namespace GLSL_Translator {
 			return 0;
 		case Attribute::VERTEX_COLOR:
 			return 1;
+		case Attribute::TEXTURE_COORD:
+			return 2;
 		default:
 			return -1;
 		}
@@ -27,5 +29,10 @@ namespace GLSL_Translator {
 
 		if (position != std::string::npos)
 			source.replace(position, 13, "layout (location=1)");
+
+		position = source.find("@TEXTURE_COORD");
+
+		if (position != std::string::npos)
+			source.replace(position, 14, "layout (location=2)");
 	}
 }

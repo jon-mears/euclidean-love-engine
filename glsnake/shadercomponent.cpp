@@ -54,7 +54,16 @@ void ShaderComponent::set_uniform(const std::string& name, const glm::mat4 &valu
 void ShaderComponent::set_uniform(const std::string& name, const glm::vec3& value) {
 	if (!uniforms.count(name)) {
 		std::cout << "error :: attempt to access non-existent uniform " << name << std::endl;
-		exit(-1);
+		std::exit(-1);
+	}
+
+	uniforms[name]->set(value);
+}
+
+void ShaderComponent::set_uniform(const std::string& name, Texture2D* value) {
+	if (!uniforms.count(name)) {
+		std::cout << "error :: attempt to access non-existent uniform " << name << std::endl;
+		std::exit(-1);
 	}
 
 	uniforms[name]->set(value);

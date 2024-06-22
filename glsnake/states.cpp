@@ -14,6 +14,8 @@
 #include "primitives.hpp"
 #include "shader.h"
 #include "perspective.h"
+#include "image2d.hpp"
+#include "texture2d.hpp"
 
 #include <glm/glm.hpp>
 #include <iostream>
@@ -44,16 +46,22 @@ void init_snake(Game* game) {
 
 	std::string vertex_src = "#version 330 core\n"
 		"@POSITION in vec3 aPos;\n"
+		"@TEXTURE_COORD in vec2 aTexCoord;\n"
 		"uniform mat4 uMVP;\n"
+
+		"out vec2 vTexCoord;\n"
 		"void main() {\n"
 		"	gl_Position = uMVP*vec4(aPos, 1.0f);\n"
+		"	vTexCoord = aTexCoord;\n"
 		"}";
 
 	std::string fragment_src = "#version 330 core\n"
+		"in vec2 vTexCoord;\n"
 		"out vec4 diffuse_color;\n"
 		"uniform vec3 uColor;\n"
+		"uniform sampler2D uTexture;\n"
 		"void main() {\n"
-		"	diffuse_color = vec4(uColor, 1.0f);\n"
+		"	diffuse_color = texture(uTexture, vTexCoord);\n"
 		"}";
 
 	color_shader->vertex(vertex_src);
@@ -62,9 +70,15 @@ void init_snake(Game* game) {
 
 	game->add_shader(color_shader);
 
+	Image2D* box = new Image2D("C:\\assets\\container.jpg");
+	Texture2D* texture = new Texture2D();
+
+	texture->set_image(box);
+	texture->compile();
+
 	// specify models we want to use
 
-	Model* plane = Primitives::plane(static_cast<char>(Attribute::POSITION));
+	Model* plane = Primitives::plane(static_cast<char>(Attribute::POSITION) | static_cast<char>(Attribute::TEXTURE_COORD));
 	plane->compile();
 	game->add_model(plane);
 
@@ -86,11 +100,12 @@ void init_snake(Game* game) {
 	ShaderComponent* shader_paddle = paddle->add_component<ShaderComponent>();
 	shader_paddle->set_shader(color_shader);
 	shader_paddle->set_uniform("uColor", glm::vec3{ 0.0f, 0.0f, 1.0f });
+	shader_paddle->set_uniform("uTexture", texture);
 	shader_paddle->add_updater(uniform_updater);
 
 	game->add_gameobject(paddle);
 
-	GameObject* paddle2 = new GameObject();
+	/*GameObject* paddle2 = new GameObject();
 	paddle2->name("Paddle_2");
 
 	Transform* tpaddle2 = paddle2->add_component<Transform>();
@@ -108,7 +123,7 @@ void init_snake(Game* game) {
 	shader_paddle2->set_uniform("uColor", glm::vec3{ 1.0f, 0.0f, 0.0f });
 	shader_paddle2->add_updater(uniform_updater);
 
-	game->add_gameobject(paddle2);
+	game->add_gameobject(paddle2);*/
 
 	GameObject* camera = new GameObject();
 	camera->name("Camera");
@@ -118,7 +133,7 @@ void init_snake(Game* game) {
 
 	Camera* ccamera = camera->add_component<Camera>();
 	ccamera->add_viewable(paddle);
-	ccamera->add_viewable(paddle2);
+	//ccamera->add_viewable(paddle2);
 
 	game->add_gameobject(camera);
 }

@@ -13,6 +13,7 @@ class Shader;
 class GameObject;
 class Camera;
 class Uniform;
+class Texture2D;
 
 typedef void (*UniformUpdater)(GameObject*, Camera*);
 
@@ -33,6 +34,7 @@ public:
 	void disable();
 	void set_uniform(const std::string& name, const glm::mat4 &value);
 	void set_uniform(const std::string& name, const glm::vec3& value);
+	void set_uniform(const std::string& name, Texture2D* value);
 	void upload_uniforms();
 };
 #endif

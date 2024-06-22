@@ -168,6 +168,7 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gameobject.cpp" />
     <ClCompile Include="glsltranslator.cpp" />
+    <ClCompile Include="image2d.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="modelcomponent.cpp" />
@@ -176,12 +177,14 @@
     <ClCompile Include="primitives.cpp" />
     <ClCompile Include="projection.cpp" />
     <ClCompile Include="PuckMovement.cpp" />
+    <ClCompile Include="resourcemanager.cpp" />
     <ClCompile Include="resources.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="shadercomponent.cpp" />
     <ClCompile Include="states.cpp" />
     <ClCompile Include="stb.cpp" />
     <ClCompile Include="subject.cpp" />
+    <ClCompile Include="texture2d.cpp" />
     <ClCompile Include="transform.cpp" />
     <ClCompile Include="uniform.cpp" />
     <ClCompile Include="vertexdata.cpp" />
@@ -207,14 +210,19 @@
     <ClInclude Include="primitives.hpp" />
     <ClInclude Include="projection.h" />
     <ClInclude Include="PuckMovement.hpp" />
+    <ClInclude Include="resourcemanager.hpp" />
     <ClInclude Include="resources.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="shadercomponent.h" />
     <ClInclude Include="subject.hpp" />
+    <ClInclude Include="texture2d.hpp" />
     <ClInclude Include="transform.h" />
     <ClInclude Include="uniform.h" />
     <ClInclude Include="vertexdata.h" />
     <ClInclude Include="window.hpp" />
+    <ClInclude Include="xmlnode.hpp" />
+    <ClInclude Include="xmlparser.hpp" />
+    <ClInclude Include="xmltree.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="component.tpp" />

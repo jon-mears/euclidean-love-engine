@@ -5,9 +5,14 @@
 
 class Image2D {
 private:
-	unsigned char* data;
+	unsigned char* mData;
+	int mWidth, mHeight, mNrChannels;
 public:
-	Image2D(std::string filename);
+	Image2D(const std::string &filename);
+	inline int width() { return mWidth; }
+	inline int height() { return mHeight; }
+	inline int nrChannels() { return mNrChannels; }
+	inline unsigned char* data() { return mData; }
 };
 
-#endif
+#endif	

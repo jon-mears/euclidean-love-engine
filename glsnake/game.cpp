@@ -16,6 +16,7 @@
 #include "states.h"
 #include "transform.h"
 #include "window.hpp"
+#include "resourcemanager.hpp"
 
 int Game::glInit() {
 	glfwInit();
@@ -39,6 +40,9 @@ int Game::glInit() {
 }
 
 int Game::init() {	
+
+	start_systems();
+
 	if (glInit() == -1) return -1;
 
 	if (!init_states.count(Init_State)) {
@@ -100,17 +104,6 @@ void Game::register_state(State s, StateFunc init, StateFunc deinit) {
 	deinit_states[s] = deinit;
 }
 
-//Shader* Game::add_shader(std::string name) {
-//	if (name == "")
-//		name = "shader_" + std::to_string(shaders.size() + 1);
-//
-//	if (shaders.count(name))
-//		throw "a shader named " + name + " already exists.";
-//
-//	shaders[name] = new Shader();
-//	return shaders[name];
-//}
-
 void Game::add_shader(Shader* pShader) {
 	std::string& name = pShader->name();
 	
@@ -131,17 +124,6 @@ void Game::add_shader(Shader* pShader) {
 
 	shaders[name] = pShader;
 }
-
-//Model* Game::add_model(std::string name) {
-//	if (name == "")
-//		name = "model_" + std::to_string(models.size() + 1);
-//
-//	if (models.count(name))
-//		throw "a model named " + name + " already exists.";
-//
-//	models[name] = new Model();
-//	return models[name];
-//}
 
 void Game::add_model(Model* pModel) {
 	std::string& name = pModel->name();
@@ -167,17 +149,6 @@ void Game::add_model(Model* pModel) {
 void Game::add_window(Window* pWindow) {
 	mWindows[pWindow->title()] = pWindow;
 }
-
-//GameObject* Game::add_gameobject(std::string name) {
-//	if (name == "")
-//		name = "object_" + std::to_string(gameobjects.size() + 1);
-//
-//	if (gameobjects.count(name))
-//		throw "an object named " + name + " already exists";
-//
-//	gameobjects[name] = new GameObject();
-//	return gameobjects[name];
-//}
 
 void Game::add_gameobject(GameObject* pGameObject) {
 	std::string& name = pGameObject->name();
@@ -238,6 +209,11 @@ void Game::swap_buffers() {
 
 void Game::poll_events() {
 	glfwPollEvents();
+}
+
+void Game::start_systems() {
+	mpResourceManager = new ResourceManager();
+	mpResourceManager->startup();
 }
 
 Game *Game::instance() {

@@ -47,6 +47,8 @@ private:
 	std::map<std::string, GameObject*> gameobjects;
 	std::map<std::string, Window*> mWindows;
 
+	ResourceManager* mpResourceManager;
+
 	Game();
 
 	bool should_close();
@@ -57,6 +59,7 @@ public:
 	void register_state(State s, StateFunc init, StateFunc deinit);
 
 	int init();
+	void start_systems();
 	void loop();
 	void deinit();
 
@@ -69,6 +72,8 @@ public:
 	Model* model(const std::string& name);
 	GameObject* gameobject(const std::string& name);
 	Window* window(const std::string& name);
+
+	ResourceManager& resource_manager();
 
 	static Game *instance();
 };

@@ -8,6 +8,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "texture2d.hpp"
+
 Uniform::Uniform(const std::string &name, GLuint loc) : name(name), loc(loc) { }
 
 // static
@@ -40,6 +42,10 @@ Uniform* Uniform::decode(const std::string& code) {
 
 	else if (type == "mat4") {
 		return new UniformMat4(name, std::atoi(loc.c_str()));
+	}
+
+	else if (type == "sampler2D") {
+		return new UniformTexture2D(name, std::atoi(loc.c_str()));
 	}
 
 	else {
@@ -115,7 +121,11 @@ void Uniform::set(const glm::mat3 &m) {
 void Uniform::set(const glm::mat4 &m) {
 	std::cout << "can't set uniform " << name << " to matrix4!" << std::endl;
 	exit(-1);
-	//throw "ERROR :: CANNOT SET " + name + " TO MAT4";
+}
+
+void Uniform::set(Texture2D* tex) {
+	std::cout << "can't set uniform " << name << " to texture2D!" << std::endl;
+	std::exit(-1);
 }
 
 Uniform1f::Uniform1f(const std::string &name, GLuint loc) : Uniform(name, loc), v0(0) { }
@@ -250,4 +260,14 @@ void UniformMat4::set(const glm::mat4& matrix) {
 
 void UniformMat4::upload() {
 	glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(m));
+}
+
+UniformTexture2D::UniformTexture2D(const std::string& name, GLuint loc) : Uniform(name, loc), t() { }
+
+void UniformTexture2D::set(Texture2D* tex) {
+	t = tex;
+}
+
+void UniformTexture2D::upload() {
+	t->enable();
 }

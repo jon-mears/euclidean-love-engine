@@ -8,6 +8,8 @@
 
 #include <glm/glm.hpp>
 
+class Texture2D;
+
 class Uniform {
 protected:
 	GLuint loc;
@@ -36,6 +38,7 @@ public:
 	virtual void set(const glm::mat2& matrix);
 	virtual void set(const glm::mat3& matrix);
 	virtual void set(const glm::mat4& matrix);
+	virtual void set(Texture2D* tex);
 	virtual ~Uniform() = default;
 };
 
@@ -131,7 +134,7 @@ private:
 public:
 
 	UniformMat2(const std::string& name, GLuint loc);
-	virtual void set(const glm::mat2& matrix);
+	virtual void set(const glm::mat2& matrix) override;
 	virtual void upload() override;
 };
 
@@ -141,7 +144,7 @@ private:
 public:
 
 	UniformMat3(const std::string& name, GLuint loc);
-	virtual void set(const glm::mat3& matrix);
+	virtual void set(const glm::mat3& matrix) override;
 	virtual void upload() override;
 };
 
@@ -151,7 +154,17 @@ private:
 public:
 
 	UniformMat4(const std::string& name, GLuint loc); 
-	virtual void set(const glm::mat4& matrix);
+	virtual void set(const glm::mat4& matrix) override;
+	virtual void upload() override;
+};
+
+class UniformTexture2D : public Uniform {
+private:
+	Texture2D* t;
+public:
+
+	UniformTexture2D(const std::string& name, GLuint loc);
+	virtual void set(Texture2D* tex) override;
 	virtual void upload() override;
 };
 #endif
