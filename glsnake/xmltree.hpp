@@ -8,5 +8,10 @@ private:
 	XMLNode* mRoot;
 public:
 	XMLNode* root();
+
+	friend class XMLBegin;
+	friend class XMLTagname;
+	friend class XMLAttribute;
+	friend class XMLContent;
 };
 #endif

@@ -190,6 +190,10 @@
     <ClCompile Include="vertexdata.cpp" />
     <ClCompile Include="volumes.cpp" />
     <ClCompile Include="window.cpp" />
+    <ClCompile Include="xmlnode.cpp" />
+    <ClCompile Include="xmlparser.cpp" />
+    <ClCompile Include="xmlstate.cpp" />
+    <ClCompile Include="xmltree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\..\Code\stb\stb_image.h" />
@@ -222,6 +226,7 @@
     <ClInclude Include="window.hpp" />
     <ClInclude Include="xmlnode.hpp" />
     <ClInclude Include="xmlparser.hpp" />
+    <ClInclude Include="xmlstate.hpp" />
     <ClInclude Include="xmltree.hpp" />
   </ItemGroup>
   <ItemGroup>
