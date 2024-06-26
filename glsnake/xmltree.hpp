@@ -9,9 +9,6 @@ private:
 public:
 	XMLNode* root();
 
-	friend class XMLBegin;
-	friend class XMLTagname;
-	friend class XMLAttribute;
-	friend class XMLContent;
+	friend class XMLParser;
 };
 #endif

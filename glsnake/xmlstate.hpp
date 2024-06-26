@@ -4,6 +4,7 @@
 class XMLParser;
 
 #include <utility>
+#include <string>
 
 enum class StateAction {
 	PUSH,
@@ -30,13 +31,18 @@ public:
 	virtual StateCommand exit(XMLParser& parser) override;
 };
 
-class XMLTagname : public XMLState {
+class XMLTag : public XMLState {
+public:
+	virtual StateCommand enter(XMLParser& parser) override;
+	virtual StateCommand process(XMLParser& parser) override;
+};
+
+class XMLBeginTagname : public XMLState {
 private:
 	char mTagname[256];
 	size_t mIndex;
 
 public:
-	virtual StateCommand enter(XMLParser& parser) override;
 	virtual StateCommand process(XMLParser& parser) override;
 	virtual StateCommand exit(XMLParser& parser) override;
 };
@@ -82,8 +88,20 @@ public:
 class XMLContent : public XMLState {
 private:
 	char mContent[1024];
+	size_t mIndex;
 public:
 	virtual StateCommand process(XMLParser& parser) override;
+	virtual StateCommand exit(XMLParser& parser) override;
+};
+
+class XMLEndTagname : public XMLState {
+private:
+	char mTagname[512];
+	size_t mIndex;
+public:
+	virtual StateCommand enter(XMLParser& parser) override;
+	virtual StateCommand process(XMLParser& parser) override;
+	virtual StateCommand exit(XMLParser& parser) override;
 };
 
 class XMLWhitespace : public XMLState {

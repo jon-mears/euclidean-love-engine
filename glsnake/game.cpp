@@ -18,6 +18,10 @@
 #include "window.hpp"
 #include "resourcemanager.hpp"
 
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+
 int Game::glInit() {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -40,10 +44,9 @@ int Game::glInit() {
 }
 
 int Game::init() {	
+	if (glInit() == -1) return -1;
 
 	start_systems();
-
-	if (glInit() == -1) return -1;
 
 	if (!init_states.count(Init_State)) {
 		std::cout << "error :: state with index " << static_cast<int>(Init_State) << " does not exist" << std::endl;
@@ -62,12 +65,28 @@ int Game::init() {
 
 void Game::loop() {
 	while (!should_close()) {
+		poll_events();
+
+		imgui_start();
+
 		update();
 		draw();
 
+		imgui_end();
+
 		swap_buffers();
-		poll_events();
 	}
+}
+
+void Game::imgui_start() {
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplGlfw_NewFrame();
+	ImGui::NewFrame();
+}
+
+void Game::imgui_end() {
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
 void Game::update() {
@@ -219,4 +238,8 @@ void Game::start_systems() {
 Game *Game::instance() {
 	static Game* game = new Game();
 	return game;
+}
+
+ResourceManager& Game::resource_manager() {
+	return *mpResourceManager;
 }

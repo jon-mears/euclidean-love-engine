@@ -18,8 +18,11 @@ public:
 	void add_tag(const std::string& tag);
 
 	XMLNode* operator[](size_t idx) const;
+	XMLNode* child(size_t idx) const;
 	size_t num_children() const;
 	bool has(const std::string& attrib);
+
+	std::string content();
 	std::string attribute(const std::string& name);
 	std::string tag() const;
 };

@@ -20,6 +20,10 @@ XMLNode* XMLNode::operator[](size_t idx) const {
 	return mChildren[idx];
 }
 
+XMLNode* XMLNode::child(size_t idx) const {
+	return mChildren[idx];
+}
+
 size_t XMLNode::num_children() const {
 	return mChildren.size();
 }
@@ -34,4 +38,8 @@ std::string XMLNode::attribute(const std::string& name) {
 
 std::string XMLNode::tag() const {
 	return mTag;
+}
+
+std::string XMLNode::content() {
+	return mContent;
 }

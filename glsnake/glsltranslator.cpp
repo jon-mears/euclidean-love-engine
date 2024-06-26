@@ -4,6 +4,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#define VERSION "#version 330 core"
+
 namespace GLSL_Translator {
 
 	GLuint attrib2loc(Attribute attrib) {
@@ -20,6 +22,12 @@ namespace GLSL_Translator {
 	}
 
 	void translate(std::string& source) {
+		size_t version = source.find("@VERSION");
+
+		if (version != std::string::npos) {
+			source.replace(version, 8, VERSION);
+		}
+
 		size_t position = source.find("@POSITION");
 
 		if (position != std::string::npos)

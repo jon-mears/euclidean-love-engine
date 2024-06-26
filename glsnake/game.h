@@ -16,6 +16,7 @@ class GameObject;
 class Game;
 class Camera;
 class Window;
+class ResourceManager;
 
 typedef void (*StateFunc)(Game*);
 typedef void (*UniformUpdater)(GameObject*, Camera*);
@@ -54,6 +55,9 @@ private:
 	bool should_close();
 	void swap_buffers();
 	inline void poll_events();
+
+	void imgui_start();
+	void imgui_end();
 	
 public:
 	void register_state(State s, StateFunc init, StateFunc deinit);

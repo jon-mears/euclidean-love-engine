@@ -1,7 +1,7 @@
 #ifndef WINDOW_HPP
 #define WINDOW_HPP
 
-class GLFWwindow;
+struct GLFWwindow;
 
 #include <string>
 #include <glm/glm.hpp>

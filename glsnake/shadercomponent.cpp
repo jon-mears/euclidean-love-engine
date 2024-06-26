@@ -10,6 +10,7 @@
 #include <iostream>
 
 #include <glm/glm.hpp>
+#include "imgui.h"
 
 ShaderComponent::ShaderComponent(GameObject* gameobject) : Component(gameobject), shader(nullptr), uniform_updaters() { }
 
@@ -23,7 +24,10 @@ void ShaderComponent::set_shader(Shader* s) {
 }
 
 void ShaderComponent::start() { }
-void ShaderComponent::update() { }
+void ShaderComponent::update() { 
+	ImGui::Begin("Hello World");
+	ImGui::End();
+}
 
 void ShaderComponent::add_updater(UniformUpdater uu) {
 	uniform_updaters.push_back(uu);

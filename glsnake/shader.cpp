@@ -19,6 +19,10 @@
 #include "model.h"
 #include "glsltranslator.hpp"
 
+Shader::Shader(const std::string& name) : Resource(name), program(), mVSource(), mFSource(), mUniformCodes(), mAttribName2Type(), mAttribName2Loc() { }
+
+Shader::Shader() : Resource(), program(), mVSource(), mFSource(), mUniformCodes(), mAttribName2Type(), mAttribName2Loc() { }
+
 void Shader::enable() {
 	glUseProgram(program);
 }
@@ -27,12 +31,14 @@ void Shader::disable() {
 	glUseProgram(0);
 }
 
-void Shader::vertex(std::string &source) {
+void Shader::vertex(std::string source) {
 	char infoLog[512];
 	GLint success;
 
 	GLSL_Translator::translate(source);
-	vsource = source.c_str();
+	mVSource = source;
+
+	const char* vsource = mVSource.c_str();
 
 	vshader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vshader, 1, &vsource, NULL);
@@ -47,14 +53,14 @@ void Shader::vertex(std::string &source) {
 	}
 }
 
-void Shader::fragment(std::string &source) {
-
+void Shader::fragment(std::string source) {
 	char infoLog[512];
 	GLint success;
 
 	GLSL_Translator::translate(source);
+	mFSource = source;
 
-	fsource = source.c_str();
+	const char* fsource = mFSource.c_str();
 
 	fshader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fshader, 1, &fsource, NULL);
@@ -70,10 +76,9 @@ void Shader::fragment(std::string &source) {
 }
 
 void Shader::compile() {
+
 	char infoLog[512];
 	GLint success;
-
-	std::cout << fsource << std::endl;
 
 	this->program = glCreateProgram();
 
@@ -91,7 +96,7 @@ void Shader::compile() {
 
 	std::string word, type, var;
 
-	std::istringstream vertexStream(vsource);
+	std::istringstream vertexStream(mVSource);
 	while (vertexStream && word != "main") {
 		vertexStream >> word;
 
@@ -101,7 +106,6 @@ void Shader::compile() {
 			var = var.substr(0, var.size() - 1); // get rid of semicolon at end
 			GLuint loc = glGetUniformLocation(this->program, var.c_str());
 
-			//_uniforms[var] = Factories::make_uniform(var, loc, type);
 			mUniformCodes.push_back(Uniform::encode(var, loc, type));
 		}
 
@@ -116,7 +120,7 @@ void Shader::compile() {
 		}
 	}
 
-	std::istringstream fragmentStream(fsource);
+	std::istringstream fragmentStream(mFSource);
 	while (fragmentStream && word != "main") {
 		fragmentStream >> word;
 
@@ -134,14 +138,6 @@ void Shader::compile() {
 
 std::vector<std::string> &Shader::uniform_codes() {
 	return mUniformCodes;
-}
-
-std::string &Shader::name() {
-	return mName;
-}
-
-void Shader::name(const std::string &name) {
-	mName = name;
 }
 
 void Shader::label_attrib(const std::string& name, Attribute attrib) {
