@@ -4,16 +4,18 @@
 #include <vector>
 #include <string>
 
+#include "resource.hpp"
+
 class Component;
 class Game;
 class Window;
 
-class GameObject {
+class GameObject : public Resource {
 private:
 	std::vector<Component*> components;
-	std::string mName;
 
 public:
+	GameObject(std::string);
 	GameObject();
 
 	template <typename C>
@@ -28,8 +30,8 @@ public:
 	void update();
 	void start();
 
-	std::string& name();
-	void name(const std::string &name);
+	std::vector<Component*>::iterator component_begin();
+	std::vector<Component*>::iterator component_end();
 };
 
 #include "gameobject.tpp"

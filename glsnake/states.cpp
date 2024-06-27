@@ -6,9 +6,9 @@
 #include "camera.h"
 #include "shadercomponent.h"
 #include "shader.h"
-#include "model.h"
+#include "mesh.h"
 #include "vertexdata.h"
-#include "modelcomponent.h"
+#include "mesh_component.hpp"
 #include "controller.h"
 #include "PuckMovement.hpp"
 #include "primitives.hpp"
@@ -42,9 +42,7 @@ void uniform_updater(GameObject* go, Camera* c) {
 void init_snake(Game* game) {
 	// specify shaders we want to use 
 
-	ResourceManager& resources = game->resource_manager();
-
-	Shader *texture_shader = resources.retrieve<Shader>("Texture");
+	Shader *texture_shader = ResourceManager::instance().retrieve<Shader>("Texture");
 
 	Image2D* box = new Image2D("C:\\assets\\container.jpg");
 	Texture2D* texture = new Texture2D();
@@ -54,14 +52,13 @@ void init_snake(Game* game) {
 
 	// specify models we want to use
 
-	Model* plane = Primitives::plane(static_cast<char>(Attribute::POSITION) | static_cast<char>(Attribute::TEXTURE_COORD));
+	Mesh* plane = Primitives::plane(static_cast<char>(Attribute::POSITION) | static_cast<char>(Attribute::TEXTURE_COORD));
 	plane->compile();
-	game->add_model(plane);
+	ResourceManager::instance().add<Mesh>(plane);
 
 	// specify gameobjects we want to use
 
-	GameObject* paddle = new GameObject();
-	paddle->name("Paddle");
+	GameObject* paddle = new GameObject("Paddle");
 
 	Transform* tpaddle = paddle->add_component<Transform>();
 	tpaddle->set_scale(0.25f, 0.25f, 0.25f);
@@ -70,18 +67,17 @@ void init_snake(Game* game) {
 
 	paddle->add_component<Orthographic>();
 
-	ModelComponent* model_paddle = paddle->add_component<ModelComponent>();
-	model_paddle->set_model(plane);
+	MeshComponent* model_paddle = paddle->add_component<MeshComponent>();
+	model_paddle->set_mesh(plane);
 
 	ShaderComponent* shader_paddle = paddle->add_component<ShaderComponent>();
 	shader_paddle->set_shader(texture_shader);
 	shader_paddle->set_uniform("uSampler", texture);
 	shader_paddle->add_updater(uniform_updater);
 
-	game->add_gameobject(paddle);
+	ResourceManager::instance().add<GameObject>(paddle);
 
-	GameObject* camera = new GameObject();
-	camera->name("Camera");
+	GameObject* camera = new GameObject("Camera");
 
 	Transform* tcamera = camera->add_component<Transform>();
 	tcamera->set_window(game->window("Pong"));
@@ -89,7 +85,7 @@ void init_snake(Game* game) {
 	Camera* ccamera = camera->add_component<Camera>();
 	ccamera->add_viewable(paddle);
 
-	game->add_gameobject(camera);
+	ResourceManager::instance().add<GameObject>(camera);
 }
 
 void deinit_snake(Game* game) {

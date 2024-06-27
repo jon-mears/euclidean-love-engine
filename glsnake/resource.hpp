@@ -4,11 +4,11 @@
 #include <string>
 
 class Resource {
-private:
+protected:
 	std::string mName;
 public:
 
-	virtual ~Resource();
+	virtual ~Resource() = 0;
 	Resource(const std::string& name);
 	Resource();
 

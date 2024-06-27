@@ -2,3 +2,5 @@
 #include "gameobject.h"
 
 Component::Component(GameObject* gameobject) : go(gameobject) { }
+
+void Component::interface() { }

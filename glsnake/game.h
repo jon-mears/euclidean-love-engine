@@ -17,6 +17,7 @@ class Game;
 class Camera;
 class Window;
 class ResourceManager;
+class UIWindow;
 
 typedef void (*StateFunc)(Game*);
 typedef void (*UniformUpdater)(GameObject*, Camera*);
@@ -43,12 +44,7 @@ private:
 	std::map<State, StateFunc> init_states;
 	std::map<State, StateFunc> deinit_states;
 
-	std::map<std::string, Shader*> shaders;
-	std::map<std::string, Model*> models;
-	std::map<std::string, GameObject*> gameobjects;
 	std::map<std::string, Window*> mWindows;
-
-	ResourceManager* mpResourceManager;
 
 	Game();
 
@@ -67,18 +63,9 @@ public:
 	void loop();
 	void deinit();
 
-	void add_shader(Shader *pShader);
-	void add_model(Model *pModel);
-	void add_gameobject(GameObject *pGameObject);
 	void add_window(Window* window);
 
-	Shader* shader(const std::string& name);
-	Model* model(const std::string& name);
-	GameObject* gameobject(const std::string& name);
 	Window* window(const std::string& name);
-
-	ResourceManager& resource_manager();
-
 	static Game *instance();
 };
 #endif

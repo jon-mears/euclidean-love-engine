@@ -2,7 +2,7 @@
 #include <vector>
 #include <map>
 
-#include "model.h"
+#include "mesh.h"
 #include "vertexdata.h"
 #include "glsltranslator.hpp"
 
@@ -12,7 +12,7 @@
 
 #include <iostream>
 
-void Model::vertex_attrib(int attrib_loc, VertexData vdata, Attribute attrib) {
+void Mesh::vertex_attrib(int attrib_loc, VertexData vdata, Attribute attrib) {
     if (_num_vertices == -1)
         _num_vertices = vdata.num_vertices();
 
@@ -25,7 +25,7 @@ void Model::vertex_attrib(int attrib_loc, VertexData vdata, Attribute attrib) {
         mAttribType2VData[attrib] = vdata;
 }
 
-void Model::compile() {
+void Mesh::compile() {
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
 
@@ -79,7 +79,7 @@ void Model::compile() {
     glBindVertexArray(0);
 }
 
-std::vector<float> Model::collect_data() {
+std::vector<float> Mesh::collect_data() {
     std::vector<float> collected_data;
 
     for (int vertex_idx = 0; vertex_idx < _num_vertices; ++vertex_idx) {
@@ -103,27 +103,19 @@ std::vector<float> Model::collect_data() {
     return collected_data;
 }
 
-int Model::num_vertices() {
+int Mesh::num_vertices() {
     return _num_vertices;
 }
 
-void Model::enable() {
+void Mesh::enable() {
     glBindVertexArray(vao);
 }
 
-VertexData Model::get_attrib(Attribute attrib) {
+VertexData Mesh::get_attrib(Attribute attrib) {
     return mAttribType2VData[attrib];
 }
 
-std::string& Model::name() {
-    return mName;
-}
-
-void Model::name(const std::string& name) {
-    mName = name;
-}
-
-void Model::vertex_attrib(Attribute attrib, VertexData vdata) {
+void Mesh::vertex_attrib(Attribute attrib, VertexData vdata) {
 
     if (_num_vertices == -1)
         _num_vertices = vdata.num_vertices();
@@ -133,3 +125,6 @@ void Model::vertex_attrib(Attribute attrib, VertexData vdata) {
 
     mAttribType2VData[attrib] = vdata;
 }
+
+Mesh::Mesh() : Resource(), vao(), mAttribLoc2VData(), mAttribType2VData() { }
+Mesh::Mesh(std::string s) : Resource(s), vao(), mAttribLoc2VData(), mAttribType2VData() { }

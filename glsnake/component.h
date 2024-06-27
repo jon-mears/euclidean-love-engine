@@ -4,6 +4,10 @@
 class GameObject;
 
 class Component {
+
+private:
+	virtual void interface();
+
 protected:
 	GameObject* go;
 public:
@@ -15,6 +19,9 @@ public:
 	template <typename C>
 	C* get_component();
 	Component(GameObject* gameobject);
+
+	friend class ObjectEditor; // to allow access to the component's
+							   // interface
 };
 
 #include "component.tpp"

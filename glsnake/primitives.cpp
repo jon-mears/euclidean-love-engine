@@ -1,10 +1,9 @@
 #include "vertexdata.h"
-#include "model.h"
+#include "mesh.h"
 
 namespace Primitives {
-	Model* cube(char bitmask) {
-		Model* m = new Model();
-		m->name("Cube");
+	Mesh* cube(char bitmask) {
+		Mesh* m = new Mesh("Cube");
 
 		if (bitmask & static_cast<char>(Attribute::POSITION)) {
 			VertexData aPos = {
@@ -105,9 +104,8 @@ namespace Primitives {
 		return m;
 	}
 
-	Model* plane(char bitmask) {
-		Model* m = new Model();
-		m->name("Plane");
+	Mesh* plane(char bitmask) {
+		Mesh *m = new Mesh("Plane");
 
 		if (bitmask & static_cast<char>(Attribute::POSITION)) {
 			VertexData aPos = {

@@ -1,10 +1,10 @@
 #ifndef PRIMITIVES_HPP
 #define PRIMITIVES_HPP
 
-class Model;
+class Mesh;
 
 namespace Primitives {
-	Model* cube(char bitmask);
-	Model* plane(char bitmask);
+	Mesh* cube(char bitmask);
+	Mesh* plane(char bitmask);
 }
 #endif

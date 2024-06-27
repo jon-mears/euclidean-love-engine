@@ -1,6 +1,6 @@
 #include "camera.h"
 #include "shadercomponent.h"
-#include "modelcomponent.h"
+#include "mesh_component.hpp"
 #include "transform.h"
 #include "gameobject.h"
 #include "component.h"
@@ -25,7 +25,7 @@ void Camera::draw() {
 	for (GameObject* viewable : viewables) {
 
 		ShaderComponent* sc = viewable->get_component<ShaderComponent>();
-		ModelComponent* mc = viewable->get_component<ModelComponent>();
+		MeshComponent* mc = viewable->get_component<MeshComponent>();
 
 		if (sc == nullptr)
 			throw "NEED A SHADERCOMPONENT TO RENDER!!!";
@@ -37,8 +37,6 @@ void Camera::draw() {
 
 		sc->enable();
 		mc->enable();
-
-
 
 		glDrawArrays(GL_TRIANGLES, 0, mc->num_vertices());
 	}

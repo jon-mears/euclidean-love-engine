@@ -1,11 +1,11 @@
-#include "model.h"
+#include "mesh.h"
 #include "aabb.hpp"
 #include "vertexdata.h"
 
 #include <glm/glm.hpp>
 
 namespace Volumes {
-	AABB* make_AABB(Model* m) {
+	AABB* make_AABB(Mesh* m) {
 		VertexData pos_data = m->get_attrib(Attribute::POSITION);
 		float minX = pos_data[0], minY = pos_data[1], minZ = pos_data[2];
 		float maxX = pos_data[0], maxY = pos_data[1], maxZ = pos_data[2];

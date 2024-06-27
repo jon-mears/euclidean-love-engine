@@ -1,21 +1,21 @@
-#include "modelcomponent.h"
+#include "mesh_component.hpp"
 #include "gameobject.h"
 #include "component.h"
-#include "model.h"
+#include "mesh.h"
 
-ModelComponent::ModelComponent(GameObject* gameobject) : Component(gameobject), model(nullptr) { }
+MeshComponent::MeshComponent(GameObject* gameobject) : Component(gameobject), mesh(NULL) { }
 
-void ModelComponent::set_model(Model* m) {
-	model = m;
+void MeshComponent::set_mesh(Mesh* m) {
+	mesh = m;
 }
 
-void ModelComponent::enable() {
-	model->enable();
+void MeshComponent::enable() {
+	mesh->enable();
 }
 
-int ModelComponent::num_vertices() {
-	return model->num_vertices();
+int MeshComponent::num_vertices() {
+	return mesh->num_vertices();
 }
 
-void ModelComponent::start() { }
-void ModelComponent::update() { }
+void MeshComponent::start() { }
+void MeshComponent::update() { }

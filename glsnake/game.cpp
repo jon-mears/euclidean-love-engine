@@ -11,12 +11,18 @@
 #include "gameobject.h"
 #include "resources.h"
 #include "shader.h"
-#include "model.h"
+#include "mesh.h"
 #include "gameobject.h"
 #include "states.h"
 #include "transform.h"
 #include "window.hpp"
 #include "resourcemanager.hpp"
+#include "ui_window.hpp"
+
+#include "object_editor.hpp"
+#include "hierarchy_view.hpp"
+
+#include "editor_manager.hpp"
 
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
@@ -55,8 +61,8 @@ int Game::init() {
 
 	init_states[Init_State](this);
 
-	for (std::pair<const std::string, GameObject*>& item : gameobjects) {
-		GameObject* go = item.second;
+	for (std::map<std::string, GameObject*>::iterator it = ResourceManager::instance().begin<GameObject>(); it != ResourceManager::instance().end<GameObject>(); ++it) {
+		GameObject* go = it->second;
 		go->start();
 	}
 
@@ -90,8 +96,8 @@ void Game::imgui_end() {
 }
 
 void Game::update() {
-	for (std::pair<const std::string, GameObject*>& item : gameobjects) {
-		GameObject* go = item.second;
+	for (std::map<std::string, GameObject*>::iterator it = ResourceManager::instance().begin<GameObject>(); it != ResourceManager::instance().end<GameObject>(); ++it) {
+		GameObject* go = it->second;
 		go->update();
 	}
 }
@@ -100,18 +106,20 @@ void Game::draw() {
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	Camera* c = nullptr;
-	for (std::pair<const std::string, GameObject*>& item : gameobjects) {
-		GameObject* go = item.second;
+	for (std::map<std::string, GameObject*>::iterator it = ResourceManager::instance().begin<GameObject>(); it != ResourceManager::instance().end<GameObject>(); ++it) {
+		GameObject* go = it->second;
 		
 		if (c = go->get_component<Camera>()) {
 			c->draw();
 		}
 	}
+
+	EditorManager::instance().draw();
 }
 
 void Game::deinit() {
-	for (std::pair<const std::string, GameObject*>& item : gameobjects) {
-		GameObject* go = item.second;
+	for (std::map<std::string, GameObject*>::iterator it = ResourceManager::instance().begin<GameObject>(); it != ResourceManager::instance().end<GameObject>(); ++it) {
+		GameObject* go = it->second;
 		delete go;
 	}
 
@@ -123,90 +131,15 @@ void Game::register_state(State s, StateFunc init, StateFunc deinit) {
 	deinit_states[s] = deinit;
 }
 
-void Game::add_shader(Shader* pShader) {
-	std::string& name = pShader->name();
-	
-	if (name == "")
-		name = "shader";
-
-	if (shaders.count(name)) {
-		int num = 1;
-		size_t num_idx = name.size() + 1;
-
-		name = name + "_" + std::to_string(num);
-		while (shaders.count(name)) {
-			++num;
-
-			name = name.replace(num_idx, name.size() - num_idx, std::to_string(num));
-		}
-	}
-
-	shaders[name] = pShader;
-}
-
-void Game::add_model(Model* pModel) {
-	std::string& name = pModel->name();
-
-	if (name == "")
-		name = "model";
-
-	if (models.count(name)) {
-		int num = 1;
-		size_t num_idx = name.size() + 1;
-
-		name = name + "_" + std::to_string(num);
-		while (models.count(name)) {
-			++num;
-
-			name = name.replace(num_idx, name.size() - num_idx, std::to_string(num));
-		}
-	}
-
-	models[name] = pModel;
-}
-
 void Game::add_window(Window* pWindow) {
 	mWindows[pWindow->title()] = pWindow;
-}
-
-void Game::add_gameobject(GameObject* pGameObject) {
-	std::string& name = pGameObject->name();
-
-	if (name == "")
-		name = "gameobject";
-
-	if (gameobjects.count(name)) {
-		int num = 1;
-		size_t num_idx = name.size() + 1;
-
-		name = name + "_" + std::to_string(num);
-		while (gameobjects.count(name)) {
-			++num;
-
-			name = name.replace(num_idx, name.size() - num_idx, std::to_string(num));
-		}
-	}
-
-	gameobjects[name] = pGameObject;
-}
-
-Shader* Game::shader(const std::string& name) {
-	return shaders[name];
-}
-
-Model* Game::model(const std::string& name) {
-	return models[name];
-}
-
-GameObject* Game::gameobject(const std::string& name) {
-	return gameobjects[name];
 }
 
 Window* Game::window(const std::string& name) {
 	return mWindows[name];
 }
 
-Game::Game() : shaders(), models(), gameobjects(), mWindows() { }
+Game::Game() : mWindows() { }
 
 bool Game::should_close() {
 	for (std::map<std::string, Window*>::iterator it = mWindows.begin(), it_next = it; it != mWindows.end(); it = it_next) {
@@ -231,15 +164,11 @@ void Game::poll_events() {
 }
 
 void Game::start_systems() {
-	mpResourceManager = new ResourceManager();
-	mpResourceManager->startup();
+	ResourceManager::instance().startup();
+	EditorManager::instance().startup();
 }
 
 Game *Game::instance() {
 	static Game* game = new Game();
 	return game;
-}
-
-ResourceManager& Game::resource_manager() {
-	return *mpResourceManager;
 }

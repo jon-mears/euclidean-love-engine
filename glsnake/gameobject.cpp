@@ -4,8 +4,10 @@
 #include "window.hpp"
 
 #include <string>
+#include <vector>
 
-GameObject::GameObject() : components(), mName("") { }
+GameObject::GameObject(std::string s) : Resource(s), components() { }
+GameObject::GameObject() : Resource(), components() { }
 
 void GameObject::update() {
 	for (Component* c : components) {
@@ -19,10 +21,10 @@ void GameObject::start() {
 	}
 }
 
-std::string& GameObject::name() {
-	return mName;
+std::vector<Component*>::iterator GameObject::component_begin() {
+	return components.begin();
 }
 
-void GameObject::name(const std::string& name) {
-	mName = name;
+std::vector<Component*>::iterator GameObject::component_end() {
+	return components.end();
 }

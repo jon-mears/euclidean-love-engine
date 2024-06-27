@@ -1,5 +1,5 @@
-#ifndef MODEL_H
-#define MODEL_H
+#ifndef MESH_H
+#define MESH_H
 
 #include <map>
 #include <vector>
@@ -9,6 +9,7 @@
 #include <GLFW/glfw3.h>
 
 #include "vertexdata.h"
+#include "resource.hpp"
 
 enum class Attribute {
 	NONE = 1,
@@ -17,7 +18,7 @@ enum class Attribute {
 	TEXTURE_COORD = 8
 };
 
-class Model {
+class Mesh : public Resource {
 private:
 	GLuint vao;
 
@@ -30,8 +31,6 @@ private:
 	int _position_attrib = -1;
 	int _vertex_color_attrib = -1;
 
-	std::string mName;
-
 public:
 	void vertex_attrib(int attrib_loc, VertexData vdata, Attribute attrib=Attribute::NONE);
 	void vertex_attrib(Attribute attrib, VertexData vdata);
@@ -40,8 +39,8 @@ public:
 	int num_vertices();
 	VertexData get_attrib(Attribute attrib);
 
-	std::string& name();
-	void name(const std::string& name);
+	Mesh();
+	Mesh(std::string);
 };
 
 #endif

@@ -16,7 +16,7 @@
 #include "factories.h"
 #include "uniform.h"
 
-#include "model.h"
+#include "mesh.h"
 #include "glsltranslator.hpp"
 
 Shader::Shader(const std::string& name) : Resource(name), program(), mVSource(), mFSource(), mUniformCodes(), mAttribName2Type(), mAttribName2Loc() { }

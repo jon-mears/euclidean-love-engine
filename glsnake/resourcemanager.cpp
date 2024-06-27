@@ -17,37 +17,25 @@ void ResourceManager::startup() {
 	mXmlTreeParser.parse_tree(pTree, *this);
 }
 
-void ResourceManager::add_resource(Resource* pResource) {
-
-	if (mResources.count(pResource->name())) {
-		std::cout << "a resource named " << pResource->name() << " already exists!" << std::endl;
-	}
-
-	else {
-		mResources[pResource->name()] = pResource;
-	}
-}
-
 void ResourceManager::XMLResourceTreeParser::parse_tree(XMLTree* pTree, ResourceManager& rm) {
 	for (size_t i = 0; i < pTree->root()->num_children(); ++i) {
 		XMLNode* pNode = pTree->root()->child(i);
 
 		const std::string tagname = pNode->tag();
 
-		if (tagname == "shader") {
-			rm.add_resource(parse_shader(pNode));
+		if (tagname == "Shader") {
+			rm.add<Shader>(parse_shader(pNode));
 		}
-
 	}
 }
 
 Shader *ResourceManager::XMLResourceTreeParser::parse_shader(XMLNode* pNode) {
-	Shader* pShader = new Shader(pNode->attribute("name"));
+	Shader* pShader = new Shader(pNode->attribute("Name"));
 
 	for (size_t i = 0; i < pNode->num_children(); ++i) {
 		XMLNode* pChild = pNode->child(i);
 
-		if (pChild->tag() == "vertex") {
+		if (pChild->tag() == "Vertex") {
 			const std::string filename = pChild->content();
 
 			std::ifstream vsourcefile("C:\\assets\\" + filename);
@@ -62,7 +50,7 @@ Shader *ResourceManager::XMLResourceTreeParser::parse_shader(XMLNode* pNode) {
 			pShader->vertex(buffer.str());
 		}
 
-		else if (pChild->tag() == "fragment") {
+		else if (pChild->tag() == "Fragment") {
 			const std::string filename = pChild->content();
 
 			std::ifstream fsourcefile("C:\\assets\\" + filename);
@@ -80,4 +68,9 @@ Shader *ResourceManager::XMLResourceTreeParser::parse_shader(XMLNode* pNode) {
 
 	pShader->compile();
 	return pShader;
+}
+
+ResourceManager& ResourceManager::instance() {
+	static ResourceManager gResourceManager;
+	return gResourceManager;
 }
