@@ -27,5 +27,7 @@ public:
 	void swap_buffers();
 
 	int glInit();
+
+	friend class Game;
 };
 #endif

@@ -17,6 +17,8 @@
 #include "image2d.hpp"
 #include "texture2d.hpp"
 #include "resourcemanager.hpp"
+#include "input_manager.hpp"
+#include "input_test.hpp"
 
 #include <glm/glm.hpp>
 #include <iostream>
@@ -52,7 +54,7 @@ void init_snake(Game* game) {
 
 	// specify models we want to use
 
-	Mesh* plane = Primitives::plane(static_cast<char>(Attribute::POSITION) | static_cast<char>(Attribute::TEXTURE_COORD));
+	Mesh* plane = Primitives::cube(static_cast<char>(Attribute::POSITION) | static_cast<char>(Attribute::TEXTURE_COORD));
 	plane->compile();
 	ResourceManager::instance().add<Mesh>(plane);
 
@@ -66,6 +68,8 @@ void init_snake(Game* game) {
 	tpaddle->set_window(game->window("Pong"));
 
 	paddle->add_component<Orthographic>();
+
+	paddle->add_component<InputTest>();
 
 	MeshComponent* model_paddle = paddle->add_component<MeshComponent>();
 	model_paddle->set_mesh(plane);

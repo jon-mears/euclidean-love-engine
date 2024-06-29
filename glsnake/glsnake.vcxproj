@@ -169,6 +169,7 @@
     <ClCompile Include="..\..\..\..\..\..\imgui\imgui\imgui_widgets.cpp" />
     <ClCompile Include="aabb.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="camera_control.cpp" />
     <ClCompile Include="component.cpp" />
     <ClCompile Include="controller.cpp" />
     <ClCompile Include="editor_manager.cpp" />
@@ -178,6 +179,9 @@
     <ClCompile Include="glsltranslator.cpp" />
     <ClCompile Include="hierarchy_view.cpp" />
     <ClCompile Include="image2d.cpp" />
+    <ClCompile Include="input_manager.cpp" />
+    <ClCompile Include="input_test.cpp" />
+    <ClCompile Include="key_mouse_input_service.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mesh.cpp" />
     <ClCompile Include="modelcomponent.cpp" />
@@ -217,6 +221,7 @@
     <ClInclude Include="..\..\..\..\..\..\imgui\imgui\imgui_internal.h" />
     <ClInclude Include="aabb.hpp" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="camera_control.hpp" />
     <ClInclude Include="component.h" />
     <ClInclude Include="controller.h" />
     <ClInclude Include="editor_manager.hpp" />
@@ -227,6 +232,10 @@
     <ClInclude Include="hierarchy_view.hpp" />
     <ClInclude Include="image2d.hpp" />
     <ClInclude Include="imgui.h" />
+    <ClInclude Include="InputService.hpp" />
+    <ClInclude Include="input_manager.hpp" />
+    <ClInclude Include="input_test.hpp" />
+    <ClInclude Include="key_mouse_input_service.hpp" />
     <ClInclude Include="mesh.h" />
     <ClInclude Include="mesh_component.hpp" />
     <ClInclude Include="object_editor.hpp" />

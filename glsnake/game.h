@@ -45,6 +45,7 @@ private:
 	std::map<State, StateFunc> deinit_states;
 
 	std::map<std::string, Window*> mWindows;
+	Window* mWindow;
 
 	Game();
 

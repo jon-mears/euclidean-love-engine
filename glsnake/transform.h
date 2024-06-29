@@ -11,7 +11,15 @@ private:
 	glm::vec3 pos;
 	glm::vec3 rot;
 	glm::vec3 sca;
+
+	glm::vec3 mLocalX = glm::vec3{ 1.0f, 0.0f, 0.0f };
+	glm::vec3 mLocalY = glm::vec3{ 0.0f, 1.0f, 0.0f };
+	glm::vec3 mLocalZ = glm::vec3{ 0.0f, 0.0f, 1.0f };
+
 	Window* mpWindow;
+
+	virtual void interface() override;
+
 
 public:
 	Transform(GameObject* gameobject);
@@ -33,6 +41,18 @@ public:
 	glm::vec3 rotation();
 	glm::vec3 scale();
 	Window* window();
+
+	inline const glm::vec3& localx() {
+		return mLocalX;
+	}
+
+	inline const glm::vec3& localy() {
+		return mLocalY;
+	}
+
+	inline const glm::vec3& localz() {
+		return mLocalZ;
+	}
 
 	glm::mat4 model_matrix();
 	virtual void start() override;

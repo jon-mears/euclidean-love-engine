@@ -1,9 +1,11 @@
 #include "transform.h"
 #include "gameobject.h"
 #include "component.h"
+#include "imgui.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <iostream>
 
@@ -11,6 +13,12 @@ Transform::Transform(GameObject* gameobject) : Component(gameobject), pos(), rot
 
 void Transform::set_posv(const glm::vec3& nPos) {
 	pos = nPos;
+}
+
+void Transform::interface() {
+	ImGui::InputFloat3("Position", glm::value_ptr(pos));
+	ImGui::InputFloat3("Rotation", glm::value_ptr(rot));
+	ImGui::InputFloat3("Scale", glm::value_ptr(sca));
 }
 
 void Transform::set_pos(const float x, const float y, const float z) {

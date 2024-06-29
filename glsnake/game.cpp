@@ -23,10 +23,13 @@
 #include "hierarchy_view.hpp"
 
 #include "editor_manager.hpp"
+#include "input_manager.hpp"
 
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
+
+#include "key_mouse_input_service.hpp"
 
 int Game::glInit() {
 	glfwInit();
@@ -132,6 +135,7 @@ void Game::register_state(State s, StateFunc init, StateFunc deinit) {
 }
 
 void Game::add_window(Window* pWindow) {
+	mWindow = pWindow;
 	mWindows[pWindow->title()] = pWindow;
 }
 
@@ -161,11 +165,20 @@ void Game::swap_buffers() {
 
 void Game::poll_events() {
 	glfwPollEvents();
+	InputManager::instance().poll_events();
 }
 
 void Game::start_systems() {
+	// Resource Manager
 	ResourceManager::instance().startup();
+
+	// Editor Manager
 	EditorManager::instance().startup();
+
+	// Input Manager
+	InputManager::instance().provide_service(new KeyMouseInputService());
+	InputManager::instance().provide_window(mWindow->mpWindow);
+	InputManager::instance().startup();
 }
 
 Game *Game::instance() {
