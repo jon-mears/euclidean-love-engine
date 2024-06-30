@@ -5,11 +5,15 @@
 
 #include <vector>
 
+class Transform;
 class GameObject;
 
 class Camera : public Component {
 private:
 	std::vector<GameObject*> viewables;
+
+protected:
+	Transform* mpTransform;
 
 public:
 	void start() override;
@@ -19,6 +23,6 @@ public:
 	void add_viewable(GameObject* go);
 	void draw();
 
-	glm::mat4 view_matrix();
+	virtual glm::mat4 view_matrix();
 };
 #endif

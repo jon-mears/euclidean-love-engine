@@ -19,8 +19,11 @@
 #include "resourcemanager.hpp"
 #include "input_manager.hpp"
 #include "input_test.hpp"
+#include "camera_control.hpp"
+#include "targeted_camera.hpp"
 
 #include <glm/glm.hpp>
+#include <glm/gtx/string_cast.hpp>
 #include <iostream>
 
 const State Init_State = static_cast<State>(0);
@@ -34,6 +37,8 @@ void uniform_updater(GameObject* go, Camera* c) {
 
 	glm::mat4 proj = pc->projection_matrix();
 	glm::mat4 view = c->view_matrix();
+
+	//std::cout << glm::to_string(view) << std::endl;
 
 	glm::mat4 MVP = proj * view * model;
 
@@ -64,7 +69,7 @@ void init_snake(Game* game) {
 
 	Transform* tpaddle = paddle->add_component<Transform>();
 	tpaddle->set_scale(0.25f, 0.25f, 0.25f);
-	tpaddle->set_pos(-0.5f, 0.0f, 0.0f);
+	//tpaddle->set_pos(-0.5f, 0.0f, 0.0f);
 	tpaddle->set_window(game->window("Pong"));
 
 	paddle->add_component<Orthographic>();
@@ -86,7 +91,8 @@ void init_snake(Game* game) {
 	Transform* tcamera = camera->add_component<Transform>();
 	tcamera->set_window(game->window("Pong"));
 
-	Camera* ccamera = camera->add_component<Camera>();
+	Camera* ccamera = camera->add_component<TargetedCamera>();
+	camera->add_component<CameraControl>();
 	ccamera->add_viewable(paddle);
 
 	ResourceManager::instance().add<GameObject>(camera);

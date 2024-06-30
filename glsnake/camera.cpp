@@ -13,8 +13,12 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-Camera::Camera(GameObject* gameobject) : Component(gameobject), viewables() { }
-void Camera::start() { }
+Camera::Camera(GameObject* gameobject) : Component(gameobject), viewables(), mpTransform(NULL) { }
+
+void Camera::start() { 
+	mpTransform = get_component<Transform>();
+}
+
 void Camera::update() { }
 
 void Camera::add_viewable(GameObject* go) {
@@ -43,11 +47,10 @@ void Camera::draw() {
 }
 
 glm::mat4 Camera::view_matrix() {
-	Transform* t = get_component<Transform>();
-	glm::vec3 pos = t->position();
-	glm::vec3 rot = t->rotation();
+	glm::vec3 pos = mpTransform->position();
+	glm::vec3 rot = mpTransform->rotation();
 
-	glm::mat4 rotation_matrix{1};
+	glm::mat4 rotation_matrix{ 1 };
 
 	rotation_matrix = glm::rotate(rotation_matrix, rot.x, glm::vec3(1, 0, 0));
 	rotation_matrix = glm::rotate(rotation_matrix, rot.y, glm::vec3(0, 1, 0));

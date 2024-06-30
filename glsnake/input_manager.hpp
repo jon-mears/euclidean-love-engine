@@ -89,7 +89,9 @@ namespace Input {
 		Z_DOWN,
 		Z_PRESSED,
 		Z_RELEASED,
-		PANNING
+		PANNING,
+		ORBITING,
+		LOOKING
 	};
 
 	enum Axis {

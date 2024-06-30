@@ -2,6 +2,7 @@
 #define TRANSFORM_H
 #include "component.h"
 #include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 class GameObject;
 class Window;
@@ -11,6 +12,9 @@ private:
 	glm::vec3 pos;
 	glm::vec3 rot;
 	glm::vec3 sca;
+
+	// should be a normalized quaternion
+	glm::quat mRotation;
 
 	glm::vec3 mLocalX = glm::vec3{ 1.0f, 0.0f, 0.0f };
 	glm::vec3 mLocalY = glm::vec3{ 0.0f, 1.0f, 0.0f };
@@ -31,6 +35,8 @@ public:
 	void set_rot(const float x, const float y, const float z);
 	void rotatev(const glm::vec3& degs);
 	void rotate(const float x, const float y, const float z);
+	void rotate(const glm::quat q);
+	void rotate(const glm::vec3 axis, const float deg);
 	void set_scalev(const glm::vec3& nSca);
 	void set_scale(const float x, const float y, const float z);
 	void scalev(const glm::vec3& rhs);

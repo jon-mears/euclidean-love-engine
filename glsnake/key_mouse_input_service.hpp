@@ -23,9 +23,9 @@ private:
 	MouseButtonCallback mPrevMouseButtonCallback = NULL;
 	CursorPosCallback mPrevCursorPosCallback = NULL;
 
-	bool is_down(unsigned long buttons); // can also be used for chords
-	bool pressed(unsigned long buttons); // can also be used for chords
-	bool released(unsigned long buttons); // can also be used for chords
+	bool is_down(unsigned long include, unsigned long exclude=0); // can also be used for chords
+	bool pressed(unsigned long include, unsigned long exclude=0); // can also be used for chords
+	bool released(unsigned long include, unsigned long exclude=0); // can also be used for chords
 
 #ifdef _glfw3_h_
 	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);

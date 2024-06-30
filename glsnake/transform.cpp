@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-Transform::Transform(GameObject* gameobject) : Component(gameobject), pos(), rot(), sca(1), mpWindow(NULL) { }
+Transform::Transform(GameObject* gameobject) : Component(gameobject), pos(), rot(), sca(1), mRotation(), mpWindow(NULL) { }
 
 void Transform::set_posv(const glm::vec3& nPos) {
 	pos = nPos;
@@ -55,6 +55,21 @@ void Transform::rotate(const float x, const float y, const float z) {
 	rot.x += x;
 	rot.y += y;
 	rot.z += z;
+}
+
+void Transform::rotate(const glm::quat q) {
+	mRotation = q * mRotation;
+}
+
+// axis should be normalized
+void Transform::rotate(const glm::vec3 axis, const float deg) {
+
+	const float rad = glm::radians(deg) / 2;
+	const glm::quat q = glm::quat(glm::cos(rad), glm::sin(rad) * axis);
+
+	mRotation = q * mRotation;
+
+
 }
 
 void Transform::set_scalev(const glm::vec3 &nSca) {
@@ -109,4 +124,13 @@ Window* Transform::window() {
 }
 
 void Transform::start() { }
-void Transform::update() { }
+
+void Transform::update() {  
+	// update local axes (could potentially be placed in a separate component)
+
+	glm::quat qLocalz = mRotation * glm::quat{ 0.0f, 0.0f, 0.0f, -1.0f } * glm::quat{ mRotation.w, -mRotation.x, -mRotation.y, -mRotation.z };
+
+	mLocalZ = glm::vec3{ qLocalz.x, qLocalz.y, qLocalz.z };
+	mLocalX = glm::cross(-mLocalZ, glm::vec3{ 0.0f, 1.0f, 0.0f });
+	mLocalY = glm::cross(-mLocalZ, mLocalX);
+}

@@ -9,6 +9,7 @@
 
 namespace {
 	enum Key {
+		NONE = 0x0000000000000000,
 		A = 0x0000000000000001,
 		B = 0x0000000000000002,
 		C = 0x0000000000000004,
@@ -41,7 +42,9 @@ namespace {
 		RIGHT = 0x0000000002000000, 
 		LEFT_MOUSE_BUTTON = 0x0000000004000000, 
 		MIDDLE_MOUSE_BUTTON = 0x0000000008000000,
-		RIGHT_MOUSE_BUTTON = 0x0000000010000000
+		RIGHT_MOUSE_BUTTON = 0x0000000010000000,
+		LEFT_SHIFT = 0x0000000020000000,
+		LEFT_CTRL = 0x0000000040000000
 	};
 
 #ifdef _glfw3_h_
@@ -52,8 +55,8 @@ namespace {
 }
 
 // can handle chords
-bool KeyMouseInputService::is_down(unsigned long buttons) {
-	return (mButtons & buttons) == buttons;
+bool KeyMouseInputService::is_down(unsigned long include, unsigned long exclude) {
+	return ((mButtons & include) == include) && ((mButtons & exclude) == NONE);
 }
 
 // maybe action is a better word
@@ -66,7 +69,11 @@ bool KeyMouseInputService::event_active(Input::Event event) {
 	case Input::B_PRESSED:
 		return pressed(B);
 	case Input::PANNING:
-		return is_down(MIDDLE_MOUSE_BUTTON);
+		return is_down(MIDDLE_MOUSE_BUTTON | LEFT_SHIFT);
+	case Input::ORBITING:
+		return is_down(MIDDLE_MOUSE_BUTTON, LEFT_SHIFT | LEFT_CTRL);
+	case Input::LOOKING:
+		return is_down(MIDDLE_MOUSE_BUTTON | LEFT_CTRL);
 	default:
 		std::cout << "input event not yet implemented!" << std::endl;
 	}
@@ -75,13 +82,13 @@ bool KeyMouseInputService::event_active(Input::Event event) {
 }
 
 // can handle chords
-bool KeyMouseInputService::pressed(unsigned long buttons) {
-	return (mButtonDowns & buttons) == buttons;
+bool KeyMouseInputService::pressed(unsigned long include, unsigned long exclude) {
+	return ((mButtonDowns & include) == include) && ((mButtonDowns & exclude) == NONE);
 }
 
 // can handle chords
-bool KeyMouseInputService::released(unsigned long buttons) {
-	return (mButtonUps & buttons) == buttons;
+bool KeyMouseInputService::released(unsigned long include, unsigned long exclude) {
+	return ((mButtonUps & include) == include) && ((mButtonUps & exclude) == NONE);
 }
 
 float KeyMouseInputService::absolute_axis(Input::Axis axis) {
@@ -217,6 +224,12 @@ void KeyMouseInputService::key_callback(GLFWwindow* window, int key, int scancod
 		case GLFW_KEY_RIGHT:
 			mBButtons |= RIGHT;
 			break;
+		case GLFW_KEY_LEFT_SHIFT:
+			mBButtons |= LEFT_SHIFT;
+			break;
+		case GLFW_KEY_LEFT_CONTROL:
+			mBButtons |= LEFT_CTRL;
+			break;
 		default:
 			break;
 		}
@@ -314,6 +327,11 @@ void KeyMouseInputService::key_callback(GLFWwindow* window, int key, int scancod
 		case GLFW_KEY_RIGHT:
 			mBButtons &= ~RIGHT;
 			break;
+		case GLFW_KEY_LEFT_SHIFT:
+			mBButtons &= ~LEFT_SHIFT;
+			break;
+		case GLFW_KEY_LEFT_CONTROL:
+			mBButtons &= ~LEFT_CTRL;
 		default:
 			break;
 		}

@@ -18,6 +18,7 @@
 #include "window.hpp"
 #include "resourcemanager.hpp"
 #include "ui_window.hpp"
+#include "targeted_camera.hpp"
 
 #include "object_editor.hpp"
 #include "hierarchy_view.hpp"
@@ -112,7 +113,7 @@ void Game::draw() {
 	for (std::map<std::string, GameObject*>::iterator it = ResourceManager::instance().begin<GameObject>(); it != ResourceManager::instance().end<GameObject>(); ++it) {
 		GameObject* go = it->second;
 		
-		if (c = go->get_component<Camera>()) {
+		if ((c = go->get_component<Camera>()) || (c = go->get_component<TargetedCamera>())) {
 			c->draw();
 		}
 	}

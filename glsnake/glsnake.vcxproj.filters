@@ -16,6 +16,12 @@
     <Filter Include="imgui">
       <UniqueIdentifier>{88f413f5-6441-4ad8-8b0a-e1d40109c67e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Components">
+      <UniqueIdentifier>{31c0e522-6d9f-4c0c-adb5-7e70fc139869}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components">
+      <UniqueIdentifier>{b525b21a-3cb5-447c-a7c1-18fda59f3b0d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -45,37 +51,10 @@
     <ClCompile Include="gameobject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="component.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="factories.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="modelcomponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="orthographic.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="perspective.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="projection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="shadercomponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="transform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="uniform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="subject.cpp">
@@ -165,24 +144,48 @@
     <ClCompile Include="key_mouse_input_service.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="input_test.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="camera_control.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="component.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="controller.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="input_test.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="modelcomponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="orthographic.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="perspective.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="projection.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="shadercomponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="transform.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="targeted_camera.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="component.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="gameobject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="shader.h">
@@ -197,40 +200,16 @@
     <ClInclude Include="mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="shadercomponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="factories.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="vertexdata.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="mesh_component.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="projection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="orthographic.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="perspective.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="controller.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="subject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="observer.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PuckMovement.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="aabb.hpp">
@@ -314,18 +293,51 @@
     <ClInclude Include="key_mouse_input_service.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="input_test.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="camera.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="camera_control.hpp">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="component.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="controller.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="input_test.hpp">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh_component.hpp">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="orthographic.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="perspective.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="projection.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PuckMovement.hpp">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="shadercomponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="transform.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="math_3d.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targeted_camera.hpp">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="states.h">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="component.tpp">
       <Filter>Header Files</Filter>
     </None>
     <None Include="gameobject.tpp">
@@ -333,6 +345,9 @@
     </None>
     <None Include="resourcemanager.tpp">
       <Filter>Header Files</Filter>
+    </None>
+    <None Include="component.tpp">
+      <Filter>Header Files\Components</Filter>
     </None>
   </ItemGroup>
 </Project>

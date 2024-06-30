@@ -199,6 +199,7 @@
     <ClCompile Include="states.cpp" />
     <ClCompile Include="stb.cpp" />
     <ClCompile Include="subject.cpp" />
+    <ClCompile Include="targeted_camera.cpp" />
     <ClCompile Include="texture2d.cpp" />
     <ClCompile Include="transform.cpp" />
     <ClCompile Include="ui_window.cpp" />
@@ -219,6 +220,7 @@
     <ClInclude Include="..\..\..\..\..\..\imgui\imgui\imconfig.h" />
     <ClInclude Include="..\..\..\..\..\..\imgui\imgui\imgui.h" />
     <ClInclude Include="..\..\..\..\..\..\imgui\imgui\imgui_internal.h" />
+    <ClInclude Include="math_3d.hpp" />
     <ClInclude Include="aabb.hpp" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="camera_control.hpp" />
@@ -251,6 +253,7 @@
     <ClInclude Include="shader.h" />
     <ClInclude Include="shadercomponent.h" />
     <ClInclude Include="subject.hpp" />
+    <ClInclude Include="targeted_camera.hpp" />
     <ClInclude Include="texture2d.hpp" />
     <ClInclude Include="transform.h" />
     <ClInclude Include="ui_window.hpp" />
