@@ -6,10 +6,13 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/string_cast.hpp>
 
 #include <iostream>
+#include "input_manager.hpp"
+#include "math_3d.hpp"
 
-Transform::Transform(GameObject* gameobject) : Component(gameobject), pos(), rot(), sca(1), mRotation(), mpWindow(NULL) { }
+Transform::Transform(GameObject* gameobject) : Component(gameobject), pos(), rot(), sca(1), mRotation(0.0f, 0.0f, 0.0f, -1.0f), mpWindow(NULL) { }
 
 void Transform::set_posv(const glm::vec3& nPos) {
 	pos = nPos;
@@ -133,4 +136,23 @@ void Transform::update() {
 	mLocalZ = glm::vec3{ qLocalz.x, qLocalz.y, qLocalz.z };
 	mLocalX = glm::cross(-mLocalZ, glm::vec3{ 0.0f, 1.0f, 0.0f });
 	mLocalY = glm::cross(-mLocalZ, mLocalX);
+
+	if (InputManager::instance().event_active(Input::A_PRESSED)) {
+		std::cout << glm::to_string(mLocalZ) << std::endl;
+	}
+}
+
+void Transform::lookat(const glm::vec3 target) {
+	glm::vec3 dir = glm::normalize(pos - target);
+	glm::vec3 right = glm::cross(dir, glm::vec3{ 0.0f, 1.0f, 0.0f });
+	glm::vec3 up = glm::cross(dir, right);
+
+	/*
+		[right.x   up.x   dir.x   0   ]
+		[right.y   up.y   dir.y   0   ]
+		[right.z   up.z   dir.z   0   ]
+		[0         0      0       1   ]
+	*/
+
+	mRotation = Math3D::quaternion(right.x, up.x, dir.x, right.y, up.y, dir.y, right.z, up.z, dir.z);
 }

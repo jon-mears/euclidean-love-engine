@@ -8,7 +8,7 @@
 class GameObject;
 
 class Orthographic : public Projection {
-private:
+public:
 	float left, right, bottom, top;
 public:
 

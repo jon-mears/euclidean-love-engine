@@ -41,6 +41,13 @@ public:
 	void set_scale(const float x, const float y, const float z);
 	void scalev(const glm::vec3& rhs);
 	void scale(const float x, const float y, const float z);
+
+	void lookat(const glm::vec3 target);
+
+	inline void lookat(Transform* pTransform) {
+		return lookat(pTransform->position());
+	}
+
 	void set_window(Window* pWindow);
 
 	glm::vec3 &position();

@@ -72,9 +72,7 @@ void init_snake(Game* game) {
 	//tpaddle->set_pos(-0.5f, 0.0f, 0.0f);
 	tpaddle->set_window(game->window("Pong"));
 
-	paddle->add_component<Orthographic>();
-
-	paddle->add_component<InputTest>();
+	Orthographic *o = paddle->add_component<Orthographic>();
 
 	MeshComponent* model_paddle = paddle->add_component<MeshComponent>();
 	model_paddle->set_mesh(plane);

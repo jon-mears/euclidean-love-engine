@@ -66,6 +66,8 @@ bool KeyMouseInputService::event_active(Input::Event event) {
 		return pressed(LEFT_MOUSE_BUTTON);
 	case Input::A_DOWN:
 		return is_down(A);
+	case Input::A_PRESSED:
+		return pressed(A);
 	case Input::B_PRESSED:
 		return pressed(B);
 	case Input::PANNING:
