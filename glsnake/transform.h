@@ -6,6 +6,7 @@
 
 class GameObject;
 class Window;
+class GLFWwindow;
 
 class Transform : public Component {
 private:
@@ -20,7 +21,7 @@ private:
 	glm::vec3 mLocalY = glm::vec3{ 0.0f, 1.0f, 0.0f };
 	glm::vec3 mLocalZ = glm::vec3{ 0.0f, 0.0f, 1.0f };
 
-	Window* mpWindow;
+	GLFWwindow* mpWindow;
 
 	virtual void interface() override;
 
@@ -48,12 +49,12 @@ public:
 		return lookat(pTransform->position());
 	}
 
-	void set_window(Window* pWindow);
+	void set_window(GLFWwindow* pWindow);
 
 	glm::vec3 &position();
 	glm::vec3 rotation();
 	glm::vec3 scale();
-	Window* window();
+	GLFWwindow* window();
 
 	inline const glm::vec3& localx() {
 		return mLocalX;

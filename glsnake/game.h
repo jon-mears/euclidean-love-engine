@@ -15,22 +15,20 @@ class Model;
 class GameObject;
 class Game;
 class Camera;
-class Window;
 class ResourceManager;
 class UIWindow;
 
 typedef void (*StateFunc)(Game*);
 typedef void (*UniformUpdater)(GameObject*, Camera*);
 
+
 class Game {
 private:
-
 	/**
 	 * \brief	Complete setup related to the graphics library.
 	 * \details	Creates the window, sets the OpenGL version, and sets the framebuffer resize callback.
 	 * \author	Jon Mears
 	 */
-	int glInit();
 
 	///**
 	// * \brief
@@ -44,8 +42,10 @@ private:
 	std::map<State, StateFunc> init_states;
 	std::map<State, StateFunc> deinit_states;
 
-	std::map<std::string, Window*> mWindows;
-	Window* mWindow;
+	//std::map<std::string, Window*> mWindows;
+	//Window* mWindow;
+
+	GLFWwindow* mpWindow;
 
 	Game();
 
@@ -64,9 +64,7 @@ public:
 	void loop();
 	void deinit();
 
-	void add_window(Window* window);
-
-	Window* window(const std::string& name);
-	static Game *instance();
+	GLFWwindow* window();
+	static Game& instance();
 };
 #endif

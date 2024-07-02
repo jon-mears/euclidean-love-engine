@@ -117,6 +117,8 @@ float KeyMouseInputService::relative_axis(Input::Axis axis) {
 
 #ifdef _glfw3_h_ // if GLFW3...
 void KeyMouseInputService::poll_events() {
+	glfwPollEvents();
+
 	mPrevButtons = mButtons;
 	mPrevXMousePos = mXMousePos;
 	mPrevYMousePos = mYMousePos;

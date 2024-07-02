@@ -146,6 +146,10 @@ public:
 		return mpInputService->relative_axis(axis);
 	}
 
+	inline void start_frame() {
+		poll_events();
+	}
+
 #ifdef _glfw3_h_
 	inline GLFWwindow* window() {
 		return mpWindow;

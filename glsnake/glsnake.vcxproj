@@ -183,6 +183,7 @@
     <ClCompile Include="input_test.cpp" />
     <ClCompile Include="key_mouse_input_service.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="math_3d.cpp" />
     <ClCompile Include="mesh.cpp" />
     <ClCompile Include="modelcomponent.cpp" />
     <ClCompile Include="object_editor.cpp" />
@@ -191,6 +192,7 @@
     <ClCompile Include="primitives.cpp" />
     <ClCompile Include="projection.cpp" />
     <ClCompile Include="PuckMovement.cpp" />
+    <ClCompile Include="render_engine.cpp" />
     <ClCompile Include="resource.cpp" />
     <ClCompile Include="resourcemanager.cpp" />
     <ClCompile Include="resources.cpp" />
@@ -247,6 +249,7 @@
     <ClInclude Include="primitives.hpp" />
     <ClInclude Include="projection.h" />
     <ClInclude Include="PuckMovement.hpp" />
+    <ClInclude Include="render_engine.hpp" />
     <ClInclude Include="resource.hpp" />
     <ClInclude Include="resourcemanager.hpp" />
     <ClInclude Include="resources.h" />

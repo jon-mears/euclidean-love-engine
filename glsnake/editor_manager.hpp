@@ -5,6 +5,9 @@ class GameObject;
 class UIWindow;
 
 #include <vector>
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
 
 class EditorManager {
 private:
@@ -24,6 +27,18 @@ public:
 	GameObject* mpSelected;
 
 	static EditorManager& instance();
+
+	inline void start_frame() {
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+	}
+
+	inline void end_frame() {
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	}
+
 	friend class Game;
 };
 #endif

@@ -118,11 +118,11 @@ glm::mat4 Transform::model_matrix() {
 	return model;
 }
 
-void Transform::set_window(Window *pWindow) {
+void Transform::set_window(GLFWwindow *pWindow) {
 	mpWindow = pWindow;
 }
 
-Window* Transform::window() {
+GLFWwindow* Transform::window() {
 	return mpWindow;
 }
 

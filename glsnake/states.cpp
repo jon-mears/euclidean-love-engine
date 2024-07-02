@@ -70,7 +70,7 @@ void init_snake(Game* game) {
 	Transform* tpaddle = paddle->add_component<Transform>();
 	tpaddle->set_scale(0.25f, 0.25f, 0.25f);
 	//tpaddle->set_pos(-0.5f, 0.0f, 0.0f);
-	tpaddle->set_window(game->window("Pong"));
+	tpaddle->set_window(Game::instance().window());
 
 	Orthographic *o = paddle->add_component<Orthographic>();
 
@@ -87,7 +87,7 @@ void init_snake(Game* game) {
 	GameObject* camera = new GameObject("Camera");
 
 	Transform* tcamera = camera->add_component<Transform>();
-	tcamera->set_window(game->window("Pong"));
+	tcamera->set_window(Game::instance().window());
 
 	Camera* ccamera = camera->add_component<TargetedCamera>();
 	camera->add_component<CameraControl>();

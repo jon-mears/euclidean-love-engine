@@ -15,7 +15,6 @@
 #include "gameobject.h"
 #include "states.h"
 #include "transform.h"
-#include "window.hpp"
 #include "resourcemanager.hpp"
 #include "ui_window.hpp"
 #include "targeted_camera.hpp"
@@ -31,40 +30,41 @@
 #include "imgui_impl_opengl3.h"
 
 #include "key_mouse_input_service.hpp"
+#include "render_engine.hpp"
 
-int Game::glInit() {
-	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-	for (std::pair<const std::string, Window*>& item : mWindows) {
-
-		Window* pWindow = item.second;
-		if (pWindow->glInit() == -1) return -1;
-	}
-
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	{
-		std::cout << "Failed to initialize GLAD" << std::endl;
-		return -1;
-	}
-
-	return 0;
-}
+//int Game::glInit() {
+//	glfwInit();
+//	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+//	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+//	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+//
+//	for (std::pair<const std::string, Window*>& item : mWindows) {
+//
+//		Window* pWindow = item.second;
+//		if (pWindow->() == -1) return -1;
+//	}
+//
+//	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+//	{
+//		std::cout << "Failed to initialize GLAD" << std::endl;
+//		return -1;
+//	}
+//
+//	return 0;
+//}
 
 int Game::init() {	
-	if (glInit() == -1) return -1;
-
+	//if (glInit() == -1) return -1;
 	start_systems();
 
 	if (!init_states.count(Init_State)) {
 		std::cout << "error :: state with index " << static_cast<int>(Init_State) << " does not exist" << std::endl;
-		exit(-1);
+		std::exit(-1);
 	}
 
 	init_states[Init_State](this);
 
+	// iterate over gameobjects
 	for (std::map<std::string, GameObject*>::iterator it = ResourceManager::instance().begin<GameObject>(); it != ResourceManager::instance().end<GameObject>(); ++it) {
 		GameObject* go = it->second;
 		go->start();
@@ -75,16 +75,27 @@ int Game::init() {
 
 void Game::loop() {
 	while (!should_close()) {
-		poll_events();
 
-		imgui_start();
+		// event polling
+		InputManager::instance().start_frame();
 
+		// imgui preparation
+		EditorManager::instance().start_frame();
+
+		// update gameobjects
 		update();
-		draw();
 
-		imgui_end();
+		// draw scene
+		RenderEngine::instance().draw();
+		
+		// draw ui
+		EditorManager::instance().draw();
 
-		swap_buffers();
+		// imgui completion
+		EditorManager::instance().end_frame();
+
+		// swap buffers
+		RenderEngine::instance().end_frame();
 	}
 }
 
@@ -106,20 +117,21 @@ void Game::update() {
 	}
 }
 
-void Game::draw() {
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	Camera* c = nullptr;
-	for (std::map<std::string, GameObject*>::iterator it = ResourceManager::instance().begin<GameObject>(); it != ResourceManager::instance().end<GameObject>(); ++it) {
-		GameObject* go = it->second;
-		
-		if ((c = go->get_component<Camera>()) || (c = go->get_component<TargetedCamera>())) {
-			c->draw();
-		}
-	}
-
-	EditorManager::instance().draw();
-}
+//void Game::draw() {
+//	glClear(GL_COLOR_BUFFER_BIT);
+//
+//	Camera* c = nullptr;
+//	for (std::map<std::string, GameObject*>::iterator it = ResourceManager::instance().begin<GameObject>(); it != ResourceManager::instance().end<GameObject>(); ++it) {
+//		GameObject* go = it->second;
+//		
+//		if ((c = go->get_component<Camera>()) || (c = go->get_component<TargetedCamera>())) {
+//			c->draw();
+//		}
+//	}
+//
+//	RenderEngine::instance().draw();
+//	EditorManager::instance().draw();
+//}
 
 void Game::deinit() {
 	for (std::map<std::string, GameObject*>::iterator it = ResourceManager::instance().begin<GameObject>(); it != ResourceManager::instance().end<GameObject>(); ++it) {
@@ -135,41 +147,54 @@ void Game::register_state(State s, StateFunc init, StateFunc deinit) {
 	deinit_states[s] = deinit;
 }
 
-void Game::add_window(Window* pWindow) {
-	mWindow = pWindow;
-	mWindows[pWindow->title()] = pWindow;
+GLFWwindow* Game::window() {
+	return mpWindow;
 }
-
-Window* Game::window(const std::string& name) {
-	return mWindows[name];
-}
-
-Game::Game() : mWindows() { }
 
 bool Game::should_close() {
-	for (std::map<std::string, Window*>::iterator it = mWindows.begin(), it_next = it; it != mWindows.end(); it = it_next) {
-		++it_next;
+	//for (std::map<std::string, Window*>::iterator it = mWindows.begin(), it_next = it; it != mWindows.end(); it = it_next) {
+	//	++it_next;
 
-		Window* pWindow = it->second;
-		if (pWindow->should_close()) mWindows.erase(it);
-	}
+	//	Window* pWindow = it->second;
+	//	if (pWindow->should_close()) mWindows.erase(it);
+	//}
 
-	return !mWindows.size();
-}
+	//return !mWindows.size();
 
-void Game::swap_buffers() {
-	for (std::pair<const std::string, Window*>& item : mWindows) {
-		Window* pWindow = item.second;
-		pWindow->swap_buffers();
-	}
+#ifdef _glfw3_h_
+	return glfwWindowShouldClose(mpWindow);
+#else
+	return true;
+#endif
 }
 
 void Game::poll_events() {
-	glfwPollEvents();
 	InputManager::instance().poll_events();
 }
 
 void Game::start_systems() {
+
+	// read a .cfg file to determine what subsystems to use???
+	// kind of stuff that the application would need to be restarted 
+	// to apply
+
+	// Window *pWindow = new Window();
+	// pWindow->mWidth = 600; pWindow->mHeight = 600; pWindow->title = "Engine";
+	// RenderEngine::instance().provide_window(pWindow); 
+	// (then, startup would ACTUALLY create the window, once graphics library init is done
+
+	// Render Engine (should have its own list of gameobjects)
+	//RenderEngine* pRenderEngine = new RenderEngine();
+
+	RenderEngine::instance().window_info(600, 600, "Engine");
+	RenderEngine::instance().startup();
+	RenderEngine::instance().enable_tests(Render::TEST_DEPTH);
+	RenderEngine::instance().enable_clears(Render::CLEAR_COLOR | Render::CLEAR_DEPTH);
+
+	 mpWindow = RenderEngine::instance().mpWindow;
+
+	// pRenderEngine->startup(pWindow);
+
 	// Resource Manager
 	ResourceManager::instance().startup();
 
@@ -178,11 +203,11 @@ void Game::start_systems() {
 
 	// Input Manager
 	InputManager::instance().provide_service(new KeyMouseInputService());
-	InputManager::instance().provide_window(mWindow->mpWindow);
+	InputManager::instance().provide_window(mpWindow);
 	InputManager::instance().startup();
 }
 
-Game *Game::instance() {
-	static Game* game = new Game();
-	return game;
+Game &Game::instance() {
+	static Game gGame;
+	return gGame;
 }
