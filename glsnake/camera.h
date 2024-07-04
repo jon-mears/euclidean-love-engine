@@ -7,13 +7,16 @@
 
 class Transform;
 class GameObject;
+class Framebuffer;
 
 class Camera : public Component {
 private:
-	std::vector<GameObject*> viewables;
+	std::vector<GameObject*> mViewables;
 
 protected:
 	Transform* mpTransform;
+	Framebuffer* mpFramebuffer;
+	int mWidth, mHeight;
 
 public:
 	void start() override;
@@ -21,8 +24,12 @@ public:
 	Camera(GameObject* gameobject);
 
 	void add_viewable(GameObject* go);
-	void draw();
+	void SetFramebuffer(FrameBuffer* pFrameBuffer);
+	void SetSize(const int width, const int height);
 
+	void draw();
 	virtual glm::mat4 view_matrix();
+	
+	// add in id?
 };
 #endif

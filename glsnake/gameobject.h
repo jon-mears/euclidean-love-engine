@@ -12,20 +12,31 @@ class Window;
 
 class GameObject : public Resource {
 private:
-	std::vector<Component*> components;
+	std::vector<Component*> mOwnedComponents;
+	std::vector<Component*> mSharedComponents;
+	std::vector<Component*> mAllComponents;
 
 public:
 	GameObject(std::string);
 	GameObject();
 
 	template <typename C>
-	C* add_component();
+	C* add();
 
 	template <typename C>
-	void remove_component();
+	void erase();
 
 	template <typename C>
-	C* get_component();
+	C* Retrieve();
+
+	template <typename C>
+	C* Share(GameObject* pGO);
+
+	template <typename C>
+	C* RetrieveShared();
+
+	template <typename C>
+	C* RetrieveOwned();
 
 	void update();
 	void start();

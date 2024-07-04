@@ -1,4 +1,4 @@
-#include "texture2d.hpp"
+#include "texture.hpp"
 #include "image2d.hpp"
 
 #include <glad/glad.h>

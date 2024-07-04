@@ -4,8 +4,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include <GLFW/glfw3.h>
-
 namespace Render {
 	enum Clear {
 		CLEAR_COLOR = 0x0001,
@@ -55,6 +53,18 @@ private:
 public:
 	void draw();
 
+	inline GLFWwindow* Window() {
+		return mpWindow;
+	}
+
+	inline int WindowWidth() {
+		return mWindowWidth;
+	}
+
+	inline int WindowHeight() {
+		return mWindowHeight;
+	}
+
 	inline void init_tests(unsigned short test_flags) {
 		mTestFlags |= test_flags;
 	}
@@ -91,6 +101,7 @@ public:
 	
 	static RenderEngine& instance();
 	friend class Game;
+	friend void FramebufferCallback::framebuffer_size_callback(GLFWwindow* pWindow, int width, int height);
 };
 
 #endif

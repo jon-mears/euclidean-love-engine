@@ -8,10 +8,10 @@ class Image2D;
 
 class Texture2D {
 private:
-	GLenum mWrapS = GL_REPEAT;
-	GLenum mWrapT = GL_REPEAT;
-	GLenum mMinFilter = GL_LINEAR_MIPMAP_LINEAR;
-	GLenum mMagFilter = GL_LINEAR;
+	GLenum mWrapS{ GL_REPEAT };
+	GLenum mWrapT{ GL_REPEAT };
+	GLenum mMinFilter{ GL_LINEAR_MIPMAP_LINEAR };
+	GLenum mMagFilter{ GL_LINEAR };
 
 	GLuint mID;
 	Image2D* mpIm;

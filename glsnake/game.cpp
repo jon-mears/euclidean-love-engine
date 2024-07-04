@@ -53,6 +53,8 @@
 //	return 0;
 //}
 
+Game::Game() : init_states(), deinit_states(), mpWindow(NULL) { }
+
 int Game::init() {	
 	//if (glInit() == -1) return -1;
 	start_systems();
@@ -97,17 +99,6 @@ void Game::loop() {
 		// swap buffers
 		RenderEngine::instance().end_frame();
 	}
-}
-
-void Game::imgui_start() {
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplGlfw_NewFrame();
-	ImGui::NewFrame();
-}
-
-void Game::imgui_end() {
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
 void Game::update() {
@@ -166,10 +157,6 @@ bool Game::should_close() {
 #else
 	return true;
 #endif
-}
-
-void Game::poll_events() {
-	InputManager::instance().poll_events();
 }
 
 void Game::start_systems() {

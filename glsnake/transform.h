@@ -4,6 +4,9 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 class GameObject;
 class Window;
 class GLFWwindow;

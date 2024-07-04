@@ -26,19 +26,21 @@
 #include <glm/gtx/string_cast.hpp>
 #include <iostream>
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
+
 const State Init_State = static_cast<State>(0);
 
 void uniform_updater(GameObject* go, Camera* c) {
-	ShaderComponent* sc = go->get_component<ShaderComponent>();
-	Transform* t = go->get_component<Transform>();
-	Orthographic* pc = go->get_component<Orthographic>();
+	ShaderComponent* sc = go->retrieve<ShaderComponent>();
+	Transform* t = go->retrieve<Transform>();
+	Orthographic* pc = go->retrieve<Orthographic>();
 
 	glm::mat4 model = t->model_matrix();
 
 	glm::mat4 proj = pc->projection_matrix();
 	glm::mat4 view = c->view_matrix();
-
-	//std::cout << glm::to_string(view) << std::endl;
 
 	glm::mat4 MVP = proj * view * model;
 
@@ -67,17 +69,17 @@ void init_snake(Game* game) {
 
 	GameObject* paddle = new GameObject("Paddle");
 
-	Transform* tpaddle = paddle->add_component<Transform>();
+	Transform* tpaddle = paddle->add<Transform>();
 	tpaddle->set_scale(0.25f, 0.25f, 0.25f);
 	//tpaddle->set_pos(-0.5f, 0.0f, 0.0f);
 	tpaddle->set_window(Game::instance().window());
 
-	Orthographic *o = paddle->add_component<Orthographic>();
+	Orthographic *o = paddle->add<Orthographic>();
 
-	MeshComponent* model_paddle = paddle->add_component<MeshComponent>();
+	MeshComponent* model_paddle = paddle->add<MeshComponent>();
 	model_paddle->set_mesh(plane);
 
-	ShaderComponent* shader_paddle = paddle->add_component<ShaderComponent>();
+	ShaderComponent* shader_paddle = paddle->add<ShaderComponent>();
 	shader_paddle->set_shader(texture_shader);
 	shader_paddle->set_uniform("uSampler", texture);
 	shader_paddle->add_updater(uniform_updater);
@@ -86,11 +88,11 @@ void init_snake(Game* game) {
 
 	GameObject* camera = new GameObject("Camera");
 
-	Transform* tcamera = camera->add_component<Transform>();
+	Transform* tcamera = camera->add<Transform>();
 	tcamera->set_window(Game::instance().window());
 
-	Camera* ccamera = camera->add_component<TargetedCamera>();
-	camera->add_component<CameraControl>();
+	Camera* ccamera = camera->add<TargetedCamera>();
+	camera->add<CameraControl>();
 	ccamera->add_viewable(paddle);
 
 	ResourceManager::instance().add<GameObject>(camera);

@@ -37,7 +37,6 @@ private:
 	//int userInit();
 
 	void update();
-	void draw();
 
 	std::map<State, StateFunc> init_states;
 	std::map<State, StateFunc> deinit_states;
@@ -50,11 +49,6 @@ private:
 	Game();
 
 	bool should_close();
-	void swap_buffers();
-	inline void poll_events();
-
-	void imgui_start();
-	void imgui_end();
 	
 public:
 	void register_state(State s, StateFunc init, StateFunc deinit);

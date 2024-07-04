@@ -10,7 +10,7 @@
 Perspective::Perspective(GameObject* gameobject) : Projection(gameobject), fovy(45.0f), aspect(0), near(0.1f), far(100.0f) { 
 	Transform* t = get_component<Transform>();
 
-	aspect = (float)t->window()->width() / (float)t->window()->height();
+	aspect = 1;
 }
 
 glm::mat4 Perspective::projection_matrix() {

@@ -174,10 +174,12 @@
     <ClCompile Include="controller.cpp" />
     <ClCompile Include="editor_manager.cpp" />
     <ClCompile Include="factories.cpp" />
+    <ClCompile Include="framebuffer.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gameobject.cpp" />
     <ClCompile Include="glsltranslator.cpp" />
     <ClCompile Include="hierarchy_view.cpp" />
+    <ClCompile Include="image.cpp" />
     <ClCompile Include="image2d.cpp" />
     <ClCompile Include="input_manager.cpp" />
     <ClCompile Include="input_test.cpp" />
@@ -202,6 +204,7 @@
     <ClCompile Include="stb.cpp" />
     <ClCompile Include="subject.cpp" />
     <ClCompile Include="targeted_camera.cpp" />
+    <ClCompile Include="texture.cpp" />
     <ClCompile Include="texture2d.cpp" />
     <ClCompile Include="transform.cpp" />
     <ClCompile Include="ui_window.cpp" />
@@ -222,6 +225,8 @@
     <ClInclude Include="..\..\..\..\..\..\imgui\imgui\imconfig.h" />
     <ClInclude Include="..\..\..\..\..\..\imgui\imgui\imgui.h" />
     <ClInclude Include="..\..\..\..\..\..\imgui\imgui\imgui_internal.h" />
+    <ClInclude Include="framebuffer.hpp" />
+    <ClInclude Include="image.hpp" />
     <ClInclude Include="math_3d.hpp" />
     <ClInclude Include="aabb.hpp" />
     <ClInclude Include="camera.h" />
@@ -250,6 +255,7 @@
     <ClInclude Include="projection.h" />
     <ClInclude Include="PuckMovement.hpp" />
     <ClInclude Include="render_engine.hpp" />
+    <ClInclude Include="render_pass.hpp" />
     <ClInclude Include="resource.hpp" />
     <ClInclude Include="resourcemanager.hpp" />
     <ClInclude Include="resources.h" />
@@ -257,6 +263,7 @@
     <ClInclude Include="shadercomponent.h" />
     <ClInclude Include="subject.hpp" />
     <ClInclude Include="targeted_camera.hpp" />
+    <ClInclude Include="texture.hpp" />
     <ClInclude Include="texture2d.hpp" />
     <ClInclude Include="transform.h" />
     <ClInclude Include="ui_window.hpp" />

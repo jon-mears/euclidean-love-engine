@@ -12,10 +12,11 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-namespace {
-
+namespace FramebufferCallback {
 #ifdef _glfw3_h_
 	void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+		RenderEngine::instance().mWindowWidth = width;
+		RenderEngine::instance().mWindowHeight = height;
 		glViewport(0, 0, width, height);
 	}
 #endif
@@ -27,10 +28,10 @@ void RenderEngine::draw() {
 	clear_buffers();
 
 	Camera* c = NULL;
-	for (std::map<std::string, GameObject*>::iterator it = ResourceManager::instance().begin<GameObject>(); it != ResourceManager::instance().end<GameObject>(); ++it) {
+	for (std::map<std::string, GameObject*>::iterator it = ResourceManager::instance().Begin<GameObject>(); it != ResourceManager::instance().End<GameObject>(); ++it) {
 		GameObject* go = it->second;
 
-		if ((c = go->get_component<Camera>()) || (c = go->get_component<TargetedCamera>())) {
+		if ((c = go->Retrieve<Camera>()) || (c = go->Retrieve<TargetedCamera>())) {
 			c->draw();
 		}
 	}

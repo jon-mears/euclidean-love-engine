@@ -4,6 +4,7 @@
 #include "transform.h"
 #include "gameobject.h"
 #include "component.h"
+#include "framebuffer.hpp"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -26,10 +27,16 @@ void Camera::add_viewable(GameObject* go) {
 }
 
 void Camera::draw() {
-	for (GameObject* viewable : viewables) {
+	glViewport(0, 0, mWidth, mHeight);
+	mpFramebuffer->Enable();
 
-		ShaderComponent* sc = viewable->get_component<ShaderComponent>();
-		MeshComponent* mc = viewable->get_component<MeshComponent>();
+	for (GameObject* viewable : mViewables) {
+
+		// if it's not owned, might be a good idea to return a 
+		// const-reference
+
+		ShaderComponent* sc = viewable->Retrieve<ShaderComponent>();
+		MeshComponent* mc = viewable->Retrieve<MeshComponent>();
 
 		if (sc == nullptr)
 			throw "NEED A SHADERCOMPONENT TO RENDER!!!";
