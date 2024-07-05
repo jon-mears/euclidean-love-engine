@@ -6,25 +6,24 @@
 #include <string>
 #include <vector>
 
-GameObject::GameObject(std::string s) : Resource(s), components() { }
-GameObject::GameObject() : Resource(), components() { }
+GameObject::GameObject(std::string s) : Resource(s), mOwnedComponents(), mSharedComponents(), mAllComponents() { }
+GameObject::GameObject() : Resource(), mOwnedComponents(), mSharedComponents(), mAllComponents() { }
 
-void GameObject::update() {
-	for (Component* c : components) {
+void GameObject::Update() {
+	for (Component* c : mOwnedComponents) {
 		c->update();
 	}
 }
 
-void GameObject::start() {
-	for (Component* c : components) {
+void GameObject::Start() {
+	for (Component* c : mOwnedComponents) {
 		c->start();
 	}
 }
 
-std::vector<Component*>::iterator GameObject::component_begin() {
-	return components.begin();
-}
-
-std::vector<Component*>::iterator GameObject::component_end() {
-	return components.end();
+void GameObject::ShareAll(GameObject* pGO) {
+	for (std::vector<Component*>::iterator it = Begin<Component>(); it != End<Component>(); ++it) {
+		mSharedComponents.push_back(*it);
+		mAllComponents.push_back(*it);
+	}
 }

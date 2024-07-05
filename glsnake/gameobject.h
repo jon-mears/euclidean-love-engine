@@ -21,10 +21,10 @@ public:
 	GameObject();
 
 	template <typename C>
-	C* add();
+	C* Add();
 
 	template <typename C>
-	void erase();
+	void Erase();
 
 	template <typename C>
 	C* Retrieve();
@@ -32,17 +32,32 @@ public:
 	template <typename C>
 	C* Share(GameObject* pGO);
 
+	void ShareAll(GameObject* pGO);
+
 	template <typename C>
 	C* RetrieveShared();
 
 	template <typename C>
 	C* RetrieveOwned();
 
-	void update();
-	void start();
+	void Update();
+	void Start();
 
-	std::vector<Component*>::iterator component_begin();
-	std::vector<Component*>::iterator component_end();
+	template <typename T> 
+	std::vector<Component*>::iterator Begin() = delete;
+
+	template <>
+	std::vector<Component*>::iterator Begin<Component>() {
+		return mAllComponents.begin();
+	}
+
+	template <typename T>
+	std::vector<Component*>::iterator End() = delete;
+
+	template <>
+	std::vector<Component*>::iterator End<Component>() {
+		return mAllComponents.end();
+	}
 };
 
 #include "gameobject.tpp"

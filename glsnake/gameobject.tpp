@@ -11,7 +11,7 @@
 class Component;
 
 template <typename C>
-C* GameObject::add() {
+C* GameObject::Add() {
 	C* c = new C(this);
 	components.push_back(c);
 
@@ -19,7 +19,7 @@ C* GameObject::add() {
 }
 
 template <typename C>
-void GameObject::erase() {
+void GameObject::Erase() {
 	std::vector<Component*>::iterator it = std::find_if(mOwnedComponents.begin(), mOwnedComponents.end(), [](Component* c) {
 		return typeid(C) == typeid(*c);
 		});
@@ -31,7 +31,7 @@ void GameObject::erase() {
 }
 
 template <typename C>
-C* GameObject::retrieve() {
+C* GameObject::Retrieve() {
 	std::vector<Component*>::iterator it = std::find_if(mAllComponents.begin(), mAllComponents.end(), [](Component* c) {
 		return typeid(C) == typeid(*c);
 		});
@@ -50,7 +50,7 @@ C* GameObject::retrieve() {
 // doesn't seem TOO bad...
 
 template <typename C>
-C* GameObject::share(GameObject* pGO) {
+C* GameObject::Share(GameObject* pGO) {
 	C* pComponent = pGO->retrieve<C>();
 	mSharedComponents.push_back(pComponent);
 	mAllComponents.push_back(pComponents);
@@ -59,7 +59,7 @@ C* GameObject::share(GameObject* pGO) {
 }
 
 template <typename C>
-C* GameObject::retrieve_shared() {
+C* GameObject::RetrieveShared() {
 	std::vector<Component*>::iterator it = std::find_if(mSharedComponents.begin(), mSharedComponents.end(), [](Component* c) {
 		return typeid(C) == typeid(*c);
 		});
@@ -70,7 +70,7 @@ C* GameObject::retrieve_shared() {
 }
 
 template <typename C>
-C* GameObject::retrieve_owned() {
+C* GameObject::RetrieveOwned() {
 	std::vector<Component*>::iterator it = std::find_if(mOwnedComponents.begin(), mOwnedComponents.end(), [](Component* c) {
 		return typeid(C) == typeid(*c);
 		});

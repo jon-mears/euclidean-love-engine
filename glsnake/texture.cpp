@@ -132,6 +132,17 @@ void Texture2D::SetParameter(GLenum eParam, GLenum eVal) {
 	Disable();
 }
 
+void Texture2D::Read(glm::ivec2 position) {
+	Enable();
+
+	GLuint* pixel;
+
+	glGetTextureSubImage(GL_TEXTURE_2D, 0, position.x, 
+		position.y, 0, 1, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, 1, &pixel);
+
+	Disable();
+}
+
 Texture3D::Texture3D() {
 	glGenTextures(1, &mID);
 

@@ -3,11 +3,12 @@
 #include "framebuffer.hpp"
 #include "texture.hpp"
 #include "camera.h"
+#include "input_manager.hpp"
 
-void Selector::start() {
-	mpParentCamera = get_component<Camera>();
+void SelectorComponent::Start() {
+	mpParentCamera = GetComponent<Camera>();
 
-	Texture2D* pTexture = ResourceManager::instance().New<Texture2D>();
+	mpTexture = ResourceManager::instance().New<Texture2D>();
 	Texture2D::ImageInfo info{};
 
 	info.bGenMipmap = false;
@@ -16,14 +17,29 @@ void Selector::start() {
 	info.internal_format = GL_RGBA8;
 	info.format = GL_RGBA8;
 
-	mpFramebuffer = ResourceManager::instance().New<Framebuffer>();
+	mpTexture->SetImage(info);
+
+	Framebuffer* pFramebuffer = ResourceManager::instance().New<Framebuffer>();
+
+	pFramebuffer->ColorAttachment(mpTexture);
 
 	mpSelectorCamera = new GameObject();
 
-	mpSelectorCamera->ShareAll(mpParentCamera);
-	mpSelectorCamera->erase<Camera>();
-	Camera* pCamera = mpSelectorCamera->add<Camera>();
+	mpSelectorCamera->ShareAll(mpGO);
+	mpSelectorCamera->Erase<Camera>();
+	Camera* pCamera = mpSelectorCamera->Add<Camera>();
 
-	pCamera->SetFramebuffer(mpFramebuffer);
+	pCamera->SetFramebuffer(pFramebuffer);
 
+	mpSelectorCamera->Start();
+}
+
+void SelectorComponent::Update() {
+	mpSelectorCamera->Update();
+
+	if (InputManager::instance().event_active(Input::SELECT)) {
+		glm::ivec2 mousepos{ InputManager::instance().absolute_axis(Input::HORIZONTAL), InputManager::instance().absolute_axis(Input::VERTICAL) };
+
+		mpTexture->Read(mousepos);
+	}
 }

@@ -9,16 +9,17 @@ private:
 	virtual void interface();
 
 protected:
-	GameObject* go;
+	GameObject* mpGO;
 public:
 	virtual ~Component() { }
 
-	virtual void start() = 0;
-	virtual void update() = 0;
+	virtual void Start() = 0;
+	virtual void Update() = 0;
 
 	template <typename C>
-	C* get_component();
-	Component(GameObject* gameobject);
+	C* GetComponent();
+
+	Component(GameObject* pGO);
 
 	friend class ObjectEditor; // to allow access to the component's
 							   // interface

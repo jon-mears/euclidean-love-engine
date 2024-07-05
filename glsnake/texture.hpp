@@ -10,6 +10,8 @@
 #include "resourcemanager.hpp"
 #include "resource.hpp"
 
+#include <glm/glm.hpp>
+
 class Image1D;
 class Image2D;
 class Image3D;
@@ -142,6 +144,8 @@ public:
 	inline operator GLuint() {
 		return mID;
 	}
+
+	void Read(glm::ivec2 position);
 };
 
 class Texture3D {

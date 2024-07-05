@@ -13,6 +13,8 @@ class Camera : public Component {
 private:
 	std::vector<GameObject*> mViewables;
 
+	// std::vector<Render::Command*> mCommands;
+
 protected:
 	Transform* mpTransform;
 	Framebuffer* mpFramebuffer;
@@ -25,8 +27,15 @@ public:
 	Camera(GameObject* gameobject);
 
 	void add_viewable(GameObject* go);
-	void SetFramebuffer(Framebuffer* pFrameBuffer);
-	void SetViewport(const int x, const int y, const int width, const int height);
+
+	inline void SetFramebuffer(Framebuffer* pFramebuffer) {
+		mpFramebuffer = pFramebuffer;
+	}
+
+	inline void SetViewport(const int x, const int y, const int width, const int height) {
+		mOriginX = x; mOriginY = y;
+		mWidth = width; mHeight = height;
+	}
 
 	void SetTests();
 
