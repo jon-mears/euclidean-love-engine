@@ -6,6 +6,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <iostream>
 
 Framebuffer::Framebuffer() {
 	glGenFramebuffers(1, &mID);
@@ -16,6 +17,10 @@ void Framebuffer::ColorAttachment(ColorAttachmentInfo info) {
 	
 	if (info.pTexture != NULL) {
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + info.attachment, GL_TEXTURE_2D, info.pTexture->ID(), info.mipmap_level);
+	}
+
+	else {
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + info.attachment, GL_RENDERBUFFER, info.pRenderbuffer->ID());
 	}
 
 	Disable();
@@ -62,6 +67,10 @@ void Framebuffer::DepthAttachment(DepthAttachmentInfo info) {
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, info.pTexture->ID(), info.mipmap_level);
 	}
 
+	else {
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, info.pRenderbuffer->ID());
+	}
+
 	Disable();
 }
 
@@ -77,6 +86,12 @@ void Framebuffer::DepthAttachment(Texture2D* pTexture) {
 
 void Framebuffer::DepthAttachment(Renderbuffer* pRenderbuffer) {
 
+	DepthAttachmentInfo info{ pRenderbuffer };
+	Enable();
+
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, info.pRenderbuffer->ID());
+
+	Disable();
 }
 
 void Framebuffer::DepthAttachment() {
@@ -105,6 +120,10 @@ void Framebuffer::StencilAttachment(StencilAttachmentInfo info) {
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_TEXTURE_2D, info.pTexture->ID(), info.mipmap_level);
 	}
 
+	else {
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_RENDERBUFFER, info.pRenderbuffer->ID());
+	}
+
 	Disable();
 }
 
@@ -120,6 +139,8 @@ void Framebuffer::StencilAttachment(Renderbuffer* pRenderbuffer) {
 	StencilAttachmentInfo info{ pRenderbuffer };
 
 	Enable();
+
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_RENDERBUFFER, info.pRenderbuffer->ID());
 }
 
 void Framebuffer::StencilAttachment() {
@@ -149,6 +170,10 @@ void Framebuffer::DepthStencilAttachment(DepthStencilAttachmentInfo info)
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, info.pTexture->ID(), info.mipmap_level);
 	}
 
+	else {
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, info.pRenderbuffer->ID());
+	}
+
 	Disable();
 }
 
@@ -163,7 +188,13 @@ void Framebuffer::DepthStencilAttachment(Texture2D* pTexture) {
 }
 
 void Framebuffer::DepthStencilAttachment(Renderbuffer* pRenderbuffer) {
+	DepthStencilAttachmentInfo info{ pRenderbuffer };
+	
 	Enable();
+
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, info.pRenderbuffer->ID());
+
+	Disable();
 }
 
 void Framebuffer::DepthStencilAttachment() {
@@ -181,5 +212,15 @@ void Framebuffer::DepthStencilAttachment() {
 
 	Enable();
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, ds_info.pTexture->ID(), ds_info.mipmap_level);
+	Disable();
+}
+
+void Framebuffer::CheckStatus() {
+	Enable();
+
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+		std::cerr << "framebuffer is incomplete!" << std::endl;
+	}
+
 	Disable();
 }

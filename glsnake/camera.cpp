@@ -14,7 +14,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-Camera::Camera(GameObject* gameobject) : Component(gameobject), viewables(), mpTransform(NULL) { }
+Camera::Camera(GameObject* gameobject) : Component(gameobject), mViewables(), mpTransform(NULL) { }
 
 void Camera::start() { 
 	mpTransform = get_component<Transform>();
@@ -23,11 +23,12 @@ void Camera::start() {
 void Camera::update() { }
 
 void Camera::add_viewable(GameObject* go) {
-	viewables.push_back(go);
+	mViewables.push_back(go);
 }
 
 void Camera::draw() {
 	glViewport(0, 0, mWidth, mHeight);
+
 	mpFramebuffer->Enable();
 
 	for (GameObject* viewable : mViewables) {

@@ -17,6 +17,7 @@ protected:
 	Transform* mpTransform;
 	Framebuffer* mpFramebuffer;
 	int mWidth, mHeight;
+	int mOriginX, mOriginY;
 
 public:
 	void start() override;
@@ -24,11 +25,16 @@ public:
 	Camera(GameObject* gameobject);
 
 	void add_viewable(GameObject* go);
-	void SetFramebuffer(FrameBuffer* pFrameBuffer);
-	void SetSize(const int width, const int height);
+	void SetFramebuffer(Framebuffer* pFrameBuffer);
+	void SetViewport(const int x, const int y, const int width, const int height);
+
+	void SetTests();
 
 	void draw();
 	virtual glm::mat4 view_matrix();
+
+	inline int Height() { return mHeight; }
+	inline int Width() { return mWidth; }
 	
 	// add in id?
 };

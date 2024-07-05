@@ -194,10 +194,12 @@
     <ClCompile Include="primitives.cpp" />
     <ClCompile Include="projection.cpp" />
     <ClCompile Include="PuckMovement.cpp" />
+    <ClCompile Include="renderbuffer.cpp" />
     <ClCompile Include="render_engine.cpp" />
     <ClCompile Include="resource.cpp" />
     <ClCompile Include="resourcemanager.cpp" />
     <ClCompile Include="resources.cpp" />
+    <ClCompile Include="selector.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="shadercomponent.cpp" />
     <ClCompile Include="states.cpp" />
@@ -254,11 +256,13 @@
     <ClInclude Include="primitives.hpp" />
     <ClInclude Include="projection.h" />
     <ClInclude Include="PuckMovement.hpp" />
+    <ClInclude Include="renderbuffer.hpp" />
     <ClInclude Include="render_engine.hpp" />
     <ClInclude Include="render_pass.hpp" />
     <ClInclude Include="resource.hpp" />
     <ClInclude Include="resourcemanager.hpp" />
     <ClInclude Include="resources.h" />
+    <ClInclude Include="selector.hpp" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="shadercomponent.h" />
     <ClInclude Include="subject.hpp" />

@@ -85,6 +85,8 @@ public:
 	inline void EnableDraw() { glBindFramebuffer(GL_DRAW_FRAMEBUFFER, mID); }
 	inline void DisableDraw() { glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0); }
 
+	void CheckStatus();
+
 	inline int ID() { return mID; }
 
 	inline operator GLuint() {
