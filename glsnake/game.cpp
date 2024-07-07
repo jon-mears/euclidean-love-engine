@@ -67,9 +67,9 @@ int Game::init() {
 	init_states[Init_State](this);
 
 	// iterate over gameobjects
-	for (std::map<std::string, GameObject*>::iterator it = ResourceManager::instance().begin<GameObject>(); it != ResourceManager::instance().end<GameObject>(); ++it) {
+	for (std::map<std::string, GameObject*>::iterator it = ResourceManager::instance().Begin<GameObject>(); it != ResourceManager::instance().End<GameObject>(); ++it) {
 		GameObject* go = it->second;
-		go->start();
+		go->Start();
 	}
 
 	return 0;
@@ -102,9 +102,15 @@ void Game::loop() {
 }
 
 void Game::update() {
-	for (std::map<std::string, GameObject*>::iterator it = ResourceManager::instance().begin<GameObject>(); it != ResourceManager::instance().end<GameObject>(); ++it) {
+	for (std::map<std::string, GameObject*>::iterator it = ResourceManager::instance().Begin<GameObject>(); it != ResourceManager::instance().End<GameObject>(); ++it) {
 		GameObject* go = it->second;
-		go->update();
+		go->Update();
+	}
+
+	for (std::map<std::string, GameObject*>::iterator it = ResourceManager::instance().
+		Begin<GameObject>(); it != ResourceManager::instance().End<GameObject>(); ++it) {
+		GameObject* pGO = it->second;
+		pGO->ConstUpdate();
 	}
 }
 

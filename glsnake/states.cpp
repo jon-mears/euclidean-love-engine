@@ -33,37 +33,36 @@
 const State Init_State = static_cast<State>(0);
 
 void uniform_updater(GameObject* go, Camera* c) {
-	ShaderComponent* sc = go->retrieve<ShaderComponent>();
-	Transform* t = go->retrieve<Transform>();
-	Orthographic* pc = go->retrieve<Orthographic>();
+	ShaderComponent* sc = go->Retrieve<ShaderComponent>();
+	Transform* t = go->Retrieve<Transform>();
+	Orthographic* pc = go->Retrieve<Orthographic>();
 
-	glm::mat4 model = t->model_matrix();
+	glm::mat4 model = t->ModelMatrix();
 
-	glm::mat4 proj = pc->projection_matrix();
-	glm::mat4 view = c->view_matrix();
+	glm::mat4 proj = pc->ProjectionMatrix();
+	glm::mat4 view = c->ViewMatrix();
 
 	glm::mat4 MVP = proj * view * model;
 
-	sc->set_uniform("uMVP", MVP);
-	sc->upload_uniforms();
+	sc->SetUniform("uMVP", MVP);
+	sc->UploadUniforms();
 }
 
 void init_snake(Game* game) {
 	// specify shaders we want to use 
 
-	Shader *texture_shader = ResourceManager::instance().retrieve<Shader>("Texture");
+	Shader *texture_shader = ResourceManager::instance().Retrieve<Shader>("Texture");
 
 	Image2D* box = new Image2D("C:\\assets\\container.jpg");
 	Texture2D* texture = new Texture2D();
 
-	texture->set_image(box);
-	texture->compile();
+	texture->SetImage(box);
 
 	// specify models we want to use
 
 	Mesh* plane = Primitives::cube(static_cast<char>(Attribute::POSITION) | static_cast<char>(Attribute::TEXTURE_COORD));
 	plane->compile();
-	ResourceManager::instance().add<Mesh>(plane);
+	ResourceManager::instance().New<Mesh>(plane);
 
 	// specify gameobjects we want to use
 

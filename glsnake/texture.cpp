@@ -143,6 +143,18 @@ void Texture2D::Read(glm::ivec2 position) {
 	Disable();
 }
 
+unsigned char* Texture2D::ReadTexel(glm::ivec2 position) {
+	Enable();
+
+	static unsigned char data[4];
+
+	glGetTextureSubImage(GL_TEXTURE_2D, 0, position.x, position.y, 0,
+		1, 1, 1, GL_RGBA8, GL_UNSIGNED_BYTE, 1, data);
+	Disable();
+
+	return data;
+}
+
 Texture3D::Texture3D() {
 	glGenTextures(1, &mID);
 

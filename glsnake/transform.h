@@ -46,34 +46,34 @@ public:
 	void scalev(const glm::vec3& rhs);
 	void scale(const float x, const float y, const float z);
 
-	void lookat(const glm::vec3 target);
+	void LookAt(const glm::vec3 target);
 
-	inline void lookat(Transform* pTransform) {
-		return lookat(pTransform->position());
+	inline void LookAt(Transform* pTransform) {
+		return LookAt(pTransform->Position());
 	}
 
-	void set_window(GLFWwindow* pWindow);
+	void SetWindow(GLFWwindow* pWindow);
 
-	glm::vec3 &position();
-	glm::vec3 rotation();
-	glm::vec3 scale();
-	GLFWwindow* window();
+	const glm::vec3 &Position();
+	const glm::vec3 &Rotation();
+	const glm::vec3 &Scale();
+	GLFWwindow* Window();
 
-	inline const glm::vec3& localx() {
+	inline const glm::vec3& LocalX() {
 		return mLocalX;
 	}
 
-	inline const glm::vec3& localy() {
+	inline const glm::vec3& LocalY() {
 		return mLocalY;
 	}
 
-	inline const glm::vec3& localz() {
+	inline const glm::vec3& LocalZ() {
 		return mLocalZ;
 	}
 
-	glm::mat4 model_matrix();
-	virtual void start() override;
-	virtual void update() override;
+	glm::mat4 ModelMatrix();
+	virtual void Start() override;
+	virtual void Update() override;
 };
 
 #endif

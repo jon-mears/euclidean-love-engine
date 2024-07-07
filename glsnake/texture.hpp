@@ -146,6 +146,7 @@ public:
 	}
 
 	void Read(glm::ivec2 position);
+	unsigned char* ReadTexel(glm::ivec2 position);
 };
 
 class Texture3D {

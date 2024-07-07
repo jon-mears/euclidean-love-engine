@@ -4,7 +4,6 @@
 class GameObject;
 
 class Component {
-
 private:
 	virtual void interface();
 
@@ -15,9 +14,13 @@ public:
 
 	virtual void Start() = 0;
 	virtual void Update() = 0;
+	virtual void ConstUpdate() const = 0;
+
+	template <typename C>	
+	C* GetComponent();
 
 	template <typename C>
-	C* GetComponent();
+	const C* GetComponent() const;
 
 	Component(GameObject* pGO);
 

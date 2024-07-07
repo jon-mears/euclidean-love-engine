@@ -10,34 +10,40 @@
 #include <GLFW/glfw3.h>
 
 #include <iostream>
+#include <algorithm>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-Camera::Camera(GameObject* gameobject) : Component(gameobject), mViewables(), mpTransform(NULL) { }
+Camera::Camera(GameObject* pGO) : Component(pGO), mViewables(), mpTransform(NULL) { }
 
-void Camera::start() { 
-	mpTransform = get_component<Transform>();
+void Camera::Start() { 
+	mpTransform = GetComponent<Transform>();
 }
 
-void Camera::update() { }
+void Camera::Update() { }
 
-void Camera::add_viewable(GameObject* go) {
-	mViewables.push_back(go);
+void Camera::ConstUpdate() const { }
+
+void Camera::AddViewable(GameObject* pGO) {
+	if (std::find(mViewables.begin(), mViewables.end(), pGO)
+		== mViewables.end()) {
+		mViewables.push_back(pGO);
+	}	
 }
 
-void Camera::draw() {
-	glViewport(0, 0, mWidth, mHeight);
+void Camera::Draw() {
+	glViewport(mOriginX, mOriginY, mWidth, mHeight);
 
 	mpFramebuffer->Enable();
 
-	for (GameObject* viewable : mViewables) {
+	for (GameObject* pViewable : mViewables) {
 
 		// if it's not owned, might be a good idea to return a 
 		// const-reference
 
-		ShaderComponent* sc = viewable->Retrieve<ShaderComponent>();
-		MeshComponent* mc = viewable->Retrieve<MeshComponent>();
+		ShaderComponent* sc = pViewable->Retrieve<ShaderComponent>();
+		MeshComponent* mc = pViewable->Retrieve<MeshComponent>();
 
 		if (sc == nullptr)
 			throw "NEED A SHADERCOMPONENT TO RENDER!!!";
@@ -54,7 +60,7 @@ void Camera::draw() {
 	}
 }
 
-glm::mat4 Camera::view_matrix() {
+glm::mat4 Camera::ViewMatrix() {
 	glm::vec3 pos = mpTransform->position();
 	glm::vec3 rot = mpTransform->rotation();
 

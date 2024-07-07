@@ -22,6 +22,9 @@
     <Filter Include="Source Files\Components">
       <UniqueIdentifier>{b525b21a-3cb5-447c-a7c1-18fda59f3b0d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Scripts">
+      <UniqueIdentifier>{4a03ddd5-f503-43ff-9deb-78410a1f4995}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -390,6 +393,9 @@
     </None>
     <None Include="component.tpp">
       <Filter>Header Files\Components</Filter>
+    </None>
+    <None Include="new-component.py">
+      <Filter>Source Files\Scripts</Filter>
     </None>
   </ItemGroup>
 </Project>

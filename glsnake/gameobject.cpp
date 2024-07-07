@@ -11,17 +11,23 @@ GameObject::GameObject() : Resource(), mOwnedComponents(), mSharedComponents(), 
 
 void GameObject::Update() {
 	for (Component* c : mOwnedComponents) {
-		c->update();
+		c->Update();
+	}
+}
+
+void GameObject::ConstUpdate() const {
+	for (Component* pComponent : mOwnedComponents) {
+		pComponent->ConstUpdate();
 	}
 }
 
 void GameObject::Start() {
 	for (Component* c : mOwnedComponents) {
-		c->start();
+		c->Start();
 	}
 }
 
-void GameObject::ShareAll(GameObject* pGO) {
+void GameObject::ShareAllFrom(GameObject* pGO) {
 	for (std::vector<Component*>::iterator it = Begin<Component>(); it != End<Component>(); ++it) {
 		mSharedComponents.push_back(*it);
 		mAllComponents.push_back(*it);

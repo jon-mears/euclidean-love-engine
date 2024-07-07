@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -218,7 +217,7 @@
     <ClCompile Include="xmlparser.cpp" />
     <ClCompile Include="xmlstate.cpp" />
     <ClCompile Include="xmltree.cpp" />
-  </ItemGroup>
+  <ClCompile Include="hat-component.cpp" /></ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\..\Code\stb\stb_image.h" />
     <ClInclude Include="..\..\..\..\..\..\imgui\imgui\backends\imgui_impl_glfw.h" />
@@ -278,11 +277,10 @@
     <ClInclude Include="xmlparser.hpp" />
     <ClInclude Include="xmlstate.hpp" />
     <ClInclude Include="xmltree.hpp" />
-  </ItemGroup>
+  <ClInclude Include="hat-component.hpp" /></ItemGroup>
   <ItemGroup>
     <None Include="component.tpp" />
     <None Include="gameobject.tpp" />
-    <None Include="new-component.py" />
     <None Include="resourcemanager.tpp" />
     <None Include="states.h" />
   </ItemGroup>

@@ -5,7 +5,13 @@
 #include "gameobject.h"
 
 template <typename C>
-C* Component::get_component() {
+C* Component::GetComponent() {
 	return go->get_component<C>();
 }
+
+template <typename C>
+const C* Component::GetComponent() const {
+	return go->get_component<C>();
+}
+
 #endif

@@ -32,7 +32,7 @@ public:
 	template <typename C>
 	C* Share(GameObject* pGO);
 
-	void ShareAll(GameObject* pGO);
+	void ShareAllFrom(GameObject* pGO);
 
 	template <typename C>
 	C* RetrieveShared();
@@ -41,6 +41,7 @@ public:
 	C* RetrieveOwned();
 
 	void Update();
+	void ConstUpdate() const;
 	void Start();
 
 	template <typename T> 

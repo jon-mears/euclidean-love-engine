@@ -25,16 +25,16 @@ private:
 
 public:
 	ShaderComponent(GameObject* gameobject);
-	void set_shader(Shader* s);
-	virtual void start() override;
-	virtual void update() override;
+	void SetShader(Shader* s);
+	virtual void Start() override;
+	virtual void Update() override;
 	void add_updater(UniformUpdater uu);
 	void update_uniforms(Camera* c);
-	void enable();
-	void disable();
-	void set_uniform(const std::string& name, const glm::mat4 &value);
-	void set_uniform(const std::string& name, const glm::vec3& value);
-	void set_uniform(const std::string& name, Texture2D* value);
-	void upload_uniforms();
+	void Enable();
+	void Disable();
+	void SetUniform(const std::string& name, const glm::mat4& value);
+	void SetUniform(const std::string& name, const glm::vec3& value);
+	void SetUniform(const std::string& name, Texture2D* value);
+	void UploadUniforms();
 };
 #endif

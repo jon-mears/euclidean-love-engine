@@ -22,11 +22,13 @@ protected:
 	int mOriginX, mOriginY;
 
 public:
-	void start() override;
-	void update() override;
-	Camera(GameObject* gameobject);
+	void Start() override;
+	void Update() override;
+	void ConstUpdate() const override;
 
-	void add_viewable(GameObject* go);
+	Camera(GameObject* pGO);
+
+	void AddViewable(GameObject* pGO);
 
 	inline void SetFramebuffer(Framebuffer* pFramebuffer) {
 		mpFramebuffer = pFramebuffer;
@@ -39,11 +41,13 @@ public:
 
 	void SetTests();
 
-	void draw();
-	virtual glm::mat4 view_matrix();
+	void Draw();
+	virtual glm::mat4 ViewMatrix();
 
-	inline int Height() { return mHeight; }
 	inline int Width() { return mWidth; }
+	inline int Height() { return mHeight; }
+	inline int OriginX() { return mOriginX; }
+	inline int OriginY() { return mOriginY; }
 	
 	// add in id?
 };
