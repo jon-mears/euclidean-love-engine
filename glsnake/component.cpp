@@ -1,6 +1,6 @@
-#include "component.h"
-#include "gameobject.h"
+#include "component.hpp"
+#include "game-object.hpp"
 
-Component::Component(GameObject* gameobject) : go(gameobject) { }
+Component::Component(GameObject* pGO) : mpGO(pGO) { }
 
-void Component::interface() { }
+void Component::Interface() { }

@@ -13,7 +13,7 @@ public:
 	Resource();
 
 	std::string &name();
-	void set_name(const std::string& name);
+	void SetName(const std::string& name);
 };
 
 #endif

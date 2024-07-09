@@ -4,7 +4,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "render_engine.hpp"
+#include "render-engine.hpp"
 
 class Renderbuffer {
 private:
@@ -17,8 +17,8 @@ public:
 		int height{ 0 };
 
 		StorageInfo() {
-			width = RenderEngine::instance().WindowWidth();
-			height = RenderEngine::instance().WindowHeight();
+			width = RenderEngine::Instance().WindowWidth();
+			height = RenderEngine::Instance().WindowHeight();
 		}
 	};
 

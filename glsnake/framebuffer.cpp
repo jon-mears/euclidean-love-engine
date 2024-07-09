@@ -1,8 +1,8 @@
 #include "framebuffer.hpp"
 #include "renderbuffer.hpp"
 #include "texture.hpp"
-#include "resourcemanager.hpp"
-#include "render_engine.hpp"
+#include "resource-manager.hpp"
+#include "render-engine.hpp"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -15,7 +15,7 @@ Framebuffer::Framebuffer() {
 void Framebuffer::ColorAttachment(ColorAttachmentInfo info) {
 	Enable();
 	
-	if (info.pTexture != NULL) {
+	if (info.pTexture != nullptr) {
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + info.attachment, GL_TEXTURE_2D, info.pTexture->ID(), info.mipmap_level);
 	}
 
@@ -45,10 +45,10 @@ void Framebuffer::ColorAttachment(Renderbuffer* pRenderbuffer) {
 }
 
 void Framebuffer::ColorAttachment() {
-	Texture2D* pTexture = ResourceManager::instance().New<Texture2D>();
+	Texture2D* pTexture = ResourceManager::Instance().New<Texture2D>();
 	Texture2D::ImageInfo img_info;
-	img_info.width = RenderEngine::instance().WindowWidth();
-	img_info.height = RenderEngine::instance().WindowHeight();
+	img_info.width = RenderEngine::Instance().WindowWidth();
+	img_info.height = RenderEngine::Instance().WindowHeight();
 	img_info.bGenMipmap = false;
 
 	pTexture->SetImage(img_info);
@@ -63,7 +63,7 @@ void Framebuffer::ColorAttachment() {
 void Framebuffer::DepthAttachment(DepthAttachmentInfo info) {
 	Enable();
 
-	if (info.pTexture != NULL) {
+	if (info.pTexture != nullptr) {
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, info.pTexture->ID(), info.mipmap_level);
 	}
 
@@ -95,11 +95,11 @@ void Framebuffer::DepthAttachment(Renderbuffer* pRenderbuffer) {
 }
 
 void Framebuffer::DepthAttachment() {
-	Texture2D* pTexture = ResourceManager::instance().New<Texture2D>();
+	Texture2D* pTexture = ResourceManager::Instance().New<Texture2D>();
 
 	Texture2D::ImageInfo img_info;
-	img_info.width = RenderEngine::instance().WindowWidth();
-	img_info.height = RenderEngine::instance().WindowHeight();
+	img_info.width = RenderEngine::Instance().WindowWidth();
+	img_info.height = RenderEngine::Instance().WindowHeight();
 	img_info.format = GL_DEPTH_COMPONENT;
 	img_info.internal_format = GL_DEPTH_COMPONENT;
 	img_info.bGenMipmap = false;
@@ -116,7 +116,7 @@ void Framebuffer::DepthAttachment() {
 void Framebuffer::StencilAttachment(StencilAttachmentInfo info) {
 	Enable();
 	
-	if (info.pTexture != NULL) {
+	if (info.pTexture != nullptr) {
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_TEXTURE_2D, info.pTexture->ID(), info.mipmap_level);
 	}
 
@@ -144,11 +144,11 @@ void Framebuffer::StencilAttachment(Renderbuffer* pRenderbuffer) {
 }
 
 void Framebuffer::StencilAttachment() {
-	Texture2D* pTexture = ResourceManager::instance().New<Texture2D>();
+	Texture2D* pTexture = ResourceManager::Instance().New<Texture2D>();
 	Texture2D::ImageInfo img_info;
 
-	img_info.width = RenderEngine::instance().WindowWidth();
-	img_info.height = RenderEngine::instance().WindowHeight();
+	img_info.width = RenderEngine::Instance().WindowWidth();
+	img_info.height = RenderEngine::Instance().WindowHeight();
 	img_info.internal_format = GL_STENCIL_INDEX;
 	img_info.format = GL_STENCIL_INDEX;
 	img_info.bGenMipmap = false;
@@ -166,7 +166,7 @@ void Framebuffer::DepthStencilAttachment(DepthStencilAttachmentInfo info)
 {
 	Enable();
 
-	if (info.pTexture != NULL) {
+	if (info.pTexture != nullptr) {
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, info.pTexture->ID(), info.mipmap_level);
 	}
 
@@ -198,11 +198,11 @@ void Framebuffer::DepthStencilAttachment(Renderbuffer* pRenderbuffer) {
 }
 
 void Framebuffer::DepthStencilAttachment() {
-	Texture2D* pTexture = ResourceManager::instance().New<Texture2D>();
+	Texture2D* pTexture = ResourceManager::Instance().New<Texture2D>();
 
 	Texture2D::ImageInfo img_info;
-	img_info.width = RenderEngine::instance().WindowWidth();
-	img_info.height = RenderEngine::instance().WindowHeight();
+	img_info.width = RenderEngine::Instance().WindowWidth();
+	img_info.height = RenderEngine::Instance().WindowHeight();
 	img_info.internal_format = GL_DEPTH24_STENCIL8;
 	img_info.format = GL_DEPTH24_STENCIL8;
 

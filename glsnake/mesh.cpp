@@ -2,9 +2,9 @@
 #include <vector>
 #include <map>
 
-#include "mesh.h"
-#include "vertexdata.h"
-#include "glsltranslator.hpp"
+#include "mesh.hpp"
+#include "vertex-data.hpp"
+#include "glsl-translator.hpp"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -12,29 +12,33 @@
 
 #include <iostream>
 
-void Mesh::vertex_attrib(int attrib_loc, VertexData vdata, Attribute attrib) {
-    if (_num_vertices == -1)
-        _num_vertices = vdata.num_vertices();
+void Mesh::VertexAttrib(int attrib_loc, VertexData vdata, Vertex::Attribute eAttrib) {
+    if (mNumVertices == -1) {
+        mNumVertices = vdata.NumVertices();
+    }
 
-    else if (_num_vertices != vdata.num_vertices())
-        throw "attributes need to have a consistent number of vertices!";
+    else if (mNumVertices != vdata.NumVertices()) {
+        std::cerr << "vertex data must contain the same number of vertices!" << std::endl;
+        std::exit(-1);
+    }
 
     mAttribLoc2VData[attrib_loc] = vdata;
 
-    if (attrib != Attribute::NONE)
-        mAttribType2VData[attrib] = vdata;
+    if (eAttrib != Vertex::NONE) {
+        mAttribType2VData[eAttrib] = vdata;
+    }
 }
 
-void Mesh::compile() {
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
+void Mesh::Compile() {
+    glGenVertexArrays(1, &mVAO);
+    glBindVertexArray(mVAO);
 
     GLuint vbo;
 	glGenBuffers(1, &vbo);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-	std::vector<float> collected_data = collect_data();
+	std::vector<float> collected_data = CollectData();
 	std::vector<float>::value_type* p = collected_data.data();
 
 	glBufferData(GL_ARRAY_BUFFER, collected_data.size() * sizeof(GLfloat), p, GL_STATIC_DRAW);
@@ -44,13 +48,13 @@ void Mesh::compile() {
     for (std::map<int, VertexData>::iterator it = mAttribLoc2VData.begin(); it != mAttribLoc2VData.end(); ++it) {
         VertexData vdata = it->second;
 
-        stride += sizeof(GLfloat) * vdata.num_components();
+        stride += sizeof(GLfloat) * vdata.NumComponents();
     }
 
-    for (std::map<Attribute, VertexData>::iterator it = mAttribType2VData.begin(); it != mAttribType2VData.end(); ++it) {
+    for (std::map<Vertex::Attribute, VertexData>::iterator it = mAttribType2VData.begin(); it != mAttribType2VData.end(); ++it) {
         VertexData vdata = it->second;
 
-        stride += sizeof(GLfloat) * vdata.num_components();
+        stride += sizeof(GLfloat) * vdata.NumComponents();
     }
 
     int offset = 0;
@@ -59,43 +63,43 @@ void Mesh::compile() {
         int attrib_loc = it->first;
         VertexData vdata = it->second;
 
-        glVertexAttribPointer(attrib_loc, vdata.num_components(), GL_FLOAT, GL_FALSE, stride, (void*)offset);
+        glVertexAttribPointer(attrib_loc, vdata.NumComponents(), GL_FLOAT, GL_FALSE, stride, (void*)offset);
         glEnableVertexAttribArray(attrib_loc);
 
-        offset += vdata.num_components() * sizeof(GLfloat);
+        offset += vdata.NumComponents() * sizeof(GLfloat);
     }
 
-    for (std::map<Attribute, VertexData>::iterator it = mAttribType2VData.begin(); it != mAttribType2VData.end(); ++it) {
-        int attrib_loc = GLSL_Translator::attrib2loc(it->first);
+    for (std::map<Vertex::Attribute, VertexData>::iterator it = mAttribType2VData.begin(); it != mAttribType2VData.end(); ++it) {
+        int attrib_loc = GLSLTranslator::Attrib2Loc(it->first);
         VertexData vdata = it->second;
 
-        glVertexAttribPointer(attrib_loc, vdata.num_components(), GL_FLOAT, GL_FALSE, stride, (void*)offset);
+        glVertexAttribPointer(attrib_loc, vdata.NumComponents(), GL_FLOAT, GL_FALSE, stride, (void*)offset);
         glEnableVertexAttribArray(attrib_loc);
 
-        offset += vdata.num_components() * sizeof(GLfloat);
+        offset += vdata.NumComponents() * sizeof(GLfloat);
     }
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 }
 
-std::vector<float> Mesh::collect_data() {
+std::vector<float> Mesh::CollectData() {
     std::vector<float> collected_data;
 
-    for (int vertex_idx = 0; vertex_idx < _num_vertices; ++vertex_idx) {
+    for (int vertex_idx = 0; vertex_idx < mNumVertices; ++vertex_idx) {
         for (std::map<int, VertexData>::iterator it = mAttribLoc2VData.begin(); it != mAttribLoc2VData.end(); ++it) {
             VertexData vdata = it->second;
-            for (int component_idx = 0; component_idx < vdata.num_components(); ++component_idx) {
-                collected_data.push_back(vdata[vdata.num_components() * vertex_idx + component_idx]);
+            for (int component_idx = 0; component_idx < vdata.NumComponents(); ++component_idx) {
+                collected_data.push_back(vdata[vdata.NumComponents() * vertex_idx + component_idx]);
             }
         }
     }
 
-    for (int vertex_idx = 0; vertex_idx < _num_vertices; ++vertex_idx) {
-        for (std::map<Attribute, VertexData>::iterator it = mAttribType2VData.begin(); it != mAttribType2VData.end(); ++it) {
+    for (int vertex_idx = 0; vertex_idx < mNumVertices; ++vertex_idx) {
+        for (std::map<Vertex::Attribute, VertexData>::iterator it = mAttribType2VData.begin(); it != mAttribType2VData.end(); ++it) {
             VertexData vdata = it->second;
-            for (int component_idx = 0; component_idx < vdata.num_components(); ++component_idx) {
-                collected_data.push_back(vdata[vdata.num_components() * vertex_idx + component_idx]);
+            for (int component_idx = 0; component_idx < vdata.NumComponents(); ++component_idx) {
+                collected_data.push_back(vdata[vdata.NumComponents() * vertex_idx + component_idx]);
             }
         }
     }
@@ -103,28 +107,30 @@ std::vector<float> Mesh::collect_data() {
     return collected_data;
 }
 
-int Mesh::num_vertices() {
-    return _num_vertices;
+int Mesh::NumVertices() {
+    return mNumVertices;
 }
 
-void Mesh::enable() {
-    glBindVertexArray(vao);
+void Mesh::Enable() {
+    glBindVertexArray(mVAO);
 }
 
-VertexData Mesh::get_attrib(Attribute attrib) {
-    return mAttribType2VData[attrib];
+VertexData Mesh::GetAttrib(Vertex::Attribute eAttrib) {
+    return mAttribType2VData[eAttrib];
 }
 
-void Mesh::vertex_attrib(Attribute attrib, VertexData vdata) {
+void Mesh::VertexAttrib(Vertex::Attribute eAttrib, VertexData vdata) {
 
-    if (_num_vertices == -1)
-        _num_vertices = vdata.num_vertices();
+    if (mNumVertices == -1) {
+        mNumVertices = vdata.NumVertices();
+    }
 
-    else if (_num_vertices != vdata.num_vertices())
-        throw "attributes need to have a consistent number of vertices!";
+    else if (mNumVertices != vdata.NumVertices()) {
+        std::cerr << "attributes need to have a consistent number of vertices!" << std::endl;
+        std::exit(-1);
+    }
 
-    mAttribType2VData[attrib] = vdata;
+    mAttribType2VData[eAttrib] = vdata;
 }
 
-Mesh::Mesh() : Resource(), vao(), mAttribLoc2VData(), mAttribType2VData() { }
-Mesh::Mesh(std::string s) : Resource(s), vao(), mAttribLoc2VData(), mAttribType2VData() { }
+Mesh::Mesh() : mVAO(), mAttribLoc2VData(), mAttribType2VData() { }

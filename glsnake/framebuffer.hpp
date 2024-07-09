@@ -27,8 +27,8 @@ public:
 		GLint mipmap_level{ 0 };
 		GLint attachment{ 0 };
 
-		ColorAttachmentInfo(Texture2D* apTexture) : pTexture(apTexture), pRenderbuffer(NULL) { }
-		ColorAttachmentInfo(Renderbuffer* apRenderbuffer) : pTexture(NULL), pRenderbuffer(apRenderbuffer) { }
+		ColorAttachmentInfo(Texture2D* apTexture) : pTexture(apTexture), pRenderbuffer(nullptr) { }
+		ColorAttachmentInfo(Renderbuffer* apRenderbuffer) : pTexture(nullptr), pRenderbuffer(apRenderbuffer) { }
 	};
 
 	void ColorAttachment(ColorAttachmentInfo info);
@@ -41,8 +41,8 @@ public:
 		Renderbuffer* pRenderbuffer;
 		GLint mipmap_level{ 0 };
 
-		DepthAttachmentInfo(Texture2D* apTexture) : pTexture(apTexture), pRenderbuffer(NULL) { }
-		DepthAttachmentInfo(Renderbuffer* apRenderbuffer) : pTexture(NULL), pRenderbuffer(apRenderbuffer) { }
+		DepthAttachmentInfo(Texture2D* apTexture) : pTexture(apTexture), pRenderbuffer(nullptr) { }
+		DepthAttachmentInfo(Renderbuffer* apRenderbuffer) : pTexture(nullptr), pRenderbuffer(apRenderbuffer) { }
 	};
 
 	void DepthAttachment(DepthAttachmentInfo info);
@@ -55,8 +55,8 @@ public:
 		Renderbuffer* pRenderbuffer;
 		GLint mipmap_level{ 0 };
 
-		StencilAttachmentInfo(Texture2D* apTexture) : pTexture(apTexture), pRenderbuffer(NULL) { }
-		StencilAttachmentInfo(Renderbuffer* apRenderbuffer) : pTexture(NULL), pRenderbuffer(apRenderbuffer) { }
+		StencilAttachmentInfo(Texture2D* apTexture) : pTexture(apTexture), pRenderbuffer(nullptr) { }
+		StencilAttachmentInfo(Renderbuffer* apRenderbuffer) : pTexture(nullptr), pRenderbuffer(apRenderbuffer) { }
 	};
 
 	void StencilAttachment(StencilAttachmentInfo info);
@@ -69,8 +69,8 @@ public:
 		Renderbuffer* pRenderbuffer;
 		GLint mipmap_level{ 0 };
 
-		DepthStencilAttachmentInfo(Texture2D* apTexture) : pTexture(apTexture), pRenderbuffer(NULL) { }
-		DepthStencilAttachmentInfo(Renderbuffer* apRenderbuffer) : pTexture(NULL), pRenderbuffer(apRenderbuffer) { }
+		DepthStencilAttachmentInfo(Texture2D* apTexture) : pTexture(apTexture), pRenderbuffer(nullptr) { }
+		DepthStencilAttachmentInfo(Renderbuffer* apRenderbuffer) : pTexture(nullptr), pRenderbuffer(apRenderbuffer) { }
 	};
 
 	void DepthStencilAttachment(DepthStencilAttachmentInfo info);

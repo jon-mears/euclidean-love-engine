@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <ItemGroup>
     <Filter Include="Source Files">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
@@ -33,37 +32,28 @@
     <ClCompile Include="..\..\..\..\..\..\Code\glad\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="game.cpp">
+    <ClCompile Include="app.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="states.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="resources.cpp">
+    <ClCompile Include="scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="vertexdata.cpp">
+    <ClCompile Include="vertex-data.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gameobject.cpp">
+    <ClCompile Include="game-object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="factories.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="uniform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="subject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PuckMovement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="volumes.cpp">
@@ -78,31 +68,25 @@
     <ClCompile Include="primitives.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="glsltranslator.cpp">
+    <ClCompile Include="glsl-translator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="stb.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="image2d.cpp">
+    <ClCompile Include="resource-manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="texture2d.cpp">
+    <ClCompile Include="xml-node.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="resourcemanager.cpp">
+    <ClCompile Include="xml-tree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="xmlnode.cpp">
+    <ClCompile Include="xml-parser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="xmltree.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="xmlparser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="xmlstate.cpp">
+    <ClCompile Include="xml-state.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="resource.cpp">
@@ -129,64 +113,58 @@
     <ClCompile Include="..\..\..\..\..\..\imgui\imgui\backends\imgui_impl_glfw.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="ui_window.cpp">
+    <ClCompile Include="ui-window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="object_editor.cpp">
+    <ClCompile Include="object-editor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hierarchy_view.cpp">
+    <ClCompile Include="hierarchy-view.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="editor_manager.cpp">
+    <ClCompile Include="editor-manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="input_manager.cpp">
+    <ClCompile Include="input-manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="key_mouse_input_service.cpp">
+    <ClCompile Include="key-mouse-input-service.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="camera_control.cpp">
+    <ClCompile Include="camera-control-component.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="camera.cpp">
+    <ClCompile Include="camera-component.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="component.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="controller.cpp">
+    <ClCompile Include="mesh-component.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="input_test.cpp">
+    <ClCompile Include="orthographic-component.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="modelcomponent.cpp">
+    <ClCompile Include="perspective-component.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="orthographic.cpp">
+    <ClCompile Include="projection-component.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="perspective.cpp">
+    <ClCompile Include="shader-component.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="projection.cpp">
+    <ClCompile Include="transform-component.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="shadercomponent.cpp">
+    <ClCompile Include="targeted_camera-component .cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="transform.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="targeted_camera.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="render_engine.cpp">
+    <ClCompile Include="render-engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="math_3d.cpp">
+    <ClCompile Include="math-3d.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="framebuffer.cpp">
@@ -201,39 +179,30 @@
     <ClCompile Include="renderbuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="selector.cpp">
+    <ClCompile Include="selector-component.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="game.h">
+    <ClInclude Include="app.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gameobject.h">
+    <ClInclude Include="game-object.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="shader.h">
+    <ClInclude Include="shader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="uniform.h">
+    <ClInclude Include="uniform.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resources.h">
+    <ClInclude Include="mesh.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="mesh.h">
+    <ClInclude Include="factories.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="factories.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="vertexdata.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="subject.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="observer.hpp">
+    <ClInclude Include="vertex-data.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="aabb.hpp">
@@ -245,31 +214,25 @@
     <ClInclude Include="primitives.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="glsltranslator.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="image2d.hpp">
+    <ClInclude Include="glsl-translator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\..\Code\stb\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="texture2d.hpp">
+    <ClInclude Include="resource-manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resourcemanager.hpp">
+    <ClInclude Include="xml-parser.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="xmlparser.hpp">
+    <ClInclude Include="xml-tree.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="xmltree.hpp">
+    <ClInclude Include="xml-node.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="xmlnode.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="xmlstate.hpp">
+    <ClInclude Include="xml-state.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.hpp">
@@ -296,73 +259,58 @@
     <ClInclude Include="imgui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ui_window.hpp">
+    <ClInclude Include="ui-window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="object_editor.hpp">
+    <ClInclude Include="object-editor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="hierarchy_view.hpp">
+    <ClInclude Include="hierarchy-view.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="editor_manager.hpp">
+    <ClInclude Include="editor-manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="input_manager.hpp">
+    <ClInclude Include="input-manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="InputService.hpp">
+    <ClInclude Include="input-service.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="key_mouse_input_service.hpp">
+    <ClInclude Include="key-mouse-input-service.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="camera.h">
+    <ClInclude Include="camera-component.hpp">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="camera_control.hpp">
+    <ClInclude Include="camera-control-component.hpp">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="component.h">
+    <ClInclude Include="mesh-component.hpp">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="controller.h">
+    <ClInclude Include="orthographic-component.hpp">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="input_test.hpp">
+    <ClInclude Include="perspective-component.hpp">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="mesh_component.hpp">
+    <ClInclude Include="projection-component.hpp">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="orthographic.h">
+    <ClInclude Include="shader-component.hpp">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="perspective.h">
+    <ClInclude Include="transform-component.hpp">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="projection.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="PuckMovement.hpp">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="shadercomponent.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="transform.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="math_3d.hpp">
+    <ClInclude Include="math-3d.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="targeted_camera.hpp">
+    <ClInclude Include="targeted-camera-component.hpp">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="render_engine.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="render_pass.hpp">
+    <ClInclude Include="render-engine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="framebuffer.hpp">
@@ -377,21 +325,21 @@
     <ClInclude Include="renderbuffer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="selector.hpp">
+    <ClInclude Include="selector-component.hpp">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="component.hpp">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="states.h">
+    <None Include="scene.hpp">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="gameobject.tpp">
+    <None Include="game-object.ipp">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="resourcemanager.tpp">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="component.tpp">
+    <None Include="component.ipp">
       <Filter>Header Files\Components</Filter>
     </None>
     <None Include="new-component.py">

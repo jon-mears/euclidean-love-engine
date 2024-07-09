@@ -1,5 +1,5 @@
-#include "factories.h"
-#include "uniform.h"
+#include "factories.hpp"
+#include "uniform.hpp"
 
 #include <string>
 
@@ -7,7 +7,7 @@
 #include <GLFW/glfw3.h>
 
 namespace Factories {
-	Uniform* make_uniform(std::string name, GLuint loc, std::string type) {
+	Uniform* MakeUniform(std::string name, GLuint loc, const std::string& type) {
 		if (type == "float") {
 			return new Uniform1f(name, loc);
 		}	

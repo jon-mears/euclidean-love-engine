@@ -4,7 +4,7 @@
 class Mesh;
 
 namespace Primitives {
-	Mesh* cube(char bitmask);
-	Mesh* plane(char bitmask);
+	Mesh* Cube(char bitmask);
+	Mesh* Plane(char bitmask);
 }
 #endif

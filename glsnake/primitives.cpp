@@ -1,11 +1,11 @@
-#include "vertexdata.h"
-#include "mesh.h"
+#include "vertex-data.hpp"
+#include "mesh.hpp"
 
 namespace Primitives {
-	Mesh* cube(char bitmask) {
-		Mesh* m = new Mesh("Cube");
+	Mesh* Cube(char fAttribs) {
+		Mesh* pMesh = new Mesh();
 
-		if (bitmask & static_cast<char>(Attribute::POSITION)) {
+		if (fAttribs & Vertex::POSITION) {
 			VertexData aPos = {
 				{-0.5f, -0.5f, -0.5f},
 				{0.5f, -0.5f, -0.5f},
@@ -50,10 +50,10 @@ namespace Primitives {
 				{-0.5f, 0.5f, -0.5f}
 			};
 
-			m->vertex_attrib(Attribute::POSITION, aPos);
+			pMesh->VertexAttrib(Vertex::POSITION, aPos);
 		}
 
-		if (bitmask & static_cast<char>(Attribute::TEXTURE_COORD)) {
+		if (fAttribs & Vertex::TEXTURE_COORD) {
 			VertexData aTexCoord = {
 				{0.0f, 0.0f},
 				{1.0f, 0.0f},
@@ -98,16 +98,16 @@ namespace Primitives {
 				{0.0f, 1.0f}
 			};
 
-			m->vertex_attrib(Attribute::TEXTURE_COORD, aTexCoord);
+			pMesh->VertexAttrib(Vertex::TEXTURE_COORD, aTexCoord);
 		}
 
-		return m;
+		return pMesh;
 	}
 
-	Mesh* plane(char bitmask) {
-		Mesh *m = new Mesh("Plane");
+	Mesh* Plane(char fAttribs) {
+		Mesh* pMesh = new Mesh();
 
-		if (bitmask & static_cast<char>(Attribute::POSITION)) {
+		if (fAttribs & Vertex::POSITION) {
 			VertexData aPos = {
 				{-0.5f, 0.5f, 0.0f},   // top left
 				{-0.5f, -0.5f, 0.0f},  // bottom left
@@ -117,10 +117,10 @@ namespace Primitives {
 				{0.5f, -0.5f, 0.0f}    // bottom right
 			};
 
-			m->vertex_attrib(Attribute::POSITION, aPos);
+			pMesh->VertexAttrib(Vertex::POSITION, aPos);
 		}
 
-		if (bitmask & static_cast<char>(Attribute::TEXTURE_COORD)) {
+		if (fAttribs & Vertex::TEXTURE_COORD) {
 			VertexData aTexCoord = {
 				{0.0f, 1.0f}, // top left
 				{0.0f, 0.0f}, // bottom left
@@ -130,9 +130,9 @@ namespace Primitives {
 				{1.0f, 0.0f}  // bottom right
 			};
 
-			m->vertex_attrib(Attribute::TEXTURE_COORD, aTexCoord);
+			pMesh->VertexAttrib(Vertex::TEXTURE_COORD, aTexCoord);
 		}
 
-		return m;
+		return pMesh;
 	}
 }

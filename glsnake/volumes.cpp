@@ -1,16 +1,16 @@
-#include "mesh.h"
+#include "mesh.hpp"
 #include "aabb.hpp"
-#include "vertexdata.h"
+#include "vertex-data.hpp"
 
 #include <glm/glm.hpp>
 
 namespace Volumes {
-	AABB* make_AABB(Mesh* m) {
-		VertexData pos_data = m->get_attrib(Attribute::POSITION);
+	AABB* make_AABB(Mesh* pMesh) {
+		VertexData pos_data = pMesh->GetAttrib(Vertex::POSITION);
 		float minX = pos_data[0], minY = pos_data[1], minZ = pos_data[2];
 		float maxX = pos_data[0], maxY = pos_data[1], maxZ = pos_data[2];
 
-		for (int i = 1; i < pos_data.num_vertices(); ++i) {
+		for (int i = 1; i < pos_data.NumVertices(); ++i) {
 			float x = pos_data[i * 3 + 0], y = pos_data[i * 3 + 1], z = pos_data[i * 3 + 2];
 			if (x < minX)
 				minX = x;

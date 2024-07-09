@@ -74,6 +74,7 @@ def GenerateCPPFileContent(component: str) -> str:
     
     file = \
     f'''#include \"{hpp}\"
+#include \"component.hpp\"
 
 void {component}::Start() {{
     
@@ -123,8 +124,8 @@ if __name__ == '__main__':
         file.write(cpp)
         file.close()
 
+    # write to the vcxproj file
     ET.register_namespace('', 'http://schemas.microsoft.com/developer/msbuild/2003')
-
     tree = ET.parse('./glsnake.vcxproj')
     root = tree.getroot()
 
@@ -139,3 +140,26 @@ if __name__ == '__main__':
                 child.append(e)
 
     tree.write('glsnake.vcxproj')
+
+    # write to the vcxproj.filters file
+    ET.register_namespace('', 'http://schemas.microsoft.com/developer/msbuild/2003')
+    tree = ET.parse('./glsnake.vcxproj.filters')
+    root = tree.getroot()
+
+    for child in root:
+        if child.tag[child.tag.find('}')+1:] == 'ItemGroup':
+            if child[0].tag[child.tag.find('}')+1:] == 'ClInclude':
+                include_tag = ET.Element('ClInclude', {'Include': hpp_filename})
+                filter_tag = ET.Element('Filter')
+                filter_tag.text = 'Header Files\\Components'
+                include_tag.append(filter_tag)
+                child.append(include_tag)
+
+            elif child[0].tag[child.tag.find('}')+1:] == 'ClCompile':
+                compile_tag = ET.Element('ClCompile', {'Include': cpp_filename})
+                filter_tag = ET.Element('Filter')
+                filter_tag.text = 'Source Files\\Components'
+                compile_tag.append(filter_tag)
+                child.append(compile_tag)
+
+    tree.write('glsnake.vcxproj.filters')

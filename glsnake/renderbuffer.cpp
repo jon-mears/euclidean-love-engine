@@ -1,4 +1,6 @@
 #include "renderbuffer.hpp"
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 Renderbuffer::Renderbuffer() {
 	glGenRenderbuffers(1, &mID);

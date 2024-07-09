@@ -7,8 +7,8 @@
 #include <map>
 #include <string>
 
-#include "resourcemanager.hpp"
 #include "resource.hpp"
+#include "image.hpp"
 
 #include <glm/glm.hpp>
 
@@ -20,7 +20,7 @@ class Texture1D {
 public:
 	struct ImageInfo {
 		Image1D* pImage;
-		unsigned char* pImageData{ NULL };
+		unsigned char* pImageData{ nullptr };
 		GLint mipmap_level{ 0 };
 		GLint internal_format{ GL_RGBA };
 		GLsizei width{ 0 };
@@ -29,7 +29,7 @@ public:
 		bool bGenMipmap{ true };
 
 		ImageInfo(Image1D* apImage) : pImage(apImage) {
-			if (apImage != NULL) {
+			if (apImage != nullptr) {
 				pImageData = apImage->Data();
 				width = apImage->Width();
 				format = apImage->Format();
@@ -44,7 +44,7 @@ public:
 			type = rImage.Type();
 		}
 
-		ImageInfo() : pImage(NULL) { }
+		ImageInfo() : pImage(nullptr) { }
 	};
 
 private:
@@ -54,8 +54,6 @@ private:
 	std::map<GLenum, GLenum> mParamVals{ {GL_TEXTURE_WRAP_S, GL_REPEAT},
 		{GL_TEXTURE_WRAP_T, GL_REPEAT}, {GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR},
 		{GL_TEXTURE_MAG_FILTER, GL_LINEAR} };
-
-	friend Texture1D* ResourceManager::New<Texture1D>(const std::string);
 
 public:
 	Texture1D();
@@ -85,7 +83,7 @@ class Texture2D {
 public:
 	struct ImageInfo {
 		Image2D* pImage;
-		unsigned char* pImageData{ NULL };
+		unsigned char* pImageData{ nullptr };
 		GLint mipmap_level{ 0 };
 		GLint internal_format{ GL_RGBA };
 		GLsizei width{ 0 };
@@ -95,7 +93,7 @@ public:
 		bool bGenMipmap{ true };
 
 		ImageInfo(Image2D* apImage) : pImage(apImage) {
-			if (apImage != NULL) {
+			if (apImage != nullptr) {
 				pImageData = apImage->Data();
 				width = apImage->Width();
 				height = apImage->Height();
@@ -112,7 +110,7 @@ public:
 			type = rImage.Type();
 		}
 
-		ImageInfo() : pImage(NULL) { }
+		ImageInfo() : pImage(nullptr) { }
 	};
 
 private:
@@ -121,8 +119,6 @@ private:
 	std::map<GLenum, GLenum> mParamVals{ {GL_TEXTURE_WRAP_S, GL_REPEAT},
 		{GL_TEXTURE_WRAP_T, GL_REPEAT}, {GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR},
 		{GL_TEXTURE_MAG_FILTER, GL_LINEAR} };
-
-	friend Texture2D* ResourceManager::New<Texture2D>(const std::string);
 
 public:
 	Texture2D();
@@ -153,7 +149,7 @@ class Texture3D {
 public:
 	struct ImageInfo {
 		Image3D* pImage;
-		unsigned char* pImageData{ NULL };
+		unsigned char* pImageData{ nullptr };
 		GLint mipmap_level{ 0 };
 		GLint internal_format{ GL_RGBA };
 		GLsizei width{ 0 };
@@ -164,7 +160,7 @@ public:
 		bool bGenMipmap{ true };
 
 		ImageInfo(Image3D* apImage) : pImage(apImage) {
-			if (apImage != NULL) {
+			if (apImage != nullptr) {
 				pImageData = apImage->Data();
 				width = apImage->Width();
 				height = apImage->Height();
@@ -183,7 +179,7 @@ public:
 			type = rImage.Type();
 		}
 
-		ImageInfo() : pImage(NULL) { }
+		ImageInfo() : pImage(nullptr) { }
 	};
 private:
 	GLuint mID{ 0 };
@@ -191,8 +187,6 @@ private:
 	std::map<GLenum, GLenum> mParamVals{ {GL_TEXTURE_WRAP_S, GL_REPEAT},
 		{GL_TEXTURE_WRAP_T, GL_REPEAT}, {GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR},
 		{GL_TEXTURE_MAG_FILTER, GL_LINEAR} };
-
-	friend Texture3D* ResourceManager::New<Texture3D>(const std::string);
 
 public:
 	Texture3D();

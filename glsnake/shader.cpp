@@ -1,4 +1,4 @@
-#include "shader.h"
+#include "shader.hpp"
 
 #include <iostream>
 #include <sstream>
@@ -13,84 +13,82 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "factories.h"
-#include "uniform.h"
+#include "factories.hpp"
+#include "uniform.hpp"
 
-#include "mesh.h"
-#include "glsltranslator.hpp"
+#include "mesh.hpp"
+#include "glsl-translator.hpp"
+#include "vertex-data.hpp"
 
-Shader::Shader(const std::string& name) : Resource(name), program(), mVSource(), mFSource(), mUniformCodes(), mAttribName2Type(), mAttribName2Loc() { }
+Shader::Shader() : mID{}, mVSource{}, mFSource{}, mUniformCodes{}, mAttribName2Type{}, mAttribName2Loc{} { }
 
-Shader::Shader() : Resource(), program(), mVSource(), mFSource(), mUniformCodes(), mAttribName2Type(), mAttribName2Loc() { }
-
-void Shader::enable() {
-	glUseProgram(program);
+void Shader::Enable() {
+	glUseProgram(mID);
 }
 
-void Shader::disable() {
+void Shader::Disable() {
 	glUseProgram(0);
 }
 
-void Shader::vertex(std::string source) {
+void Shader::ProvideVertexSource(const std::string& rcSource) {
 	char infoLog[512];
 	GLint success;
 
-	GLSL_Translator::translate(source);
-	mVSource = source;
+	mVSource = GLSLTranslator::Translate(rcSource);
+	mVSource = rcSource;
 
 	const char* vsource = mVSource.c_str();
 
-	vshader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vshader, 1, &vsource, NULL);
-	glCompileShader(vshader);
+	mVShaderID = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(mVShaderID, 1, &vsource, nullptr);
+	glCompileShader(mVShaderID);
 
-	glGetShaderiv(vshader, GL_COMPILE_STATUS, &success);
+	glGetShaderiv(mVShaderID, GL_COMPILE_STATUS, &success);
 
 	if (!success) {
-		glGetShaderInfoLog(vshader, 512, NULL, infoLog);
-		std::cout << "ERROR COMPILING VERTEX SHADER\n" << infoLog << std::endl;
+		glGetShaderInfoLog(mVShaderID, 512, nullptr, infoLog);
+		std::cerr << "ERROR COMPILING VERTEX SHADER\n" << infoLog << std::endl;
 		std::exit(-1);
 	}
 }
 
-void Shader::fragment(std::string source) {
+void Shader::ProvideFragmentSource(const std::string& rcSource) {
 	char infoLog[512];
 	GLint success;
 
-	GLSL_Translator::translate(source);
-	mFSource = source;
+	mFSource = GLSLTranslator::Translate(rcSource);
 
 	const char* fsource = mFSource.c_str();
 
-	fshader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fshader, 1, &fsource, NULL);
-	glCompileShader(fshader);
+	mFShaderID = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(mFShaderID, 1, &fsource, nullptr);
+	glCompileShader(mFShaderID);
 
-	glGetShaderiv(fshader, GL_COMPILE_STATUS, &success);
+	glGetShaderiv(mFShaderID, GL_COMPILE_STATUS, &success);
 
 	if (!success) {
-		glGetShaderInfoLog(fshader, 512, NULL, infoLog);
-		std::cout << "ERROR COMPILING FRAGMENT SHADER\n" << infoLog << std::endl;
+		glGetShaderInfoLog(mFShaderID, 512, nullptr, infoLog);
+		std::cerr << "ERROR COMPILING FRAGMENT SHADER\n" << infoLog << std::endl;
 		std::exit(-1);
 	}
 }
 
-void Shader::compile() {
+void Shader::Compile() {
 
 	char infoLog[512];
 	GLint success;
 
-	this->program = glCreateProgram();
+	mID = glCreateProgram();
 
-	glAttachShader(this->program, vshader);
-	glAttachShader(this->program, fshader);
+	glAttachShader(mID, mVShaderID);
+	glAttachShader(mID, mFShaderID);
 
-	glLinkProgram(this->program);
-	glGetProgramiv(this->program, GL_LINK_STATUS, &success);
+	glLinkProgram(mID);
+	glGetProgramiv(mID, GL_LINK_STATUS, &success);
 
 	if (!success) {
-		glGetProgramInfoLog(this->program, 512, NULL, infoLog);
-		std::cout << "ERROR LINKING PROGRAM\n" << infoLog << std::endl;
+		glGetProgramInfoLog(mID, 512, nullptr, infoLog);
+		std::cerr << "ERROR LINKING PROGRAM\n" << infoLog << std::endl;
 		std::exit(-1);
 	}	
 
@@ -104,19 +102,19 @@ void Shader::compile() {
 			vertexStream >> type;
 			vertexStream >> var;
 			var = var.substr(0, var.size() - 1); // get rid of semicolon at end
-			GLuint loc = glGetUniformLocation(this->program, var.c_str());
+			GLuint loc = glGetUniformLocation(mID, var.c_str());
 
-			mUniformCodes.push_back(Uniform::encode(var, loc, type));
+			mUniformCodes.push_back(Uniform::Encode(var, loc, type));
 		}
 
 		if (word == "in") {
 			vertexStream >> type;
 			vertexStream >> var;
 			var = var.substr(0, var.size() - 1); // get rid of semicolon at end
-			GLuint loc = glGetAttribLocation(program, var.c_str());
+			GLuint loc = glGetAttribLocation(mID, var.c_str());
 
 			mAttribName2Loc[var] = loc;
-			mAttribName2Type[var] = Attribute::NONE;
+			mAttribName2Type[var] = Vertex::Attribute::NONE;
 		}
 	}
 
@@ -128,18 +126,18 @@ void Shader::compile() {
 			fragmentStream >> type;
 			fragmentStream >> var;
 			var = var.substr(0, var.size() - 1); // get rid of semicolon at end
-			GLuint loc = glGetUniformLocation(this->program, var.c_str());
+			GLuint loc = glGetUniformLocation(mID, var.c_str());
 
 			//_uniforms[var] = Factories::make_uniform(var, loc, type);
-			mUniformCodes.push_back(Uniform::encode(var, loc, type));
+			mUniformCodes.push_back(Uniform::Encode(var, loc, type));
 		}
 	}
 }
 
-std::vector<std::string> &Shader::uniform_codes() {
+std::vector<std::string> &Shader::UniformCodes() {
 	return mUniformCodes;
 }
 
-void Shader::label_attrib(const std::string& name, Attribute attrib) {
-	mAttribName2Type[name] = attrib;
+void Shader::LabelAttrib(const std::string& name, Vertex::Attribute eAttrib) {
+	mAttribName2Type[name] = eAttrib;
 }
