@@ -54,11 +54,13 @@ void InitSnake(App* pApp) {
 	
 	Mesh* pBoxMesh = Primitives::Cube<Vertex::POSITION | Vertex::TEXTURE_COORD>();
 
-	Image2D* pBoxImage = new Image2D();
-	pBoxImage->Open("C:\\assets\\container.jpg");
-	Texture2D* pBoxTexture = new Texture2D();
+	//Image2D* pBoxImage = new Image2D();
+	//pBoxImage->Open("C:\\assets\\container.jpg");
+	//Texture2D* pBoxTexture = new Texture2D();
 
-	pBoxTexture->SetImage(pBoxImage);
+	Texture2D* pBoxTexture = ResourceManager::Instance().Retrieve<Texture2D>("Container");
+
+	//pBoxTexture->SetImage(pBoxImage);
 
 	GameObject* pBoxObj = ResourceManager::Instance().New<GameObject>("Box");
 

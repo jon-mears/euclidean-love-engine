@@ -26,9 +26,9 @@ void ResourceManager::XMLResourceTreeParser::ParseTree(XMLTree* pTree) {
 			ParseShader(pNode);
 		}
 
-		//else if (tagname == "Texture2D") {
-		//	ParseTexture2D(pNode);
-		//}
+		else if (tagname == "Texture2D") {
+			ParseTexture2D(pNode);
+		}
 	}
 }
 
