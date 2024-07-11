@@ -45,7 +45,7 @@ public:
 
 class Uniform1f : public Uniform {
 private:
-	float mValue;
+	float mValue{ 0.0f };
 public:
 
 	Uniform1f(const std::string& name, GLuint loc);

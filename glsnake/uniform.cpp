@@ -41,8 +41,7 @@ Uniform* Uniform::Decode(const std::string& code) {
 	}
 
 	else if (type == "vec4") { 
-		Uniform* u = new Uniform4f(name, std::atoi(loc.c_str()));
-		return u;
+		return new Uniform4f(name, std::atoi(loc.c_str()));
 	}
 
 	else if (type == "mat4") {
@@ -182,8 +181,6 @@ void Uniform4f::Set(const glm::vec4 &value) {
 }
 
 void Uniform4f::Upload() {
-
-	std::cout << "mLoc is " << mLoc << std::endl;
 	glUniform4fv(mLoc, 1, glm::value_ptr(mValue));
 }
 

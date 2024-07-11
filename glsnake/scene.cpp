@@ -44,7 +44,7 @@ void UniformFunction(GameObject* pGO, CameraComponent* pCameraC) {
 }
 
 void InitSnake(App* pApp) {
-	Shader *pBoxShader = ResourceManager::Instance().Retrieve<Shader>("Test Shader");
+	Shader *pBoxShader = ResourceManager::Instance().Retrieve<Shader>("Texture Shader");
 
 	for (std::vector<std::string>::iterator it =
 		pBoxShader->mUniformCodes.begin(); it !=
@@ -52,7 +52,8 @@ void InitSnake(App* pApp) {
 		std::cout << *it << std::endl;
 	}
 	
-	Mesh* pBoxMesh = Primitives::Cube(Vertex::POSITION);
+	Mesh* pBoxMesh = Primitives::Cube(Vertex::POSITION | 
+	Vertex::TEXTURE_COORD);
 	pBoxMesh->Compile();
 
 	Image2D* pBoxImage = new Image2D();
@@ -74,7 +75,9 @@ void InitSnake(App* pApp) {
 
 	ShaderComponent* pShaderC = pBoxObj->Add<ShaderComponent>();
 	pShaderC->SetShader(pBoxShader);
-	pShaderC->SetUniform("uColor", glm::vec4{0.0f, 0.0f, 1.0f, 1.0f});
+	pShaderC->SetUniform("uSampler", pBoxTexture);
+	pShaderC->SetUniform("uColor", glm::vec4{ 1.0f, 1.0f,
+		1.0f, 1.0f });
 	pShaderC->AddUpdater(UniformFunction);
 
 	GameObject* pCameraObj = ResourceManager::Instance().New<GameObject>("Camera");
