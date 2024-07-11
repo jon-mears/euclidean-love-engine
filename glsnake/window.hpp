@@ -1,28 +1,45 @@
 #ifndef WINDOW_HPP
 #define WINDOW_HPP
 
-struct GLFWwindow;
+#include <vector>
 
-#include <string>
-#include <glm/glm.hpp>
+class Material;
+class Mesh;
+class Texture2D;
 
 class Window {
-private:
-	GLFWwindow* mpWindow;
-	int mWidth, mHeight;
-	std::string mTitle;
-	glm::vec4 mBkgColor;
+protected:
+	float mOriginX{ 0.5f }, mOriginY{ 0.5f }; // percentages
+	float mWidth{ 0.5f }, mHeight{ 0.5f }; // percentages
+	std::vector<Window*> mChildren{};
 
 public:
-	Window(std::string title, int width=500, int height=500, glm::vec4 bkgColor=glm::vec4{1.0f, 1.0f, 1.0f, 1.0f});
-	bool ShouldClose();
-	int Width();
-	int Height();
-	std::string Title();
-	void SwapBuffers();
+	virtual void Draw() = 0;
+	virtual void OnHover() { }
+	virtual void OnClick() { }
+	virtual void OnUnclick() { }
+	virtual void OnUnhover() { }
 
-	int GLInit();
+	void AddChild(Window* pWindow) { mChildren.push_back(pWindow); }
 
-	friend class App;
+	Window() { }
+	virtual ~Window() { }
+};
+
+// child classes provide the texture(s)
+class TexturedWindow : public Window {
+private:
+	Mesh* mpMesh{ nullptr }; // to be a plane
+	Material* mpMaterial{ nullptr }; // to be a texture
+
+protected:
+	void SetTexture(Texture2D* pTexture);
+
+public:
+	virtual ~TexturedWindow() = 0;
+
+	virtual void Draw() override;
+
+	TexturedWindow();
 };
 #endif

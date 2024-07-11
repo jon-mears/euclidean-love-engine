@@ -84,6 +84,8 @@ void RenderEngine::Startup() {
 		std::exit(-1);
 	}
 
+	glViewport(0, 0, mWindowWidth, mWindowHeight);
+
 #endif
 }
 

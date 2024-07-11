@@ -25,6 +25,10 @@ void ResourceManager::XMLResourceTreeParser::ParseTree(XMLTree* pTree) {
 		if (tagname == "Shader") {
 			ParseShader(pNode);
 		}
+
+		//else if (tagname == "Texture2D") {
+		//	ParseTexture2D(pNode);
+		//}
 	}
 }
 
@@ -66,6 +70,22 @@ void ResourceManager::XMLResourceTreeParser::ParseShader(XMLNode* pNode) {
 	}
 
 	pShader->Compile();
+}
+
+void ResourceManager::XMLResourceTreeParser::ParseTexture2D
+(XMLNode* pNode) {
+	Texture2D* pTexture = ResourceManager::Instance().New
+		<Texture2D>(pNode->Attribute("Name"));
+
+	for (size_t i = 0; i < pNode->NumChildren(); ++i) {
+		XMLNode* pChild = pNode->Child(i);
+
+		if (pChild->Tag() == "Image2D") {
+			Image2D* pImage = new Image2D();
+			pImage->Open("C:\\assets\\" + pChild->Content());
+			pTexture->SetImage(pImage);
+		}
+	}
 }
 
 ResourceManager& ResourceManager::Instance() {

@@ -25,9 +25,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-const Scene Init_Scene = static_cast<Scene>(0);
 
-void UniformUpdater(GameObject* pGO, CameraComponent* pCameraC) {
+void UniformFunction(GameObject* pGO, CameraComponent* pCameraC) {
 	ShaderComponent* pShaderC = pGO->Retrieve<ShaderComponent>();
 	TransformComponent* pTransformC = pGO->Retrieve<TransformComponent>();
 	OrthographicComponent* pOrthoC = pGO->Retrieve<OrthographicComponent>();
@@ -35,24 +34,36 @@ void UniformUpdater(GameObject* pGO, CameraComponent* pCameraC) {
 	glm::mat4 model = pTransformC->ModelMatrix();
 
 	glm::mat4 proj = pOrthoC->ProjectionMatrix();
+
 	glm::mat4 view = pCameraC->ViewMatrix();
 
 	glm::mat4 MVP = proj * view * model;
+
+	//MVP = glm::mat4{ 1 };
+
+	//std::cout << glm::to_string(MVP) << std::endl;
 
 	pShaderC->SetUniform("uMVP", MVP);
 	pShaderC->UploadUniforms();
 }
 
 void InitSnake(App* pApp) {
-	Shader *pBoxShader = ResourceManager::Instance().Retrieve<Shader>("Texture");
+	Shader *pBoxShader = ResourceManager::Instance().Retrieve<Shader>("Test Shader");
 
-	Mesh* pBoxMesh = Primitives::Cube(Vertex::POSITION | Vertex::TEXTURE_COORD);
+	for (std::vector<std::string>::iterator it =
+		pBoxShader->mUniformCodes.begin(); it !=
+		pBoxShader->mUniformCodes.end(); ++it) {
+		std::cout << *it << std::endl;
+	}
+	
+	Mesh* pBoxMesh = Primitives::Plane(Vertex::POSITION);
+	pBoxMesh->Compile();
 
-	Image2D* pBoxImage = new Image2D();
-	pBoxImage->Open("C:\\assets\\container.jpg");
-	Texture2D* pBoxTexture = new Texture2D();
+	//Image2D* pBoxImage = new Image2D();
+	//pBoxImage->Open("C:\\assets\\container.jpg");
+	//Texture2D* pBoxTexture = new Texture2D();
 
-	pBoxTexture->SetImage(pBoxImage);
+	//pBoxTexture->SetImage(pBoxImage);
 
 	GameObject* pBoxObj = ResourceManager::Instance().New<GameObject>("Box");
 
@@ -67,17 +78,24 @@ void InitSnake(App* pApp) {
 
 	ShaderComponent* pShaderC = pBoxObj->Add<ShaderComponent>();
 	pShaderC->SetShader(pBoxShader);
-	pShaderC->SetUniform("uSampler", pBoxTexture);
-	pShaderC->AddUpdater(UniformUpdater);
+	pShaderC->SetUniform("uColor", glm::vec4{0.0f, 0.0f, 1.0f, 1.0f});
+	pShaderC->AddUpdater(UniformFunction);
 
 	GameObject* pCameraObj = ResourceManager::Instance().New<GameObject>("Camera");
 
 	pTransformC = pCameraObj->Add<TransformComponent>();
+	pTransformC->SetPosition(0.0f, 0.0f, 0.5f);
 	pTransformC->SetWindow(App::Instance().Window());
 
-	CameraComponent* pCameraC = pCameraObj->Add<TargetedCameraComponent>();
-	pCameraObj->Add<CameraControlComponent>();
+	CameraComponent* pCameraC = pCameraObj->Add<CameraComponent>();
+
+	pShaderC = pBoxObj->Retrieve<ShaderComponent>();
+
 	pCameraC->AddViewable(pBoxObj);
+
+	pMeshC->Enable();
+	pShaderC->Enable();
+	pShaderC->UploadUniforms();
 }
 
 void DeinitSnake(App* pApp) {

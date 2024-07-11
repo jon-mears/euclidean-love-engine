@@ -15,6 +15,10 @@ private:
 	
 public:
 	Image1D() { };
+	~Image1D() {
+		Close();
+	}
+
 	void Open(const std::string& rcFilename);
 	inline void Close() { stbi_image_free(mData); }
 	inline int Width() { return mWidth; }
@@ -32,6 +36,10 @@ private:
 
 public:
 	Image2D() { };
+	~Image2D() {
+		Close();
+	}
+
 	void Open(const std::string& rcFilename);
 	inline void Close() { stbi_image_free(mData); }
 	inline int Width() { return mWidth; }
@@ -50,6 +58,10 @@ private:
 
 public:
 	Image3D() { };
+	~Image3D() {
+		Close();
+	}
+
 	void Open(const std::string& rcFilename);
 	inline void Close() { stbi_image_free(mData); }
 	inline int Width() { return mWidth; }

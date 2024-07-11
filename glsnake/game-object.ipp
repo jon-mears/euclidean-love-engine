@@ -14,6 +14,7 @@ template <typename C>
 C* GameObject::Add() {
 	C* c = new C(this);
 	mOwnedComponents.push_back(c);
+	mAllComponents.push_back(c);
 
 	return c;
 }

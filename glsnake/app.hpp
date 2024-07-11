@@ -18,6 +18,8 @@ class CameraComponent;
 class ResourceManager;
 class UIWindow;
 
+class RootWindow;
+
 typedef void (*SceneFunc)(App*);
 typedef void (*UniformUpdater)(GameObject*, CameraComponent*);
 
@@ -38,25 +40,27 @@ private:
 
 	void Update();
 
-	std::map<Scene, SceneFunc> mInitScenes;
-	std::map<Scene, SceneFunc> mDeinitScenes;
+	SceneFunc mInitScene;
+	SceneFunc mDeinitScene;
 
 	//std::map<std::string, Window*> mWindows;
 	//Window* mWindow;
 
 	GLFWwindow* mpWindow;
+	RootWindow* mpRootWindow;
 
 	App();
-
+	 
 	bool ShouldClose();
 	
 public:
-	void RegisterScene(Scene scene, SceneFunc init, SceneFunc deinit);
-
 	int Init();
 	void StartSystems();
+	void StartRootWindow();
 	void Loop();
 	void Deinit();
+
+	void RegisterScene(Scene eScene, SceneFunc init, SceneFunc deinit);
 
 	GLFWwindow* Window();
 	static App& Instance();

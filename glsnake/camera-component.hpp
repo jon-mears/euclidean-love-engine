@@ -17,9 +17,9 @@ private:
 
 protected:
 	TransformComponent* mpTransform;
-	Framebuffer* mpFramebuffer;
-	int mWidth, mHeight;
-	int mOriginX, mOriginY;
+	Framebuffer* mpFramebuffer{nullptr};
+	int mWidth{ 600 }, mHeight{ 600 };
+	int mOriginX{ 0 }, mOriginY{ 0 };
 
 public:
 	void Start() override;

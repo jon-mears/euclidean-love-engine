@@ -16,10 +16,10 @@ enum class Attribute;
 class Uniform;
 
 class Shader {
-private:
+public:
 	GLuint mID;
-	GLuint mVShaderID{ -1 };
-	GLuint mFShaderID{ -1 };
+	GLuint mVShaderID{ 0 };
+	GLuint mFShaderID{ 0 };
 
 	std::string mVSource;
 	std::string mFSource;

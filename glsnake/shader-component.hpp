@@ -27,6 +27,7 @@ public:
 	void SetShader(Shader* pShader);
 	virtual void Start() override;
 	virtual void Update() override;
+	virtual void ConstUpdate() const override;
 	void AddUpdater(UniformUpdater uu);
 	void UpdateUniforms(CameraComponent* pCamera);
 	void Enable();
@@ -34,6 +35,7 @@ public:
 	void SetUniform(const std::string& name, const glm::mat4& value);
 	void SetUniform(const std::string& name, const glm::vec3& value);
 	void SetUniform(const std::string& name, Texture2D* value);
+	void SetUniform(const std::string& name, const glm::vec4& value);
 	void UploadUniforms();
 };
 #endif

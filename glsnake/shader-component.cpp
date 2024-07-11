@@ -25,6 +25,7 @@ void ShaderComponent::SetShader(Shader* pShader) {
 
 void ShaderComponent::Start() { }
 void ShaderComponent::Update() { }
+void ShaderComponent::ConstUpdate() const { }
 
 void ShaderComponent::AddUpdater(UniformUpdater uu) {
 	mUniformUpdaters.push_back(uu);
@@ -61,6 +62,15 @@ void ShaderComponent::SetUniform(const std::string& name, const glm::vec3& value
 	mUniforms[name]->Set(value);
 }
 
+void ShaderComponent::SetUniform(const std::string& name, const glm::vec4& value) {
+	if (!mUniforms.count(name)) {
+		std::cerr << "error :: attempt to access non-existent uniform " << name << std::endl;
+		std::exit(-1);
+	}
+
+	mUniforms[name]->Set(value);
+}
+
 void ShaderComponent::SetUniform(const std::string& name, Texture2D* pValue) {
 	if (!mUniforms.count(name)) {
 		std::cerr << "error :: attempt to access non-existent uniform " << name << std::endl;
@@ -75,5 +85,4 @@ void ShaderComponent::UploadUniforms() {
 	for (std::pair<const std::string, Uniform*> &item : mUniforms) {
 		item.second->Upload();
 	}
-	Disable();
 }

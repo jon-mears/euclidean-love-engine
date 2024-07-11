@@ -13,9 +13,8 @@ enum class Scene : int {
 	SNAKE = 0
 };
 
-extern const Scene InitScene;
 	
-void UniformUpdater(GameObject* pGO, CameraComponent* pCamera);
+void UniformFunction(GameObject* pGO, CameraComponent* pCamera);
 void InitSnake(App* pApp);
 void DeinitSnake(App* pApp);
 #endif

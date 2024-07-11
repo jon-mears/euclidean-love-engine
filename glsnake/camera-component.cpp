@@ -5,6 +5,8 @@
 #include "game-object.hpp"
 #include "component.hpp"
 #include "framebuffer.hpp"
+#include "vertex-data.hpp"
+#include "mesh.hpp"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -14,6 +16,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/string_cast.hpp>
 
 CameraComponent::CameraComponent(GameObject* pGO) : Component(pGO), mViewables(), mpTransform(nullptr) { }
 
@@ -33,9 +36,15 @@ void CameraComponent::AddViewable(GameObject* pGO) {
 }
 
 void CameraComponent::Draw() {
-	glViewport(mOriginX, mOriginY, mWidth, mHeight);
+	//glViewport(mOriginX, mOriginY, mWidth, mHeight);
 
-	mpFramebuffer->Enable();
+	if (mpFramebuffer == nullptr) {
+		//glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
+	else {
+		mpFramebuffer->Enable();
+	}
 
 	for (GameObject* pViewable : mViewables) {
 
@@ -73,6 +82,7 @@ glm::mat4 CameraComponent::ViewMatrix() {
 	rotation_matrix = glm::rotate(rotation_matrix, rot.x, glm::vec3(1, 0, 0));
 	rotation_matrix = glm::rotate(rotation_matrix, rot.y, glm::vec3(0, 1, 0));
 	rotation_matrix = glm::rotate(rotation_matrix, rot.z, glm::vec3(0, 0, 1));
+
 
 	glm::vec4 center4 = rotation_matrix * glm::vec4{ 0, 0, -1, 0 };
 

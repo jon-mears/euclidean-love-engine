@@ -12,6 +12,7 @@ public:
 
 	virtual void Start() override;
 	virtual void Update() override;
+	virtual void ConstUpdate() const override;
 
 	MeshComponent(GameObject* pGO);
 	void SetMesh(Mesh* pMesh);

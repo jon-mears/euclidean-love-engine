@@ -62,7 +62,7 @@ StateCommand XMLTag::Process(XMLParser& rParser) {
 // XMLBeginTagname
 
 StateCommand XMLBeginTagname::Process(XMLParser& rParser) {
-	if (std::isalpha(rParser.mChar)) {
+	if (std::isalnum(rParser.mChar)) {
 		mTagname[mIndex++] = rParser.mChar;
 	}
 
@@ -98,7 +98,7 @@ StateCommand XMLEndTagname::Enter(XMLParser& rParser) {
 }
 
 StateCommand XMLEndTagname::Process(XMLParser& rParser) {
-	if (isalpha(rParser.mChar)) {
+	if (std::isalnum(rParser.mChar)) {
 		mTagname[mIndex++] = rParser.mChar;
 	}
 
@@ -148,7 +148,7 @@ StateCommand XMLAttribName::Enter(XMLParser& rParser) {
 }
 
 StateCommand XMLAttribName::Process(XMLParser& rParser) {
-	if (isalpha(rParser.mChar)) {
+	if (std::isalnum(rParser.mChar)) {
 		mAttribName[mIndex++] = rParser.mChar;
 	}
 
@@ -187,7 +187,7 @@ StateCommand XMLAttribNameCloser::Process(XMLParser& rParser) {
 		return StateCommand(StateAction::REPLACE, new XMLTagCloser());
 	}
 
-	else if (isalpha(rParser.mChar)) {
+	else if (std::isalnum(rParser.mChar)) {
 		rParser.mNodes.top()->AddAttrib(mAttribName, "");
 		return StateCommand(StateAction::REPLACE, new XMLAttribName());
 	}

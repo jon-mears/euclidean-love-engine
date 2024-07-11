@@ -6,3 +6,4 @@ ProjectionComponent::ProjectionComponent(GameObject* pGO) : Component{ pGO } { }
 
 void ProjectionComponent::Start() { }
 void ProjectionComponent::Update() { }
+void ProjectionComponent::ConstUpdate() const { }

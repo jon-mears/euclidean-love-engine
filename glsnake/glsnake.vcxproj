@@ -167,6 +167,7 @@
     <ClCompile Include="..\..\..\..\..\..\imgui\imgui\imgui_tables.cpp" />
     <ClCompile Include="..\..\..\..\..\..\imgui\imgui\imgui_widgets.cpp" />
     <ClCompile Include="aabb.cpp" />
+    <ClCompile Include="button.cpp" />
     <ClCompile Include="camera-component.cpp" />
     <ClCompile Include="camera-control-component.cpp" />
     <ClCompile Include="component.cpp" />
@@ -181,6 +182,7 @@
     <ClCompile Include="input-manager.cpp" />
     <ClCompile Include="key-mouse-input-service.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="material.cpp" />
     <ClCompile Include="math-3d.cpp" />
     <ClCompile Include="mesh.cpp" />
     <ClCompile Include="mesh-component.cpp" />
@@ -193,6 +195,7 @@
     <ClCompile Include="render-engine.cpp" />
     <ClCompile Include="resource.cpp" />
     <ClCompile Include="resource-manager.cpp" />
+    <ClCompile Include="root-window.cpp" />
     <ClCompile Include="selector-component.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="shader-component.cpp" />
@@ -219,9 +222,11 @@
     <ClInclude Include="..\..\..\..\..\..\imgui\imgui\imconfig.h" />
     <ClInclude Include="..\..\..\..\..\..\imgui\imgui\imgui.h" />
     <ClInclude Include="..\..\..\..\..\..\imgui\imgui\imgui_internal.h" />
+    <ClInclude Include="button.hpp" />
     <ClInclude Include="component.hpp" />
     <ClInclude Include="framebuffer.hpp" />
     <ClInclude Include="image.hpp" />
+    <ClInclude Include="material.hpp" />
     <ClInclude Include="math-3d.hpp" />
     <ClInclude Include="aabb.hpp" />
     <ClInclude Include="camera-component.hpp" />
@@ -247,6 +252,7 @@
     <ClInclude Include="render-engine.hpp" />
     <ClInclude Include="resource.hpp" />
     <ClInclude Include="resource-manager.hpp" />
+    <ClInclude Include="root-window.hpp" />
     <ClInclude Include="selector-component.hpp" />
     <ClInclude Include="shader.hpp" />
     <ClInclude Include="shader-component.hpp" />

@@ -10,7 +10,7 @@
 
 #include "texture.hpp"
 
-Uniform::Uniform(const std::string& name, GLuint loc) : mName{ name }, mLoc{ mLoc } { }
+Uniform::Uniform(const std::string& name, GLuint loc) : mName{ name }, mLoc{ loc } { }
 
 // static
 std::string Uniform::Encode(std::string name, GLuint loc, std::string type) {
@@ -23,12 +23,12 @@ Uniform* Uniform::Decode(const std::string& code) {
 	size_t colon_pos2 = code.find(":", colon_pos1 + 1);
 
 	if (colon_pos1 == std::string::npos) {
-		std::cout << "uniform codes must contain a colon!" << std::endl;
+		std::cerr << "uniform codes must contain a colon!" << std::endl;
 		std::exit(-1);
 	}
 
 	if (colon_pos2 == std::string::npos) {
-		std::cout << "uniform codes must contain two colons!" << std::endl;
+		std::cerr << "uniform codes must contain two colons!" << std::endl;
 		std::exit(-1);
 	}
 
@@ -41,7 +41,11 @@ Uniform* Uniform::Decode(const std::string& code) {
 	}
 
 	else if (type == "vec4") {
-		return new Uniform4f(name, std::atoi(loc.c_str()));
+		std::cout << "loc.c_str() is " << std::atoi(loc.c_str()) << std::endl; 
+		Uniform* u = new Uniform4f(name, std::atoi(loc.c_str()));
+		//return new Uniform4f(name, std::atoi(loc.c_str()));
+		std::cout << "u.mLoc is " << u->mLoc << std::endl;
+		return u;
 	}
 
 	else if (type == "mat4") {
@@ -181,6 +185,8 @@ void Uniform4f::Set(const glm::vec4 &value) {
 }
 
 void Uniform4f::Upload() {
+
+	std::cout << "mLoc is " << mLoc << std::endl;
 	glUniform4fv(mLoc, 1, glm::value_ptr(mValue));
 }
 
@@ -256,7 +262,7 @@ void UniformMat3::Upload() {
 	glUniformMatrix3fv(mLoc, 1, GL_FALSE, glm::value_ptr(mValue));
 }
 
-UniformMat4::UniformMat4(const std::string& name, GLuint loc) : Uniform{name, loc}, mValue{} { }
+UniformMat4::UniformMat4(const std::string& name, GLuint loc) : Uniform{name, loc} { }
 
 void UniformMat4::Set(const glm::mat4& value) {
 	mValue = value;

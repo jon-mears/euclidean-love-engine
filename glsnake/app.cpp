@@ -7,6 +7,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "root-window.hpp"
 #include "camera-component.hpp"
 #include "game-object.hpp"
 #include "resource.hpp"
@@ -32,17 +33,19 @@
 #include "key-mouse-input-service.hpp"
 #include "render-engine.hpp"
 
-App::App() : mInitScenes{}, mDeinitScenes{}, mpWindow(nullptr) { }
+App::App() : mInitScene{nullptr}, mDeinitScene{nullptr}, mpWindow(nullptr),
+mpRootWindow{ nullptr } { }
 
 int App::Init() {	
 	StartSystems();
+	//StartRootWindow();
 
-	if (!mInitScenes.count(InitScene)) {
-		std::cout << "error :: state with index " << static_cast<int>(InitScene) << " does not exist" << std::endl;
-		std::exit(-1);
-	}
+	//if (!mInitScenes.count(InitScene)) {
+	//	std::cerr << "error :: state with index " << static_cast<int>(InitScene) << " does not exist" << std::endl;
+	//	std::exit(-1);
+	//}
 
-	mInitScenes[InitScene](this);
+	mInitScene(this);
 
 	// iterate over gameobjects
 	for (std::map<std::string, GameObject*>::iterator it = ResourceManager::Instance().Begin<GameObject>(); it != ResourceManager::Instance().End<GameObject>(); ++it) {
@@ -54,6 +57,36 @@ int App::Init() {
 }
 
 void App::Loop() {
+
+	//const char* vsource = "#version 330 core\n"
+	//	"layout (location=0) in vec3 aPos;\n"
+	//	"void main() {\n"
+	//	"	gl_Position = vec4(aPos, 1.0f);\n"
+	//	"}";
+	//const char* fsource = "#version 330 core\n"
+	//	"out vec4 FragColor;\n"
+	//	"uniform vec4 uColor;\n"
+	//	"void main() {\n"
+	//	"	FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+	//	"}";
+
+	//GLuint vshader = glCreateShader(GL_VERTEX_SHADER);
+	//glShaderSource(vshader, 1, &vsource, nullptr);
+	//glCompileShader(vshader);
+
+	//GLuint fshader = glCreateShader(GL_FRAGMENT_SHADER);
+	//glShaderSource(fshader, 1, &fsource, nullptr);
+	//glCompileShader(fshader);
+
+	//GLuint program = glCreateProgram();
+
+	//glAttachShader(program, vshader);
+	//glAttachShader(program, fshader);
+
+	//glLinkProgram(program);
+
+	//glUseProgram(program);
+
 	while (!ShouldClose()) {
 
 		// event polling
@@ -73,6 +106,8 @@ void App::Loop() {
 
 		// imgui completion
 		EditorManager::Instance().EndFrame();
+
+		////mpRootWindow->Draw();
 
 		// swap buffers
 		RenderEngine::Instance().EndFrame();
@@ -99,11 +134,6 @@ void App::Deinit() {
 	}
 
 	glfwTerminate();
-}
-
-void App::RegisterScene(Scene scene, SceneFunc init, SceneFunc deinit) {
-	mInitScenes[scene] = init;
-	mDeinitScenes[scene] = deinit;
 }
 
 GLFWwindow* App::Window() {
@@ -154,7 +184,17 @@ void App::StartSystems() {
 	InputManager::Instance().Startup();
 }
 
+void App::StartRootWindow() {
+	mpRootWindow = new RootWindow();
+	//mpRootWindow->Draw();
+}
+
 App& App::Instance() {
 	static App gApp;
 	return gApp;
+}
+
+void App::RegisterScene(Scene eScene, SceneFunc init, SceneFunc deinit) {
+	mInitScene = init;
+	mDeinitScene = deinit;
 }

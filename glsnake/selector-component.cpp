@@ -67,12 +67,14 @@ void SelectorComponent::Update() {
 		unsigned char *texel = mpTexture->ReadTexel(mousepos);
 		glm::vec4 color{ texel[0], texel[1], texel[2], texel[3] };
 
-		if (mColor2Object.count(color)) {
+		//if (mColor2Object.count(color)) {
 
-			EditorManager::Instance().mpSelected = mColor2Object[color];
-		}
+		//	EditorManager::Instance().mpSelected = mColor2Object[color];
+		//}
 	}
 }
+
+void SelectorComponent::ConstUpdate() const { }
 
 // MainCamera defined by the writer to the default framebuffer...
 // ConstUpdate or Ordering (or BOTH!!!)

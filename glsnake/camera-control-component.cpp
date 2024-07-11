@@ -52,3 +52,5 @@ void CameraControlComponent::Update() {
 		float deltaY = -mYLookSpeed * InputManager::Instance().RelativeAxis(Input::VERTICAL);
 	}
 }
+
+void CameraControlComponent::ConstUpdate() const { }

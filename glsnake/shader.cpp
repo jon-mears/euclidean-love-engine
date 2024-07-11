@@ -35,7 +35,6 @@ void Shader::ProvideVertexSource(const std::string& rcSource) {
 	GLint success;
 
 	mVSource = GLSLTranslator::Translate(rcSource);
-	mVSource = rcSource;
 
 	const char* vsource = mVSource.c_str();
 
@@ -102,6 +101,7 @@ void Shader::Compile() {
 			vertexStream >> type;
 			vertexStream >> var;
 			var = var.substr(0, var.size() - 1); // get rid of semicolon at end
+
 			GLuint loc = glGetUniformLocation(mID, var.c_str());
 
 			mUniformCodes.push_back(Uniform::Encode(var, loc, type));
@@ -125,7 +125,11 @@ void Shader::Compile() {
 		if (word == "uniform") {
 			fragmentStream >> type;
 			fragmentStream >> var;
-			var = var.substr(0, var.size() - 1); // get rid of semicolon at end
+
+			if (var.find(';') != std::string::npos) {
+				var = var.substr(0, var.size() - 1); // get rid of semicolon at end
+			}
+
 			GLuint loc = glGetUniformLocation(mID, var.c_str());
 
 			//_uniforms[var] = Factories::make_uniform(var, loc, type);

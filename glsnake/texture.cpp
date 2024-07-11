@@ -137,8 +137,8 @@ void Texture2D::Read(glm::ivec2 position) {
 
 	GLuint* pixel;
 
-	glGetTextureSubImage(GL_TEXTURE_2D, 0, position.x, 
-		position.y, 0, 1, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, 1, &pixel);
+	//glGetTextureSubImage(GL_TEXTURE_2D, 0, position.x, 
+	//	position.y, 0, 1, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, 1, &pixel);
 
 	Disable();
 }
@@ -148,8 +148,8 @@ unsigned char* Texture2D::ReadTexel(glm::ivec2 position) {
 
 	static unsigned char data[4];
 
-	glGetTextureSubImage(GL_TEXTURE_2D, 0, position.x, position.y, 0,
-		1, 1, 1, GL_RGBA8, GL_UNSIGNED_BYTE, 1, data);
+	//glGetTextureSubImage(GL_TEXTURE_2D, 0, position.x, position.y, 0,
+	//	1, 1, 1, GL_RGBA8, GL_UNSIGNED_BYTE, 1, data);
 	Disable();
 
 	return data;

@@ -14,5 +14,6 @@ public:
 
 	virtual void Start() override;
 	virtual void Update() override;
+	virtual void ConstUpdate() const override;
 };
 #endif

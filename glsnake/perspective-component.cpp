@@ -2,7 +2,6 @@
 #include "game-object.hpp"
 #include "projection-component.hpp"
 #include "transform-component.hpp"
-#include "window.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

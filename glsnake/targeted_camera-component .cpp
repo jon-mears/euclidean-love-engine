@@ -1,7 +1,10 @@
+#include <iostream>
+
 #include "targeted-camera-component.hpp"
 #include "transform-component.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/string_cast.hpp>
 
 // should the parent also be added to the component list?
 TargetedCameraComponent::TargetedCameraComponent(GameObject* pGO) : CameraComponent{pGO}, mTarget{0.0f, 0.0f, 0.0f} { }

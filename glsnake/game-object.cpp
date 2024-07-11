@@ -1,7 +1,6 @@
 #include "game-object.hpp"
 #include "component.hpp"
 #include "app.hpp"
-#include "window.hpp"
 
 #include <string>
 #include <vector>

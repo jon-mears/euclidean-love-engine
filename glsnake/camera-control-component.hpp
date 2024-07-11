@@ -29,6 +29,7 @@ public:
 	CameraControlComponent(GameObject* pGO);
 	virtual void Start() override;
 	virtual void Update() override;
+	virtual void ConstUpdate() const override;
 
 	float mXPanSpeed = 0.01f;
 	float mYPanSpeed = 0.01f;

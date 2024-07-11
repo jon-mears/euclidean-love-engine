@@ -151,7 +151,7 @@ public:
 
 class UniformMat4 : public Uniform {
 private:
-	glm::mat4 mValue;
+	glm::mat4 mValue{ 1 };
 public:
 
 	UniformMat4(const std::string& name, GLuint loc); 

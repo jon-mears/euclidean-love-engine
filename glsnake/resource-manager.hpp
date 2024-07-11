@@ -85,6 +85,7 @@ private:
 	class XMLResourceTreeParser {
 	private:
 		void ParseShader(XMLNode* pNode);
+		void ParseTexture2D(XMLNode* pNode);
 	public:
 		void ParseTree(XMLTree* pTree);
 	} mXmlTreeParser;

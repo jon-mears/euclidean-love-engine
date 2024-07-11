@@ -1,69 +1,41 @@
-#include "window.hpp"
-
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
 #include <iostream>
 
-#include "imgui.h"
-#include "imgui_impl_glfw.h"
-#include "imgui_impl_opengl3.h"
+#include "material.hpp"
+#include "mesh.hpp"
+#include "primitives.hpp"
+#include "resource-manager.hpp"
+#include "shader-component.hpp"
+#include "vertex-data.hpp"
+#include "window.hpp"
 
-#include <Windows.h>
+TexturedWindow::TexturedWindow() : Window{} {
+	mpMesh = Primitives::Plane(Vertex::POSITION |
+		Vertex::TEXTURE_COORD);
 
-namespace {
-	void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
-		glViewport(0, 0, width, height);
-	}
+	mpMaterial = new Material();
+	mpMaterial->SetShader(ResourceManager::Instance().
+		Retrieve<Shader>("Texture Shader"));
 }
 
-Window::Window(std::string title, int width, int height, glm::vec4 bkgColor) : mTitle(title), mpWindow(nullptr), mWidth(width), mHeight(height), mBkgColor(bkgColor) { }
-
-bool Window::ShouldClose() {
-	return glfwWindowShouldClose(mpWindow);
+void TexturedWindow::SetTexture(Texture2D* pTexture) {
+	mpMaterial->SetUniform("uSampler", pTexture);
 }
 
-void Window::SwapBuffers() {
-	glfwSwapBuffers(mpWindow);
+void TexturedWindow::Draw() {
+	GLint viewport_data[4];
+	glGetIntegerv(GL_VIEWPORT, viewport_data);
+
+	GLint x = viewport_data[0] * mOriginX,
+		y = viewport_data[1] * mOriginY,
+		width = viewport_data[2] * mWidth,
+		height = viewport_data[3] * mHeight;
+
+	glViewport(x, y, width, height);
+	
+	mpMesh->Enable();
+	mpMaterial->Enable();
+
+	glDrawArrays(GL_TRIANGLES, 0, mpMesh->NumVertices());
 }
 
-int Window::Width() {
-	return mWidth;
-}
-
-int Window::Height() {
-	return mHeight;
-}
-
-std::string Window::Title() {
-	return mTitle;
-}
-
-int Window::GLInit() {
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-	mpWindow = glfwCreateWindow(mWidth, mHeight, mTitle.c_str(), nullptr, nullptr);
-
-	if (mpWindow == nullptr) {
-		std::cout << "failed to create GLFW window" << std::endl;
-
-		glfwTerminate();
-		return -1;
-	}
-
-	glfwMakeContextCurrent(mpWindow);
-	glfwSetFramebufferSizeCallback(mpWindow, framebuffer_size_callback);
-
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-
-	ImGui::StyleColorsDark();
-
-	ImGui_ImplGlfw_InitForOpenGL(mpWindow, true);
-	ImGui_ImplOpenGL3_Init("#version 130");
-
-	return 0;
-}
+TexturedWindow::~TexturedWindow() { }
