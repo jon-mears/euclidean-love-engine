@@ -52,9 +52,7 @@ void InitSnake(App* pApp) {
 		std::cout << *it << std::endl;
 	}
 	
-	Mesh* pBoxMesh = Primitives::Cube(Vertex::POSITION | 
-	Vertex::TEXTURE_COORD);
-	pBoxMesh->Compile();
+	Mesh* pBoxMesh = Primitives::Cube<Vertex::POSITION | Vertex::TEXTURE_COORD>();
 
 	Image2D* pBoxImage = new Image2D();
 	pBoxImage->Open("C:\\assets\\container.jpg");
