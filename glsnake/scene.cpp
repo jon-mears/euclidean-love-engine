@@ -39,10 +39,6 @@ void UniformFunction(GameObject* pGO, CameraComponent* pCameraC) {
 
 	glm::mat4 MVP = proj * view * model;
 
-	//MVP = glm::mat4{ 1 };
-
-	//std::cout << glm::to_string(MVP) << std::endl;
-
 	pShaderC->SetUniform("uMVP", MVP);
 	pShaderC->UploadUniforms();
 }
@@ -56,14 +52,14 @@ void InitSnake(App* pApp) {
 		std::cout << *it << std::endl;
 	}
 	
-	Mesh* pBoxMesh = Primitives::Plane(Vertex::POSITION);
+	Mesh* pBoxMesh = Primitives::Cube(Vertex::POSITION);
 	pBoxMesh->Compile();
 
-	//Image2D* pBoxImage = new Image2D();
-	//pBoxImage->Open("C:\\assets\\container.jpg");
-	//Texture2D* pBoxTexture = new Texture2D();
+	Image2D* pBoxImage = new Image2D();
+	pBoxImage->Open("C:\\assets\\container.jpg");
+	Texture2D* pBoxTexture = new Texture2D();
 
-	//pBoxTexture->SetImage(pBoxImage);
+	pBoxTexture->SetImage(pBoxImage);
 
 	GameObject* pBoxObj = ResourceManager::Instance().New<GameObject>("Box");
 
@@ -87,15 +83,13 @@ void InitSnake(App* pApp) {
 	pTransformC->SetPosition(0.0f, 0.0f, 0.5f);
 	pTransformC->SetWindow(App::Instance().Window());
 
-	CameraComponent* pCameraC = pCameraObj->Add<CameraComponent>();
+	TargetedCameraComponent* pCameraC = pCameraObj->Add<TargetedCameraComponent>();
 
 	pShaderC = pBoxObj->Retrieve<ShaderComponent>();
 
-	pCameraC->AddViewable(pBoxObj);
+	pCameraObj->Add<CameraControlComponent>();
 
-	pMeshC->Enable();
-	pShaderC->Enable();
-	pShaderC->UploadUniforms();
+	pCameraC->AddViewable(pBoxObj);
 }
 
 void DeinitSnake(App* pApp) {

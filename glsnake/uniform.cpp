@@ -40,11 +40,8 @@ Uniform* Uniform::Decode(const std::string& code) {
 		return new Uniform3f(name, std::atoi(loc.c_str()));
 	}
 
-	else if (type == "vec4") {
-		std::cout << "loc.c_str() is " << std::atoi(loc.c_str()) << std::endl; 
+	else if (type == "vec4") { 
 		Uniform* u = new Uniform4f(name, std::atoi(loc.c_str()));
-		//return new Uniform4f(name, std::atoi(loc.c_str()));
-		std::cout << "u.mLoc is " << u->mLoc << std::endl;
 		return u;
 	}
 
