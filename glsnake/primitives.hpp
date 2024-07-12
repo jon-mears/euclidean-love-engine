@@ -1,6 +1,8 @@
 #ifndef PRIMITIVES_HPP
 #define PRIMITIVES_HPP
 
+#include <glm/glm.hpp>
+
 class Mesh;
 
 namespace Primitives {
@@ -114,5 +116,24 @@ namespace Primitives {
 	}
 
 	Mesh* Plane(char bitmask);
+
+	template <int x, int y, int z>
+	Mesh* Line() {
+		static Mesh* pMesh = nullptr;
+
+		if (pMesh == nullptr) {
+			pMesh = new Mesh();
+
+			VertexData aPos = {
+				{0.0f, 0.0f, 0.0f},
+				{x, y, z}
+			};
+
+			pMesh->VertexAttrib(Vertex::POSITION, aPos);
+			pMesh->Compile();
+		}
+
+		return pMesh;
+	}
 }
 #endif

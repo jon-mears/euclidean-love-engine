@@ -43,6 +43,10 @@ public:
 	VertexData GetAttrib(Vertex::Attribute eAttrib);
 
 	Mesh();
+
+	~Mesh() {
+		glDeleteVertexArrays(1, &mVAO);
+	}
 };
 
 #endif

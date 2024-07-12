@@ -77,9 +77,22 @@ void InitSnake(App* pApp) {
 
 	pShaderC = pBoxObj->Retrieve<ShaderComponent>();
 
-	pCameraObj->Add<CameraControlComponent>();
+	CameraControlComponent* pCameraControl = pCameraObj->Add<CameraControlComponent>();
+	pCameraControl->ToggleActive();
+	pCameraControl->ToggleActive();
 
 	pCameraC->AddViewable(pBoxObj);
+
+	// translation gizmo
+
+	Mesh* pXVec = Primitives::Line<1, 0, 0>();
+	Mesh* pYVec = Primitives::Line<0, 1, 0>();
+	Mesh* pZVec = Primitives::Line<0, 0, 1>();
+
+	GameObject* pTranslationGizmo = ResourceManager::Instance().New<GameObject>("Translation Gizmo");
+	pMeshC = pTranslationGizmo->Add<MeshComponent>();
+	pMeshC->SetMesh(pXVec);
+	pMeshC->SetRenderMode(GL_LINES);
 }
 
 void DeinitSnake(App* pApp) {

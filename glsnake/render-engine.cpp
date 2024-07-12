@@ -2,8 +2,12 @@
 #include "resource-manager.hpp"
 #include "targeted-camera-component.hpp"
 #include "game-object.hpp"
+#include "editor-manager.hpp"
+#include "transform-component.hpp"
+#include "glsl-translator.hpp"
 
 #include "camera-component.hpp"
+#include "primitives.hpp"
 
 #include <iostream>
 #include <string>
@@ -11,6 +15,8 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace FramebufferCallback {
 #ifdef _glfw3_h_
@@ -25,6 +31,25 @@ namespace FramebufferCallback {
 RenderEngine::RenderEngine() : mfClearFlags{ 0 }, mWindowWidth{ 0 }, mWindowHeight{ 0 }, mpcWindowName{ nullptr } { }
 
 void RenderEngine::Draw() {
+
+	//static GLuint local_vec_vao = 0;
+	//static GLuint vbo = 0;
+
+	//if (local_vec_vao == 0 && vbo == 0) {
+	//	glGenBuffers(1, &vbo);
+	//	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	//	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 18,
+	//		nullptr, GL_STATIC_DRAW);
+
+	//	glGenVertexArrays(1, &local_vec_vao);
+	//	glBindVertexArray(local_vec_vao);
+	//	glVertexAttribPointer(GLSLTranslator::Attrib2Loc(
+	//		Vertex::POSITION), 3, GL_FLOAT, GL_FALSE,
+	//		3 * sizeof(GLfloat), (void*)0);
+	//	glEnableVertexArrayAttrib(local_vec_vao,
+	//		GLSLTranslator::Attrib2Loc(Vertex::POSITION));
+	//}
+
 	ClearBuffers();
 
 	CameraComponent* pCamera = nullptr;
@@ -35,6 +60,31 @@ void RenderEngine::Draw() {
 			pCamera->Draw();
 		}
 	}
+
+	//DisableTests(GL_DEPTH_TEST);
+
+	//if (EditorManager::Instance().mpSelected != nullptr) {
+	//	TransformComponent* pTransformC =
+	//		EditorManager::Instance().mpSelected->Retrieve<TransformComponent>();
+
+	//	glm::vec3 position = pTransformC->Position(),
+	//		localX = pTransformC->LocalX(),
+	//		localY = pTransformC->LocalY(),
+	//		localZ = pTransformC->LocalZ();
+
+	//	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+
+	//	glBufferSubData(GL_ARRAY_BUFFER, 0, 3 * sizeof(GLfloat),
+	//		glm::value_ptr(position));
+	//	glBufferSubData(GL_ARRAY_BUFFER, 3 * sizeof(GLfloat),
+	//		3 * sizeof(GLfloat), glm::value_ptr(localX));
+	//	glBufferSubData(GL_ARRAY_BUFFER, 6 * sizeof(GLfloat),
+	//		3 * sizeof(GLfloat), glm::value_ptr(position));
+	//	glBufferSubData(GL_ARRAY_BUFFER, 9*sizeof(GLfloat),
+	//		3*sizeof(GLfloat, ))
+
+	//	glm::vec3 localY = pTransformC->LocalY();
+	//	glBufferSubData()
 }
 
 void RenderEngine::ClearBuffers() {

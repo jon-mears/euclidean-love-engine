@@ -9,6 +9,7 @@ private:
 
 protected:
 	GameObject* mpGO;
+	bool mbActive{ true };
 public:
 	virtual ~Component() { }
 
@@ -23,6 +24,10 @@ public:
 	const C* GetComponent() const;
 
 	Component(GameObject* pGO);
+
+	inline bool IsActive() { return mbActive; }
+	inline void SetActive(bool bActive) { mbActive = bActive; }
+	inline bool ToggleActive() { return mbActive = !mbActive; }
 
 	friend class ObjectEditor; // to allow access to the component's
 							   // interface

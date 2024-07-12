@@ -9,7 +9,9 @@ GameObject::GameObject() : mOwnedComponents{}, mSharedComponents{}, mAllComponen
 
 void GameObject::Update() {
 	for (Component* pComponent : mOwnedComponents) {
-		pComponent->Update();
+		if (pComponent->IsActive()) {
+			pComponent->Update();
+		}
 	}
 }
 
