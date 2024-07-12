@@ -16,7 +16,7 @@ enum class Attribute;
 class Uniform;
 
 class Shader {
-public:
+private:
 	GLuint mID;
 	GLuint mVShaderID{ 0 };
 	GLuint mFShaderID{ 0 };

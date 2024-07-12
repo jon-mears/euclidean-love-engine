@@ -45,27 +45,14 @@ void UniformFunction(GameObject* pGO, CameraComponent* pCameraC) {
 
 void InitSnake(App* pApp) {
 	Shader *pBoxShader = ResourceManager::Instance().Retrieve<Shader>("Texture Shader");
-
-	for (std::vector<std::string>::iterator it =
-		pBoxShader->mUniformCodes.begin(); it !=
-		pBoxShader->mUniformCodes.end(); ++it) {
-		std::cout << *it << std::endl;
-	}
-	
 	Mesh* pBoxMesh = Primitives::Cube<Vertex::POSITION | Vertex::TEXTURE_COORD>();
 
-	//Image2D* pBoxImage = new Image2D();
-	//pBoxImage->Open("C:\\assets\\container.jpg");
-	//Texture2D* pBoxTexture = new Texture2D();
-
 	Texture2D* pBoxTexture = ResourceManager::Instance().Retrieve<Texture2D>("Container");
-
-	//pBoxTexture->SetImage(pBoxImage);
 
 	GameObject* pBoxObj = ResourceManager::Instance().New<GameObject>("Box");
 
 	TransformComponent* pTransformC = pBoxObj->Add<TransformComponent>();
-	pTransformC->SetScale(0.25f, 0.25f, 0.25f);
+	pTransformC->SetScale(1.0f, 1.0f, 1.0f);
 	pTransformC->SetWindow(App::Instance().Window());
 
 	OrthographicComponent *pOrthoC = pBoxObj->Add<OrthographicComponent>();

@@ -39,7 +39,7 @@ void CameraComponent::Draw() {
 	//glViewport(mOriginX, mOriginY, mWidth, mHeight);
 
 	if (mpFramebuffer == nullptr) {
-		//glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
 	else {
@@ -69,7 +69,7 @@ void CameraComponent::Draw() {
 		pShaderComponent->Enable();
 		pMeshComponent->Enable();
 
-		glDrawArrays(GL_TRIANGLES, 0, pMeshComponent->NumVertices());
+		glDrawArrays(pMeshComponent->GetRenderMode(), 0, pMeshComponent->NumVertices());
 	}
 }
 
