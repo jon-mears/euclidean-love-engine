@@ -55,6 +55,18 @@ void InitSnake(App* pApp) {
 	pTransformC->SetScale(1.0f, 1.0f, 1.0f);
 	pTransformC->SetWindow(App::Instance().Window());
 
+	// secretly adds gameobject to engine dstructure to render objects in order
+	// RenderComponent* pRenderC = pBoxObj->Add<RenderComponent>();
+	// Material* pBoxMaterial = new	Material(pBoxShader);
+	// pRenderC->SetMaterial(pBoxMaterial);
+	// pRenderC->SetMesh(pBoxMesh);
+	// pRenderC->SetCamera(pCameraC);
+	// pRenderC->SetLayer(0);
+	// pBoxMaterial->SetUniform("uColor", glm::value_ptr(glm::vec4{1.0f, 1.0f, 1.0f, 1.0f}));
+	// UniformUpdater* pUpdater = new UniformUpdater();
+	// 
+
+
 	OrthographicComponent *pOrthoC = pBoxObj->Add<OrthographicComponent>();
 
 	MeshComponent* pMeshC = pBoxObj->Add<MeshComponent>();
@@ -75,24 +87,31 @@ void InitSnake(App* pApp) {
 
 	TargetedCameraComponent* pCameraC = pCameraObj->Add<TargetedCameraComponent>();
 
-	pShaderC = pBoxObj->Retrieve<ShaderComponent>();
-
 	CameraControlComponent* pCameraControl = pCameraObj->Add<CameraControlComponent>();
-	pCameraControl->ToggleActive();
-	pCameraControl->ToggleActive();
 
 	pCameraC->AddViewable(pBoxObj);
 
 	// translation gizmo
 
-	Mesh* pXVec = Primitives::Line<1, 0, 0>();
-	Mesh* pYVec = Primitives::Line<0, 1, 0>();
-	Mesh* pZVec = Primitives::Line<0, 0, 1>();
+	//Mesh* pXVec = Primitives::Line<1, 0, 0>();
+	//Mesh* pYVec = Primitives::Line<0, 1, 0>();
+	//Mesh* pZVec = Primitives::Line<0, 0, 1>();
 
-	GameObject* pTranslationGizmo = ResourceManager::Instance().New<GameObject>("Translation Gizmo");
-	pMeshC = pTranslationGizmo->Add<MeshComponent>();
-	pMeshC->SetMesh(pXVec);
-	pMeshC->SetRenderMode(GL_LINES);
+	//GameObject* pTranslationGizmo = ResourceManager::Instance().New<GameObject>("Translation Gizmo");
+	//pMeshC = pTranslationGizmo->Add<MeshComponent>();
+	//pMeshC->SetMesh(pXVec);
+	//pMeshC->SetRenderMode(GL_LINES);
+
+	//pShaderC = pTranslationGizmo->Add<ShaderComponent>();
+	//pShaderC->SetShader(ResourceManager::Instance().Retrieve<Shader>
+	//	("Color Shader"));
+	//pShaderC->SetUniform("uColor", glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
+	//pTranslationGizmo->Share<TransformComponent>(pBoxObj);
+
+	//pCameraC->AddViewable(pTranslationGizmo);
+
+	//pTranslationGizmo->Add<OrthographicComponent>();
+	//pShaderC->SetActive(false);
 }
 
 void DeinitSnake(App* pApp) {

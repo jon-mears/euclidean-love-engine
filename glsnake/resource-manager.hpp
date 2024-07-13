@@ -4,7 +4,7 @@
 #define RETRIEVE_SPECIALIZATION(classname, containername)	\
 template <> \
 classname* Retrieve<classname>(const std::string& name) { \
-	return containername[name]; \
+	return containername.at(name); \
 }
 
 #define BEGIN_SPECIALIZATION(classname, containername)	\

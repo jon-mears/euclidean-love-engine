@@ -213,7 +213,7 @@
     <ClCompile Include="xml-parser.cpp" />
     <ClCompile Include="xml-state.cpp" />
     <ClCompile Include="xml-tree.cpp" />
-  </ItemGroup>
+  <ClCompile Include="render-component.cpp" /></ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\..\Code\stb\stb_image.h" />
     <ClInclude Include="..\..\..\..\..\..\imgui\imgui\backends\imgui_impl_glfw.h" />
@@ -267,7 +267,7 @@
     <ClInclude Include="xml-parser.hpp" />
     <ClInclude Include="xml-state.hpp" />
     <ClInclude Include="xml-tree.hpp" />
-  </ItemGroup>
+  <ClInclude Include="render-component.hpp" /></ItemGroup>
   <ItemGroup>
     <None Include="component.ipp" />
     <None Include="game-object.ipp" />

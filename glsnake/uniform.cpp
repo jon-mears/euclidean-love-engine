@@ -21,6 +21,9 @@ std::string Uniform::Encode(std::string name, GLuint loc, std::string type) {
 Uniform* Uniform::Decode(const std::string& code) {
 	size_t colon_pos1 = code.find(":");
 	size_t colon_pos2 = code.find(":", colon_pos1 + 1);
+	size_t colon_pos3 = code.find(":", colon_pos2 + 1);
+
+	bool bIsSpecial = colon_pos3 != std::string::npos;
 
 	if (colon_pos1 == std::string::npos) {
 		std::cerr << "uniform codes must contain a colon!" << std::endl;

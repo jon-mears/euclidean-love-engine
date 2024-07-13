@@ -20,7 +20,7 @@
 
 CameraComponent::CameraComponent(GameObject* pGO) : Component(pGO), mViewables(), mpTransform(nullptr) { }
 
-void CameraComponent::Start() { 
+void CameraComponent::Start() {
 	mpTransform = GetComponent<TransformComponent>();
 }
 
@@ -32,7 +32,7 @@ void CameraComponent::AddViewable(GameObject* pGO) {
 	if (std::find(mViewables.begin(), mViewables.end(), pGO)
 		== mViewables.end()) {
 		mViewables.push_back(pGO);
-	}	
+	}
 }
 
 void CameraComponent::Draw() {
@@ -54,22 +54,20 @@ void CameraComponent::Draw() {
 		ShaderComponent* pShaderComponent = pViewable->Retrieve<ShaderComponent>();
 		MeshComponent* pMeshComponent = pViewable->Retrieve<MeshComponent>();
 
-		if (pShaderComponent == nullptr) {
-			std::cerr << "NEED A SHADERCOMPONENT TO RENDER!!!" << std::endl;
-			std::exit(-1);
-		}
-		if (pMeshComponent == nullptr) {
-			std::cerr << "NEED A MESHCOMPONENT TO RENDER!!!" << std::endl;
-			std::exit(-1);
+		if ((pShaderComponent == nullptr || !pShaderComponent->IsActive()) ||
+			(pMeshComponent == nullptr || !pMeshComponent->IsActive())) {
+			// do nothing
 		}
 
-		pShaderComponent->UpdateUniforms(this);
-		pShaderComponent->UploadUniforms();
+		else {
+			pShaderComponent->UpdateUniforms(this);
+			pShaderComponent->UploadUniforms();
 
-		pShaderComponent->Enable();
-		pMeshComponent->Enable();
+			pShaderComponent->Enable();
+			pMeshComponent->Enable();
 
-		glDrawArrays(pMeshComponent->GetRenderMode(), 0, pMeshComponent->NumVertices());
+			glDrawArrays(pMeshComponent->GetRenderMode(), 0, pMeshComponent->NumVertices());
+		}
 	}
 }
 

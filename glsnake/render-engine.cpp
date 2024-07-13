@@ -52,6 +52,12 @@ void RenderEngine::Draw() {
 
 	ClearBuffers();
 
+	// for (std::vector<RenderCommand>::iterator it = 
+	//	mRenderCommands.begin(); it != mRenderCommands.end();
+	//	++it) {
+	//		it->Execute();
+	// }
+
 	CameraComponent* pCamera = nullptr;
 	for (std::map<std::string, GameObject*>::iterator it = ResourceManager::Instance().Begin<GameObject>(); it != ResourceManager::Instance().End<GameObject>(); ++it) {
 		GameObject* pGO = it->second;
