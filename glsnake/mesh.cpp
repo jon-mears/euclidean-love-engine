@@ -73,10 +73,6 @@ void Mesh::Compile() {
         int attrib_loc = GLSLTranslator::Attrib2Loc(it->first);
         VertexData vdata = it->second;
 
-        std::cout << "attrib loc: " << attrib_loc << std::endl <<
-            "num components: " << vdata.NumComponents() << std::endl <<
-            "stride: " << stride << std::endl << "offset: " <<
-            offset << std::endl;
         glVertexAttribPointer(attrib_loc, vdata.NumComponents(), GL_FLOAT, GL_FALSE, stride, (void*)offset);
         glEnableVertexAttribArray(attrib_loc);
 
@@ -108,10 +104,6 @@ std::vector<float> Mesh::CollectData() {
         }
     }
 
-    for (std::vector<float>::iterator it = collected_data.begin();
-        it != collected_data.end(); ++it) {
-        std::cout << *it << std::endl;
-    }
     return collected_data;
 }
 

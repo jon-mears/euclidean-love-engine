@@ -133,10 +133,6 @@ void TransformComponent::Update() {
 	mLocalZ = glm::vec3{ qLocalz.x, qLocalz.y, qLocalz.z };
 	mLocalX = glm::cross(-mLocalZ, glm::vec3{ 0.0f, 1.0f, 0.0f });
 	mLocalY = glm::cross(-mLocalZ, mLocalX);
-		
-	if (InputManager::Instance().EventActive(Input::A_PRESSED)) {
-		std::cout << glm::to_string(mLocalZ) << std::endl;
-	}
 }
 
 void TransformComponent::ConstUpdate() const { }

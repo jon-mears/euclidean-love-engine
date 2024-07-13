@@ -57,8 +57,6 @@ void Image2D::Open(const std::string& rcFilename) {
 	mHeight = height;
 	mNrChannels = nrChannels;
 
-	std::cout << mNrChannels << std::endl;
-
 	if (!mData) {
 		std::cerr << "failed to load texture " << rcFilename << std::endl;
 		std::exit(-1);

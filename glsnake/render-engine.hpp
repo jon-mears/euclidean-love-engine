@@ -4,6 +4,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+class DrawCommand;
+class RenderCommand;
+
 namespace Render {
 	enum Clear {
 		CLEAR_COLOR = 0x0001,
@@ -43,6 +46,11 @@ private:
 
 	void Startup();
 	void ClearBuffers();
+
+	//static std::vector<RenderCommand*>::iterator FindCommandPosition
+	//(std::vector<RenderCommand*>::iterator it1,
+	//	std::vector<RenderCommand*>::iterator it2,
+	//	DrawCommand* pDrawCommand);
 
 	inline void WindowInfo(int width, int height, const char* pcName) {
 		mWindowWidth = width;

@@ -197,7 +197,13 @@
     <ClCompile Include="root-window.cpp">
       <Filter>Source Files\Windows</Filter>
     </ClCompile>
-  <ClCompile Include="render-component.cpp"><Filter>Source Files\Components</Filter></ClCompile></ItemGroup>
+    <ClCompile Include="render-component.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="draw-command.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app.hpp">
       <Filter>Header Files</Filter>
@@ -355,7 +361,13 @@
     <ClInclude Include="root-window.hpp">
       <Filter>Header Files\Windows</Filter>
     </ClInclude>
-  <ClInclude Include="render-component.hpp"><Filter>Header Files\Components</Filter></ClInclude></ItemGroup>
+    <ClInclude Include="render-component.hpp">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="draw-command.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
   <ItemGroup>
     <None Include="scene.hpp">
       <Filter>Header Files</Filter>

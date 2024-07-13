@@ -92,5 +92,9 @@ public:
 	inline operator GLuint() {
 		return mID;
 	}
+
+	inline bool operator==(const Framebuffer& rcRHS) {
+		return mID == rcRHS.mID;
+	}
 };
 #endif

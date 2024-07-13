@@ -13,6 +13,13 @@ class Material {
 private:
 	Shader* mpShader{nullptr};
 	std::map<std::string, Uniform*> mUniforms{};
+	Uniform* mpMVPMatrix{ nullptr };
+	Uniform* mpMMatrix{ nullptr };
+	Uniform* mpVMatrix{ nullptr };
+	Uniform* mpPMatrix{ nullptr };
+	Uniform* mpMVMatrix{ nullptr };
+	Uniform* mpVPMatrix{ nullptr };
+
 public:
 	void SetShader(Shader* pShader);
 	void Enable();

@@ -93,6 +93,112 @@ void RenderEngine::Draw() {
 	//	glBufferSubData()
 }
 
+// void RenderEngine::AddRenderCommand(RenderComponent* pRenderC) {
+//	DrawCommand* pDrawCommand = new DrawCommand(pRenderC);
+//	PreDrawCommand;
+//	* must define operator< for DrawCommand and RenderCommand
+//	
+//	// static
+//	it = FindCommandPosition(mRenderCommands.begin(),
+//	mRenderCommands.end(), 
+//		pDrawCommand);
+//	
+// 
+//	RenderCommand* pPrevRenderCommand = nullptr;
+//	
+//	* SetupDrawCommand
+//	
+//	if (it != mRenderCommands.begin()) {
+//		pPrevRenderCommand = *(it-1);
+//	}
+// 
+//	mRenderCommands.insert(it, new RenderCommand(pPrevRenderCommand, 
+//		pDrawCommand));
+// 
+// 
+//	
+// SetupCommand 
+//	}
+
+//// static
+//std::vector<RenderCommand*>::iterator 
+//RenderEngine::FindCommandPosition(std::vector<RenderCommand*>::iterator it1,
+//	std::vector<RenderCommand*>::iterator it2, DrawCommand* pDrawCommand) {
+//
+//	const int cNPOS{ -1 };
+//
+//	int same_framebuffer{ cNPOS }, same_program{ cNPOS }, same_vao{ cNPOS }, 
+//		same_mvp_matrix{ cNPOS }, same_vp_matrix{ cNPOS }, same_p_matrix{ cNPOS };
+//
+//	for (std::vector<RenderCommand*>::iterator it = it1; it != it2; ++it) {
+//		if ((*it)->HasSameFramebufferAs(pDrawCommand)) {
+//			same_framebuffer = it - it1;
+//			same_program = cNPOS;
+//			same_vao = cNPOS;
+//			same_mvp_matrix = cNPOS;
+//			same_vp_matrix = cNPOS;
+//			same_p_matrix = cNPOS;
+//		}
+//
+//		if ((*it)->HasSameProgramAs(pDrawCommand)) {
+//			same_program = it - it1;
+//			same_vao = cNPOS;
+//			same_mvp_matrix = cNPOS;
+//			same_vp_matrix = cNPOS;
+//			same_p_matrix = cNPOS;
+//		}
+//
+//		if ((*it)->HasSameVAOAs(pDrawCommand)) {
+//			same_vao = it - it1;
+//			same_mvp_matrix = cNPOS;
+//			same_vp_matrix = cNPOS;
+//			same_p_matrix = cNPOS;
+//		}
+//
+//		if ((*it)->HasSameMVPMatrixAs(pDrawCommand)) {
+//			same_mvp_matrix = it - it1;
+//			same_vp_matrix = cNPOS;
+//			same_p_matrix = cNPOS;
+//		}
+//
+//		if ((*it)->HasSameVPMatrixAs(pDrawCommand)) {
+//			same_vp_matrix = it - it1;
+//			same_p_matrix = cNPOS;
+//		}
+//
+//		if ((*it)->HasSamePMatrixAs(pDrawCommand)) {
+//			same_p_matrix = it - it1;
+//		}
+//	}
+//
+//	// can potentially use the same statuses to determine the 
+//	// necessary setup steps between draw commands
+//
+//	// given a change, need to update just the changed rendercommand and the next one
+//
+//	// need to return the index of the "bottommost similarity" that occurs within 
+//	// the group of non -1 indices
+//
+//	int arrSimilarities[6] = { same_framebuffer, same_program, same_vao, same_mvp_matrix,
+//	same_vp_matrix, same_p_matrix };
+//
+//	int index{ cNPOS };
+//
+//	for (size_t i = 0; i < 6; ++i) {
+//		if (arrSimilarities[i] != cNPOS) {
+//			index = arrSimilarities[i];
+//		}
+//
+//		if (arrSimilarities[i] == cNPOS && index != cNPOS) {
+//			return it1 + index;
+//		}
+//	}
+//
+//	return it1;
+//}
+
+// void RenderEngine::OptimizeRenderOrder()
+
 void RenderEngine::ClearBuffers() {
 	GLbitfield fClearFlags = 0;
 

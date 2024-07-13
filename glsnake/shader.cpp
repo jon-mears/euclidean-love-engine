@@ -34,6 +34,54 @@ void Shader::ProvideVertexSource(const std::string& rcSource) {
 	char infoLog[512];
 	GLint success;
 
+	std::istringstream stream(rcSource);
+
+	std::string word{ "" }, type{ "" }, name{ "" };
+	Uniform::Type eCurType{ Uniform::NONE };
+
+	while (stream && word != "main") {
+		stream >> word;
+
+		if (word == "@MVP_MATRIX") {
+			eCurType = Uniform::MVP_MATRIX;
+		}
+
+		else if (word == "@M_MATRIX") {
+			eCurType = Uniform::M_MATRIX;
+		}
+
+		else if (word == "@V_MATRIX") {
+			eCurType = Uniform::V_MATRIX;
+		}
+
+		else if (word == "@P_MATRIX") {
+			eCurType = Uniform::P_MATRIX;
+		}
+
+		else if (word == "@MV_MATRIX") {
+			eCurType = Uniform::MV_MATRIX;
+		}
+
+		else if (word == "@VP_MATRIX") {
+			eCurType = Uniform::VP_MATRIX;
+		}
+
+		else if (word == "uniform") {
+			stream >> type;
+			stream >> name;
+			std::string::iterator it = std::find_if(name.begin(), name.end(),
+				[](char c) {
+					return std::ispunct(c);
+				});
+
+			name = std::string(name.begin(), it);
+
+			mUniformName2Type[name] = eCurType;
+
+			eCurType == Uniform::NONE;
+		}
+	}
+
 	mVSource = GLSLTranslator::Translate(rcSource);
 
 	const char* vsource = mVSource.c_str();
@@ -54,6 +102,54 @@ void Shader::ProvideVertexSource(const std::string& rcSource) {
 void Shader::ProvideFragmentSource(const std::string& rcSource) {
 	char infoLog[512];
 	GLint success;
+
+	std::istringstream stream(rcSource);
+
+	std::string word{ "" }, type{ "" }, name{ "" };
+	Uniform::Type eCurType{ Uniform::NONE };
+
+	while (stream && word != "main") {
+		stream >> word;
+
+		if (word == "@MVP_MATRIX") {
+			eCurType = Uniform::MVP_MATRIX;
+		}
+
+		else if (word == "@M_MATRIX") {
+			eCurType = Uniform::M_MATRIX;
+		}
+
+		else if (word == "@V_MATRIX") {
+			eCurType = Uniform::V_MATRIX;
+		}
+
+		else if (word == "@P_MATRIX") {
+			eCurType = Uniform::P_MATRIX;
+		}
+
+		else if (word == "@MV_MATRIX") {
+			eCurType = Uniform::MV_MATRIX;
+		}
+
+		else if (word == "@VP_MATRIX") {
+			eCurType = Uniform::VP_MATRIX;
+		}
+
+		else if (word == "uniform") {
+			stream >> type;
+			stream >> name;
+			std::string::iterator it = std::find_if(name.begin(), name.end(),
+				[](char c) {
+					return std::ispunct(c);
+				});
+
+			name = std::string(name.begin(), it);
+
+			mUniformName2Type[name] = eCurType;
+
+			eCurType == Uniform::NONE;
+		}
+	}
 
 	mFSource = GLSLTranslator::Translate(rcSource);
 
@@ -104,7 +200,8 @@ void Shader::Compile() {
 
 			GLuint loc = glGetUniformLocation(mID, var.c_str());
 
-			mUniformCodes.push_back(Uniform::Encode(var, loc, type));
+			mUniformCodes.push_back(Uniform::Encode(var, loc, type, 
+				mUniformName2Type[var]));
 		}
 
 		if (word == "in") {
@@ -132,8 +229,8 @@ void Shader::Compile() {
 
 			GLuint loc = glGetUniformLocation(mID, var.c_str());
 
-			//_uniforms[var] = Factories::make_uniform(var, loc, type);
-			mUniformCodes.push_back(Uniform::Encode(var, loc, type));
+			mUniformCodes.push_back(Uniform::Encode(var, loc, type, 
+				mUniformName2Type[var]));
 		}
 	}
 }

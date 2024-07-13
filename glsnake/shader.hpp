@@ -10,6 +10,7 @@
 #include <glm/glm.hpp>
 #include "resource.hpp"
 #include "vertex-data.hpp"
+#include "uniform.hpp"
 #include "mesh.hpp"
 
 enum class Attribute;
@@ -27,6 +28,7 @@ private:
 	std::vector<std::string> mUniformCodes;
 	std::map<std::string, Vertex::Attribute> mAttribName2Type;
 	std::map<std::string, GLuint> mAttribName2Loc;
+	std::map<std::string, Uniform::Type> mUniformName2Type;
 
 public:
 	Shader();

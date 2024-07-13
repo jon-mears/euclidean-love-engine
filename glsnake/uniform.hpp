@@ -14,12 +14,26 @@ class Uniform {
 protected:
 	GLuint mLoc;
 public:
+
+	enum Type {
+		MVP_MATRIX,
+		M_MATRIX,
+		V_MATRIX,
+		P_MATRIX,
+		MV_MATRIX,
+		VP_MATRIX,
+		NONE
+	};
+
 	std::string mName;
-	Uniform(const std::string &name, GLuint loc);
+	Type meType;
+	Uniform(const std::string &name, GLuint loc, Type eType);
 	Uniform(std::nullptr_t null, GLuint loc) = delete;
 
-	static std::string Encode(std::string name, GLuint loc, std::string type);
+	static std::string Encode(std::string name, GLuint loc, std::string type, 
+		Uniform::Type eType = Uniform::NONE);
 	static Uniform* Decode(const std::string& code);
+	static Type Category(const std::string& rcName);
 	virtual void Upload() = 0;
 
 	virtual void Set(float v0);
@@ -48,7 +62,7 @@ private:
 	float mValue{ 0.0f };
 public:
 
-	Uniform1f(const std::string& name, GLuint loc);
+	Uniform1f(const std::string& name, GLuint loc, Type eType);
 	virtual void Set(float v0) override;
 	virtual void Upload() override;
 };
@@ -58,7 +72,7 @@ private:
 	glm::vec2 mValue;
 public:
 
-	Uniform2f(const std::string& name, GLuint loc);
+	Uniform2f(const std::string& name, GLuint loc, Type eType);
 	virtual void Set(float v0, float v1) override;
 	virtual void Set(const glm::vec2& v) override;
 	virtual void Upload() override;
@@ -69,7 +83,7 @@ private:
 	glm::vec3 mValue;
 public:
 
-	Uniform3f(const std::string& name, GLuint loc);
+	Uniform3f(const std::string& name, GLuint loc, Type eType);
 	virtual void Set(float v0, float v1, float v2) override;
 	virtual void Set(const glm::vec3& v) override;
 	virtual void Upload() override;
@@ -80,7 +94,7 @@ private:
 	glm::vec4 mValue;
 public:
 
-	Uniform4f(const std::string& name, GLuint loc);
+	Uniform4f(const std::string& name, GLuint loc, Type eType);
 	virtual void Set(float v0, float v1, float v2, float v3) override;
 	virtual void Set(const glm::vec4& v) override;
 	virtual void Upload() override;
@@ -91,7 +105,7 @@ private:
 	int mValue;
 public:
 
-	Uniform1i(const std::string& name, GLuint loc);
+	Uniform1i(const std::string& name, GLuint loc, Type eType);
 	virtual void Set(int v0) override;
 	virtual void Upload() override;
 };
@@ -101,7 +115,7 @@ private:
 	glm::ivec2 mValue;
 public:
 
-	Uniform2i(const std::string& name, GLuint loc);
+	Uniform2i(const std::string& name, GLuint loc, Type eType);
 	virtual void Set(int v0, int v1) override;
 	virtual void Set(const glm::ivec2& v) override;
 	virtual void Upload() override;
@@ -112,7 +126,7 @@ private:
 	glm::ivec3 mValue;
 public:
 
-	Uniform3i(const std::string& name, GLuint loc);
+	Uniform3i(const std::string& name, GLuint loc, Type eType);
 	virtual void Set(int v0, int v1, int v2) override;
 	virtual void Set(const glm::ivec3& v) override;
 	virtual void Upload() override;
@@ -123,7 +137,7 @@ private:
 	glm::ivec4 mValue;
 public:
 
-	Uniform4i(const std::string& name, GLuint loc);
+	Uniform4i(const std::string& name, GLuint loc, Type eType);
 	virtual void Set(int v0, int v1, int v2, int v3) override;
 	virtual void Set(const glm::ivec4& v) override;
 	virtual void Upload() override;
@@ -134,7 +148,7 @@ private:
 	glm::mat2 mValue;
 public:
 
-	UniformMat2(const std::string& name, GLuint loc);
+	UniformMat2(const std::string& name, GLuint loc, Type eType);
 	virtual void Set(const glm::mat2& matrix) override;
 	virtual void Upload() override;
 };
@@ -144,7 +158,7 @@ private:
 	glm::mat3 mValue;
 public:
 
-	UniformMat3(const std::string& name, GLuint loc);
+	UniformMat3(const std::string& name, GLuint loc, Type eType);
 	virtual void Set(const glm::mat3& matrix) override;
 	virtual void Upload() override;
 };
@@ -154,7 +168,7 @@ private:
 	glm::mat4 mValue{ 1 };
 public:
 
-	UniformMat4(const std::string& name, GLuint loc); 
+	UniformMat4(const std::string& name, GLuint loc, Type eType); 
 	virtual void Set(const glm::mat4& matrix) override;
 	virtual void Upload() override;
 };
@@ -164,7 +178,7 @@ private:
 	Texture2D* mpValue;
 public:
 
-	UniformTexture2D(const std::string& name, GLuint loc);
+	UniformTexture2D(const std::string& name, GLuint loc, Type eType);
 	virtual void Set(Texture2D* pTexture) override;
 	virtual void Upload() override;
 };

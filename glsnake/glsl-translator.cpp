@@ -43,6 +43,42 @@ namespace GLSLTranslator {
 		if (position != std::string::npos)
 			source.replace(position, 14, "layout (location=2)");
 
+		position = source.find("@MVP_MATRIX");
+
+		if (position != std::string::npos) {
+			source.replace(position, 11, "");
+		}
+
+		position = source.find("@M_MATRIX");
+
+		if (position != std::string::npos) {
+			source.replace(position, 9, "");
+		}
+
+		position = source.find("@V_MATRIX");
+
+		if (position != std::string::npos) {
+			source.replace(position, 9, "");
+		}
+
+		position = source.find("@P_MATRIX");
+
+		if (position != std::string::npos) {
+			source.replace(position, 9, "");
+		}
+
+		position = source.find("@MV_MATRIX");
+		
+		if (position != std::string::npos) {
+			source.replace(position, 10, "");
+		}
+
+		position = source.find("@VP_MATRIX");
+
+		if (position != std::string::npos) {
+			source.replace(position, 10, "");
+		}
+
 		return source;
 	}
 }
