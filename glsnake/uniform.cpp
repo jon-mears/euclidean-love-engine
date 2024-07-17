@@ -203,10 +203,7 @@ void Uniform1f::Set(float value) {
 }
 
 void Uniform1f::Upload() {
-	if (mValue != mBufValue) {
-		glUniform1f(mLoc, mValue);
-		mBufValue = mValue;
-	}
+	glUniform1f(mLoc, mValue);
 }
 
 Uniform2f::Uniform2f(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : Uniform{ name, loc, ePurpose }, mValue{} { }
@@ -220,10 +217,7 @@ void Uniform2f::Set(const glm::vec2 &value) {
 }
 
 void Uniform2f::Upload() {
-	if (mValue != mBufValue) {
-		glUniform2fv(mLoc, 1, glm::value_ptr(mValue));
-		mBufValue = mValue;
-	}
+	glUniform2fv(mLoc, 1, glm::value_ptr(mValue));
 }
 
 Uniform3f::Uniform3f(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : Uniform{ name, loc, ePurpose }, mValue{} { }
@@ -237,10 +231,7 @@ void Uniform3f::Set(const glm::vec3 &value) {
 }
 
 void Uniform3f::Upload() {
-	if (mValue != mBufValue) {
-		glUniform3fv(mLoc, 1, glm::value_ptr(mValue));
-		mBufValue = mValue;
-	}
+	glUniform3fv(mLoc, 1, glm::value_ptr(mValue));
 }
 
 Uniform4f::Uniform4f(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : Uniform{ name, loc, ePurpose }, mValue{} { }
@@ -254,10 +245,7 @@ void Uniform4f::Set(const glm::vec4 &value) {
 }
 
 void Uniform4f::Upload() {
-	if (mValue != mBufValue) {
-		glUniform4fv(mLoc, 1, glm::value_ptr(mValue));
-		mBufValue = mValue;
-	}
+	glUniform4fv(mLoc, 1, glm::value_ptr(mValue));
 }
 
 Uniform1i::Uniform1i(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : Uniform{ name, loc, ePurpose }, mValue{} { }
@@ -267,10 +255,7 @@ void Uniform1i::Set(int value) {
 }
 
 void Uniform1i::Upload() {
-	if (mValue != mBufValue) {
-		glUniform1i(mLoc, mValue);
-		mBufValue = mValue;
-	}
+	glUniform1i(mLoc, mValue);
 }
 
 Uniform2i::Uniform2i(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : Uniform{ name, loc, ePurpose }, mValue{} { }
@@ -284,10 +269,7 @@ void Uniform2i::Set(const glm::ivec2 &value) {
 }
 
 void Uniform2i::Upload() {
-	if (mValue != mBufValue) {
-		glUniform2iv(mLoc, 1, glm::value_ptr(mValue));
-		mBufValue = mValue;
-	}
+	glUniform2iv(mLoc, 1, glm::value_ptr(mValue));
 }
 
 Uniform3i::Uniform3i(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : Uniform{ name, loc, ePurpose }, mValue{} { }
@@ -301,11 +283,7 @@ void Uniform3i::Set(const glm::ivec3 &value) {
 }
 
 void Uniform3i::Upload() {
-
-	if (mValue != mBufValue) {
-		glUniform3iv(mLoc, 1, glm::value_ptr(mValue));
-		mBufValue = mValue;
-	}
+	glUniform3iv(mLoc, 1, glm::value_ptr(mValue));
 }
 
 Uniform4i::Uniform4i(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : Uniform{ name, loc, ePurpose }, mValue{} { }
@@ -319,11 +297,7 @@ void Uniform4i::Set(const glm::ivec4 &value) {
 }
 
 void Uniform4i::Upload() {
-
-	if (mValue != mBufValue) {
-		glUniform4iv(mLoc, 1, glm::value_ptr(mValue));
-		mBufValue = mValue;
-	}
+	glUniform4iv(mLoc, 1, glm::value_ptr(mValue));
 }
 
 UniformMat2::UniformMat2(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : Uniform{ name, loc, ePurpose }, mValue{} { }
@@ -333,11 +307,7 @@ void UniformMat2::Set(const glm::mat2& value) {
 }
 
 void UniformMat2::Upload() {
-
-	if (mValue != mBufValue) {
-		glUniformMatrix2fv(mLoc, 1, GL_FALSE, glm::value_ptr(mValue));
-		mBufValue = mValue;
-	}
+	glUniformMatrix2fv(mLoc, 1, GL_FALSE, glm::value_ptr(mValue));
 }
 
 UniformMat3::UniformMat3(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : Uniform{ name, loc, ePurpose }, mValue{} { }
@@ -347,11 +317,7 @@ void UniformMat3::Set(const glm::mat3& value) {
 }
 
 void UniformMat3::Upload() {
-
-	if (mValue != mBufValue) {
-		glUniformMatrix3fv(mLoc, 1, GL_FALSE, glm::value_ptr(mValue));
-		mBufValue = mValue;
-	}
+	glUniformMatrix3fv(mLoc, 1, GL_FALSE, glm::value_ptr(mValue));
 }
 
 UniformMat4::UniformMat4(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : Uniform{ name, loc, ePurpose } { }
@@ -361,10 +327,7 @@ void UniformMat4::Set(const glm::mat4& value) {
 }
 
 void UniformMat4::Upload() {
-	if (mValue != mBufValue) {
-		glUniformMatrix4fv(mLoc, 1, GL_FALSE, glm::value_ptr(mValue));
-		mBufValue = mValue;
-	}
+	glUniformMatrix4fv(mLoc, 1, GL_FALSE, glm::value_ptr(mValue));
 }
 
 UniformTexture2D::UniformTexture2D(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : Uniform{name, loc, ePurpose}, mpValue{} { }
@@ -374,8 +337,5 @@ void UniformTexture2D::Set(Texture2D* pValue) {
 }
 
 void UniformTexture2D::Upload() {
-	if (mpValue != mpBufValue) {
-		mpValue->Enable();
-		mpBufValue = mpValue;
-	}
+	mpValue->Enable();
 }

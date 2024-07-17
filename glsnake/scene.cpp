@@ -54,9 +54,14 @@ void InitSnake(App* pApp) {
 
 	GameObject* pBoxObj = ResourceManager::Instance().New<GameObject>("Box");
 
+	GameObject* pBoxObj2 = ResourceManager::Instance().New<GameObject>("Box2");
+
 	TransformComponent* pTransformC = pBoxObj->Add<TransformComponent>();
 	pTransformC->SetScale(1.0f, 1.0f, 1.0f);
 	pTransformC->SetWindow(App::Instance().Window());
+
+	pTransformC = pBoxObj2->Add<TransformComponent>();
+	pTransformC->SetPosition(0.5f, 0.0f, 0.0f);
 
 	GameObject* pCameraObj = ResourceManager::Instance().New<GameObject>("Camera");
 		
@@ -68,7 +73,6 @@ void InitSnake(App* pApp) {
 
 	CameraControlComponent* pCameraControl = pCameraObj->Add<CameraControlComponent>();
 
-
 	// secretly adds gameobject to engine dstructure to render objects in order
 	RenderComponent* pRenderC = pBoxObj->Add<RenderComponent>();
 	Material* pBoxMaterial = new Material(pBoxShader);
@@ -79,6 +83,16 @@ void InitSnake(App* pApp) {
 	//pRenderC->SetLayer(0);
 	pBoxMaterial->SetUniform("uColor", glm::vec4{ 1.0f, 1.0f, 1.0f, 1.0f });
 	pBoxMaterial->SetUniform("uSampler", pBoxTexture);
+
+	pRenderC = pBoxObj2->Add<RenderComponent>();
+	Material* pBoxMaterial2 = new Material(pBoxShader);
+	pRenderC->SetMaterial(pBoxMaterial2);
+	pRenderC->SetMesh(pBoxMesh);
+	pRenderC->SetCamera(pCameraC);
+	pRenderC->SetProjection(new Orthographic());
+	//pRenderC->SetLayer(0);
+	pBoxMaterial2->SetUniform("uColor", glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
+	pBoxMaterial2->SetUniform("uSampler", pBoxTexture);
 }
 
 void DeinitSnake(App* pApp) {
