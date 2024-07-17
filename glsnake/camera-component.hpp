@@ -34,6 +34,10 @@ public:
 		mpFramebuffer = pFramebuffer;
 	}
 
+	inline Framebuffer* GetFramebuffer() {
+		return mpFramebuffer;
+	}
+
 	inline void SetViewport(const int x, const int y, const int width, const int height) {
 		mOriginX = x; mOriginY = y;
 		mWidth = width; mHeight = height;

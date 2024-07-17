@@ -171,7 +171,8 @@
     <ClCompile Include="camera-component.cpp" />
     <ClCompile Include="camera-control-component.cpp" />
     <ClCompile Include="component.cpp" />
-    <ClCompile Include="draw-command.cpp" />
+    <ClCompile Include="projection.cpp" />
+    <ClCompile Include="render-command.cpp" />
     <ClCompile Include="editor-manager.cpp" />
     <ClCompile Include="factories.cpp" />
     <ClCompile Include="framebuffer.cpp" />
@@ -226,7 +227,8 @@
     <ClInclude Include="..\..\..\..\..\..\imgui\imgui\imgui_internal.h" />
     <ClInclude Include="button.hpp" />
     <ClInclude Include="component.hpp" />
-    <ClInclude Include="draw-command.hpp" />
+    <ClInclude Include="projection.hpp" />
+    <ClInclude Include="render-command.hpp" />
     <ClInclude Include="framebuffer.hpp" />
     <ClInclude Include="image.hpp" />
     <ClInclude Include="material.hpp" />
@@ -257,6 +259,7 @@
     <ClInclude Include="resource-manager.hpp" />
     <ClInclude Include="root-window.hpp" />
     <ClInclude Include="selector-component.hpp" />
+    <ClInclude Include="setup-draw-command.hpp" />
     <ClInclude Include="shader.hpp" />
     <ClInclude Include="shader-component.hpp" />
     <ClInclude Include="targeted-camera-component.hpp" />

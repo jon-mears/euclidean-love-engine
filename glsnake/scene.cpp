@@ -10,6 +10,7 @@
 #include "shader.hpp"
 #include "mesh.hpp"
 #include "vertex-data.hpp"
+#include "material.hpp"
 #include "mesh-component.hpp"
 #include "primitives.hpp"
 #include "perspective-component.hpp"
@@ -17,14 +18,16 @@
 #include "input-manager.hpp"
 #include "camera-control-component.hpp"
 #include "targeted-camera-component.hpp"
+#include "render-component.hpp"
+#include "projection.hpp"
 
 #include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/string_cast.hpp>
 #include <iostream>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
 
 void UniformFunction(GameObject* pGO, CameraComponent* pCameraC) {
 	ShaderComponent* pShaderC = pGO->Retrieve<ShaderComponent>();
@@ -55,32 +58,8 @@ void InitSnake(App* pApp) {
 	pTransformC->SetScale(1.0f, 1.0f, 1.0f);
 	pTransformC->SetWindow(App::Instance().Window());
 
-	// secretly adds gameobject to engine dstructure to render objects in order
-	// RenderComponent* pRenderC = pBoxObj->Add<RenderComponent>();
-	// Material* pBoxMaterial = new	Material(pBoxShader);
-	// pRenderC->SetMaterial(pBoxMaterial);
-	// pRenderC->SetMesh(pBoxMesh);
-	// pRenderC->SetCamera(pCameraC);
-	// pRenderC->SetLayer(0);
-	// pBoxMaterial->SetUniform("uColor", glm::value_ptr(glm::vec4{1.0f, 1.0f, 1.0f, 1.0f}));
-	// UniformUpdater* pUpdater = new UniformUpdater();
-	// 
-
-
-	OrthographicComponent *pOrthoC = pBoxObj->Add<OrthographicComponent>();
-
-	MeshComponent* pMeshC = pBoxObj->Add<MeshComponent>();
-	pMeshC->SetMesh(pBoxMesh);
-
-	ShaderComponent* pShaderC = pBoxObj->Add<ShaderComponent>();
-	pShaderC->SetShader(pBoxShader);
-	pShaderC->SetUniform("uSampler", pBoxTexture);
-	pShaderC->SetUniform("uColor", glm::vec4{ 1.0f, 1.0f,
-		1.0f, 1.0f });
-	pShaderC->AddUpdater(UniformFunction);
-
 	GameObject* pCameraObj = ResourceManager::Instance().New<GameObject>("Camera");
-
+		
 	pTransformC = pCameraObj->Add<TransformComponent>();
 	pTransformC->SetPosition(0.0f, 0.0f, 0.5f);
 	pTransformC->SetWindow(App::Instance().Window());
@@ -89,29 +68,17 @@ void InitSnake(App* pApp) {
 
 	CameraControlComponent* pCameraControl = pCameraObj->Add<CameraControlComponent>();
 
-	pCameraC->AddViewable(pBoxObj);
 
-	// translation gizmo
-
-	//Mesh* pXVec = Primitives::Line<1, 0, 0>();
-	//Mesh* pYVec = Primitives::Line<0, 1, 0>();
-	//Mesh* pZVec = Primitives::Line<0, 0, 1>();
-
-	//GameObject* pTranslationGizmo = ResourceManager::Instance().New<GameObject>("Translation Gizmo");
-	//pMeshC = pTranslationGizmo->Add<MeshComponent>();
-	//pMeshC->SetMesh(pXVec);
-	//pMeshC->SetRenderMode(GL_LINES);
-
-	//pShaderC = pTranslationGizmo->Add<ShaderComponent>();
-	//pShaderC->SetShader(ResourceManager::Instance().Retrieve<Shader>
-	//	("Color Shader"));
-	//pShaderC->SetUniform("uColor", glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
-	//pTranslationGizmo->Share<TransformComponent>(pBoxObj);
-
-	//pCameraC->AddViewable(pTranslationGizmo);
-
-	//pTranslationGizmo->Add<OrthographicComponent>();
-	//pShaderC->SetActive(false);
+	// secretly adds gameobject to engine dstructure to render objects in order
+	RenderComponent* pRenderC = pBoxObj->Add<RenderComponent>();
+	Material* pBoxMaterial = new Material(pBoxShader);
+	pRenderC->SetMaterial(pBoxMaterial);
+	pRenderC->SetMesh(pBoxMesh);
+	pRenderC->SetCamera(pCameraC);
+	pRenderC->SetProjection(new Orthographic());
+	//pRenderC->SetLayer(0);
+	pBoxMaterial->SetUniform("uColor", glm::vec4{ 1.0f, 1.0f, 1.0f, 1.0f });
+	pBoxMaterial->SetUniform("uSampler", pBoxTexture);
 }
 
 void DeinitSnake(App* pApp) {

@@ -10,14 +10,14 @@
 
 #include "texture.hpp"
 
-Uniform::Uniform(const std::string& name, GLuint loc, Uniform::Type eType) : mName{ name }, mLoc{ loc }, meType{ eType } { }
+Uniform::Uniform(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : mName{ name }, mLoc{ loc }, mePurpose{ ePurpose } { }
 
 // static
 std::string Uniform::Encode(std::string name, GLuint loc, std::string type, 
-	Uniform::Type eType) {
+	Uniform::Purpose ePurpose) {
 	std::string code = name + ":" + std::to_string(loc) + ":" + type + ":";
 
-	switch (eType) {
+	switch (ePurpose) {
 	case Uniform::MVP_MATRIX:
 		code += "MVP_MATRIX";
 		break;
@@ -67,7 +67,7 @@ Uniform* Uniform::Decode(const std::string& code) {
 	std::string name = code.substr(0, colon_pos1);
 	std::string loc = code.substr(colon_pos1 + 1, colon_pos2 - colon_pos1 - 1);
 	std::string type = code.substr(colon_pos2 + 1, colon_pos3 - colon_pos2 - 1);
-	std::string category = code.substr(colon_pos3);
+	std::string category = code.substr(colon_pos3 + 1);
 
 	if (type == "vec3") {
 		return new Uniform3f(name, std::atoi(loc.c_str()), Category(category));
@@ -92,7 +92,7 @@ Uniform* Uniform::Decode(const std::string& code) {
 }
 
 // static
-Uniform::Type Uniform::Category(const std::string& rcName) {
+Uniform::Purpose Uniform::Category(const std::string& rcName) {
 	if (rcName == "MVP_MATRIX") {
 		return Uniform::MVP_MATRIX;
 	}
@@ -196,17 +196,20 @@ void Uniform::Set(Texture2D* tex) {
 	std::exit(-1);
 }
 
-Uniform1f::Uniform1f(const std::string& name, GLuint loc, Uniform::Type eType) : Uniform{ name, loc, eType }, mValue{} { }
+Uniform1f::Uniform1f(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : Uniform{ name, loc, ePurpose }, mValue{} { }
 
 void Uniform1f::Set(float value) {
 	mValue = value;
 }
 
 void Uniform1f::Upload() {
-	glUniform1f(mLoc, mValue);
+	if (mValue != mBufValue) {
+		glUniform1f(mLoc, mValue);
+		mBufValue = mValue;
+	}
 }
 
-Uniform2f::Uniform2f(const std::string& name, GLuint loc, Uniform::Type eType) : Uniform{ name, loc, eType }, mValue{} { }
+Uniform2f::Uniform2f(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : Uniform{ name, loc, ePurpose }, mValue{} { }
 
 void Uniform2f::Set(float v0, float v1) {
 	mValue = { v0, v1 };
@@ -217,10 +220,13 @@ void Uniform2f::Set(const glm::vec2 &value) {
 }
 
 void Uniform2f::Upload() {
-	glUniform2fv(mLoc, 1, glm::value_ptr(mValue));
+	if (mValue != mBufValue) {
+		glUniform2fv(mLoc, 1, glm::value_ptr(mValue));
+		mBufValue = mValue;
+	}
 }
 
-Uniform3f::Uniform3f(const std::string& name, GLuint loc, Uniform::Type eType) : Uniform{ name, loc, eType }, mValue{} { }
+Uniform3f::Uniform3f(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : Uniform{ name, loc, ePurpose }, mValue{} { }
 
 void Uniform3f::Set(float v0, float v1, float v2) {
 	mValue = { v0, v1, v2 };
@@ -231,10 +237,13 @@ void Uniform3f::Set(const glm::vec3 &value) {
 }
 
 void Uniform3f::Upload() {
-	glUniform3fv(mLoc, 1, glm::value_ptr(mValue));
+	if (mValue != mBufValue) {
+		glUniform3fv(mLoc, 1, glm::value_ptr(mValue));
+		mBufValue = mValue;
+	}
 }
 
-Uniform4f::Uniform4f(const std::string& name, GLuint loc, Uniform::Type eType) : Uniform{ name, loc, eType }, mValue{} { }
+Uniform4f::Uniform4f(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : Uniform{ name, loc, ePurpose }, mValue{} { }
 
 void Uniform4f::Set(float v0, float v1, float v2, float v3) {
 	mValue = { v0, v1, v2, v3 };
@@ -245,20 +254,26 @@ void Uniform4f::Set(const glm::vec4 &value) {
 }
 
 void Uniform4f::Upload() {
-	glUniform4fv(mLoc, 1, glm::value_ptr(mValue));
+	if (mValue != mBufValue) {
+		glUniform4fv(mLoc, 1, glm::value_ptr(mValue));
+		mBufValue = mValue;
+	}
 }
 
-Uniform1i::Uniform1i(const std::string& name, GLuint loc, Uniform::Type eType) : Uniform{ name, loc, eType }, mValue{} { }
+Uniform1i::Uniform1i(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : Uniform{ name, loc, ePurpose }, mValue{} { }
 
 void Uniform1i::Set(int value) {
 	mValue = value;
 }
 
 void Uniform1i::Upload() {
-	glUniform1i(mLoc, mValue);
+	if (mValue != mBufValue) {
+		glUniform1i(mLoc, mValue);
+		mBufValue = mValue;
+	}
 }
 
-Uniform2i::Uniform2i(const std::string& name, GLuint loc, Uniform::Type eType) : Uniform{ name, loc, eType }, mValue{} { }
+Uniform2i::Uniform2i(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : Uniform{ name, loc, ePurpose }, mValue{} { }
 
 void Uniform2i::Set(int v0, int v1) {
 	mValue = { v0, v1 };
@@ -269,10 +284,13 @@ void Uniform2i::Set(const glm::ivec2 &value) {
 }
 
 void Uniform2i::Upload() {
-	glUniform2iv(mLoc, 1, glm::value_ptr(mValue));
+	if (mValue != mBufValue) {
+		glUniform2iv(mLoc, 1, glm::value_ptr(mValue));
+		mBufValue = mValue;
+	}
 }
 
-Uniform3i::Uniform3i(const std::string& name, GLuint loc, Uniform::Type eType) : Uniform{ name, loc, eType }, mValue{} { }
+Uniform3i::Uniform3i(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : Uniform{ name, loc, ePurpose }, mValue{} { }
 
 void Uniform3i::Set(int v0, int v1, int v2) {
 	mValue = { v0, v1, v2 };
@@ -283,10 +301,14 @@ void Uniform3i::Set(const glm::ivec3 &value) {
 }
 
 void Uniform3i::Upload() {
-	glUniform3iv(mLoc, 1, glm::value_ptr(mValue));
+
+	if (mValue != mBufValue) {
+		glUniform3iv(mLoc, 1, glm::value_ptr(mValue));
+		mBufValue = mValue;
+	}
 }
 
-Uniform4i::Uniform4i(const std::string& name, GLuint loc, Uniform::Type eType) : Uniform{ name, loc, eType }, mValue{} { }
+Uniform4i::Uniform4i(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : Uniform{ name, loc, ePurpose }, mValue{} { }
 
 void Uniform4i::Set(int v0, int v1, int v2, int v3) {
 	mValue = { v0, v1, v2, v3 };
@@ -297,45 +319,63 @@ void Uniform4i::Set(const glm::ivec4 &value) {
 }
 
 void Uniform4i::Upload() {
-	glUniform4iv(mLoc, 1, glm::value_ptr(mValue));
+
+	if (mValue != mBufValue) {
+		glUniform4iv(mLoc, 1, glm::value_ptr(mValue));
+		mBufValue = mValue;
+	}
 }
 
-UniformMat2::UniformMat2(const std::string& name, GLuint loc, Uniform::Type eType) : Uniform{ name, loc, eType }, mValue{} { }
+UniformMat2::UniformMat2(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : Uniform{ name, loc, ePurpose }, mValue{} { }
 
 void UniformMat2::Set(const glm::mat2& value) {
 	mValue = value;
 }
 
 void UniformMat2::Upload() {
-	glUniformMatrix2fv(mLoc, 1, GL_FALSE, glm::value_ptr(mValue));
+
+	if (mValue != mBufValue) {
+		glUniformMatrix2fv(mLoc, 1, GL_FALSE, glm::value_ptr(mValue));
+		mBufValue = mValue;
+	}
 }
 
-UniformMat3::UniformMat3(const std::string& name, GLuint loc, Uniform::Type eType) : Uniform{ name, loc, eType }, mValue{} { }
+UniformMat3::UniformMat3(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : Uniform{ name, loc, ePurpose }, mValue{} { }
 
 void UniformMat3::Set(const glm::mat3& value) {
 	mValue = value;
 }
 
 void UniformMat3::Upload() {
-	glUniformMatrix3fv(mLoc, 1, GL_FALSE, glm::value_ptr(mValue));
+
+	if (mValue != mBufValue) {
+		glUniformMatrix3fv(mLoc, 1, GL_FALSE, glm::value_ptr(mValue));
+		mBufValue = mValue;
+	}
 }
 
-UniformMat4::UniformMat4(const std::string& name, GLuint loc, Uniform::Type eType) : Uniform{ name, loc, eType } { }
+UniformMat4::UniformMat4(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : Uniform{ name, loc, ePurpose } { }
 
 void UniformMat4::Set(const glm::mat4& value) {
 	mValue = value;
 }
 
 void UniformMat4::Upload() {
-	glUniformMatrix4fv(mLoc, 1, GL_FALSE, glm::value_ptr(mValue));
+	if (mValue != mBufValue) {
+		glUniformMatrix4fv(mLoc, 1, GL_FALSE, glm::value_ptr(mValue));
+		mBufValue = mValue;
+	}
 }
 
-UniformTexture2D::UniformTexture2D(const std::string& name, GLuint loc, Uniform::Type eType) : Uniform{name, loc, eType}, mpValue{} { }
+UniformTexture2D::UniformTexture2D(const std::string& name, GLuint loc, Uniform::Purpose ePurpose) : Uniform{name, loc, ePurpose}, mpValue{} { }
 
 void UniformTexture2D::Set(Texture2D* pValue) {
 	mpValue = pValue;
 }
 
 void UniformTexture2D::Upload() {
-	mpValue->Enable();
+	if (mpValue != mpBufValue) {
+		mpValue->Enable();
+		mpBufValue = mpValue;
+	}
 }

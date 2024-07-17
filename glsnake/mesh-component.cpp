@@ -19,7 +19,7 @@ void MeshComponent::Enable() {
 }
 
 int MeshComponent::NumVertices() {
-	return mpMesh->NumVertices();
+	return mpMesh->GetNumVertices();
 }
 
 void MeshComponent::Start() { }

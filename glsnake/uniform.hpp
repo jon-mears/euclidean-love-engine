@@ -15,7 +15,7 @@ protected:
 	GLuint mLoc;
 public:
 
-	enum Type {
+	enum Purpose {
 		MVP_MATRIX,
 		M_MATRIX,
 		V_MATRIX,
@@ -26,15 +26,17 @@ public:
 	};
 
 	std::string mName;
-	Type meType;
-	Uniform(const std::string &name, GLuint loc, Type eType);
+	Purpose mePurpose;
+	Uniform(const std::string &name, GLuint loc, Purpose ePurpose);
 	Uniform(std::nullptr_t null, GLuint loc) = delete;
 
 	static std::string Encode(std::string name, GLuint loc, std::string type, 
-		Uniform::Type eType = Uniform::NONE);
+		Uniform::Purpose mePurpose = Uniform::NONE);
 	static Uniform* Decode(const std::string& code);
-	static Type Category(const std::string& rcName);
+	static Uniform::Purpose Category(const std::string& rcName);
 	virtual void Upload() = 0;
+
+	inline Purpose GetPurpose() { return mePurpose; }
 
 	virtual void Set(float v0);
 	virtual void Set(float v0, float v1);
@@ -60,9 +62,10 @@ public:
 class Uniform1f : public Uniform {
 private:
 	float mValue{ 0.0f };
+	float mBufValue{ 0.0f };
 public:
 
-	Uniform1f(const std::string& name, GLuint loc, Type eType);
+	Uniform1f(const std::string& name, GLuint loc, Purpose ePurpose);
 	virtual void Set(float v0) override;
 	virtual void Upload() override;
 };
@@ -70,9 +73,10 @@ public:
 class Uniform2f : public Uniform {
 private:
 	glm::vec2 mValue;
+	glm::vec2 mBufValue{};
 public:
 
-	Uniform2f(const std::string& name, GLuint loc, Type eType);
+	Uniform2f(const std::string& name, GLuint loc, Purpose ePurpose);
 	virtual void Set(float v0, float v1) override;
 	virtual void Set(const glm::vec2& v) override;
 	virtual void Upload() override;
@@ -81,9 +85,10 @@ public:
 class Uniform3f : public Uniform {
 private:
 	glm::vec3 mValue;
+	glm::vec3 mBufValue{};
 public:
 
-	Uniform3f(const std::string& name, GLuint loc, Type eType);
+	Uniform3f(const std::string& name, GLuint loc, Purpose ePurpose);
 	virtual void Set(float v0, float v1, float v2) override;
 	virtual void Set(const glm::vec3& v) override;
 	virtual void Upload() override;
@@ -92,9 +97,10 @@ public:
 class Uniform4f : public Uniform {
 private:
 	glm::vec4 mValue;
+	glm::vec4 mBufValue{};
 public:
 
-	Uniform4f(const std::string& name, GLuint loc, Type eType);
+	Uniform4f(const std::string& name, GLuint loc, Purpose ePurpose);
 	virtual void Set(float v0, float v1, float v2, float v3) override;
 	virtual void Set(const glm::vec4& v) override;
 	virtual void Upload() override;
@@ -103,9 +109,10 @@ public:
 class Uniform1i : public Uniform {
 private:
 	int mValue;
+	int mBufValue{};
 public:
 
-	Uniform1i(const std::string& name, GLuint loc, Type eType);
+	Uniform1i(const std::string& name, GLuint loc, Purpose ePurpose);
 	virtual void Set(int v0) override;
 	virtual void Upload() override;
 };
@@ -113,9 +120,10 @@ public:
 class Uniform2i : public Uniform {
 private:
 	glm::ivec2 mValue;
+	glm::ivec2 mBufValue{};
 public:
 
-	Uniform2i(const std::string& name, GLuint loc, Type eType);
+	Uniform2i(const std::string& name, GLuint loc, Purpose ePurpose);
 	virtual void Set(int v0, int v1) override;
 	virtual void Set(const glm::ivec2& v) override;
 	virtual void Upload() override;
@@ -124,9 +132,10 @@ public:
 class Uniform3i : public Uniform {
 private:
 	glm::ivec3 mValue;
+	glm::ivec3 mBufValue{};
 public:
 
-	Uniform3i(const std::string& name, GLuint loc, Type eType);
+	Uniform3i(const std::string& name, GLuint loc, Purpose ePurpose);
 	virtual void Set(int v0, int v1, int v2) override;
 	virtual void Set(const glm::ivec3& v) override;
 	virtual void Upload() override;
@@ -135,9 +144,10 @@ public:
 class Uniform4i : public Uniform {
 private:
 	glm::ivec4 mValue;
+	glm::ivec4 mBufValue{};
 public:
 
-	Uniform4i(const std::string& name, GLuint loc, Type eType);
+	Uniform4i(const std::string& name, GLuint loc, Purpose ePurpose);
 	virtual void Set(int v0, int v1, int v2, int v3) override;
 	virtual void Set(const glm::ivec4& v) override;
 	virtual void Upload() override;
@@ -146,9 +156,10 @@ public:
 class UniformMat2 : public Uniform {
 private:
 	glm::mat2 mValue;
+	glm::mat2 mBufValue{};
 public:
 
-	UniformMat2(const std::string& name, GLuint loc, Type eType);
+	UniformMat2(const std::string& name, GLuint loc, Purpose ePurpose);
 	virtual void Set(const glm::mat2& matrix) override;
 	virtual void Upload() override;
 };
@@ -156,9 +167,10 @@ public:
 class UniformMat3 : public Uniform {
 private:
 	glm::mat3 mValue;
+	glm::mat3 mBufValue{};
 public:
 
-	UniformMat3(const std::string& name, GLuint loc, Type eType);
+	UniformMat3(const std::string& name, GLuint loc, Purpose ePurpose);
 	virtual void Set(const glm::mat3& matrix) override;
 	virtual void Upload() override;
 };
@@ -166,9 +178,10 @@ public:
 class UniformMat4 : public Uniform {
 private:
 	glm::mat4 mValue{ 1 };
+	glm::mat4 mBufValue{};
 public:
 
-	UniformMat4(const std::string& name, GLuint loc, Type eType); 
+	UniformMat4(const std::string& name, GLuint loc, Purpose ePurpose); 
 	virtual void Set(const glm::mat4& matrix) override;
 	virtual void Upload() override;
 };
@@ -176,10 +189,15 @@ public:
 class UniformTexture2D : public Uniform {
 private:
 	Texture2D* mpValue;
+	Texture2D* mpBufValue{ nullptr };
 public:
 
-	UniformTexture2D(const std::string& name, GLuint loc, Type eType);
+	UniformTexture2D(const std::string& name, GLuint loc, Purpose ePurpose);
 	virtual void Set(Texture2D* pTexture) override;
 	virtual void Upload() override;
 };
 #endif
+
+// resource updaters?
+
+// checks for semantic equivalence of glsl programs??

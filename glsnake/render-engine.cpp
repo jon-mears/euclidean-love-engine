@@ -1,3 +1,4 @@
+#include "render-command.hpp"
 #include "render-engine.hpp"
 #include "resource-manager.hpp"
 #include "targeted-camera-component.hpp"
@@ -9,6 +10,7 @@
 #include "camera-component.hpp"
 #include "primitives.hpp"
 
+#include <vector>
 #include <iostream>
 #include <string>
 #include <map>
@@ -32,40 +34,20 @@ RenderEngine::RenderEngine() : mfClearFlags{ 0 }, mWindowWidth{ 0 }, mWindowHeig
 
 void RenderEngine::Draw() {
 
-	//static GLuint local_vec_vao = 0;
-	//static GLuint vbo = 0;
-
-	//if (local_vec_vao == 0 && vbo == 0) {
-	//	glGenBuffers(1, &vbo);
-	//	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	//	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 18,
-	//		nullptr, GL_STATIC_DRAW);
-
-	//	glGenVertexArrays(1, &local_vec_vao);
-	//	glBindVertexArray(local_vec_vao);
-	//	glVertexAttribPointer(GLSLTranslator::Attrib2Loc(
-	//		Vertex::POSITION), 3, GL_FLOAT, GL_FALSE,
-	//		3 * sizeof(GLfloat), (void*)0);
-	//	glEnableVertexArrayAttrib(local_vec_vao,
-	//		GLSLTranslator::Attrib2Loc(Vertex::POSITION));
-	//}
-
 	ClearBuffers();
 
-	// for (std::vector<RenderCommand>::iterator it = 
-	//	mRenderCommands.begin(); it != mRenderCommands.end();
-	//	++it) {
-	//		it->Execute();
-	// }
+	 for (RenderCommand* pRenderCommand : mRenderCommands) {
+			pRenderCommand->Execute();
+	 }
 
-	CameraComponent* pCamera = nullptr;
-	for (std::map<std::string, GameObject*>::iterator it = ResourceManager::Instance().Begin<GameObject>(); it != ResourceManager::Instance().End<GameObject>(); ++it) {
-		GameObject* pGO = it->second;
+	//CameraComponent* pCamera = nullptr;
+	//for (std::map<std::string, GameObject*>::iterator it = ResourceManager::Instance().Begin<GameObject>(); it != ResourceManager::Instance().End<GameObject>(); ++it) {
+	//	GameObject* pGO = it->second;
 
-		if ((pCamera = pGO->Retrieve<CameraComponent>()) || (pCamera = pGO->Retrieve<TargetedCameraComponent>())) {
-			pCamera->Draw();
-		}
-	}
+	//	if ((pCamera = pGO->Retrieve<CameraComponent>()) || (pCamera = pGO->Retrieve<TargetedCameraComponent>())) {
+	//		pCamera->Draw();
+	//	}
+	//}
 
 	//DisableTests(GL_DEPTH_TEST);
 
@@ -91,36 +73,16 @@ void RenderEngine::Draw() {
 
 	//	glm::vec3 localY = pTransformC->LocalY();
 	//	glBufferSubData()
+
+	// would like to be able to add fixed stuff to the render pipeline, i.e., 
+	// to annotate if something NEVER changes in a given scene
 }
 
-// void RenderEngine::AddRenderCommand(RenderComponent* pRenderC) {
-//	DrawCommand* pDrawCommand = new DrawCommand(pRenderC);
-//	PreDrawCommand;
-//	* must define operator< for DrawCommand and RenderCommand
-//	
-//	// static
-//	it = FindCommandPosition(mRenderCommands.begin(),
-//	mRenderCommands.end(), 
-//		pDrawCommand);
-//	
-// 
-//	RenderCommand* pPrevRenderCommand = nullptr;
-//	
-//	* SetupDrawCommand
-//	
-//	if (it != mRenderCommands.begin()) {
-//		pPrevRenderCommand = *(it-1);
-//	}
-// 
-//	mRenderCommands.insert(it, new RenderCommand(pPrevRenderCommand, 
-//		pDrawCommand));
-// 
-// 
-//	
-// SetupCommand 
-//	}
+ void RenderEngine::AddCommand(RenderCommand* pRenderCommand) {
+	 mRenderCommands.push_back(pRenderCommand);
+}
 
-//// static
+// static
 //std::vector<RenderCommand*>::iterator 
 //RenderEngine::FindCommandPosition(std::vector<RenderCommand*>::iterator it1,
 //	std::vector<RenderCommand*>::iterator it2, DrawCommand* pDrawCommand) {
@@ -131,7 +93,9 @@ void RenderEngine::Draw() {
 //		same_mvp_matrix{ cNPOS }, same_vp_matrix{ cNPOS }, same_p_matrix{ cNPOS };
 //
 //	for (std::vector<RenderCommand*>::iterator it = it1; it != it2; ++it) {
-//		if ((*it)->HasSameFramebufferAs(pDrawCommand)) {
+//
+//		DrawCommand* pRHSDrawCommand = (*it)->GetDrawCommand();
+//		if (pDrawCommand->HasSameFramebufferAs(pRHSDrawCommand)) {
 //			same_framebuffer = it - it1;
 //			same_program = cNPOS;
 //			same_vao = cNPOS;
@@ -140,7 +104,7 @@ void RenderEngine::Draw() {
 //			same_p_matrix = cNPOS;
 //		}
 //
-//		if ((*it)->HasSameProgramAs(pDrawCommand)) {
+//		if (pDrawCommand->HasSameShaderAs(pRHSDrawCommand)) {
 //			same_program = it - it1;
 //			same_vao = cNPOS;
 //			same_mvp_matrix = cNPOS;
@@ -148,25 +112,28 @@ void RenderEngine::Draw() {
 //			same_p_matrix = cNPOS;
 //		}
 //
-//		if ((*it)->HasSameVAOAs(pDrawCommand)) {
+//		if (pDrawCommand->HasSameMeshAs(pRHSDrawCommand)) {
 //			same_vao = it - it1;
 //			same_mvp_matrix = cNPOS;
 //			same_vp_matrix = cNPOS;
 //			same_p_matrix = cNPOS;
 //		}
 //
-//		if ((*it)->HasSameMVPMatrixAs(pDrawCommand)) {
+//		if (pDrawCommand->HasSameMMatrixAs(pRHSDrawCommand) && 
+//			pDrawCommand->HasSameVMatrixAs(pRHSDrawCommand) &&
+//			pDrawCommand->HasSamePMatrixAs(pRHSDrawCommand)) {
 //			same_mvp_matrix = it - it1;
 //			same_vp_matrix = cNPOS;
 //			same_p_matrix = cNPOS;
 //		}
 //
-//		if ((*it)->HasSameVPMatrixAs(pDrawCommand)) {
+//		if (pDrawCommand->HasSameVMatrixAs(pRHSDrawCommand) &&
+//			pDrawCommand->HasSamePMatrixAs(pRHSDrawCommand)) {
 //			same_vp_matrix = it - it1;
 //			same_p_matrix = cNPOS;
 //		}
 //
-//		if ((*it)->HasSamePMatrixAs(pDrawCommand)) {
+//		if (pDrawCommand->HasSamePMatrixAs(pRHSDrawCommand)) {
 //			same_p_matrix = it - it1;
 //		}
 //	}

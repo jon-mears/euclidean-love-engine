@@ -107,7 +107,7 @@ std::vector<float> Mesh::CollectData() {
     return collected_data;
 }
 
-int Mesh::NumVertices() {
+int Mesh::GetNumVertices() {
     return mNumVertices;
 }
 

@@ -37,33 +37,33 @@ void Shader::ProvideVertexSource(const std::string& rcSource) {
 	std::istringstream stream(rcSource);
 
 	std::string word{ "" }, type{ "" }, name{ "" };
-	Uniform::Type eCurType{ Uniform::NONE };
+	Uniform::Purpose eCurPurpose{ Uniform::NONE };
 
 	while (stream && word != "main") {
 		stream >> word;
 
 		if (word == "@MVP_MATRIX") {
-			eCurType = Uniform::MVP_MATRIX;
+			eCurPurpose = Uniform::MVP_MATRIX;
 		}
 
 		else if (word == "@M_MATRIX") {
-			eCurType = Uniform::M_MATRIX;
+			eCurPurpose = Uniform::M_MATRIX;
 		}
 
 		else if (word == "@V_MATRIX") {
-			eCurType = Uniform::V_MATRIX;
+			eCurPurpose = Uniform::V_MATRIX;
 		}
 
 		else if (word == "@P_MATRIX") {
-			eCurType = Uniform::P_MATRIX;
+			eCurPurpose = Uniform::P_MATRIX;
 		}
 
 		else if (word == "@MV_MATRIX") {
-			eCurType = Uniform::MV_MATRIX;
+			eCurPurpose = Uniform::MV_MATRIX;
 		}
 
 		else if (word == "@VP_MATRIX") {
-			eCurType = Uniform::VP_MATRIX;
+			eCurPurpose = Uniform::VP_MATRIX;
 		}
 
 		else if (word == "uniform") {
@@ -76,9 +76,9 @@ void Shader::ProvideVertexSource(const std::string& rcSource) {
 
 			name = std::string(name.begin(), it);
 
-			mUniformName2Type[name] = eCurType;
+			mUniformName2Purpose[name] = eCurPurpose;
 
-			eCurType == Uniform::NONE;
+			eCurPurpose = Uniform::NONE;
 		}
 	}
 
@@ -106,33 +106,33 @@ void Shader::ProvideFragmentSource(const std::string& rcSource) {
 	std::istringstream stream(rcSource);
 
 	std::string word{ "" }, type{ "" }, name{ "" };
-	Uniform::Type eCurType{ Uniform::NONE };
+	Uniform::Purpose eCurPurpose{ Uniform::NONE };
 
 	while (stream && word != "main") {
 		stream >> word;
 
 		if (word == "@MVP_MATRIX") {
-			eCurType = Uniform::MVP_MATRIX;
+			eCurPurpose = Uniform::MVP_MATRIX;
 		}
 
 		else if (word == "@M_MATRIX") {
-			eCurType = Uniform::M_MATRIX;
+			eCurPurpose = Uniform::M_MATRIX;
 		}
 
 		else if (word == "@V_MATRIX") {
-			eCurType = Uniform::V_MATRIX;
+			eCurPurpose = Uniform::V_MATRIX;
 		}
 
 		else if (word == "@P_MATRIX") {
-			eCurType = Uniform::P_MATRIX;
+			eCurPurpose = Uniform::P_MATRIX;
 		}
 
 		else if (word == "@MV_MATRIX") {
-			eCurType = Uniform::MV_MATRIX;
+			eCurPurpose = Uniform::MV_MATRIX;
 		}
 
 		else if (word == "@VP_MATRIX") {
-			eCurType = Uniform::VP_MATRIX;
+			eCurPurpose = Uniform::VP_MATRIX;
 		}
 
 		else if (word == "uniform") {
@@ -145,9 +145,9 @@ void Shader::ProvideFragmentSource(const std::string& rcSource) {
 
 			name = std::string(name.begin(), it);
 
-			mUniformName2Type[name] = eCurType;
+			mUniformName2Purpose[name] = eCurPurpose;
 
-			eCurType == Uniform::NONE;
+			eCurPurpose = Uniform::NONE;
 		}
 	}
 
@@ -201,7 +201,7 @@ void Shader::Compile() {
 			GLuint loc = glGetUniformLocation(mID, var.c_str());
 
 			mUniformCodes.push_back(Uniform::Encode(var, loc, type, 
-				mUniformName2Type[var]));
+				mUniformName2Purpose[var]));
 		}
 
 		if (word == "in") {
@@ -230,7 +230,7 @@ void Shader::Compile() {
 			GLuint loc = glGetUniformLocation(mID, var.c_str());
 
 			mUniformCodes.push_back(Uniform::Encode(var, loc, type, 
-				mUniformName2Type[var]));
+				mUniformName2Purpose[var]));
 		}
 	}
 }

@@ -35,7 +35,7 @@ void TexturedWindow::Draw() {
 	mpMesh->Enable();
 	mpMaterial->Enable();
 
-	glDrawArrays(GL_TRIANGLES, 0, mpMesh->NumVertices());
+	glDrawArrays(GL_TRIANGLES, 0, mpMesh->GetNumVertices());
 }
 
 TexturedWindow::~TexturedWindow() { }

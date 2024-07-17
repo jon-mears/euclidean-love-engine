@@ -200,7 +200,10 @@
     <ClCompile Include="render-component.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="draw-command.cpp">
+    <ClCompile Include="render-command.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="projection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -364,7 +367,13 @@
     <ClInclude Include="render-component.hpp">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="draw-command.hpp">
+    <ClInclude Include="render-command.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="setup-draw-command.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="projection.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,10 +1,12 @@
 #ifndef RENDER_ENGINE_HPP
 #define RENDER_ENGINE_HPP
 
+#include <vector>
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 
-class DrawCommand;
 class RenderCommand;
 
 namespace Render {
@@ -31,6 +33,15 @@ private:
 	int mWindowWidth, mWindowHeight;
 	const char* mpcWindowName;
 
+	// cached matrices
+	glm::mat4 mMVPMatrix{ 1 };
+	glm::mat4 mVPMatrix{ 1 };
+	glm::mat4 mMMatrix{ 1 };
+	glm::mat4 mVMatrix{ 1 };
+	glm::mat4 mPMatrix{ 1 };
+
+	std::vector<RenderCommand*> mRenderCommands{};
+
 #ifdef _glfw3_h_
 	GLFWwindow* mpWindow;
 	inline void ProvideWindow(GLFWwindow* pWindow) {
@@ -47,10 +58,6 @@ private:
 	void Startup();
 	void ClearBuffers();
 
-	//static std::vector<RenderCommand*>::iterator FindCommandPosition
-	//(std::vector<RenderCommand*>::iterator it1,
-	//	std::vector<RenderCommand*>::iterator it2,
-	//	DrawCommand* pDrawCommand);
 
 	inline void WindowInfo(int width, int height, const char* pcName) {
 		mWindowWidth = width;
@@ -64,6 +71,7 @@ private:
 	RenderEngine& operator=(RenderEngine rhs) = delete;
 
 public:
+	void AddCommand(RenderCommand* pRenderCommand);
 	void Draw();
 
 	inline GLFWwindow* Window() {
@@ -115,6 +123,8 @@ public:
 	static RenderEngine& Instance();
 	friend class App;
 	friend void FramebufferCallback::FramebufferSizeCallback(GLFWwindow* pWindow, int width, int height);
+
+	friend class RenderCommand;
 };
 
 #endif

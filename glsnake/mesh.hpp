@@ -39,13 +39,17 @@ public:
 	void VertexAttrib(Vertex::Attribute eAttrib, VertexData vdata);
 	void Compile();
 	void Enable();
-	int NumVertices();
+	int GetNumVertices();
 	VertexData GetAttrib(Vertex::Attribute eAttrib);
 
 	Mesh();
 
 	~Mesh() {
 		glDeleteVertexArrays(1, &mVAO);
+	}
+
+	inline bool operator==(const Mesh& rcRHS) {
+		return mVAO == rcRHS.mVAO;
 	}
 };
 

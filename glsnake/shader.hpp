@@ -28,7 +28,7 @@ private:
 	std::vector<std::string> mUniformCodes;
 	std::map<std::string, Vertex::Attribute> mAttribName2Type;
 	std::map<std::string, GLuint> mAttribName2Loc;
-	std::map<std::string, Uniform::Type> mUniformName2Type;
+	std::map<std::string, Uniform::Purpose> mUniformName2Purpose;
 
 public:
 	Shader();
@@ -41,6 +41,10 @@ public:
 	std::vector<std::string> &UniformCodes();
 
 	void LabelAttrib(const std::string& name, Vertex::Attribute eAttrib);
+
+	inline bool operator==(const Shader& rcRHS) {
+		return mID == rcRHS.mID;
+	}
 };
 
 #endif
