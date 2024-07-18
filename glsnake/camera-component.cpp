@@ -35,41 +35,41 @@ void CameraComponent::AddViewable(GameObject* pGO) {
 	}
 }
 
-void CameraComponent::Draw() {
-	//glViewport(mOriginX, mOriginY, mWidth, mHeight);
-
-	if (mpFramebuffer == nullptr) {
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	}
-
-	else {
-		mpFramebuffer->Enable();
-	}
-
-	for (GameObject* pViewable : mViewables) {
-
-		// if it's not owned, might be a good idea to return a 
-		// const-reference
-
-		ShaderComponent* pShaderComponent = pViewable->Retrieve<ShaderComponent>();
-		MeshComponent* pMeshComponent = pViewable->Retrieve<MeshComponent>();
-
-		if ((pShaderComponent == nullptr || !pShaderComponent->IsActive()) ||
-			(pMeshComponent == nullptr || !pMeshComponent->IsActive())) {
-			// do nothing
-		}
-
-		else {
-			pShaderComponent->UpdateUniforms(this);
-			pShaderComponent->UploadUniforms();
-
-			pShaderComponent->Enable();
-			pMeshComponent->Enable();
-
-			glDrawArrays(pMeshComponent->GetRenderMode(), 0, pMeshComponent->NumVertices());
-		}
-	}
-}
+//void CameraComponent::Draw() {
+//	//glViewport(mOriginX, mOriginY, mWidth, mHeight);
+//
+//	if (mpFramebuffer == nullptr) {
+//		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+//	}
+//
+//	else {
+//		mpFramebuffer->Enable();
+//	}
+//
+//	for (GameObject* pViewable : mViewables) {
+//
+//		// if it's not owned, might be a good idea to return a 
+//		// const-reference
+//
+//		ShaderComponent* pShaderComponent = pViewable->Retrieve<ShaderComponent>();
+//		MeshComponent* pMeshComponent = pViewable->Retrieve<MeshComponent>();
+//
+//		if ((pShaderComponent == nullptr || !pShaderComponent->IsActive()) ||
+//			(pMeshComponent == nullptr || !pMeshComponent->IsActive())) {
+//			// do nothing
+//		}
+//
+//		else {
+//			pShaderComponent->UpdateUniforms(this);
+//			pShaderComponent->UploadUniforms();
+//
+//			pShaderComponent->Enable();
+//			pMeshComponent->Enable();
+//
+//			glDrawArrays(pMeshComponent->GetRenderMode(), 0, pMeshComponent->NumVertices());
+//		}
+//	}
+//}
 
 glm::mat4 CameraComponent::ViewMatrix() {
 	glm::vec3 pos = mpTransform->Position();

@@ -6,16 +6,16 @@
 #include "shader.hpp"
 #include "uniform.hpp"
 
-void Material::SetShader(Shader* pShader) {
-	mpShader = pShader;
-
-	for (std::vector<std::string>::iterator it = pShader->UniformCodes().begin();
-		it != pShader->UniformCodes().end(); ++it) {
-		Uniform* pUniform = Uniform::Decode(*it);
-		mUniforms[pUniform->mName] = pUniform;
-		mPurpose2Uniform[pUniform->GetPurpose()] = pUniform;
-	}
-}
+//void Material::SetShader(Shader* pShader) {
+//	mpShader = pShader;
+//
+//	for (std::vector<std::string>::iterator it = pShader->UniformCodes().begin();
+//		it != pShader->UniformCodes().end(); ++it) {
+//		Uniform* pUniform = Uniform::Decode(*it);
+//		mUniforms[pUniform->mName] = pUniform;
+//		mPurpose2Uniform[pUniform->GetPurpose()] = pUniform;
+//	}
+//}
 
 void Material::Enable() {
 	mpShader->Enable();
@@ -73,7 +73,7 @@ void Material::SetUniform(const std::string& rcName, Texture2D* pValue) {
 
 void Material::UploadUniforms() {
 	mpShader->Enable();
-	for (std::pair<const std::string, Uniform*>& rItem : mUniforms) {
+	for (std::pair<const std::string, UniformHolder*>& rItem : mUniforms) {
 		rItem.second->Upload();
 	}
 }

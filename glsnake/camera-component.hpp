@@ -45,7 +45,7 @@ public:
 
 	void SetTests();
 
-	void Draw();
+	//void Draw();
 	virtual glm::mat4 ViewMatrix();
 
 	inline int Width() { return mWidth; }

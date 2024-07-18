@@ -29,22 +29,22 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-void UniformFunction(GameObject* pGO, CameraComponent* pCameraC) {
-	ShaderComponent* pShaderC = pGO->Retrieve<ShaderComponent>();
-	TransformComponent* pTransformC = pGO->Retrieve<TransformComponent>();
-	OrthographicComponent* pOrthoC = pGO->Retrieve<OrthographicComponent>();
-
-	glm::mat4 model = pTransformC->ModelMatrix();
-
-	glm::mat4 proj = pOrthoC->ProjectionMatrix();
-
-	glm::mat4 view = pCameraC->ViewMatrix();
-
-	glm::mat4 MVP = proj * view * model;
-
-	pShaderC->SetUniform("uMVP", MVP);
-	pShaderC->UploadUniforms();
-}
+//void UniformFunction(GameObject* pGO, CameraComponent* pCameraC) {
+//	ShaderComponent* pShaderC = pGO->Retrieve<ShaderComponent>();
+//	TransformComponent* pTransformC = pGO->Retrieve<TransformComponent>();
+//	OrthographicComponent* pOrthoC = pGO->Retrieve<OrthographicComponent>();
+//
+//	glm::mat4 model = pTransformC->ModelMatrix();
+//
+//	glm::mat4 proj = pOrthoC->ProjectionMatrix();
+//
+//	glm::mat4 view = pCameraC->ViewMatrix();
+//
+//	glm::mat4 MVP = proj * view * model;
+//
+//	pShaderC->SetUniform("uMVP", MVP);
+//	pShaderC->UploadUniforms();
+//}
 
 void InitSnake(App* pApp) {
 	Shader *pBoxShader = ResourceManager::Instance().Retrieve<Shader>("Texture Shader");

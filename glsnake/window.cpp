@@ -12,9 +12,7 @@ TexturedWindow::TexturedWindow() : Window{} {
 	mpMesh = Primitives::Plane(Vertex::POSITION |
 		Vertex::TEXTURE_COORD);
 
-	mpMaterial = new Material();
-	mpMaterial->SetShader(ResourceManager::Instance().
-		Retrieve<Shader>("Texture Shader"));
+	mpMaterial = new Material(ResourceManager::Instance().Retrieve<Shader>("Texture Shader"));
 }
 
 void TexturedWindow::SetTexture(Texture2D* pTexture) {

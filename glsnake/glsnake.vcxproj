@@ -207,6 +207,7 @@
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="transform-component.cpp" />
     <ClCompile Include="ui-window.cpp" />
+    <ClCompile Include="uniform-holder.cpp" />
     <ClCompile Include="uniform.cpp" />
     <ClCompile Include="vertex-data.cpp" />
     <ClCompile Include="volumes.cpp" />
@@ -266,6 +267,7 @@
     <ClInclude Include="texture.hpp" />
     <ClInclude Include="transform-component.hpp" />
     <ClInclude Include="ui-window.hpp" />
+    <ClInclude Include="uniform-holder.hpp" />
     <ClInclude Include="uniform.hpp" />
     <ClInclude Include="vertex-data.hpp" />
     <ClInclude Include="window.hpp" />

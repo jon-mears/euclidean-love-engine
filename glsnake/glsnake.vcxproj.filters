@@ -206,6 +206,9 @@
     <ClCompile Include="projection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="uniform-holder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app.hpp">
@@ -374,6 +377,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="projection.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="uniform-holder.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
