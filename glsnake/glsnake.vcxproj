@@ -171,6 +171,7 @@
     <ClCompile Include="camera-component.cpp" />
     <ClCompile Include="camera-control-component.cpp" />
     <ClCompile Include="component.cpp" />
+    <ClCompile Include="eucmesh-scanner.cpp" />
     <ClCompile Include="projection.cpp" />
     <ClCompile Include="render-command.cpp" />
     <ClCompile Include="editor-manager.cpp" />
@@ -228,6 +229,7 @@
     <ClInclude Include="..\..\..\..\..\..\imgui\imgui\imgui_internal.h" />
     <ClInclude Include="button.hpp" />
     <ClInclude Include="component.hpp" />
+    <ClInclude Include="eucmesh-scanner.hpp" />
     <ClInclude Include="projection.hpp" />
     <ClInclude Include="render-command.hpp" />
     <ClInclude Include="framebuffer.hpp" />

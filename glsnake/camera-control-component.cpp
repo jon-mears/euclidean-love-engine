@@ -51,6 +51,11 @@ void CameraControlComponent::Update() {
 		float deltaX = -mXLookSpeed * InputManager::Instance().RelativeAxis(Input::HORIZONTAL);
 		float deltaY = -mYLookSpeed * InputManager::Instance().RelativeAxis(Input::VERTICAL);
 	}
+
+	//if (InputManager::Instance().EventActive(Input::W_DOWN)) {
+	//	mOrbitTarget.distance -= 0.001f;
+	//	mOrbitTarget.distance = std::max(0.0f, mOrbitTarget.distance);
+	//}
 }
 
 void CameraControlComponent::ConstUpdate() const { }

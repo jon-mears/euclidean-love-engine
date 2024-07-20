@@ -47,8 +47,8 @@
 //}
 
 void InitSnake(App* pApp) {
-	Shader *pBoxShader = ResourceManager::Instance().Retrieve<Shader>("Texture Shader");
-	Mesh* pBoxMesh = Primitives::Cube<Vertex::POSITION | Vertex::TEXTURE_COORD>();
+	Shader *pBoxShader = ResourceManager::Instance().Retrieve<Shader>("Color Shader");
+	Mesh* pBoxMesh = ResourceManager::Instance().Retrieve<Mesh>("Stingray");
 
 	Texture2D* pBoxTexture = ResourceManager::Instance().Retrieve<Texture2D>("Container");
 
@@ -57,7 +57,7 @@ void InitSnake(App* pApp) {
 	GameObject* pBoxObj2 = ResourceManager::Instance().New<GameObject>("Box2");
 
 	TransformComponent* pTransformC = pBoxObj->Add<TransformComponent>();
-	pTransformC->SetScale(1.0f, 1.0f, 1.0f);
+	pTransformC->SetScale(1.0f/30.0f, 1.0f/30.0f, 1.0f/30.0f);
 	pTransformC->SetWindow(App::Instance().Window());
 
 	pTransformC = pBoxObj2->Add<TransformComponent>();
@@ -79,20 +79,18 @@ void InitSnake(App* pApp) {
 	pRenderC->SetMaterial(pBoxMaterial);
 	pRenderC->SetMesh(pBoxMesh);
 	pRenderC->SetCamera(pCameraC);
-	pRenderC->SetProjection(new Orthographic());
+	pRenderC->SetProjection(new Perspective());
 	//pRenderC->SetLayer(0);
 	pBoxMaterial->SetUniform("uColor", glm::vec4{ 1.0f, 1.0f, 1.0f, 1.0f });
-	pBoxMaterial->SetUniform("uSampler", pBoxTexture);
 
-	pRenderC = pBoxObj2->Add<RenderComponent>();
-	Material* pBoxMaterial2 = new Material(pBoxShader);
-	pRenderC->SetMaterial(pBoxMaterial2);
-	pRenderC->SetMesh(pBoxMesh);
-	pRenderC->SetCamera(pCameraC);
-	pRenderC->SetProjection(new Orthographic());
-	//pRenderC->SetLayer(0);
-	pBoxMaterial2->SetUniform("uColor", glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
-	pBoxMaterial2->SetUniform("uSampler", pBoxTexture);
+	//pRenderC = pBoxObj2->Add<RenderComponent>();
+	//Material* pBoxMaterial2 = new Material(pBoxShader);
+	//pRenderC->SetMaterial(pBoxMaterial2);
+	//pRenderC->SetMesh(pBoxMesh);
+	//pRenderC->SetCamera(pCameraC);
+	//pRenderC->SetProjection(new Orthographic());
+	////pRenderC->SetLayer(0);
+	//pBoxMaterial2->SetUniform("uColor", glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
 }
 
 void DeinitSnake(App* pApp) {

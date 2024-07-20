@@ -209,6 +209,9 @@
     <ClCompile Include="uniform-holder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="eucmesh-scanner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app.hpp">
@@ -380,6 +383,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="uniform-holder.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="eucmesh-scanner.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

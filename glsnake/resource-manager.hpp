@@ -86,6 +86,7 @@ private:
 	private:
 		void ParseShader(XMLNode* pNode);
 		void ParseTexture2D(XMLNode* pNode);
+		void ParseMesh(XMLNode* pNode);
 	public:
 		void ParseTree(XMLTree* pTree);
 	} mXmlTreeParser;

@@ -3,6 +3,8 @@
 #include "xml-tree.hpp"
 #include "xml-node.hpp"
 #include "shader.hpp"
+#include "eucmesh-scanner.hpp"
+#include <cstring>
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -28,6 +30,10 @@ void ResourceManager::XMLResourceTreeParser::ParseTree(XMLTree* pTree) {
 
 		else if (tagname == "Texture2D") {
 			ParseTexture2D(pNode);
+		}
+
+		else if (tagname == "Mesh") {
+			ParseMesh(pNode);
 		}
 	}
 }
@@ -86,6 +92,13 @@ void ResourceManager::XMLResourceTreeParser::ParseTexture2D
 			pTexture->SetImage(pImage);
 		}
 	}
+}
+
+void ResourceManager::XMLResourceTreeParser::ParseMesh(XMLNode* pNode) {
+	EucmeshScanner* pEucmeshScanner = new EucmeshScanner();
+	char aRoot[] = "C:\\assets\\";
+	Mesh* pMesh = pEucmeshScanner->Parse("C:\\assets\\" + pNode->Content());
+	ResourceManager::Instance().Add<Mesh>(pMesh, pNode->Attribute("Name"));
 }
 
 ResourceManager& ResourceManager::Instance() {

@@ -76,6 +76,8 @@ bool KeyMouseInputService::EventActive(Input::Event eEvent) {
 		return IsDown(MIDDLE_MOUSE_BUTTON, LEFT_SHIFT | LEFT_CTRL);
 	case Input::LOOKING:
 		return IsDown(MIDDLE_MOUSE_BUTTON | LEFT_CTRL);
+	case Input::W_DOWN:
+		return IsDown(W);
 	default:
 		std::cout << "input event not yet implemented!" << std::endl;
 	}
