@@ -1,4 +1,5 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -20,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{73b53422-b607-4cd2-9110-304b1235ac4e}</ProjectGuid>
-    <RootNamespace>glsnake</RootNamespace>
+    <ProjectGuid>{0b2381eb-fddc-4f78-a72d-e5068b9442f8}</ProjectGuid>
+    <RootNamespace>tester</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -95,8 +96,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Code\GLFW\include;C:\imgui\imgui;C:\imgui\imgui\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\Code\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -112,8 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Code\GLFW\include;C:\imgui\imgui;C:\imgui\imgui\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\Code\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,8 +128,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Code\GLFW\include;C:\imgui\imgui;C:\imgui\imgui\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\Code\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -146,8 +144,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Code\GLFW\include;C:\imgui\imgui;C:\imgui\imgui\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\Code\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -159,127 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\..\Code\glad\glad.c" />
-    <ClCompile Include="..\..\..\..\..\..\imgui\imgui\backends\imgui_impl_glfw.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\imgui\imgui\backends\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\imgui\imgui\imgui.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\imgui\imgui\imgui_demo.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\imgui\imgui\imgui_draw.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\imgui\imgui\imgui_tables.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\imgui\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="aabb.cpp" />
-    <ClCompile Include="button.cpp" />
-    <ClCompile Include="camera-component.cpp" />
-    <ClCompile Include="camera-control-component.cpp" />
-    <ClCompile Include="component.cpp" />
-    <ClCompile Include="projection.cpp" />
-    <ClCompile Include="render-command.cpp" />
-    <ClCompile Include="editor-manager.cpp" />
-    <ClCompile Include="factories.cpp" />
-    <ClCompile Include="framebuffer.cpp" />
-    <ClCompile Include="app.cpp" />
-    <ClCompile Include="game-object.cpp" />
-    <ClCompile Include="glsl-translator.cpp" />
-    <ClCompile Include="hierarchy-view.cpp" />
-    <ClCompile Include="image.cpp" />
-    <ClCompile Include="input-manager.cpp" />
-    <ClCompile Include="key-mouse-input-service.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="material.cpp" />
-    <ClCompile Include="math-3d.cpp" />
-    <ClCompile Include="mesh.cpp" />
-    <ClCompile Include="mesh-component.cpp" />
-    <ClCompile Include="object-editor.cpp" />
-    <ClCompile Include="orthographic-component.cpp" />
-    <ClCompile Include="perspective-component.cpp" />
-    <ClCompile Include="primitives.cpp" />
-    <ClCompile Include="projection-component.cpp" />
-    <ClCompile Include="renderbuffer.cpp" />
-    <ClCompile Include="render-engine.cpp" />
-    <ClCompile Include="resource.cpp" />
-    <ClCompile Include="resource-manager.cpp" />
-    <ClCompile Include="root-window.cpp" />
-    <ClCompile Include="selector-component.cpp" />
-    <ClCompile Include="shader.cpp" />
-    <ClCompile Include="shader-component.cpp" />
-    <ClCompile Include="scene.cpp" />
-    <ClCompile Include="stb.cpp" />
-    <ClCompile Include="targeted_camera-component .cpp" />
-    <ClCompile Include="texture.cpp" />
-    <ClCompile Include="transform-component.cpp" />
-    <ClCompile Include="ui-window.cpp" />
-    <ClCompile Include="uniform.cpp" />
-    <ClCompile Include="vertex-data.cpp" />
-    <ClCompile Include="volumes.cpp" />
-    <ClCompile Include="window.cpp" />
-    <ClCompile Include="xml-node.cpp" />
-    <ClCompile Include="xml-parser.cpp" />
-    <ClCompile Include="xml-state.cpp" />
-    <ClCompile Include="xml-tree.cpp" />
-    <ClCompile Include="render-component.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\Code\stb\stb_image.h" />
-    <ClInclude Include="..\..\..\..\..\..\imgui\imgui\backends\imgui_impl_glfw.h" />
-    <ClInclude Include="..\..\..\..\..\..\imgui\imgui\backends\imgui_impl_opengl3.h" />
-    <ClInclude Include="..\..\..\..\..\..\imgui\imgui\backends\imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="..\..\..\..\..\..\imgui\imgui\imconfig.h" />
-    <ClInclude Include="..\..\..\..\..\..\imgui\imgui\imgui.h" />
-    <ClInclude Include="..\..\..\..\..\..\imgui\imgui\imgui_internal.h" />
-    <ClInclude Include="button.hpp" />
-    <ClInclude Include="component.hpp" />
-    <ClInclude Include="projection.hpp" />
-    <ClInclude Include="render-command.hpp" />
-    <ClInclude Include="framebuffer.hpp" />
-    <ClInclude Include="image.hpp" />
-    <ClInclude Include="material.hpp" />
-    <ClInclude Include="math-3d.hpp" />
-    <ClInclude Include="aabb.hpp" />
-    <ClInclude Include="camera-component.hpp" />
-    <ClInclude Include="camera-control-component.hpp" />
-    <ClInclude Include="editor-manager.hpp" />
-    <ClInclude Include="factories.hpp" />
-    <ClInclude Include="app.hpp" />
-    <ClInclude Include="game-object.hpp" />
-    <ClInclude Include="glsl-translator.hpp" />
-    <ClInclude Include="hierarchy-view.hpp" />
-    <ClInclude Include="imgui.h" />
-    <ClInclude Include="input-service.hpp" />
-    <ClInclude Include="input-manager.hpp" />
-    <ClInclude Include="key-mouse-input-service.hpp" />
-    <ClInclude Include="mesh.hpp" />
-    <ClInclude Include="mesh-component.hpp" />
-    <ClInclude Include="object-editor.hpp" />
-    <ClInclude Include="orthographic-component.hpp" />
-    <ClInclude Include="perspective-component.hpp" />
-    <ClInclude Include="primitives.hpp" />
-    <ClInclude Include="projection-component.hpp" />
-    <ClInclude Include="renderbuffer.hpp" />
-    <ClInclude Include="render-engine.hpp" />
-    <ClInclude Include="resource.hpp" />
-    <ClInclude Include="resource-manager.hpp" />
-    <ClInclude Include="root-window.hpp" />
-    <ClInclude Include="selector-component.hpp" />
-    <ClInclude Include="setup-draw-command.hpp" />
-    <ClInclude Include="shader.hpp" />
-    <ClInclude Include="shader-component.hpp" />
-    <ClInclude Include="targeted-camera-component.hpp" />
-    <ClInclude Include="texture.hpp" />
-    <ClInclude Include="transform-component.hpp" />
-    <ClInclude Include="ui-window.hpp" />
-    <ClInclude Include="uniform.hpp" />
-    <ClInclude Include="vertex-data.hpp" />
-    <ClInclude Include="window.hpp" />
-    <ClInclude Include="xml-node.hpp" />
-    <ClInclude Include="xml-parser.hpp" />
-    <ClInclude Include="xml-state.hpp" />
-    <ClInclude Include="xml-tree.hpp" />
-    <ClInclude Include="render-component.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="component.ipp" />
-    <None Include="game-object.ipp" />
-    <None Include="new-component.py" />
-    <None Include="scene.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

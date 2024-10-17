@@ -1,35 +1,22 @@
+#include "app.hpp"
+#include "scene.hpp"
+#include "xml-parser.hpp"
+#include "xml-tree.hpp"
+#include "xml-node.hpp"
+
+#include <glm/glm.hpp>
 #include <iostream>
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-#include "game.h"
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
-	glViewport(0, 0, width, height);
-}
-
-void process_input(GLFWwindow* window) {
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-		glfwSetWindowShouldClose(window, true);
-	}
-}
-
 int main() {
-	Game* g = new Game;
+	//App::Instance().RegisterScene(Scene::SNAKE, InitSnake, DeinitSnake);
+	//if (App::Instance().Init() == -1) {
+	//	return -1;
+	//}
 
-	if (g->init() == -1) {
-		delete g;
-		return -1;
-	}
-
-	g->loop();
-	g->deinit();
-
-	delete g;
+	App::Instance().RegisterScene(Scene::SNAKE, InitSnake, DeinitSnake);
+	App::Instance().Init();
+	App::Instance().Loop();
+	App::Instance().Deinit();
 
 	return 0;
 }
