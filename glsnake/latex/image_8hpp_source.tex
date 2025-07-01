@@ -1,0 +1,80 @@
+\doxysection{image.\+hpp}
+\hypertarget{image_8hpp_source}{}\label{image_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ IMAGE\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ IMAGE\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <glad/glad.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <GLFW/glfw3.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}stb\_image.h"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_image1_d}{Image1D}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ mData\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{int}\ mWidth\{0\},\ mNrChannels\{0\};}
+\DoxyCodeLine{00014\ \ \ \ \ GLenum\ mFormat\{GL\_RGBA\},\ mType\{GL\_UNSIGNED\_BYTE\};}
+\DoxyCodeLine{00015\ \ \ \ \ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_image1_d}{Image1D}}()\ \{\ \};}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_image1_d}{\string~Image1D}}()\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ Close();}
+\DoxyCodeLine{00020\ \ \ \ \ \}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ Open(\textcolor{keyword}{const}\ std::string\&\ rcFilename);}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Close()\ \{\ stbi\_image\_free(mData);\ \}}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ Width()\ \{\ \textcolor{keywordflow}{return}\ mWidth;\ \}}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ NrChannels()\ \{\ \textcolor{keywordflow}{return}\ mNrChannels;\ \}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ Data()\ \{\ \textcolor{keywordflow}{return}\ mData;\ \}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{inline}\ GLenum\ Format()\ \{\ \textcolor{keywordflow}{return}\ mFormat;\ \}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{inline}\ GLenum\ Type()\ \{\ \textcolor{keywordflow}{return}\ mType;\ \}}
+\DoxyCodeLine{00029\ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_image2_d}{Image2D}}\ \{}
+\DoxyCodeLine{00032\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ mData\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{int}\ mWidth\{\ 0\ \},\ mHeight\{\ 0\ \},\ mNrChannels\{\ 0\ \};}
+\DoxyCodeLine{00035\ \ \ \ \ GLenum\ mFormat\{\ GL\_RGBA\ \},\ mType\{\ GL\_UNSIGNED\_BYTE\ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{class_image2_d}{Image2D}}()\ \{\ \};}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{class_image2_d}{\string~Image2D}}()\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ Close();}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ Open(\textcolor{keyword}{const}\ std::string\&\ rcFilename);}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Close()\ \{\ stbi\_image\_free(mData);\ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ Width()\ \{\ \textcolor{keywordflow}{return}\ mWidth;\ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ Height()\ \{\ \textcolor{keywordflow}{return}\ mHeight;\ \}}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ NrChannels()\ \{\ \textcolor{keywordflow}{return}\ mNrChannels;\ \}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ Data()\ \{\ \textcolor{keywordflow}{return}\ mData;\ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{inline}\ GLenum\ Format()\ \{\ \textcolor{keywordflow}{return}\ mFormat;\ \}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{inline}\ GLenum\ Type()\ \{\ \textcolor{keywordflow}{return}\ mType;\ \}}
+\DoxyCodeLine{00051\ \};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_image3_d}{Image3D}}\ \{}
+\DoxyCodeLine{00054\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ mData\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{int}\ mWidth\{\ 0\ \},\ mHeight\{\ 0\ \},\ mDepth\{\ 0\ \},\ mNrChannels\{\ 0\ \};}
+\DoxyCodeLine{00057\ \ \ \ \ GLenum\ mFormat\{\ GL\_RGBA\ \},\ mType\{\ GL\_UNSIGNED\_BYTE\ \};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{class_image3_d}{Image3D}}()\ \{\ \};}
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{class_image3_d}{\string~Image3D}}()\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ Close();}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{void}\ Open(\textcolor{keyword}{const}\ std::string\&\ rcFilename);}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Close()\ \{\ stbi\_image\_free(mData);\ \}}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ Width()\ \{\ \textcolor{keywordflow}{return}\ mWidth;\ \}}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ Height()\ \{\ \textcolor{keywordflow}{return}\ mHeight;\ \}}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ Depth()\ \{\ \textcolor{keywordflow}{return}\ mDepth;\ \}}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ NrChannels()\ \{\ \textcolor{keywordflow}{return}\ mNrChannels;\ \}}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ Data()\ \{\ \textcolor{keywordflow}{return}\ mData;\ \}}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{inline}\ GLenum\ Format()\ \{\ \textcolor{keywordflow}{return}\ mFormat;\ \}}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{inline}\ GLenum\ Type()\ \{\ \textcolor{keywordflow}{return}\ mType;\ \}}
+\DoxyCodeLine{00074\ \};}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

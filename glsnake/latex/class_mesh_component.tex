@@ -1,0 +1,97 @@
+\doxysection{Mesh\+Component Class Reference}
+\hypertarget{class_mesh_component}{}\label{class_mesh_component}\index{MeshComponent@{MeshComponent}}
+Inheritance diagram for Mesh\+Component\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_mesh_component}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_mesh_component_a150d41b50b1cf09596b357ff6d33b02f}{Start}} () override
+\item 
+virtual void \mbox{\hyperlink{class_mesh_component_a64263b55c45bf1ddc99b78b0cdf5f54a}{Update}} () override
+\item 
+virtual void \mbox{\hyperlink{class_mesh_component_a09b717ff97a04ec38c0540cf95b22163}{Const\+Update}} () const override
+\item 
+\Hypertarget{class_mesh_component_aa38a7c174cc2e00a0e0d2da9f85e5bc1}\label{class_mesh_component_aa38a7c174cc2e00a0e0d2da9f85e5bc1} 
+{\bfseries Mesh\+Component} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}p\+GO)
+\item 
+\Hypertarget{class_mesh_component_a05df332e75c8bd91f9046c3187cde1ed}\label{class_mesh_component_a05df332e75c8bd91f9046c3187cde1ed} 
+void {\bfseries Set\+Mesh} (\mbox{\hyperlink{class_mesh}{Mesh}} \texorpdfstring{$\ast$}{*}p\+Mesh)
+\item 
+\Hypertarget{class_mesh_component_a2e7778474c835053652f72bd3fa0538b}\label{class_mesh_component_a2e7778474c835053652f72bd3fa0538b} 
+void {\bfseries Enable} ()
+\item 
+\Hypertarget{class_mesh_component_a2fa521b4e35a1d30b65895d58ff87a6b}\label{class_mesh_component_a2fa521b4e35a1d30b65895d58ff87a6b} 
+int {\bfseries Num\+Vertices} ()
+\item 
+\Hypertarget{class_mesh_component_aad7fc1faa0419b0b20cc97dfd0fc7bf2}\label{class_mesh_component_aad7fc1faa0419b0b20cc97dfd0fc7bf2} 
+void {\bfseries Set\+Render\+Mode} (GLenum e\+Render\+Mode)
+\item 
+\Hypertarget{class_mesh_component_abda82f2c1a1c044c2910d8cba868d8ef}\label{class_mesh_component_abda82f2c1a1c044c2910d8cba868d8ef} 
+GLenum {\bfseries Get\+Render\+Mode} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename C $>$ }\\C \texorpdfstring{$\ast$}{*} {\bfseries Get\+Component} ()
+\item 
+{\footnotesize template$<$typename C $>$ }\\const C \texorpdfstring{$\ast$}{*} {\bfseries Get\+Component} () const
+\item 
+{\bfseries Component} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}p\+GO)
+\item 
+bool {\bfseries Is\+Active} ()
+\item 
+void {\bfseries Set\+Active} (bool b\+Active)
+\item 
+bool {\bfseries Toggle\+Active} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*} {\bfseries mp\+GO}
+\item 
+bool {\bfseries mb\+Active} \{ true \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_mesh_component_a09b717ff97a04ec38c0540cf95b22163}\index{MeshComponent@{MeshComponent}!ConstUpdate@{ConstUpdate}}
+\index{ConstUpdate@{ConstUpdate}!MeshComponent@{MeshComponent}}
+\doxysubsubsection{\texorpdfstring{ConstUpdate()}{ConstUpdate()}}
+{\footnotesize\ttfamily \label{class_mesh_component_a09b717ff97a04ec38c0540cf95b22163} 
+void Mesh\+Component\+::\+Const\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_component}{Component}}.
+
+\Hypertarget{class_mesh_component_a150d41b50b1cf09596b357ff6d33b02f}\index{MeshComponent@{MeshComponent}!Start@{Start}}
+\index{Start@{Start}!MeshComponent@{MeshComponent}}
+\doxysubsubsection{\texorpdfstring{Start()}{Start()}}
+{\footnotesize\ttfamily \label{class_mesh_component_a150d41b50b1cf09596b357ff6d33b02f} 
+void Mesh\+Component\+::\+Start (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_component}{Component}}.
+
+\Hypertarget{class_mesh_component_a64263b55c45bf1ddc99b78b0cdf5f54a}\index{MeshComponent@{MeshComponent}!Update@{Update}}
+\index{Update@{Update}!MeshComponent@{MeshComponent}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_mesh_component_a64263b55c45bf1ddc99b78b0cdf5f54a} 
+void Mesh\+Component\+::\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_component}{Component}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+mesh-\/component.\+hpp\item 
+mesh-\/component.\+cpp\end{DoxyCompactItemize}

@@ -25,7 +25,7 @@ public:
 
 	Component(GameObject* pGO);
 
-	inline bool IsActive() { return mbActive; }
+	inline bool IsActive() const { return mbActive; }
 	inline void SetActive(bool bActive) { mbActive = bActive; }
 	inline bool ToggleActive() { return mbActive = !mbActive; }
 

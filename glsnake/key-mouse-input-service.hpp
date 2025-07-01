@@ -10,18 +10,20 @@ class GLFWwindow;
 typedef GLFWkeyfun KeyCallback;
 typedef GLFWmousebuttonfun MouseButtonCallback;
 typedef GLFWcursorposfun CursorPosCallback;
+typedef GLFWscrollfun ScrollCallback;
 #endif
 
 class KeyMouseInputService : public InputService {
 private:
 	unsigned long mBufButtons, mButtons, mPrevButtons;
-	double mBufXMousePos, mBufYMousePos, mXMousePos, mYMousePos, mPrevXMousePos, mPrevYMousePos;
+	double mBufXMousePos, mBufYMousePos, mXMousePos, mYMousePos, mPrevXMousePos, mPrevYMousePos, mScrollAmount, mPrevScrollAmount;
 	unsigned long mButtonUps;
 	unsigned long mButtonDowns;
 
 	KeyCallback mPrevKeyCallback = nullptr;
 	MouseButtonCallback mPrevMouseButtonCallback = nullptr;
 	CursorPosCallback mPrevCursorPosCallback = nullptr;
+	ScrollCallback mPrevScrollCallback = nullptr;
 
 	bool IsDown(unsigned long include, unsigned long exclude=0); // can also be used for chords
 	bool Pressed(unsigned long include, unsigned long exclude=0); // can also be used for chords
@@ -36,6 +38,12 @@ private:
 
 	void CursorPosCallback(GLFWwindow* pWindow, double xpos, double ypos);
 	static void CursorPosCallbackForwarder(GLFWwindow* pWindow, double xpos, double ypos);
+
+	void ScrollCallback(GLFWwindow* pWindow, double xoffset,
+		double yoffset);
+	static void ScrollCallbackForwarder(GLFWwindow*
+		pWindow, double xoffset, double yoffset);
+
 #endif
 
 public:

@@ -1,0 +1,132 @@
+\doxysection{Camera\+Component Class Reference}
+\hypertarget{class_camera_component}{}\label{class_camera_component}\index{CameraComponent@{CameraComponent}}
+Inheritance diagram for Camera\+Component\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_camera_component}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_camera_component_aa181187764b65cdd763c66477e51a9c3}{Start}} () override
+\item 
+void \mbox{\hyperlink{class_camera_component_a4485cdb5929b9550edafc64c7a3f34cb}{Update}} () override
+\item 
+void \mbox{\hyperlink{class_camera_component_a8985d31535c3634c4d0ea2fb1ef30495}{Const\+Update}} () const override
+\item 
+\Hypertarget{class_camera_component_a6875e5b61830debfdf7792c5933aa43d}\label{class_camera_component_a6875e5b61830debfdf7792c5933aa43d} 
+{\bfseries Camera\+Component} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}p\+GO)
+\item 
+\Hypertarget{class_camera_component_ac8a4206503ffbe18c1eb8c639c3b68ee}\label{class_camera_component_ac8a4206503ffbe18c1eb8c639c3b68ee} 
+void {\bfseries Add\+Viewable} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}p\+GO)
+\item 
+\Hypertarget{class_camera_component_ac37bb146793da0a8eabdf6fd5b3f2fee}\label{class_camera_component_ac37bb146793da0a8eabdf6fd5b3f2fee} 
+void {\bfseries Set\+Framebuffer} (\mbox{\hyperlink{class_framebuffer}{Framebuffer}} \texorpdfstring{$\ast$}{*}p\+Framebuffer)
+\item 
+\Hypertarget{class_camera_component_a96255cda80a1e0734e0673d79f1c6bbd}\label{class_camera_component_a96255cda80a1e0734e0673d79f1c6bbd} 
+\mbox{\hyperlink{class_framebuffer}{Framebuffer}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Framebuffer} ()
+\item 
+\Hypertarget{class_camera_component_a9f0a7f73a5cad3ae9b065b445d4fd706}\label{class_camera_component_a9f0a7f73a5cad3ae9b065b445d4fd706} 
+void {\bfseries Set\+Viewport} (const int x, const int y, const int width, const int height)
+\item 
+\Hypertarget{class_camera_component_a7482fcc52dd85ef9d05bf178ddc98aa7}\label{class_camera_component_a7482fcc52dd85ef9d05bf178ddc98aa7} 
+void {\bfseries Set\+Tests} ()
+\item 
+\Hypertarget{class_camera_component_afca0ac79a64b3e635101fd54e3a409a4}\label{class_camera_component_afca0ac79a64b3e635101fd54e3a409a4} 
+virtual glm\+::mat4 {\bfseries View\+Matrix} ()
+\item 
+\Hypertarget{class_camera_component_a92a28eb23d9abfaf783f1097c2f23b60}\label{class_camera_component_a92a28eb23d9abfaf783f1097c2f23b60} 
+int {\bfseries Width} ()
+\item 
+\Hypertarget{class_camera_component_a64617dbd35531a2080b72c8f8a5258ff}\label{class_camera_component_a64617dbd35531a2080b72c8f8a5258ff} 
+int {\bfseries Height} ()
+\item 
+\Hypertarget{class_camera_component_a068de42b0dcce6636d95760f83d129d3}\label{class_camera_component_a068de42b0dcce6636d95760f83d129d3} 
+int {\bfseries OriginX} ()
+\item 
+\Hypertarget{class_camera_component_a9c4fa9aa8f502d20a093462964c10d95}\label{class_camera_component_a9c4fa9aa8f502d20a093462964c10d95} 
+int {\bfseries OriginY} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename C $>$ }\\C \texorpdfstring{$\ast$}{*} {\bfseries Get\+Component} ()
+\item 
+{\footnotesize template$<$typename C $>$ }\\const C \texorpdfstring{$\ast$}{*} {\bfseries Get\+Component} () const
+\item 
+{\bfseries Component} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}p\+GO)
+\item 
+bool {\bfseries Is\+Active} ()
+\item 
+void {\bfseries Set\+Active} (bool b\+Active)
+\item 
+bool {\bfseries Toggle\+Active} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_camera_component_adbe680cde01d6403e0ae88558d120247}\label{class_camera_component_adbe680cde01d6403e0ae88558d120247} 
+\mbox{\hyperlink{class_transform_component}{Transform\+Component}} \texorpdfstring{$\ast$}{*} {\bfseries mp\+Transform}
+\item 
+\Hypertarget{class_camera_component_a5d3f77fea7ed8af3710ec98aeedb7970}\label{class_camera_component_a5d3f77fea7ed8af3710ec98aeedb7970} 
+\mbox{\hyperlink{class_framebuffer}{Framebuffer}} \texorpdfstring{$\ast$}{*} {\bfseries mp\+Framebuffer} \{nullptr\}
+\item 
+\Hypertarget{class_camera_component_a96e7e0a36ad7d7d41319fe891c284397}\label{class_camera_component_a96e7e0a36ad7d7d41319fe891c284397} 
+int {\bfseries m\+Width} \{ 600 \}
+\item 
+\Hypertarget{class_camera_component_ac3a5201466845858e828a765005a3a39}\label{class_camera_component_ac3a5201466845858e828a765005a3a39} 
+int {\bfseries m\+Height} \{ 600 \}
+\item 
+\Hypertarget{class_camera_component_a6853ecfb33596d2f65c0b4b13c1b8c22}\label{class_camera_component_a6853ecfb33596d2f65c0b4b13c1b8c22} 
+int {\bfseries m\+OriginX} \{ 0 \}
+\item 
+\Hypertarget{class_camera_component_a56f755b0e185b3db712a6687147156c5}\label{class_camera_component_a56f755b0e185b3db712a6687147156c5} 
+int {\bfseries m\+OriginY} \{ 0 \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*} {\bfseries mp\+GO}
+\item 
+bool {\bfseries mb\+Active} \{ true \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_camera_component_a8985d31535c3634c4d0ea2fb1ef30495}\index{CameraComponent@{CameraComponent}!ConstUpdate@{ConstUpdate}}
+\index{ConstUpdate@{ConstUpdate}!CameraComponent@{CameraComponent}}
+\doxysubsubsection{\texorpdfstring{ConstUpdate()}{ConstUpdate()}}
+{\footnotesize\ttfamily \label{class_camera_component_a8985d31535c3634c4d0ea2fb1ef30495} 
+void Camera\+Component\+::\+Const\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_component}{Component}}.
+
+\Hypertarget{class_camera_component_aa181187764b65cdd763c66477e51a9c3}\index{CameraComponent@{CameraComponent}!Start@{Start}}
+\index{Start@{Start}!CameraComponent@{CameraComponent}}
+\doxysubsubsection{\texorpdfstring{Start()}{Start()}}
+{\footnotesize\ttfamily \label{class_camera_component_aa181187764b65cdd763c66477e51a9c3} 
+void Camera\+Component\+::\+Start (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_component}{Component}}.
+
+\Hypertarget{class_camera_component_a4485cdb5929b9550edafc64c7a3f34cb}\index{CameraComponent@{CameraComponent}!Update@{Update}}
+\index{Update@{Update}!CameraComponent@{CameraComponent}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_camera_component_a4485cdb5929b9550edafc64c7a3f34cb} 
+void Camera\+Component\+::\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_component}{Component}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+camera-\/component.\+hpp\item 
+camera-\/component.\+cpp\end{DoxyCompactItemize}

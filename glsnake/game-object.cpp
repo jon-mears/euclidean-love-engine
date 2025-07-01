@@ -17,7 +17,9 @@ void GameObject::Update() {
 
 void GameObject::ConstUpdate() const {
 	for (Component* pComponent : mOwnedComponents) {
-		pComponent->ConstUpdate();
+		if (pComponent->IsActive()) {
+			pComponent->ConstUpdate();
+		}
 	}
 }
 
@@ -28,7 +30,7 @@ void GameObject::Start() {
 }
 
 void GameObject::ShareAllFrom(GameObject* pGO) {
-	for (std::vector<Component*>::iterator it = Begin<Component>(); it != End<Component>(); ++it) {
+	for (std::vector<Component*>::iterator it = pGO->Begin<Component>(); it != pGO->End<Component>(); ++it) {
 		mSharedComponents.push_back(*it);
 		mAllComponents.push_back(*it);
 	}

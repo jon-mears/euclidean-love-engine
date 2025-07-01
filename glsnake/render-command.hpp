@@ -10,7 +10,6 @@ private:
 	unsigned short mfEnables{ 0x00 };
 
 public:
-
 	enum {
 		FRAMEBUFFER = 0x0001,
 		SHADER = 0x0002,

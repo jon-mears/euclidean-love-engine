@@ -1,0 +1,38 @@
+\doxysection{palette.\+h}
+\hypertarget{palette_8h_source}{}\label{palette_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ PALETTE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ PALETTE\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <vector>}\ }
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <glm/glm.hpp>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_palette}{Palette}}\ \{}
+\DoxyCodeLine{00008\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00009\ \ \ \ \ std::vector<glm::vec4>\ colors;}
+\DoxyCodeLine{00010\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00011\ \ \ \ \ \mbox{\hyperlink{class_palette}{Palette}}(std::vector<glm::vec4>\ colors)\ :\ colors(colors)\ \{\ \}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{comment}{//\ creates\ a\ simple\ default\ palette}}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_palette}{Palette}}()\ :\ colors\{\ glm::vec4(0.0f,\ 0.0f,\ 0.0f,\ 1.0f),\ glm::vec4(1.0f,\ 0.0f,\ 0.0f,\ 1.0f),}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ glm::vec4(0.0f,\ 1.0f,\ 0.0f,\ 1.0f),\ glm::vec4(0.0f,\ 0.0f,\ 1.0f,\ 1.0f),\ glm::vec4(1.0f,\ 1.0f,\ 1.0f,\ 1.0f)\ \}\ \{\ \}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ add(glm::vec4\ color)\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ colors.push\_back(color);}
+\DoxyCodeLine{00019\ \ \ \ \ \}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ add(glm::vec3\ color)\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ colors.push\_back(glm::vec4(color,\ 1.0f));}
+\DoxyCodeLine{00023\ \ \ \ \ \}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ update(\textcolor{keyword}{const}\ std::vector<glm::vec4>\ \&colors)\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ this-\/>colors\ =\ colors;}
+\DoxyCodeLine{00027\ \ \ \ \ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ glm::vec4\ get(\textcolor{keywordtype}{int}\ idx)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ colors[idx];}
+\DoxyCodeLine{00031\ \ \ \ \ \}}
+\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

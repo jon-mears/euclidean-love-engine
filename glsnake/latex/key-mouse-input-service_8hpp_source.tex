@@ -1,0 +1,54 @@
+\doxysection{key-\/mouse-\/input-\/service.hpp}
+\hypertarget{key-mouse-input-service_8hpp_source}{}\label{key-mouse-input-service_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ KEY\_MOUSE\_INPUT\_SERVICE\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ KEY\_MOUSE\_INPUT\_SERVICE\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}input-\/service.hpp"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <glad/glad.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <GLFW/glfw3.h>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifdef\ \_glfw3\_h\_}}
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }GLFWwindow;}
+\DoxyCodeLine{00010\ \textcolor{keyword}{typedef}\ GLFWkeyfun\ KeyCallback;}
+\DoxyCodeLine{00011\ \textcolor{keyword}{typedef}\ GLFWmousebuttonfun\ MouseButtonCallback;}
+\DoxyCodeLine{00012\ \textcolor{keyword}{typedef}\ GLFWcursorposfun\ CursorPosCallback;}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_key_mouse_input_service}{KeyMouseInputService}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_input_service}{InputService}}\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ mBufButtons,\ mButtons,\ mPrevButtons;}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{double}\ mBufXMousePos,\ mBufYMousePos,\ mXMousePos,\ mYMousePos,\ mPrevXMousePos,\ mPrevYMousePos;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ mButtonUps;}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ mButtonDowns;}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ KeyCallback\ mPrevKeyCallback\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00023\ \ \ \ \ MouseButtonCallback\ mPrevMouseButtonCallback\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00024\ \ \ \ \ CursorPosCallback\ mPrevCursorPosCallback\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{bool}\ IsDown(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ include,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ exclude=0);\ \textcolor{comment}{//\ can\ also\ be\ used\ for\ chords}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{bool}\ Pressed(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ include,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ exclude=0);\ \textcolor{comment}{//\ can\ also\ be\ used\ for\ chords}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{bool}\ Released(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ include,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ exclude=0);\ \textcolor{comment}{//\ can\ also\ be\ used\ for\ chords}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#ifdef\ \_glfw3\_h\_}}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ KeyCallback(GLFWwindow*\ pWindow,\ \textcolor{keywordtype}{int}\ key,\ \textcolor{keywordtype}{int}\ scancode,\ \textcolor{keywordtype}{int}\ action,\ \textcolor{keywordtype}{int}\ mods);}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ KeyCallbackForwarder(GLFWwindow*\ pWindow,\ \textcolor{keywordtype}{int}\ key,\ \textcolor{keywordtype}{int}\ scancode,\ \textcolor{keywordtype}{int}\ action,\ \textcolor{keywordtype}{int}\ mods);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ MouseButtonCallback(GLFWwindow*\ pWindow,\ \textcolor{keywordtype}{int}\ button,\ \textcolor{keywordtype}{int}\ action,\ \textcolor{keywordtype}{int}\ mods);}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ MouseButtonCallbackForwarder(GLFWwindow*\ pWindow,\ \textcolor{keywordtype}{int}\ button,\ \textcolor{keywordtype}{int}\ action,\ \textcolor{keywordtype}{int}\ mods);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ CursorPosCallback(GLFWwindow*\ pWindow,\ \textcolor{keywordtype}{double}\ xpos,\ \textcolor{keywordtype}{double}\ ypos);}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ CursorPosCallbackForwarder(GLFWwindow*\ pWindow,\ \textcolor{keywordtype}{double}\ xpos,\ \textcolor{keywordtype}{double}\ ypos);}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{float}\ AbsoluteAxis(Input::Axis\ eAxis)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{float}\ RelativeAxis(Input::Axis\ eAxis)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ EventActive(Input::Event\ eEvent)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ PollEvents()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Startup()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00047\ \};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

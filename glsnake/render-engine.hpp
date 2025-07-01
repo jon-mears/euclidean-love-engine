@@ -58,7 +58,6 @@ private:
 	void Startup();
 	void ClearBuffers();
 
-
 	inline void WindowInfo(int width, int height, const char* pcName) {
 		mWindowWidth = width;
 		mWindowHeight = height;

@@ -1,0 +1,20 @@
+\doxysection{math-\/3d.hpp}
+\hypertarget{math-3d_8hpp_source}{}\label{math-3d_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ MATH\_3D\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ MATH\_3D\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <glm/glm.hpp>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <glm/gtc/quaternion.hpp>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{namespace\ }Math3D\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ glm::vec3\ SphericalCoordinates(\textcolor{keyword}{const}\ glm::vec3\ center,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ latitude,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ longitude,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ radius);}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \ \ \ \ glm::quat\ Quaternion(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ m00,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ m01,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ m02,}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ m10,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ m11,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ m12,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ m20,}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ m21,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ m22);}
+\DoxyCodeLine{00013\ \}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

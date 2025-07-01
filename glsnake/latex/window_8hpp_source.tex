@@ -1,0 +1,50 @@
+\doxysection{window.\+hpp}
+\hypertarget{window_8hpp_source}{}\label{window_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ WINDOW\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ WINDOW\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_material}{Material}};}
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_mesh}{Mesh}};}
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_texture2_d}{Texture2D}};}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_window}{Window}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{float}\ mOriginX\{\ 0.5f\ \},\ mOriginY\{\ 0.5f\ \};\ \textcolor{comment}{//\ percentages}}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{float}\ mWidth\{\ 0.5f\ \},\ mHeight\{\ 0.5f\ \};\ \textcolor{comment}{//\ percentages}}
+\DoxyCodeLine{00014\ \ \ \ \ std::vector<Window*>\ mChildren\{\};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Draw()\ =\ 0;}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ OnHover()\ \{\ \}}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ OnClick()\ \{\ \}}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ OnUnclick()\ \{\ \}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ OnUnhover()\ \{\ \}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ AddChild(\mbox{\hyperlink{class_window}{Window}}*\ pWindow)\ \{\ mChildren.push\_back(pWindow);\ \}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{class_window}{Window}}()\ \{\ \}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_window}{\string~Window}}()\ \{\ \}}
+\DoxyCodeLine{00027\ \};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ child\ classes\ provide\ the\ texture(s)}}
+\DoxyCodeLine{00030\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_textured_window}{TexturedWindow}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_window}{Window}}\ \{}
+\DoxyCodeLine{00031\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{class_mesh}{Mesh}}*\ mpMesh\{\ \textcolor{keyword}{nullptr}\ \};\ \textcolor{comment}{//\ to\ be\ a\ plane}}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{class_material}{Material}}*\ mpMaterial\{\ \textcolor{keyword}{nullptr}\ \};\ \textcolor{comment}{//\ to\ be\ a\ texture}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ SetTexture(\mbox{\hyperlink{class_texture2_d}{Texture2D}}*\ pTexture);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_textured_window}{\string~TexturedWindow}}()\ =\ 0;}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Draw()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{class_textured_window}{TexturedWindow}}();}
+\DoxyCodeLine{00044\ \};}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

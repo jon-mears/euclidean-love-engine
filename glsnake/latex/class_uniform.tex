@@ -1,0 +1,143 @@
+\doxysection{Uniform Class Reference}
+\hypertarget{class_uniform}{}\label{class_uniform}\index{Uniform@{Uniform}}
+Inheritance diagram for Uniform\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=12.000000cm]{class_uniform}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_uniform_a76a7451a26953dad5a350293548ac885}\label{class_uniform_a76a7451a26953dad5a350293548ac885} 
+enum {\bfseries Purpose} \{ \newline
+{\bfseries MVP\+\_\+\+MATRIX}
+, {\bfseries M\+\_\+\+MATRIX}
+, {\bfseries V\+\_\+\+MATRIX}
+, {\bfseries P\+\_\+\+MATRIX}
+, \newline
+{\bfseries MV\+\_\+\+MATRIX}
+, {\bfseries VP\+\_\+\+MATRIX}
+, {\bfseries NONE}
+ \}
+\item 
+\Hypertarget{class_uniform_a33dd03a6ca78ffa5d3f8fc203f819b7b}\label{class_uniform_a33dd03a6ca78ffa5d3f8fc203f819b7b} 
+enum {\bfseries Type} \{ \newline
+{\bfseries FLOAT}
+, {\bfseries VEC2}
+, {\bfseries VEC3}
+, {\bfseries VEC4}
+, \newline
+{\bfseries INT}
+, {\bfseries IVEC2}
+, {\bfseries IVEC3}
+, {\bfseries IVEC4}
+, \newline
+{\bfseries MAT2}
+, {\bfseries MAT3}
+, {\bfseries MAT4}
+, {\bfseries SAMPLER2D}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_uniform_a7b52c22e473913f17c3511eda0591fab}\label{class_uniform_a7b52c22e473913f17c3511eda0591fab} 
+{\bfseries Uniform} (const std\+::string \&name, Type e\+Type, Purpose e\+Purpose, GLuint loc)
+\item 
+\Hypertarget{class_uniform_a8f1ea8d252e9b5c8a056a16f649f3c8d}\label{class_uniform_a8f1ea8d252e9b5c8a056a16f649f3c8d} 
+virtual void {\bfseries Upload} ()=0
+\item 
+\Hypertarget{class_uniform_a66d42f0eecdc41d931a42b0956f94881}\label{class_uniform_a66d42f0eecdc41d931a42b0956f94881} 
+Purpose {\bfseries Get\+Purpose} ()
+\item 
+\Hypertarget{class_uniform_adbb4430ab4beabbf2ca333dde78f13f1}\label{class_uniform_adbb4430ab4beabbf2ca333dde78f13f1} 
+Type {\bfseries Get\+Type} ()
+\item 
+\Hypertarget{class_uniform_a82be5995a04266ca68ae23d3a07bcaef}\label{class_uniform_a82be5995a04266ca68ae23d3a07bcaef} 
+virtual void {\bfseries Set} (float v0)
+\item 
+\Hypertarget{class_uniform_a0882c7d4718826938d53abdc5955fd9c}\label{class_uniform_a0882c7d4718826938d53abdc5955fd9c} 
+virtual void {\bfseries Set} (float v0, float v1)
+\item 
+\Hypertarget{class_uniform_a94fcd866774a6b8c5212bcaee48c093f}\label{class_uniform_a94fcd866774a6b8c5212bcaee48c093f} 
+virtual void {\bfseries Set} (const glm\+::vec2 \&v)
+\item 
+\Hypertarget{class_uniform_af5f224213571f7556b33ceab9a3800d2}\label{class_uniform_af5f224213571f7556b33ceab9a3800d2} 
+virtual void {\bfseries Set} (float v0, float v1, float v2)
+\item 
+\Hypertarget{class_uniform_ae5803c3ccf8ed1bcac4c0e8d91c86605}\label{class_uniform_ae5803c3ccf8ed1bcac4c0e8d91c86605} 
+virtual void {\bfseries Set} (const glm\+::vec3 \&v)
+\item 
+\Hypertarget{class_uniform_aec4328fcb5d1ab6241d26adacd74f500}\label{class_uniform_aec4328fcb5d1ab6241d26adacd74f500} 
+virtual void {\bfseries Set} (float v0, float v1, float v2, float v3)
+\item 
+\Hypertarget{class_uniform_aacbe84a38dbe75a1c1c4e8de7fa530cf}\label{class_uniform_aacbe84a38dbe75a1c1c4e8de7fa530cf} 
+virtual void {\bfseries Set} (const glm\+::vec4 \&v)
+\item 
+\Hypertarget{class_uniform_a9e97cc2ba1bfc3a4e0e69091b90d5763}\label{class_uniform_a9e97cc2ba1bfc3a4e0e69091b90d5763} 
+virtual void {\bfseries Set} (int v0)
+\item 
+\Hypertarget{class_uniform_a3df0e898352c48797a8098a993f4328d}\label{class_uniform_a3df0e898352c48797a8098a993f4328d} 
+virtual void {\bfseries Set} (int v0, int v1)
+\item 
+\Hypertarget{class_uniform_a9b4ce6dac26d1ccf2517be55be50db27}\label{class_uniform_a9b4ce6dac26d1ccf2517be55be50db27} 
+virtual void {\bfseries Set} (const glm\+::ivec2 \&v)
+\item 
+\Hypertarget{class_uniform_a7de8d0453e17798e7452218cd89a2d6c}\label{class_uniform_a7de8d0453e17798e7452218cd89a2d6c} 
+virtual void {\bfseries Set} (int v0, int v1, int v2)
+\item 
+\Hypertarget{class_uniform_aef0e75724083d753443fb19ff2e1b9e4}\label{class_uniform_aef0e75724083d753443fb19ff2e1b9e4} 
+virtual void {\bfseries Set} (const glm\+::ivec3 \&v)
+\item 
+\Hypertarget{class_uniform_a2cb83bb62e4c117e6be77f2730274e36}\label{class_uniform_a2cb83bb62e4c117e6be77f2730274e36} 
+virtual void {\bfseries Set} (int v0, int v1, int v2, int v3)
+\item 
+\Hypertarget{class_uniform_a22d6e60b8c3c12ec449f200254c1169b}\label{class_uniform_a22d6e60b8c3c12ec449f200254c1169b} 
+virtual void {\bfseries Set} (const glm\+::ivec4 \&v)
+\item 
+\Hypertarget{class_uniform_abab4901313e5883e6f0767e2123bf48a}\label{class_uniform_abab4901313e5883e6f0767e2123bf48a} 
+virtual void {\bfseries Set} (const glm\+::mat2 \&matrix)
+\item 
+\Hypertarget{class_uniform_acdd571d9691138a20c10c863ecd1472d}\label{class_uniform_acdd571d9691138a20c10c863ecd1472d} 
+virtual void {\bfseries Set} (const glm\+::mat3 \&matrix)
+\item 
+\Hypertarget{class_uniform_a3c0ffb0a39a81f505f8d7cd7aa6d8890}\label{class_uniform_a3c0ffb0a39a81f505f8d7cd7aa6d8890} 
+virtual void {\bfseries Set} (const glm\+::mat4 \&matrix)
+\item 
+\Hypertarget{class_uniform_a3384791393ae7acb91d0f86507e41161}\label{class_uniform_a3384791393ae7acb91d0f86507e41161} 
+virtual void {\bfseries Set} (\mbox{\hyperlink{class_texture2_d}{Texture2D}} \texorpdfstring{$\ast$}{*}tex)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_uniform_ad17f58d58ec83487008307938039913f}\label{class_uniform_ad17f58d58ec83487008307938039913f} 
+static \mbox{\hyperlink{class_uniform}{Uniform}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (const std\+::string \&rc\+Name, Type e\+Type, Purpose e\+Purpose, GLuint loc)
+\item 
+\Hypertarget{class_uniform_a9190a4c4d947aa6e3250489b214468fa}\label{class_uniform_a9190a4c4d947aa6e3250489b214468fa} 
+static \mbox{\hyperlink{class_uniform}{Uniform}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (const std\+::string \&rc\+Name, const std\+::string \&rc\+Type, Purpose e\+Purpose, GLuint loc)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_uniform_a3b7caf6f4c989e3bce0ec12979ffd68a}\label{class_uniform_a3b7caf6f4c989e3bce0ec12979ffd68a} 
+std\+::string {\bfseries m\+Name}
+\item 
+\Hypertarget{class_uniform_a7ea32d42a5384c6ea6568159d819ec64}\label{class_uniform_a7ea32d42a5384c6ea6568159d819ec64} 
+Purpose {\bfseries me\+Purpose}
+\item 
+\Hypertarget{class_uniform_a188c65da8e4370bf027727fdb331eef7}\label{class_uniform_a188c65da8e4370bf027727fdb331eef7} 
+Type {\bfseries me\+Type}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_uniform_aef933bd120316c2d65cfad5b4c20d68f}\label{class_uniform_aef933bd120316c2d65cfad5b4c20d68f} 
+GLuint {\bfseries m\+Loc}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+uniform.\+hpp\item 
+uniform.\+cpp\end{DoxyCompactItemize}

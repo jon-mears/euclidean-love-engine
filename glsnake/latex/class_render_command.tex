@@ -1,0 +1,59 @@
+\doxysection{Render\+Command Class Reference}
+\hypertarget{class_render_command}{}\label{class_render_command}\index{RenderCommand@{RenderCommand}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_render_command_a56acdce80d158e178ad8068352d887a3}\label{class_render_command_a56acdce80d158e178ad8068352d887a3} 
+enum \{ \newline
+{\bfseries FRAMEBUFFER} = 0x0001
+, {\bfseries SHADER} = 0x0002
+, {\bfseries MESH} = 0x0004
+, {\bfseries MODEL\+\_\+\+MATRIX} = 0x0008
+, \newline
+{\bfseries VIEW\+\_\+\+MATRIX} = 0x0010
+, {\bfseries PROJECTION\+\_\+\+MATRIX} = 0x0020
+, {\bfseries CLEAR\+\_\+\+COLOR} = 0x0040
+, {\bfseries CLEAR\+\_\+\+DEPTH} = 0x0080
+, \newline
+{\bfseries DEPTH\+\_\+\+TEST} = 0x0100
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_render_command_ac1ceeb7acb25a885c092681fcce8b803}\label{class_render_command_ac1ceeb7acb25a885c092681fcce8b803} 
+{\bfseries Render\+Command} (\mbox{\hyperlink{class_render_component}{Render\+Component}} \texorpdfstring{$\ast$}{*}p\+RenderC)
+\item 
+\Hypertarget{class_render_command_aaabaea2670a53cec54080c8e08c67ae7}\label{class_render_command_aaabaea2670a53cec54080c8e08c67ae7} 
+void {\bfseries Enable} (unsigned short f\+Enables)
+\item 
+\Hypertarget{class_render_command_ae84e0ca2ae046694452a6bc0141f2145}\label{class_render_command_ae84e0ca2ae046694452a6bc0141f2145} 
+void {\bfseries Execute} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_render_command_a8acef5e6dc992d25af75ce2d0026d7ac}\label{class_render_command_a8acef5e6dc992d25af75ce2d0026d7ac} 
+static bool {\bfseries Uses\+Same\+Framebuffer} (const \mbox{\hyperlink{class_render_command}{Render\+Command}} \texorpdfstring{$\ast$}{*}pc\+LHS, const \mbox{\hyperlink{class_render_command}{Render\+Command}} \texorpdfstring{$\ast$}{*}pc\+RHS)
+\item 
+\Hypertarget{class_render_command_ab69ded11f2ab828cf22c532efe2cf2f4}\label{class_render_command_ab69ded11f2ab828cf22c532efe2cf2f4} 
+static bool {\bfseries Uses\+Same\+Shader} (const \mbox{\hyperlink{class_render_command}{Render\+Command}} \texorpdfstring{$\ast$}{*}pc\+LHS, const \mbox{\hyperlink{class_render_command}{Render\+Command}} \texorpdfstring{$\ast$}{*}pc\+RHS)
+\item 
+\Hypertarget{class_render_command_ab567640f31b2e6ba6cfbce2f662bbd43}\label{class_render_command_ab567640f31b2e6ba6cfbce2f662bbd43} 
+static bool {\bfseries Uses\+Same\+Mesh} (const \mbox{\hyperlink{class_render_command}{Render\+Command}} \texorpdfstring{$\ast$}{*}pc\+LHS, const \mbox{\hyperlink{class_render_command}{Render\+Command}} \texorpdfstring{$\ast$}{*}pc\+RHS)
+\item 
+\Hypertarget{class_render_command_a7165ee28aa05e8ed29564e6030ed0cbb}\label{class_render_command_a7165ee28aa05e8ed29564e6030ed0cbb} 
+static bool {\bfseries Uses\+Same\+Model\+Matrix} (const \mbox{\hyperlink{class_render_command}{Render\+Command}} \texorpdfstring{$\ast$}{*}pc\+LHS, const \mbox{\hyperlink{class_render_command}{Render\+Command}} \texorpdfstring{$\ast$}{*}pc\+RHS)
+\item 
+\Hypertarget{class_render_command_a8bb17791a8f8e5926c5ea7b6bf2453c3}\label{class_render_command_a8bb17791a8f8e5926c5ea7b6bf2453c3} 
+static bool {\bfseries Uses\+Same\+View\+Matrix} (const \mbox{\hyperlink{class_render_command}{Render\+Command}} \texorpdfstring{$\ast$}{*}pc\+LHS, const \mbox{\hyperlink{class_render_command}{Render\+Command}} \texorpdfstring{$\ast$}{*}pc\+RHS)
+\item 
+\Hypertarget{class_render_command_a7d8ea90cc51f84e3b21db6dad1efda7f}\label{class_render_command_a7d8ea90cc51f84e3b21db6dad1efda7f} 
+static bool {\bfseries Uses\+Same\+Projection\+Matrix} (const \mbox{\hyperlink{class_render_command}{Render\+Command}} \texorpdfstring{$\ast$}{*}pc\+LHS, const \mbox{\hyperlink{class_render_command}{Render\+Command}} \texorpdfstring{$\ast$}{*}pc\+RHS)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+render-\/command.\+hpp\item 
+render-\/command.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,82 @@
+\doxysection{grid.\+h}
+\hypertarget{grid_8h_source}{}\label{grid_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ GRIDCOMPONENT\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ GRIDCOMPONENT\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <glad/glad.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <GLFW/glfw3.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <glm/glm.hpp>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}palette.h"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_grid_component}{GridComponent}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_component}{Component}}\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{void}\ init();}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ glm::vec2\ spacing;}
+\DoxyCodeLine{00017\ \ \ \ \ glm::vec2\ pos;}
+\DoxyCodeLine{00018\ \ \ \ \ glm::vec2\ cell\_scale;}
+\DoxyCodeLine{00019\ \ \ \ \ std::vector<std::vector<int>>\ grid;}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_palette}{Palette}}\ p;}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{int}\ \_rows;}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{int}\ \_cols;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{static}\ GLuint\ VAO;}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{static}\ GLuint\ program;}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{static}\ GLint\ uColor;}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{static}\ GLint\ uModel;}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ is\_initialized;}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{enum}\ spacing\_scale\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ SPACING,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ SCALE}
+\DoxyCodeLine{00035\ \ \ \ \ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//\ ctors}}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{class_grid_component}{GridComponent}}(\textcolor{keyword}{const}\ std::vector<std::vector<int>>\ \&grid);}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{class_grid_component}{GridComponent}}(\textcolor{keywordtype}{int}\ rows,\ \textcolor{keywordtype}{int}\ cols);}
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{class_grid_component}{GridComponent}}();}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ set(\textcolor{keywordtype}{int}\ row,\ \textcolor{keywordtype}{int}\ col,\ \textcolor{keywordtype}{int}\ val)\ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ grid[row][col]\ =\ val;}
+\DoxyCodeLine{00044\ \ \ \ \ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{int}\ get(\textcolor{keywordtype}{int}\ row,\ \textcolor{keywordtype}{int}\ col)\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ grid[row][col];}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_spacing(glm::vec2\ new\_spacing)\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ spacing\ =\ new\_spacing;}
+\DoxyCodeLine{00052\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_pos(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ pos.x\ =\ x;}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ pos.y\ =\ y;}
+\DoxyCodeLine{00057\ \ \ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_scale(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ cell\_scale.x\ =\ x;}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ cell\_scale.y\ =\ y;}
+\DoxyCodeLine{00062\ \ \ \ \ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_total\_rect(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ width,\ \textcolor{keywordtype}{float}\ height,\ spacing\_scale\ choice);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{int}\ rows()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_rows;}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{int}\ cols()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_cols;}
+\DoxyCodeLine{00072\ \ \ \ \ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ draw()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00075\ \};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

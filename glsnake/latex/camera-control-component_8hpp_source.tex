@@ -1,0 +1,46 @@
+\doxysection{camera-\/control-\/component.hpp}
+\hypertarget{camera-control-component_8hpp_source}{}\label{camera-control-component_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CAMERA\_CONTROL\_COMPONENT\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CAMERA\_CONTROL\_COMPONENT\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}component.hpp"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <glm/glm.hpp>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_game_object}{GameObject}};}
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_transform_component}{TransformComponent}};}
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_targeted_camera_component}{TargetedCameraComponent}};}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_camera_control_component}{CameraControlComponent}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_component}{Component}}\ \{}
+\DoxyCodeLine{00012\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{class_transform_component}{TransformComponent}}*\ mpTransform;}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_targeted_camera_component}{TargetedCameraComponent}}*\ mpTargetedCamera;}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ glm::vec3\ position;}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ distance;}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ longitude;}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ latitude;}
+\DoxyCodeLine{00021\ \ \ \ \ \}\ mOrbitTarget;}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ longitude;}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ latitude;}
+\DoxyCodeLine{00026\ \ \ \ \ \}\ mLookTarget;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{class_camera_control_component}{CameraControlComponent}}(\mbox{\hyperlink{class_game_object}{GameObject}}*\ pGO);}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Start()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Update()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ ConstUpdate()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{float}\ mXPanSpeed\ =\ 0.01f;}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{float}\ mYPanSpeed\ =\ 0.01f;}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{float}\ mXOrbitSpeed\ =\ 0.1f;}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{float}\ mYOrbitSpeed\ =\ 0.1f;}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{float}\ mXLookSpeed\ =\ 0.01f;}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{float}\ mYLookSpeed\ =\ 0.01f;}
+\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

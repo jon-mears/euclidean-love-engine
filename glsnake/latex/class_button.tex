@@ -1,0 +1,96 @@
+\doxysection{Button Class Reference}
+\hypertarget{class_button}{}\label{class_button}\index{Button@{Button}}
+Inheritance diagram for Button\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_button}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_button_a52682e7f5f7b03118c1dc6d5f558bedc}\label{class_button_a52682e7f5f7b03118c1dc6d5f558bedc} 
+void {\bfseries Set\+Inactive\+Texture} (\mbox{\hyperlink{class_texture2_d}{Texture2D}} \texorpdfstring{$\ast$}{*}p\+Inactive\+Texture)
+\item 
+\Hypertarget{class_button_a9fdcfb0564d06a420f3caff7412af928}\label{class_button_a9fdcfb0564d06a420f3caff7412af928} 
+void {\bfseries Set\+Hover\+Texture} (\mbox{\hyperlink{class_texture2_d}{Texture2D}} \texorpdfstring{$\ast$}{*}p\+Hover\+Texture)
+\item 
+\Hypertarget{class_button_a6b49b38b4bf045e856205daf9a358585}\label{class_button_a6b49b38b4bf045e856205daf9a358585} 
+void {\bfseries Set\+Active\+Texture} (\mbox{\hyperlink{class_texture2_d}{Texture2D}} \texorpdfstring{$\ast$}{*}p\+Active\+Texture)
+\item 
+virtual void \mbox{\hyperlink{class_button_aa6b2d8dee6a850615ed95a2eb088be03}{On\+Hover}} () override
+\item 
+virtual void \mbox{\hyperlink{class_button_a674e6d7d7d8fc5f8e57b50713b07d25b}{On\+Unhover}} () override
+\item 
+virtual void \mbox{\hyperlink{class_button_aabe9c656ad6057e3079ed51d9ddc7927}{On\+Click}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_textured_window}{Textured\+Window}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_textured_window_abf6b6ede229bf1739d7b51be41245e2e}{Draw}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_window}{Window}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void {\bfseries On\+Unclick} ()
+\item 
+void {\bfseries Add\+Child} (\mbox{\hyperlink{class_window}{Window}} \texorpdfstring{$\ast$}{*}p\+Window)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_textured_window}{Textured\+Window}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries Set\+Texture} (\mbox{\hyperlink{class_texture2_d}{Texture2D}} \texorpdfstring{$\ast$}{*}p\+Texture)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_window}{Window}}}
+\begin{DoxyCompactItemize}
+\item 
+float {\bfseries m\+OriginX} \{ 0.\+5f \}
+\item 
+float {\bfseries m\+OriginY} \{ 0.\+5f \}
+\item 
+float {\bfseries m\+Width} \{ 0.\+5f \}
+\item 
+float {\bfseries m\+Height} \{ 0.\+5f \}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_window}{Window}} \texorpdfstring{$\ast$}{*} $>$ {\bfseries m\+Children} \{\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_button_aabe9c656ad6057e3079ed51d9ddc7927}\index{Button@{Button}!OnClick@{OnClick}}
+\index{OnClick@{OnClick}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{OnClick()}{OnClick()}}
+{\footnotesize\ttfamily \label{class_button_aabe9c656ad6057e3079ed51d9ddc7927} 
+void Button\+::\+On\+Click (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_window}{Window}}.
+
+\Hypertarget{class_button_aa6b2d8dee6a850615ed95a2eb088be03}\index{Button@{Button}!OnHover@{OnHover}}
+\index{OnHover@{OnHover}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{OnHover()}{OnHover()}}
+{\footnotesize\ttfamily \label{class_button_aa6b2d8dee6a850615ed95a2eb088be03} 
+void Button\+::\+On\+Hover (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_window}{Window}}.
+
+\Hypertarget{class_button_a674e6d7d7d8fc5f8e57b50713b07d25b}\index{Button@{Button}!OnUnhover@{OnUnhover}}
+\index{OnUnhover@{OnUnhover}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{OnUnhover()}{OnUnhover()}}
+{\footnotesize\ttfamily \label{class_button_a674e6d7d7d8fc5f8e57b50713b07d25b} 
+void Button\+::\+On\+Unhover (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_window}{Window}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+button.\+hpp\item 
+button.\+cpp\end{DoxyCompactItemize}

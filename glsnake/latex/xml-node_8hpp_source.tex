@@ -1,0 +1,34 @@
+\doxysection{xml-\/node.hpp}
+\hypertarget{xml-node_8hpp_source}{}\label{xml-node_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ XML\_NODE\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ XML\_NODE\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_node}{XMLNode}}\ \{}
+\DoxyCodeLine{00009\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00010\ \ \ \ \ std::vector<XMLNode*>\ mChildren;}
+\DoxyCodeLine{00011\ \ \ \ \ std::string\ mTag;}
+\DoxyCodeLine{00012\ \ \ \ \ std::string\ mContent;}
+\DoxyCodeLine{00013\ \ \ \ \ std::map<std::string,\ std::string>\ mAttributes;}
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{void}\ AddChild(\mbox{\hyperlink{class_x_m_l_node}{XMLNode}}*\ pChild);}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{void}\ AddAttrib(\textcolor{keyword}{const}\ std::string\&\ name,\ \textcolor{keyword}{const}\ std::string\&\ value);}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ AddContent(\textcolor{keyword}{const}\ std::string\&\ content);}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{void}\ AddTag(\textcolor{keyword}{const}\ std::string\&\ tag);}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_x_m_l_node}{XMLNode}}*\ operator[](\textcolor{keywordtype}{size\_t}\ idx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{class_x_m_l_node}{XMLNode}}*\ Child(\textcolor{keywordtype}{size\_t}\ idx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ NumChildren()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{bool}\ Has(\textcolor{keyword}{const}\ std::string\&\ attrib);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ std::string\ Content();}
+\DoxyCodeLine{00026\ \ \ \ \ std::string\ Attribute(\textcolor{keyword}{const}\ std::string\&\ name);}
+\DoxyCodeLine{00027\ \ \ \ \ std::string\ Tag()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00028\ \};}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

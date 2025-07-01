@@ -17,6 +17,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/string_cast.hpp>
+#include <glm/gtx/euler_angles.hpp>
 
 CameraComponent::CameraComponent(GameObject* pGO) : Component(pGO), mViewables(), mpTransform(nullptr) { }
 
@@ -73,21 +74,42 @@ void CameraComponent::AddViewable(GameObject* pGO) {
 
 glm::mat4 CameraComponent::ViewMatrix() {
 	glm::vec3 pos = mpTransform->Position();
-	glm::vec3 rot = mpTransform->EulerRotation();
+	//glm::vec3 rot = mpTransform->EulerRotation();
 
-	glm::mat4 rotation_matrix{ 1 };
+	//glm::mat4 rotation_matrix{ 1 };
 
-	rotation_matrix = glm::rotate(rotation_matrix, rot.x, glm::vec3(1, 0, 0));
-	rotation_matrix = glm::rotate(rotation_matrix, rot.y, glm::vec3(0, 1, 0));
-	rotation_matrix = glm::rotate(rotation_matrix, rot.z, glm::vec3(0, 0, 1));
+	//glm::mat4 rotation_matrix = glm::yawPitchRoll(rot.y, rot.x, rot.z);
 
+	//rotation_matrix = glm::rotate(rotation_matrix, rot.x, glm::vec3(1, 0, 0));
+	//rotation_matrix = glm::rotate(rotation_matrix, rot.y, glm::vec3(0, 1, 0));
+	//rotation_matrix = glm::rotate(rotation_matrix, rot.z, glm::vec3(0, 0, 1));
 
-	glm::vec4 center4 = rotation_matrix * glm::vec4{ 0, 0, -1, 0 };
+	//glm::vec4 center4 = rotation_matrix * glm::vec4{ 0, 0, -1, 0 };
 
-	glm::vec3 center3{};
-	center3.x = center4.x;
-	center3.y = center4.y;
-	center3.z = center4.z;
+	//glm::vec3 center3{};
+	//center3.x = center4.x;
+	//center3.y = center4.y;
+	//center3.z = center4.z;
 
-	return glm::lookAt(pos, pos + center3, glm::vec3{ 0.0f, 1.0f, 0.0f });
+	//return glm::lookAt(pos, pos - mpTransform->LocalZ(), glm::vec3{0.0f, 1.0f, 0.0f});
+
+	glm::vec3 x = mpTransform->LocalX();
+	glm::vec3 y = mpTransform->LocalY();
+	glm::vec3 z = mpTransform->LocalZ();
+
+	glm::mat4 rotation_matrix(
+		x.x, y.x, z.x, 0,
+		x.y, y.y, z.y, 0,
+		x.z, y.z, z.z, 0,
+		0, 0, 0, 1
+	);
+
+	glm::mat4 translation_matrix(
+		1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, 0,
+		-pos.x, -pos.y, -pos.z, 1
+	);
+
+	return rotation_matrix * translation_matrix;
 }

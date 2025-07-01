@@ -1,0 +1,54 @@
+\doxysection{renderbuffer.\+hpp}
+\hypertarget{renderbuffer_8hpp_source}{}\label{renderbuffer_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ RENDERBUFFER\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ RENDERBUFFER\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <glad/glad.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <GLFW/glfw3.h>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}render-\/engine.hpp"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_renderbuffer}{Renderbuffer}}\ \{}
+\DoxyCodeLine{00010\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00011\ \ \ \ \ GLuint\ mID\{\ 0\ \};}
+\DoxyCodeLine{00012\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_renderbuffer_1_1_storage_info}{StorageInfo}}\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ GLenum\ internal\_format\{\ GL\_RGBA4\ \};}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ width\{\ 0\ \};}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ height\{\ 0\ \};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_renderbuffer_1_1_storage_info}{StorageInfo}}()\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ width\ =\ RenderEngine::Instance().WindowWidth();}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ height\ =\ RenderEngine::Instance().WindowHeight();}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00023\ \ \ \ \ \};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{class_renderbuffer}{Renderbuffer}}();}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{class_renderbuffer}{\string~Renderbuffer}}()\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ glDeleteRenderbuffers(1,\ \&mID);}
+\DoxyCodeLine{00029\ \ \ \ \ \}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ SetStorage(StorageInfo\ info\ =\ StorageInfo());}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Enable()\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ glBindRenderbuffer(GL\_RENDERBUFFER,\ mID);}
+\DoxyCodeLine{00035\ \ \ \ \ \}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ Disable()\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ glBindRenderbuffer(GL\_RENDERBUFFER,\ 0);}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{operator}\ GLuint()\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mID;}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{inline}\ GLuint\ ID()\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mID;}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+\DoxyCodeLine{00048\ \};}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

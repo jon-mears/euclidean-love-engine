@@ -2,6 +2,7 @@
 #define PROJECTION_HPP
 
 #include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 class Projection {
 public:
@@ -18,7 +19,7 @@ public:
 
 class Perspective : public Projection {
 private:
-	float mFOVY{ 45.0f }, mAspect{ 0.0f }, mZNear{ 0.5f }, mZFar{ 100.0f };
+	float mFOVY{ 45.0f }, mAspect{ 0.0f }, mZNear{ 0.01f }, mZFar{ 100.0f };
 public:
 	Perspective();
 	virtual glm::mat4 ProjectionMatrix() override;

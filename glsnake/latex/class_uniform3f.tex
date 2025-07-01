@@ -1,0 +1,158 @@
+\doxysection{Uniform3f Class Reference}
+\hypertarget{class_uniform3f}{}\label{class_uniform3f}\index{Uniform3f@{Uniform3f}}
+Inheritance diagram for Uniform3f\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_uniform3f}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_uniform3f_a84d3996d4d8c1fa880d4d78d7f64f755}\label{class_uniform3f_a84d3996d4d8c1fa880d4d78d7f64f755} 
+{\bfseries Uniform3f} (const std\+::string \&name, GLuint loc, Purpose e\+Purpose)
+\item 
+virtual void \mbox{\hyperlink{class_uniform3f_aa1d0927d14911714c9e4fb40c105fc17}{Set}} (float v0, float v1, float v2) override
+\item 
+virtual void \mbox{\hyperlink{class_uniform3f_a126add39b26c209210d36f270c769599}{Set}} (const glm\+::vec3 \&v) override
+\item 
+\Hypertarget{class_uniform3f_a40e00840be44cf895226719f11276d76}\label{class_uniform3f_a40e00840be44cf895226719f11276d76} 
+glm\+::vec3 {\bfseries Get} ()
+\item 
+virtual void \mbox{\hyperlink{class_uniform3f_a0b6ea62becc12962d6fe7ede8a77ca30}{Upload}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_uniform}{Uniform}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Uniform} (const std\+::string \&name, Type e\+Type, Purpose e\+Purpose, GLuint loc)
+\item 
+Purpose {\bfseries Get\+Purpose} ()
+\item 
+Type {\bfseries Get\+Type} ()
+\item 
+virtual void {\bfseries Set} (float v0)
+\item 
+virtual void {\bfseries Set} (float v0, float v1)
+\item 
+virtual void {\bfseries Set} (const glm\+::vec2 \&v)
+\item 
+virtual void {\bfseries Set} (float v0, float v1, float v2, float v3)
+\item 
+virtual void {\bfseries Set} (const glm\+::vec4 \&v)
+\item 
+virtual void {\bfseries Set} (int v0)
+\item 
+virtual void {\bfseries Set} (int v0, int v1)
+\item 
+virtual void {\bfseries Set} (const glm\+::ivec2 \&v)
+\item 
+virtual void {\bfseries Set} (int v0, int v1, int v2)
+\item 
+virtual void {\bfseries Set} (const glm\+::ivec3 \&v)
+\item 
+virtual void {\bfseries Set} (int v0, int v1, int v2, int v3)
+\item 
+virtual void {\bfseries Set} (const glm\+::ivec4 \&v)
+\item 
+virtual void {\bfseries Set} (const glm\+::mat2 \&matrix)
+\item 
+virtual void {\bfseries Set} (const glm\+::mat3 \&matrix)
+\item 
+virtual void {\bfseries Set} (const glm\+::mat4 \&matrix)
+\item 
+virtual void {\bfseries Set} (\mbox{\hyperlink{class_texture2_d}{Texture2D}} \texorpdfstring{$\ast$}{*}tex)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_uniform}{Uniform}}}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_uniform_a76a7451a26953dad5a350293548ac885}\label{class_uniform_a76a7451a26953dad5a350293548ac885} 
+enum {\bfseries Purpose} \{ \newline
+{\bfseries MVP\+\_\+\+MATRIX}
+, {\bfseries M\+\_\+\+MATRIX}
+, {\bfseries V\+\_\+\+MATRIX}
+, {\bfseries P\+\_\+\+MATRIX}
+, \newline
+{\bfseries MV\+\_\+\+MATRIX}
+, {\bfseries VP\+\_\+\+MATRIX}
+, {\bfseries NONE}
+ \}
+\item 
+\Hypertarget{class_uniform_a33dd03a6ca78ffa5d3f8fc203f819b7b}\label{class_uniform_a33dd03a6ca78ffa5d3f8fc203f819b7b} 
+enum {\bfseries Type} \{ \newline
+{\bfseries FLOAT}
+, {\bfseries VEC2}
+, {\bfseries VEC3}
+, {\bfseries VEC4}
+, \newline
+{\bfseries INT}
+, {\bfseries IVEC2}
+, {\bfseries IVEC3}
+, {\bfseries IVEC4}
+, \newline
+{\bfseries MAT2}
+, {\bfseries MAT3}
+, {\bfseries MAT4}
+, {\bfseries SAMPLER2D}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_uniform}{Uniform}}}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_uniform}{Uniform}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (const std\+::string \&rc\+Name, Type e\+Type, Purpose e\+Purpose, GLuint loc)
+\item 
+static \mbox{\hyperlink{class_uniform}{Uniform}} \texorpdfstring{$\ast$}{*} {\bfseries Create} (const std\+::string \&rc\+Name, const std\+::string \&rc\+Type, Purpose e\+Purpose, GLuint loc)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_uniform}{Uniform}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string {\bfseries m\+Name}
+\item 
+Purpose {\bfseries me\+Purpose}
+\item 
+Type {\bfseries me\+Type}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_uniform}{Uniform}}}
+\begin{DoxyCompactItemize}
+\item 
+GLuint {\bfseries m\+Loc}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_uniform3f_a126add39b26c209210d36f270c769599}\index{Uniform3f@{Uniform3f}!Set@{Set}}
+\index{Set@{Set}!Uniform3f@{Uniform3f}}
+\doxysubsubsection{\texorpdfstring{Set()}{Set()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_uniform3f_a126add39b26c209210d36f270c769599} 
+void Uniform3f\+::\+Set (\begin{DoxyParamCaption}\item[{const glm\+::vec3 \&}]{v}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_uniform}{Uniform}}.
+
+\Hypertarget{class_uniform3f_aa1d0927d14911714c9e4fb40c105fc17}\index{Uniform3f@{Uniform3f}!Set@{Set}}
+\index{Set@{Set}!Uniform3f@{Uniform3f}}
+\doxysubsubsection{\texorpdfstring{Set()}{Set()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_uniform3f_aa1d0927d14911714c9e4fb40c105fc17} 
+void Uniform3f\+::\+Set (\begin{DoxyParamCaption}\item[{float}]{v0}{, }\item[{float}]{v1}{, }\item[{float}]{v2}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_uniform}{Uniform}}.
+
+\Hypertarget{class_uniform3f_a0b6ea62becc12962d6fe7ede8a77ca30}\index{Uniform3f@{Uniform3f}!Upload@{Upload}}
+\index{Upload@{Upload}!Uniform3f@{Uniform3f}}
+\doxysubsubsection{\texorpdfstring{Upload()}{Upload()}}
+{\footnotesize\ttfamily \label{class_uniform3f_a0b6ea62becc12962d6fe7ede8a77ca30} 
+void Uniform3f\+::\+Upload (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_uniform}{Uniform}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+uniform.\+hpp\item 
+uniform.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,89 @@
+\doxysection{game-\/object.ipp}
+\hypertarget{game-object_8ipp_source}{}\label{game-object_8ipp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ GAME\_OBJECT\_IPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ GAME\_OBJECT\_IPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}game-\/object.hpp"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <typeinfo>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_component}{Component}};}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ C>}
+\DoxyCodeLine{00014\ C*\ GameObject::Add()\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ C*\ c\ =\ \textcolor{keyword}{new}\ C(\textcolor{keyword}{this});}
+\DoxyCodeLine{00016\ \ \ \ \ mOwnedComponents.push\_back(c);}
+\DoxyCodeLine{00017\ \ \ \ \ mAllComponents.push\_back(c);}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordflow}{return}\ c;}
+\DoxyCodeLine{00020\ \}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ C>}
+\DoxyCodeLine{00023\ \textcolor{keywordtype}{void}\ GameObject::Erase()\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ std::vector<Component*>::iterator\ it\ =\ std::find\_if(mOwnedComponents.begin(),\ mOwnedComponents.end(),\ [](\mbox{\hyperlink{class_component}{Component}}*\ c)\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ return\ typeid(C)\ ==\ typeid(*c);}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ ==\ mOwnedComponents.end())\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{delete}*\ it;}
+\DoxyCodeLine{00031\ \ \ \ \ mOwnedComponents.erase(it);}
+\DoxyCodeLine{00032\ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ C>}
+\DoxyCodeLine{00035\ C*\ GameObject::Retrieve()\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ std::vector<Component*>::iterator\ it\ =\ std::find\_if(mAllComponents.begin(),\ mAllComponents.end(),\ [](\mbox{\hyperlink{class_component}{Component}}*\ c)\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ return\ typeid(C)\ ==\ typeid(*c);}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ ==\ mAllComponents.end())\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{dynamic\_cast<}C*\textcolor{keyword}{>}(*it);}
+\DoxyCodeLine{00043\ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{comment}{//\ COULD\ also\ use\ a\ share\ component,\ which\ just\ contains\ a\ }}
+\DoxyCodeLine{00046\ \textcolor{comment}{//\ vector\ of\ component\ pointers...\ (eh,\ maybe\ not\ such\ a\ good\ idea)}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{comment}{//\ could\ also\ have\ a\ babygameobject...?}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{comment}{//\ the\ idea\ of\ allowing\ a\ single\ entity\ to\ have\ multiple\ of\ the\ same\ component}}
+\DoxyCodeLine{00051\ \textcolor{comment}{//\ doesn't\ seem\ TOO\ bad...}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ C>}
+\DoxyCodeLine{00054\ C*\ GameObject::Share(\mbox{\hyperlink{class_game_object}{GameObject}}*\ pGO)\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ C*\ pComponent\ =\ pGO-\/>Retrieve<C>();}
+\DoxyCodeLine{00056\ \ \ \ \ mSharedComponents.push\_back(pComponent);}
+\DoxyCodeLine{00057\ \ \ \ \ mAllComponents.push\_back(pComponent);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{return}\ pComponent;}
+\DoxyCodeLine{00060\ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ C>}
+\DoxyCodeLine{00063\ C*\ GameObject::RetrieveShared()\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ std::vector<Component*>::iterator\ it\ =\ std::find\_if(mSharedComponents.begin(),\ mSharedComponents.end(),\ [](\mbox{\hyperlink{class_component}{Component}}*\ c)\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ return\ typeid(C)\ ==\ typeid(*c);}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ ==\ mSharedComponents.end())\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{dynamic\_cast<}C*\textcolor{keyword}{>}(*it);}
+\DoxyCodeLine{00071\ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ C>}
+\DoxyCodeLine{00074\ C*\ GameObject::RetrieveOwned()\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ std::vector<Component*>::iterator\ it\ =\ std::find\_if(mOwnedComponents.begin(),\ mOwnedComponents.end(),\ [](\mbox{\hyperlink{class_component}{Component}}*\ c)\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ return\ typeid(C)\ ==\ typeid(*c);}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ ==\ mOwnedComponents.end())\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{dynamic\_cast<}C*\textcolor{keyword}{>}(*it);}
+\DoxyCodeLine{00082\ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

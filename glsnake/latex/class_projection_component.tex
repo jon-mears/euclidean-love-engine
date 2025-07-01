@@ -1,0 +1,85 @@
+\doxysection{Projection\+Component Class Reference}
+\hypertarget{class_projection_component}{}\label{class_projection_component}\index{ProjectionComponent@{ProjectionComponent}}
+Inheritance diagram for Projection\+Component\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_projection_component}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_projection_component_a7e2e8cfc38f4a8f5bc237598f2a082ac}\label{class_projection_component_a7e2e8cfc38f4a8f5bc237598f2a082ac} 
+{\bfseries Projection\+Component} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}p\+GO)
+\item 
+\Hypertarget{class_projection_component_acba05fc9ce9d194d78898ad2ffbab057}\label{class_projection_component_acba05fc9ce9d194d78898ad2ffbab057} 
+virtual glm\+::mat4 {\bfseries Projection\+Matrix} ()=0
+\item 
+virtual void \mbox{\hyperlink{class_projection_component_a9fcd06c4f4c7ca013d3cde38fb025426}{Start}} () override
+\item 
+virtual void \mbox{\hyperlink{class_projection_component_aae4da65eea30eaee9ac3316ca65e7e2a}{Update}} () override
+\item 
+virtual void \mbox{\hyperlink{class_projection_component_aa50489f6ad62df66444958f501a8baae}{Const\+Update}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename C $>$ }\\C \texorpdfstring{$\ast$}{*} {\bfseries Get\+Component} ()
+\item 
+{\footnotesize template$<$typename C $>$ }\\const C \texorpdfstring{$\ast$}{*} {\bfseries Get\+Component} () const
+\item 
+{\bfseries Component} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}p\+GO)
+\item 
+bool {\bfseries Is\+Active} ()
+\item 
+void {\bfseries Set\+Active} (bool b\+Active)
+\item 
+bool {\bfseries Toggle\+Active} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*} {\bfseries mp\+GO}
+\item 
+bool {\bfseries mb\+Active} \{ true \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_projection_component_aa50489f6ad62df66444958f501a8baae}\index{ProjectionComponent@{ProjectionComponent}!ConstUpdate@{ConstUpdate}}
+\index{ConstUpdate@{ConstUpdate}!ProjectionComponent@{ProjectionComponent}}
+\doxysubsubsection{\texorpdfstring{ConstUpdate()}{ConstUpdate()}}
+{\footnotesize\ttfamily \label{class_projection_component_aa50489f6ad62df66444958f501a8baae} 
+void Projection\+Component\+::\+Const\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_component}{Component}}.
+
+\Hypertarget{class_projection_component_a9fcd06c4f4c7ca013d3cde38fb025426}\index{ProjectionComponent@{ProjectionComponent}!Start@{Start}}
+\index{Start@{Start}!ProjectionComponent@{ProjectionComponent}}
+\doxysubsubsection{\texorpdfstring{Start()}{Start()}}
+{\footnotesize\ttfamily \label{class_projection_component_a9fcd06c4f4c7ca013d3cde38fb025426} 
+void Projection\+Component\+::\+Start (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_component}{Component}}.
+
+\Hypertarget{class_projection_component_aae4da65eea30eaee9ac3316ca65e7e2a}\index{ProjectionComponent@{ProjectionComponent}!Update@{Update}}
+\index{Update@{Update}!ProjectionComponent@{ProjectionComponent}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_projection_component_aae4da65eea30eaee9ac3316ca65e7e2a} 
+void Projection\+Component\+::\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_component}{Component}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+projection-\/component.\+hpp\item 
+projection-\/component.\+cpp\end{DoxyCompactItemize}

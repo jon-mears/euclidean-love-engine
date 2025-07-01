@@ -14,7 +14,7 @@
 #include <iostream>
 
 // intended for targeted cameras!
-CameraControlComponent::CameraControlComponent(GameObject* pGO) : Component{ pGO }, mpTransform{nullptr}, mpTargetedCamera{nullptr}, mOrbitTarget{glm::vec3{0.0f, 0.0f, 0.0f}, 1.0f, 0.0f, 0.0f}, mLookTarget{0.0f, 0.0f} { }
+CameraControlComponent::CameraControlComponent(GameObject* pGO) : Component{ pGO }, mpTransform{nullptr}, mpTargetedCamera{nullptr}, mOrbitTarget{glm::vec3{0.0f, 0.0f, 0.0f}, 0.5f, 0.0f, 0.0f}, mLookTarget{0.0f, 0.0f} { }
 
 void CameraControlComponent::Start() {
 	mpTransform = GetComponent<TransformComponent>();
@@ -41,6 +41,9 @@ void CameraControlComponent::Update() {
 
 		mOrbitTarget.latitude += deltaX;
 		mOrbitTarget.longitude += deltaY;
+
+		//std::cout << glm::to_string(mOrbitTarget.position) << std::endl;
+		std::cout << mOrbitTarget.distance << std::endl;
 
 		mpTransform->SetPosition(Math3D::SphericalCoordinates(mOrbitTarget.position, mOrbitTarget.latitude, mOrbitTarget.longitude, mOrbitTarget.distance));
 

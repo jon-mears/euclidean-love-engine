@@ -1,0 +1,34 @@
+\doxysection{mesh-\/component.hpp}
+\hypertarget{mesh-component_8hpp_source}{}\label{mesh-component_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ MESH\_COMPONENT\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ MESH\_COMPONENT\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <glad/glad.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <GLFW/glfw3.h>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}component.hpp"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_game_object}{GameObject}};}
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_mesh}{Mesh}};}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_mesh_component}{MeshComponent}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_component}{Component}}\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_mesh}{Mesh}}*\ mpMesh;}
+\DoxyCodeLine{00015\ \ \ \ \ GLenum\ meRenderMode\{\ GL\_TRIANGLES\ \};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Start()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Update()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ ConstUpdate()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{class_mesh_component}{MeshComponent}}(\mbox{\hyperlink{class_game_object}{GameObject}}*\ pGO);}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ SetMesh(\mbox{\hyperlink{class_mesh}{Mesh}}*\ pMesh);}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ Enable();}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{int}\ NumVertices();}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ SetRenderMode(GLenum\ eRenderMode)\ \{\ meRenderMode\ =\ eRenderMode;\ \}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{inline}\ GLenum\ GetRenderMode()\ \{\ \textcolor{keywordflow}{return}\ meRenderMode;\ \}}
+\DoxyCodeLine{00028\ \};}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -30,7 +30,7 @@ namespace FramebufferCallback {
 #endif
 }
 
-RenderEngine::RenderEngine() : mfClearFlags{ 0 }, mWindowWidth{ 0 }, mWindowHeight{ 0 }, mpcWindowName{ nullptr } { }
+RenderEngine::RenderEngine() : mfClearFlags{ 0 }, mfTestFlags{ 0 }, mWindowWidth{ 0 }, mWindowHeight{ 0 }, mpcWindowName{ nullptr }, mpWindow{ nullptr } { }
 
 void RenderEngine::Draw() {
 

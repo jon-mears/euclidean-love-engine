@@ -1,0 +1,27 @@
+\doxysection{input-\/service.hpp}
+\hypertarget{input-service_8hpp_source}{}\label{input-service_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ INPUT\_SERVICE\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ INPUT\_SERVICE\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{namespace\ }Input\ \{}
+\DoxyCodeLine{00005\ \ \ \ \ \textcolor{keyword}{enum}\ Event;}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{keyword}{enum}\ Axis;}
+\DoxyCodeLine{00007\ \}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_input_service}{InputService}}\ \{}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_input_service}{\string~InputService}}()\ \{\ \}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{comment}{//\ interface}}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{float}\ AbsoluteAxis(Input::Axis\ eAxis)\ =\ 0;}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{float}\ RelativeAxis(Input::Axis\ eAxis)\ =\ 0;}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ EventActive(Input::Event\ eEvent)\ =\ 0;}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ PollEvents()\ =\ 0;}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Startup()\ =\ 0;}
+\DoxyCodeLine{00021\ \};}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

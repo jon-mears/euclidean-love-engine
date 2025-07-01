@@ -35,7 +35,6 @@ void Add<classname>(classname* pResource, const std::string& name) { \
 
 #include <map>
 #include <string>
-#include <map>
 
 #include "shader.hpp"
 #include "game-object.hpp"

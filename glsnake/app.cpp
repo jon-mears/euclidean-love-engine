@@ -98,7 +98,7 @@ void App::Loop() {
 		// update gameobjects
 		Update();
 
-		// draw scene
+		// draw scene	
 		RenderEngine::Instance().Draw();
 		
 		// draw ui

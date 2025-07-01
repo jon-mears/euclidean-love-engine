@@ -20,6 +20,7 @@
 #include "targeted-camera-component.hpp"
 #include "render-component.hpp"
 #include "projection.hpp"
+#include "free-camera-component.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -50,6 +51,8 @@ void InitSnake(App* pApp) {
 	Shader *pBoxShader = ResourceManager::Instance().Retrieve<Shader>("Color Shader");
 	Mesh* pBoxMesh = ResourceManager::Instance().Retrieve<Mesh>("Stingray");
 
+	//pBoxMesh = Primitives::Cube<Vertex::POSITION>();
+
 	Texture2D* pBoxTexture = ResourceManager::Instance().Retrieve<Texture2D>("Container");
 
 	GameObject* pBoxObj = ResourceManager::Instance().New<GameObject>("Box");
@@ -57,21 +60,18 @@ void InitSnake(App* pApp) {
 	GameObject* pBoxObj2 = ResourceManager::Instance().New<GameObject>("Box2");
 
 	TransformComponent* pTransformC = pBoxObj->Add<TransformComponent>();
-	pTransformC->SetScale(1.0f/30.0f, 1.0f/30.0f, 1.0f/30.0f);
-	pTransformC->SetWindow(App::Instance().Window());
+	pTransformC->SetScale(glm::vec3{ 1.0f / 30.0f, 1.0f / 30.0f, 1.0f / 30.0f });
 
 	pTransformC = pBoxObj2->Add<TransformComponent>();
-	pTransformC->SetPosition(0.5f, 0.0f, 0.0f);
+	pTransformC->SetPosition(glm::vec3{ 0.5f, 0.0f, 0.0f });
 
 	GameObject* pCameraObj = ResourceManager::Instance().New<GameObject>("Camera");
 		
 	pTransformC = pCameraObj->Add<TransformComponent>();
-	pTransformC->SetPosition(0.0f, 0.0f, 0.5f);
-	pTransformC->SetWindow(App::Instance().Window());
+	pTransformC->SetPosition(glm::vec3{ 0.0f, 0.0f, 0.5f });
+	pTransformC->SetEulerRotation(glm::vec3{ 0, 0, 0 });
 
-	TargetedCameraComponent* pCameraC = pCameraObj->Add<TargetedCameraComponent>();
-
-	CameraControlComponent* pCameraControl = pCameraObj->Add<CameraControlComponent>();
+	auto pCameraC = pCameraObj->Add<FreeCameraComponent>();
 
 	// secretly adds gameobject to engine dstructure to render objects in order
 	RenderComponent* pRenderC = pBoxObj->Add<RenderComponent>();
@@ -80,17 +80,7 @@ void InitSnake(App* pApp) {
 	pRenderC->SetMesh(pBoxMesh);
 	pRenderC->SetCamera(pCameraC);
 	pRenderC->SetProjection(new Perspective());
-	//pRenderC->SetLayer(0);
-	pBoxMaterial->SetUniform("uColor", glm::vec4{ 1.0f, 1.0f, 1.0f, 1.0f });
-
-	//pRenderC = pBoxObj2->Add<RenderComponent>();
-	//Material* pBoxMaterial2 = new Material(pBoxShader);
-	//pRenderC->SetMaterial(pBoxMaterial2);
-	//pRenderC->SetMesh(pBoxMesh);
-	//pRenderC->SetCamera(pCameraC);
-	//pRenderC->SetProjection(new Orthographic());
-	////pRenderC->SetLayer(0);
-	//pBoxMaterial2->SetUniform("uColor", glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
+	pBoxMaterial->SetUniform("uColor", glm::vec4{ 1.0f, 1.0f, 1.0f, 1.0f });	  
 }
 
 void DeinitSnake(App* pApp) {

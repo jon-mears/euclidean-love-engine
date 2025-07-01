@@ -1,0 +1,86 @@
+\doxysection{Grid\+Component Class Reference}
+\hypertarget{class_grid_component}{}\label{class_grid_component}\index{GridComponent@{GridComponent}}
+Inheritance diagram for Grid\+Component\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_grid_component}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_grid_component_a06864d107e4eabad16ad4bb0409274b2}\label{class_grid_component_a06864d107e4eabad16ad4bb0409274b2} 
+enum {\bfseries spacing\+\_\+scale} \{ {\bfseries SPACING}
+, {\bfseries SCALE}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_grid_component_a2598abda3fd949386de1b2abc7734cf1}\label{class_grid_component_a2598abda3fd949386de1b2abc7734cf1} 
+{\bfseries Grid\+Component} (const std\+::vector$<$ std\+::vector$<$ int $>$ $>$ \&grid)
+\item 
+\Hypertarget{class_grid_component_a2e9cf4c076024764506d212c1ad92d3b}\label{class_grid_component_a2e9cf4c076024764506d212c1ad92d3b} 
+{\bfseries Grid\+Component} (int rows, int cols)
+\item 
+\Hypertarget{class_grid_component_aa598f891eadb6f9b3fc2fabcbdeb9e01}\label{class_grid_component_aa598f891eadb6f9b3fc2fabcbdeb9e01} 
+void {\bfseries set} (int row, int col, int val)
+\item 
+\Hypertarget{class_grid_component_ac72885436235060ab797a0cfa6a1876a}\label{class_grid_component_ac72885436235060ab797a0cfa6a1876a} 
+int {\bfseries get} (int row, int col)
+\item 
+\Hypertarget{class_grid_component_a8eadffbdf2cbb5499678ca15031cc379}\label{class_grid_component_a8eadffbdf2cbb5499678ca15031cc379} 
+void {\bfseries set\+\_\+spacing} (glm\+::vec2 new\+\_\+spacing)
+\item 
+\Hypertarget{class_grid_component_a08e2af269c42d47345ce59e5c9399243}\label{class_grid_component_a08e2af269c42d47345ce59e5c9399243} 
+void {\bfseries set\+\_\+pos} (float x, float y)
+\item 
+\Hypertarget{class_grid_component_ad37735e1da3616ecdfda8a52455f338a}\label{class_grid_component_ad37735e1da3616ecdfda8a52455f338a} 
+void {\bfseries set\+\_\+scale} (float x, float y)
+\item 
+\Hypertarget{class_grid_component_a7f3a6f0f441689a4b620f3a0be8326c6}\label{class_grid_component_a7f3a6f0f441689a4b620f3a0be8326c6} 
+void {\bfseries set\+\_\+total\+\_\+rect} (float x, float y, float width, float height, spacing\+\_\+scale choice)
+\item 
+\Hypertarget{class_grid_component_acbed90691c141ba89ae3c5fa704c7dab}\label{class_grid_component_acbed90691c141ba89ae3c5fa704c7dab} 
+int {\bfseries rows} () const
+\item 
+\Hypertarget{class_grid_component_a83aa1cdd58e184d8489f35109ec324d2}\label{class_grid_component_a83aa1cdd58e184d8489f35109ec324d2} 
+int {\bfseries cols} () const
+\item 
+\Hypertarget{class_grid_component_a1b08723f8c199e95a86ca72c18508a56}\label{class_grid_component_a1b08723f8c199e95a86ca72c18508a56} 
+void {\bfseries draw} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void {\bfseries Start} ()=0
+\item 
+virtual void {\bfseries Update} ()=0
+\item 
+virtual void {\bfseries Const\+Update} () const =0
+\item 
+{\footnotesize template$<$typename C $>$ }\\C \texorpdfstring{$\ast$}{*} {\bfseries Get\+Component} ()
+\item 
+{\footnotesize template$<$typename C $>$ }\\const C \texorpdfstring{$\ast$}{*} {\bfseries Get\+Component} () const
+\item 
+{\bfseries Component} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}p\+GO)
+\item 
+bool {\bfseries Is\+Active} ()
+\item 
+void {\bfseries Set\+Active} (bool b\+Active)
+\item 
+bool {\bfseries Toggle\+Active} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*} {\bfseries mp\+GO}
+\item 
+bool {\bfseries mb\+Active} \{ true \}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+grid.\+h\end{DoxyCompactItemize}

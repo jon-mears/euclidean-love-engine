@@ -1,0 +1,52 @@
+\doxysection{Renderer Class Reference}
+\hypertarget{class_renderer}{}\label{class_renderer}\index{Renderer@{Renderer}}
+Inheritance diagram for Renderer\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_renderer}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_renderer_aa911676c005eeb22633ea6ac9ac49827}\label{class_renderer_aa911676c005eeb22633ea6ac9ac49827} 
+{\bfseries Renderer} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}go)
+\item 
+\Hypertarget{class_renderer_a9a0a5f207e3d9f60c6372a9c79b25df9}\label{class_renderer_a9a0a5f207e3d9f60c6372a9c79b25df9} 
+void {\bfseries draw} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void {\bfseries Start} ()=0
+\item 
+virtual void {\bfseries Update} ()=0
+\item 
+virtual void {\bfseries Const\+Update} () const =0
+\item 
+{\footnotesize template$<$typename C $>$ }\\C \texorpdfstring{$\ast$}{*} {\bfseries Get\+Component} ()
+\item 
+{\footnotesize template$<$typename C $>$ }\\const C \texorpdfstring{$\ast$}{*} {\bfseries Get\+Component} () const
+\item 
+{\bfseries Component} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}p\+GO)
+\item 
+bool {\bfseries Is\+Active} ()
+\item 
+void {\bfseries Set\+Active} (bool b\+Active)
+\item 
+bool {\bfseries Toggle\+Active} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*} {\bfseries mp\+GO}
+\item 
+bool {\bfseries mb\+Active} \{ true \}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+renderer.\+h\item 
+renderer.\+cpp\end{DoxyCompactItemize}

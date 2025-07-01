@@ -1,0 +1,170 @@
+\doxysection{input-\/manager.hpp}
+\hypertarget{input-manager_8hpp_source}{}\label{input-manager_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ INPUT\_MANAGER\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ INPUT\_MANAGER\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}input-\/service.hpp"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_input_service}{InputService}};}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{namespace\ }Input\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{comment}{//\ should\ be\ described\ outside\ any\ particualr\ input\ system\ }}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{comment}{//\ (the\ keys\ stuff\ can\ be\ implemented\ with\ a\ virtual\ keyboard\ }}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{comment}{//\ on\ a\ gamepad)}}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{enum}\ Event\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ SELECT,}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ A\_DOWN,}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ A\_PRESSED,}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ A\_RELEASED,}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ B\_DOWN,}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ B\_PRESSED,}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ B\_RELEASED,}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ C\_DOWN,}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ C\_PRESSED,}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ C\_RELEASED,}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ D\_DOWN,}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ D\_PRESSED,}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ D\_RELEASED,}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ E\_DOWN,}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ E\_PRESSED,}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ E\_RELEASED,}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ F\_DOWN,}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ F\_PRESSED,}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ F\_RELEASED,}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ G\_HELD,}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ G\_PRESSED,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ G\_RELEASED,}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ H\_HELD,}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ H\_DOWN,}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ H\_RELEASED,}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ I\_DOWN,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ I\_PRESSED,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ I\_RELEASED,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ J\_DOWN,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ J\_PRESSED,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ J\_RELEASED,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ K\_DOWN,}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ K\_PRESSED,}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ K\_RELEASED,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ L\_DOWN,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ L\_PRESSED,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ L\_RELEASED,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ M\_DOWN,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ M\_PRESSED,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ M\_RELEASED,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ N\_DOWN,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ N\_PRESSED,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ N\_RELEASED,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ O\_DOWN,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ O\_PRESSED,}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ O\_RELEASED,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ P\_DOWN,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ P\_PRESSED,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ P\_RELEASED,}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ Q\_DOWN,}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ Q\_PRESSED,}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ Q\_RELEASED,}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ R\_DOWN,}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ R\_PRESSED,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ R\_RELEASED,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ S\_DOWN,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ S\_PRESSED,}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ S\_RELEASED,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ T\_DOWN,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ T\_PRESSED,}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ T\_RELEASED,}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ U\_DOWN,}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ U\_PRESSED,}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ U\_RELEASED,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ V\_DOWN,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ V\_PRESSED,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ V\_RELEASED,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ W\_DOWN,}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ W\_PRESSED,}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ W\_RELEASED,}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ X\_DOWN,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ X\_PRESSED,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ X\_RELEASED,}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ Y\_DOWN,}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ Y\_PRESSED,}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ Y\_RELEASED,}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ Z\_DOWN,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ Z\_PRESSED,}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ Z\_RELEASED,}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ PANNING,}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ ORBITING,}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ LOOKING}
+\DoxyCodeLine{00095\ \ \ \ \ \};}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{enum}\ Axis\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ HORIZONTAL,}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ VERTICAL}
+\DoxyCodeLine{00100\ \ \ \ \ \};}
+\DoxyCodeLine{00101\ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_input_manager}{InputManager}}\ \{}
+\DoxyCodeLine{00104\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00105\ \ \ \ \ \mbox{\hyperlink{class_input_manager}{InputManager}}();}
+\DoxyCodeLine{00106\ \ \ \ \ \mbox{\hyperlink{class_input_manager}{InputManager}}(\mbox{\hyperlink{class_input_manager}{InputManager}}\&\ lhs)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00107\ \ \ \ \ \mbox{\hyperlink{class_input_manager}{InputManager}}\&\ operator=(\mbox{\hyperlink{class_input_manager}{InputManager}}\&\ lhs)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00108\ \ \ \ \ \mbox{\hyperlink{class_input_manager}{InputManager}}\&\ operator=(\mbox{\hyperlink{class_input_manager}{InputManager}}\ lhs)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \mbox{\hyperlink{class_input_service}{InputService}}*\ mpInputService;}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#ifdef\ \_glfw3\_h\_}}
+\DoxyCodeLine{00113\ \ \ \ \ GLFWwindow*\ mpWindow;}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ ProvideWindow(GLFWwindow*\ pWindow)\ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ mpWindow\ =\ pWindow;}
+\DoxyCodeLine{00116\ \ \ \ \ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{//\ not\ GLFW3}}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{void}*\ mpWindow;}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ ProvideWindow(\textcolor{keywordtype}{void}*\ pWindow)\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ mpWindow\ =\ pWindow;}
+\DoxyCodeLine{00122\ \ \ \ \ \}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{void}\ Startup();}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_input_manager}{InputManager}}\&\ Instance();}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ ProvideService(\mbox{\hyperlink{class_input_service}{InputService}}*\ pInputService)\ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ mpInputService\ =\ pInputService;}
+\DoxyCodeLine{00131\ \ \ \ \ \}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ PollEvents()\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ mpInputService-\/>PollEvents();}
+\DoxyCodeLine{00135\ \ \ \ \ \}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ EventActive(Input::Event\ eEvent)\ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mpInputService-\/>EventActive(eEvent);}
+\DoxyCodeLine{00139\ \ \ \ \ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ AbsoluteAxis(Input::Axis\ eAxis)\ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mpInputService-\/>AbsoluteAxis(eAxis);}
+\DoxyCodeLine{00143\ \ \ \ \ \}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ RelativeAxis(Input::Axis\ eAxis)\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mpInputService-\/>RelativeAxis(eAxis);}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ StartFrame()\ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ PollEvents();}
+\DoxyCodeLine{00151\ \ \ \ \ \}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#ifdef\ \_glfw3\_h\_}}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keyword}{inline}\ GLFWwindow*\ \mbox{\hyperlink{class_window}{Window}}()\ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mpWindow;}
+\DoxyCodeLine{00156\ \ \ \ \ \}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}*\ \mbox{\hyperlink{class_window}{Window}}()\ \{}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mpWindow;}
+\DoxyCodeLine{00160\ \ \ \ \ \}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_app}{App}};}
+\DoxyCodeLine{00164\ \};}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

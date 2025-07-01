@@ -1,0 +1,103 @@
+\doxysection{Camera\+Control\+Component Class Reference}
+\hypertarget{class_camera_control_component}{}\label{class_camera_control_component}\index{CameraControlComponent@{CameraControlComponent}}
+Inheritance diagram for Camera\+Control\+Component\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_camera_control_component}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_camera_control_component_a81a33256c5e979e789963dddb0dbadf8}\label{class_camera_control_component_a81a33256c5e979e789963dddb0dbadf8} 
+{\bfseries Camera\+Control\+Component} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}p\+GO)
+\item 
+virtual void \mbox{\hyperlink{class_camera_control_component_acdc416ee4514073e8a30c014d9789cc9}{Start}} () override
+\item 
+virtual void \mbox{\hyperlink{class_camera_control_component_a0ecae230d0564b32804ff38898d116dd}{Update}} () override
+\item 
+virtual void \mbox{\hyperlink{class_camera_control_component_a0523795842ebe5c5c2f0926a57b8f82f}{Const\+Update}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename C $>$ }\\C \texorpdfstring{$\ast$}{*} {\bfseries Get\+Component} ()
+\item 
+{\footnotesize template$<$typename C $>$ }\\const C \texorpdfstring{$\ast$}{*} {\bfseries Get\+Component} () const
+\item 
+{\bfseries Component} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}p\+GO)
+\item 
+bool {\bfseries Is\+Active} ()
+\item 
+void {\bfseries Set\+Active} (bool b\+Active)
+\item 
+bool {\bfseries Toggle\+Active} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_camera_control_component_a016ae4f2233db3d12632e9df1786043e}\label{class_camera_control_component_a016ae4f2233db3d12632e9df1786043e} 
+float {\bfseries m\+XPan\+Speed} = 0.\+01f
+\item 
+\Hypertarget{class_camera_control_component_a52f71dc2739e03c500fd279aaab99f48}\label{class_camera_control_component_a52f71dc2739e03c500fd279aaab99f48} 
+float {\bfseries m\+YPan\+Speed} = 0.\+01f
+\item 
+\Hypertarget{class_camera_control_component_a4d1d978112c36f7806ed4a6e8f42cfb1}\label{class_camera_control_component_a4d1d978112c36f7806ed4a6e8f42cfb1} 
+float {\bfseries m\+XOrbit\+Speed} = 0.\+1f
+\item 
+\Hypertarget{class_camera_control_component_a323a82d04e55ba6f2094e8ff7c5b94ec}\label{class_camera_control_component_a323a82d04e55ba6f2094e8ff7c5b94ec} 
+float {\bfseries m\+YOrbit\+Speed} = 0.\+1f
+\item 
+\Hypertarget{class_camera_control_component_a5ce8d703f6cbc6a13c1d419a5c6960fc}\label{class_camera_control_component_a5ce8d703f6cbc6a13c1d419a5c6960fc} 
+float {\bfseries m\+XLook\+Speed} = 0.\+01f
+\item 
+\Hypertarget{class_camera_control_component_adb94ee9d528ff8baa8e7ba2394ce05fc}\label{class_camera_control_component_adb94ee9d528ff8baa8e7ba2394ce05fc} 
+float {\bfseries m\+YLook\+Speed} = 0.\+01f
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*} {\bfseries mp\+GO}
+\item 
+bool {\bfseries mb\+Active} \{ true \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_camera_control_component_a0523795842ebe5c5c2f0926a57b8f82f}\index{CameraControlComponent@{CameraControlComponent}!ConstUpdate@{ConstUpdate}}
+\index{ConstUpdate@{ConstUpdate}!CameraControlComponent@{CameraControlComponent}}
+\doxysubsubsection{\texorpdfstring{ConstUpdate()}{ConstUpdate()}}
+{\footnotesize\ttfamily \label{class_camera_control_component_a0523795842ebe5c5c2f0926a57b8f82f} 
+void Camera\+Control\+Component\+::\+Const\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_component}{Component}}.
+
+\Hypertarget{class_camera_control_component_acdc416ee4514073e8a30c014d9789cc9}\index{CameraControlComponent@{CameraControlComponent}!Start@{Start}}
+\index{Start@{Start}!CameraControlComponent@{CameraControlComponent}}
+\doxysubsubsection{\texorpdfstring{Start()}{Start()}}
+{\footnotesize\ttfamily \label{class_camera_control_component_acdc416ee4514073e8a30c014d9789cc9} 
+void Camera\+Control\+Component\+::\+Start (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_component}{Component}}.
+
+\Hypertarget{class_camera_control_component_a0ecae230d0564b32804ff38898d116dd}\index{CameraControlComponent@{CameraControlComponent}!Update@{Update}}
+\index{Update@{Update}!CameraControlComponent@{CameraControlComponent}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_camera_control_component_a0ecae230d0564b32804ff38898d116dd} 
+void Camera\+Control\+Component\+::\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_component}{Component}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+camera-\/control-\/component.\+hpp\item 
+camera-\/control-\/component.\+cpp\end{DoxyCompactItemize}
