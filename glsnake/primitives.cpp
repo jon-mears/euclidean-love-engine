@@ -34,6 +34,7 @@ namespace Primitives {
 			pMesh->VertexAttrib(Vertex::TEXTURE_COORD, aTexCoord);
 		}
 
+		pMesh->Compile();
 		return pMesh;
 	}
 }

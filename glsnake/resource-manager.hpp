@@ -23,15 +23,59 @@ typename std::map<std::string, classname*>::iterator End<classname>() { \
 template <>	\
 classname* New<classname>(const std::string& name) { \
 	classname* pResource = new classname(); \
-	containername[name] = pResource; \
+	if (name == "") { \
+		std::string new_name = ""; \
+		new_name += #classname; \
+		new_name += " ("; \
+		new_name += std::to_string(containername.size()); \
+		new_name += ")"; \
+		containername[new_name] = pResource; \
+	} else if (containername.count(name) > 0) { \
+		int idx = 2; \
+		while (containername.count(name + " (" + std::to_string(idx) + ")")) { \
+			++idx; \
+		} \
+		containername[name + " (" + std::to_string(idx) + ")"] = pResource; \
+	} else { \
+		containername[name] = pResource; \
+	} \
 	return pResource; \
 }
+
+//#define NEW_SPECIALIZATION(classname, containername)	\
+//template <>	\
+//classname* New<classname>(const std::string& name) { \
+//	classname* pResource = new classname(); \
+//	containername[name] = pResource; \
+//	return pResource; \
+//}
 
 #define ADD_SPECIALIZATION(classname, containername)	\
 template <> \
 void Add<classname>(classname* pResource, const std::string& name) { \
-	containername[name] = pResource; \
+	if (name == "") { \
+		std::string new_name = ""; \
+		new_name += #classname; \
+		new_name += " ("; \
+		new_name += std::to_string(containername.size()); \
+		new_name += ")"; \
+		containername[new_name] = pResource; \
+	} else if (containername.count(name) > 0) { \
+		int idx = 2; \
+		while (containername.count(name + " (" + std::to_string(idx) + ")")) { \
+			++idx; \
+		} \
+		containername[name + " (" + std::to_string(idx) + ")"] = pResource; \
+	} else { \
+		containername[name] = pResource; \
+	} \
 }
+
+//#define ADD_SPECIALIZATION(classname, containername)	\
+//template <> \
+//void Add<classname>(classname* pResource, const std::string& name) { \
+//	containername[name] = pResource; \
+//}
 
 #include <map>
 #include <string>

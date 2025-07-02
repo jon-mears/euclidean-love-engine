@@ -16,7 +16,11 @@ RenderCommand::RenderCommand(RenderComponent* pRenderC) : mpRenderC{ pRenderC } 
 	mfEnables |= SHADER;
 	mfEnables |= MESH;
 	mfEnables |= MODEL_MATRIX;
-	mfEnables |= VIEW_MATRIX;
+
+	if (mpRenderC->GetRenderMode() != RenderMode::UI) {
+		mfEnables |= VIEW_MATRIX;
+	}
+
 	mfEnables |= PROJECTION_MATRIX;
 }
 
@@ -43,6 +47,9 @@ void RenderCommand::Execute() {
 	if (mfEnables & VIEW_MATRIX) {
 		CameraComponent* pCameraC = mpRenderC->GetCamera();
 		RenderEngine::Instance().mVMatrix = pCameraC->ViewMatrix();
+	}
+	else {
+		RenderEngine::Instance().mVMatrix = glm::mat4{ 1 };
 	}
 
 	// set individual matrices & cache
@@ -92,7 +99,7 @@ void RenderCommand::Execute() {
 
 	mpRenderC->GetMaterial()->UploadUniforms();
 
-	glDrawArrays(mpRenderC->GetRenderMode(), 0, 
+	glDrawArrays(mpRenderC->GetPrimitiveType(), 0, 
 		mpRenderC->GetNumVertices());
 }
 

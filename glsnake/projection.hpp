@@ -24,4 +24,9 @@ public:
 	Perspective();
 	virtual glm::mat4 ProjectionMatrix() override;
 };
+
+class NoProjection : public Projection {
+public:
+	virtual glm::mat4 ProjectionMatrix() override;
+};
 #endif

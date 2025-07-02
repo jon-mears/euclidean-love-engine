@@ -4,6 +4,14 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="glDebug|Win32">
+      <Configuration>glDebug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="glDebug|x64">
+      <Configuration>glDebug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
@@ -31,6 +39,12 @@
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='glDebug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -39,6 +53,12 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='glDebug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
@@ -59,10 +79,16 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='glDebug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='glDebug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -70,6 +96,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\OpenGL\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\OpenGL\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='glDebug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:\OpenGL\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\OpenGL\lib;$(LibraryPath)</LibraryPath>
@@ -84,6 +115,11 @@
     <IncludePath>C:\OpenGL\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\OpenGL\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='glDebug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\OpenGL\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\OpenGL\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>C:\OpenGL\include;$(IncludePath)</IncludePath>
@@ -94,6 +130,21 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Code\GLFW\include;C:\imgui\imgui;C:\imgui\imgui\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>GLFW/glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='glDebug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GDEBUG</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Code\GLFW\include;C:\imgui\imgui;C:\imgui\imgui\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -138,6 +189,21 @@
       <AdditionalDependencies>GLFW/glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='glDebug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GDEBUG</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Code\GLFW\include;C:\imgui\imgui;C:\imgui\imgui\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>GLFW/glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -158,7 +224,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\Code\glad\glad.c" />
+    <ClCompile Include="..\..\..\..\..\..\Code\glad\glad-4-6\src\glad.c" />
     <ClCompile Include="..\..\..\..\..\..\imgui\imgui\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="..\..\..\..\..\..\imgui\imgui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="..\..\..\..\..\..\imgui\imgui\imgui.cpp" />
@@ -170,6 +236,8 @@
     <ClCompile Include="button.cpp" />
     <ClCompile Include="camera-component.cpp" />
     <ClCompile Include="camera-control-component.cpp" />
+    <ClCompile Include="check-error.cpp" />
+    <ClCompile Include="color.cpp" />
     <ClCompile Include="component.cpp" />
     <ClCompile Include="eucmesh-scanner.cpp" />
     <ClCompile Include="projection.cpp" />
@@ -207,6 +275,7 @@
     <ClCompile Include="targeted-camera-component .cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="transform-component.cpp" />
+    <ClCompile Include="ui-rectangle.cpp" />
     <ClCompile Include="ui-window.cpp" />
     <ClCompile Include="uniform-holder.cpp" />
     <ClCompile Include="uniform.cpp" />
@@ -219,6 +288,7 @@
     <ClCompile Include="xml-tree.cpp" />
     <ClCompile Include="render-component.cpp" />
     <ClCompile Include="free-camera-component.cpp" />
+    <ClCompile Include="transform-2d-component.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\..\Code\stb\stb_image.h" />
@@ -229,8 +299,12 @@
     <ClInclude Include="..\..\..\..\..\..\imgui\imgui\imgui.h" />
     <ClInclude Include="..\..\..\..\..\..\imgui\imgui\imgui_internal.h" />
     <ClInclude Include="button.hpp" />
+    <ClInclude Include="camera-tag.hpp" />
+    <ClInclude Include="check-error.hpp" />
+    <ClInclude Include="color.hpp" />
     <ClInclude Include="component.hpp" />
     <ClInclude Include="eucmesh-scanner.hpp" />
+    <ClInclude Include="layer.hpp" />
     <ClInclude Include="matrix.hpp" />
     <ClInclude Include="projection.hpp" />
     <ClInclude Include="render-command.hpp" />
@@ -258,6 +332,7 @@
     <ClInclude Include="perspective-component.hpp" />
     <ClInclude Include="primitives.hpp" />
     <ClInclude Include="projection-component.hpp" />
+    <ClInclude Include="render-mode.hpp" />
     <ClInclude Include="renderbuffer.hpp" />
     <ClInclude Include="render-engine.hpp" />
     <ClInclude Include="resource.hpp" />
@@ -270,6 +345,7 @@
     <ClInclude Include="targeted-camera-component.hpp" />
     <ClInclude Include="texture.hpp" />
     <ClInclude Include="transform-component.hpp" />
+    <ClInclude Include="ui-rectangle.hpp" />
     <ClInclude Include="ui-window.hpp" />
     <ClInclude Include="uniform-holder.hpp" />
     <ClInclude Include="uniform.hpp" />
@@ -281,6 +357,7 @@
     <ClInclude Include="xml-tree.hpp" />
     <ClInclude Include="render-component.hpp" />
     <ClInclude Include="free-camera-component.hpp" />
+    <ClInclude Include="transform-2d-component.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="component.ipp" />

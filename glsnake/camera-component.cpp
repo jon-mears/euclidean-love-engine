@@ -7,6 +7,7 @@
 #include "framebuffer.hpp"
 #include "vertex-data.hpp"
 #include "mesh.hpp"
+#include "render-engine.hpp"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -23,6 +24,7 @@ CameraComponent::CameraComponent(GameObject* pGO) : Component(pGO), mViewables()
 
 void CameraComponent::Start() {
 	mpTransform = GetComponent<TransformComponent>();
+	RenderEngine::Instance().AddCamera(this);
 }
 
 void CameraComponent::Update() { }

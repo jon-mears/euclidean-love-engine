@@ -17,3 +17,7 @@ Perspective::Perspective() {
 glm::mat4 Perspective::ProjectionMatrix() {
 	return glm::perspective(glm::radians(mFOVY), mAspect, mZNear, mZFar);
 }
+
+glm::mat4 NoProjection::ProjectionMatrix() {
+	return glm::mat4{ 1 };
+}

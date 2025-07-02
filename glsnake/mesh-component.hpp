@@ -12,7 +12,7 @@ class Mesh;
 class MeshComponent : public Component {
 private:
 	Mesh* mpMesh;
-	GLenum meRenderMode{ GL_TRIANGLES };
+	GLenum mePrimitiveType { GL_TRIANGLES };
 
 public:
 	virtual void Start() override;
@@ -23,7 +23,7 @@ public:
 	void SetMesh(Mesh* pMesh);
 	void Enable();
 	int NumVertices();
-	inline void SetRenderMode(GLenum eRenderMode) { meRenderMode = eRenderMode; }
-	inline GLenum GetRenderMode() { return meRenderMode; }
+	inline void SetPrimitiveType(GLenum ePrimitiveType) { mePrimitiveType = ePrimitiveType; }
+	inline GLenum GetPrimitiveType() { return mePrimitiveType; }
 };
 #endif

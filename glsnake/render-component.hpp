@@ -6,8 +6,11 @@
 
 #include "camera-component.hpp"
 #include "component.hpp"
+#include "layer.hpp"
 #include "material.hpp"
 #include "mesh.hpp"
+#include "render-mode.hpp"
+#include "projection.hpp"
 
 class CameraComponent;
 class GameObject;
@@ -18,8 +21,11 @@ private:
     Material* mpMaterial{ nullptr };
     Mesh* mpMesh{ nullptr };
     CameraComponent* mpCameraC{ nullptr };
-    Projection* mpProjection{ nullptr };
-    GLenum meRenderMode{ GL_TRIANGLES };
+    Projection* mpProjection{ new NoProjection() };
+    GLenum mePrimitiveType{ GL_TRIANGLES };
+    RenderMode meRenderMode{RenderMode::NORMAL};
+    Layer meLayer{ Layer::MAIN };
+
 
 public:
     virtual void Start() override;
@@ -42,11 +48,19 @@ public:
         return mpMesh;
     }
 
-    inline void SetRenderMode(GLenum eRenderMode) {
+    inline void SetPrimitiveType(GLenum ePrimitiveType) {
+        mePrimitiveType = ePrimitiveType;
+    }
+
+    inline GLenum GetPrimitiveType() {
+        return mePrimitiveType;
+    }
+
+    inline void SetRenderMode(RenderMode eRenderMode) {
         meRenderMode = eRenderMode;
     }
 
-    inline GLenum GetRenderMode() {
+    inline RenderMode GetRenderMode() {
         return meRenderMode;
     }
 
@@ -82,6 +96,14 @@ public:
 
     inline Projection* GetProjection() {
         return mpProjection;
+    }
+
+    inline void SetLayer(Layer eLayer) {
+        meLayer = eLayer;
+    }
+
+    inline Layer GetLayer() {
+        return meLayer;
     }
 
     RenderComponent(GameObject* pGO);

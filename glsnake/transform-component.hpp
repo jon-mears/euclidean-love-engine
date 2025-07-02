@@ -72,6 +72,7 @@ private:
 	glm::vec3 mLocalOrigin{ 0 };
 
 	glm::vec3 mEulerRotation;
+
 	// should be a normalized quaternion
 	glm::quat mQuatRotation;
 

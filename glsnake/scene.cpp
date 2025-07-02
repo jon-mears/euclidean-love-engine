@@ -22,6 +22,8 @@
 #include "projection.hpp"
 #include "free-camera-component.hpp"
 
+#include "ui-rectangle.hpp"
+
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/string_cast.hpp>
@@ -51,7 +53,7 @@ void InitSnake(App* pApp) {
 	Shader *pBoxShader = ResourceManager::Instance().Retrieve<Shader>("Color Shader");
 	Mesh* pBoxMesh = ResourceManager::Instance().Retrieve<Mesh>("Stingray");
 
-	//pBoxMesh = Primitives::Cube<Vertex::POSITION>();
+	pBoxMesh = Primitives::Plane<Vertex::POSITION>();
 
 	Texture2D* pBoxTexture = ResourceManager::Instance().Retrieve<Texture2D>("Container");
 
@@ -80,9 +82,11 @@ void InitSnake(App* pApp) {
 	pRenderC->SetMesh(pBoxMesh);
 	pRenderC->SetCamera(pCameraC);
 	pRenderC->SetProjection(new Perspective());
-	pBoxMaterial->SetUniform("uColor", glm::vec4{ 1.0f, 1.0f, 1.0f, 1.0f });	  
+	pBoxMaterial->SetUniform("uColor", glm::vec4{ 1.0f, 1.0f, 1.0f, 1.0f });
+
+	new UIRectangle(0.5, 0.5, ResourceManager::Instance().Retrieve<Texture2D>("Container"));
 }
 
 void DeinitSnake(App* pApp) {
 
-}
+}	
