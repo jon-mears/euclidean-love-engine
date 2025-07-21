@@ -3,17 +3,149 @@
 #include "imgui.h"
 #include "editor-manager.hpp"
 
+#include "transform-component.hpp"
+#include "game-object.hpp"
+
 #include <map>
+#include <unordered_set>
+#include <iostream>
 
-void HierarchyView::Draw() {
-	ImGui::Begin("Hierarchy View");
+void HierarchyView::DrawTree(TransformComponent* pTransformC) {
+	ImGuiTreeNodeFlags node_flags = 0;
+	auto pGO = pTransformC->GO();
 
-	for (std::map<std::string, GameObject*>::iterator it = ResourceManager::Instance().Begin<GameObject>(); it != ResourceManager::Instance().End<GameObject>(); ++it) {
+	if (mSelection.count(pGO))
+		node_flags |= ImGuiTreeNodeFlags_Selected;
 
-		if (ImGui::Button(it->first.c_str())) {
-			EditorManager::Instance().mpSelected = it->second;
+	if (pTransformC->GetNumChildren()) {
+		bool node_open = ImGui::TreeNodeEx(pGO->Name().c_str(),
+			node_flags);
+
+		if (ImGui::IsItemClicked() && !ImGui::IsItemToggledOpen())
+			mpClicked = pGO;
+
+		if (ImGui::BeginDragDropSource()) {
+			ImGui::SetDragDropPayload("SO", (void*)pGO,
+				sizeof(GameObject*));
+			ImGui::Text(pGO->Name().c_str());
+			ImGui::EndDragDropSource();
+		}
+
+		if (ImGui::BeginDragDropTarget()) {
+			if (const ImGuiPayload* payload =
+				ImGui::AcceptDragDropPayload("SO")) {
+				//GameObject* pSource = (GameObject*)payload->Data;
+				//
+				//auto pSourceTC = pSource->Retrieve<TransformComponent>();
+				//pTransformC->AddChild(pSourceTC);
+
+				std::cout << "hi" << std::endl;
+			}
+
+			ImGui::EndDragDropTarget();
+		}
+
+		if (node_open) {
+			for (auto child : pTransformC->GetChildren()) {
+				DrawTree(child);
+			}
+
+			ImGui::TreePop();
 		}
 	}
+	else {
+		ImGui::TreeNodeEx(pGO->Name().c_str(),
+			node_flags |
+			ImGuiTreeNodeFlags_Leaf |
+			ImGuiTreeNodeFlags_NoTreePushOnOpen);
 
-	ImGui::End();
+		if (ImGui::IsItemClicked() && !ImGui::IsItemToggledOpen()) {
+			mpClicked = pGO;
+		}
+
+		if (ImGui::BeginDragDropSource()) {
+			ImGui::SetDragDropPayload("SO", (void*)pGO,
+				sizeof(GameObject*));
+			ImGui::Text(pGO->Name().c_str());
+			ImGui::EndDragDropSource();
+		}
+
+		if (ImGui::BeginDragDropTarget()) {
+			if (const ImGuiPayload* payload =
+				ImGui::AcceptDragDropPayload("SO")) {
+				/*GameObject* pSource = (GameObject*)payload->Data;
+
+				auto pSourceTC = pSource->Retrieve<TransformComponent>();
+				pTransformC->AddChild(pSourceTC);*/
+
+				std::cout << "hi" << std::endl;
+			}
+
+			ImGui::EndDragDropTarget();
+		}
+	}
+}
+//
+void HierarchyView::Draw() {
+	ResourceManager& rm = ResourceManager::Instance();
+
+	mpClicked = nullptr;
+
+	if (ImGui::Begin("Scene", &mbOpen, ImGuiWindowFlags_MenuBar)) {
+		if (ImGui::BeginMenuBar()) {
+			if (ImGui::BeginMenu("Add")) {
+				ImGui::MenuItem("Empty SceneObject");
+				ImGui::EndMenu();
+			}
+			ImGui::EndMenuBar();
+		}
+
+		for (auto it = rm.Begin<GameObject>(); it != rm.End<GameObject>();
+			++it) {
+			GameObject* pGO = it->second;
+
+			auto pTransformC1 = pGO->Retrieve<TransformComponent>();
+
+			if (pTransformC1 != nullptr) {
+				if (pTransformC1->Parent() != nullptr) continue;
+				DrawTree(pTransformC1);
+			}
+			else {
+				ImGui::TreeNodeEx(pGO->Name().c_str(),
+					ImGuiTreeNodeFlags_Leaf |
+					ImGuiTreeNodeFlags_NoTreePushOnOpen);
+
+				if (ImGui::IsItemClicked() && !ImGui::IsItemToggledOpen()) {
+					mpClicked = pGO;
+				}
+
+				if (ImGui::BeginDragDropSource()) {
+					ImGui::SetDragDropPayload("SO", (void*)pGO,
+						sizeof(GameObject*));
+					ImGui::Text(pGO->Name().c_str());
+					ImGui::EndDragDropSource();
+				}
+			}
+		}
+
+		if (mpClicked != nullptr) {
+			if (ImGui::GetIO().KeyCtrl) {
+				if (mSelection.count(mpClicked)) {
+					mSelection.erase(mpClicked);
+				} 
+				else {
+					mSelection.insert(mpClicked);
+				}
+			}
+			else {
+				mSelection.clear();
+				mSelection.insert(mpClicked);
+			}
+		}
+		
+		ImGui::End();
+	}
+	else {
+		ImGui::End();
+	}
 }

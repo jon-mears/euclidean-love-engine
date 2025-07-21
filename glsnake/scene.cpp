@@ -32,61 +32,79 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-//void UniformFunction(GameObject* pGO, CameraComponent* pCameraC) {
-//	ShaderComponent* pShaderC = pGO->Retrieve<ShaderComponent>();
-//	TransformComponent* pTransformC = pGO->Retrieve<TransformComponent>();
-//	OrthographicComponent* pOrthoC = pGO->Retrieve<OrthographicComponent>();
-//
-//	glm::mat4 model = pTransformC->ModelMatrix();
-//
-//	glm::mat4 proj = pOrthoC->ProjectionMatrix();
-//
-//	glm::mat4 view = pCameraC->ViewMatrix();
-//
-//	glm::mat4 MVP = proj * view * model;
-//
-//	pShaderC->SetUniform("uMVP", MVP);
-//	pShaderC->UploadUniforms();
-//}
-
 void InitSnake(App* pApp) {
-	Shader *pBoxShader = ResourceManager::Instance().Retrieve<Shader>("Color Shader");
-	Mesh* pBoxMesh = ResourceManager::Instance().Retrieve<Mesh>("Stingray");
+	// retrieve resource manager
+	ResourceManager& rm = ResourceManager::Instance();
 
-	pBoxMesh = Primitives::Plane<Vertex::POSITION>();
+	// setup camera
+	auto pCameraObj = rm.New<GameObject>("Camera");
+	auto pFreeCameraC = pCameraObj->Add<FreeCameraComponent>();
 
-	Texture2D* pBoxTexture = ResourceManager::Instance().Retrieve<Texture2D>("Container");
-
-	GameObject* pBoxObj = ResourceManager::Instance().New<GameObject>("Box");
-
-	GameObject* pBoxObj2 = ResourceManager::Instance().New<GameObject>("Box2");
-
-	TransformComponent* pTransformC = pBoxObj->Add<TransformComponent>();
-	pTransformC->SetScale(glm::vec3{ 1.0f / 30.0f, 1.0f / 30.0f, 1.0f / 30.0f });
-
-	pTransformC = pBoxObj2->Add<TransformComponent>();
-	pTransformC->SetPosition(glm::vec3{ 0.5f, 0.0f, 0.0f });
-
-	GameObject* pCameraObj = ResourceManager::Instance().New<GameObject>("Camera");
-		
-	pTransformC = pCameraObj->Add<TransformComponent>();
+	auto pTransformC = pCameraObj->Add<TransformComponent>();
 	pTransformC->SetPosition(glm::vec3{ 0.0f, 0.0f, 0.5f });
 	pTransformC->SetEulerRotation(glm::vec3{ 0, 0, 0 });
 
-	auto pCameraC = pCameraObj->Add<FreeCameraComponent>();
+	// setup box object
+	auto pBoxObj = rm.New<GameObject>("Box");
 
-	// secretly adds gameobject to engine dstructure to render objects in order
-	RenderComponent* pRenderC = pBoxObj->Add<RenderComponent>();
-	Material* pBoxMaterial = new Material(pBoxShader);
-	pRenderC->SetMaterial(pBoxMaterial);
-	pRenderC->SetMesh(pBoxMesh);
-	pRenderC->SetCamera(pCameraC);
-	pRenderC->SetProjection(new Perspective());
+	// shader/material
+	auto pBoxShader = rm.Retrieve<Shader>("Texture Shader");
+	auto pBoxTexture = rm.Retrieve<Texture2D>("Container");
+	auto pBoxMaterial = new Material(pBoxShader);
+	pBoxMaterial->SetUniform("uSampler", pBoxTexture);
 	pBoxMaterial->SetUniform("uColor", glm::vec4{ 1.0f, 1.0f, 1.0f, 1.0f });
 
-	new UIRectangle(0.5, 0.5, ResourceManager::Instance().Retrieve<Texture2D>("Container"));
+	// mesh
+	auto pBoxMesh =
+		Primitives::Cube<Vertex::POSITION | Vertex::TEXTURE_COORD>();
+
+	// transform
+	auto pBoxTransformC = pBoxObj->Add<TransformComponent>();
+	pBoxTransformC->SetPosition(glm::vec3{ -0.1f, 0.0f, 0.0f });
+	pBoxTransformC->SetScale(
+		glm::vec3{ 1.0f / 30.0f, 1.0f / 30.0f, 1.0f / 30.0f }
+	);
+
+	// render
+	RenderComponent* pRenderC = pBoxObj->Add<RenderComponent>();
+	pRenderC->SetMaterial(pBoxMaterial);
+	pRenderC->SetMesh(pBoxMesh);
+	pRenderC->SetCamera(pFreeCameraC);
+	pRenderC->SetProjection(new Perspective());
+
+	// setup stingray object
+	auto pStingrayObj = rm.New<GameObject>("Stingray");
+	
+	// shader/material
+	auto pStingrayShader = rm.Retrieve<Shader>("Color Shader");
+	auto pStingrayMaterial = new Material(pStingrayShader);
+	pStingrayMaterial->SetUniform("uColor",
+		glm::vec4{ 1.0f, 1.0f, 1.0f, 1.0f });
+
+	// mesh
+	auto pStingrayMesh = rm.Retrieve<Mesh>("Stingray");
+
+	// transform
+	auto pStingTransformC = pStingrayObj->Add<TransformComponent>();
+	pStingTransformC->SetPosition(glm::vec3{ 0.1, 0.0f, 0.0f });
+	pStingTransformC->SetScale(
+		glm::vec3{ 1.0f / 30.0f, 1.0f / 30.0f, 1.0f / 30.0f }
+	);
+	pStingTransformC->SetParent(pBoxTransformC);
+
+	// render
+	pRenderC = pStingrayObj->Add<RenderComponent>();
+	pRenderC->SetMaterial(pStingrayMaterial);
+	pRenderC->SetMesh(pStingrayMesh);
+	pRenderC->SetCamera(pFreeCameraC);
+	pRenderC->SetProjection(new Perspective());
+
+	// would be cool to allow the user to specify the size of the UI
+	// element using a UDL percentage (of the current window width/height) or using 
+	// GLFW (or windowing system) units
+	//new UIRectangle(0.5, 0.5, rm.Retrieve<Texture2D>("Container"));
 }
 
 void DeinitSnake(App* pApp) {
 
-}	
+}

@@ -2,6 +2,8 @@
 #define UI_WINDOW_HPP
 
 class UIWindow {
+protected:
+	bool mbOpen;
 public:
 	virtual ~UIWindow();
 	virtual void Draw() = 0;

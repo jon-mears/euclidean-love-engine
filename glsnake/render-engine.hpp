@@ -88,6 +88,14 @@ public:
 		return mWindowHeight;
 	}
 
+	inline void SetWindowWidth(int window_width) {
+		mWindowWidth = window_width;
+	}
+
+	inline void SetWindowHeight(int window_height) {
+		mWindowHeight = window_height;
+	}
+
 	inline void InitTests(unsigned short fTestFlags) {
 		mfTestFlags |= fTestFlags;
 	}

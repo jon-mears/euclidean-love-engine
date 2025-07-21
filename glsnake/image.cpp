@@ -7,7 +7,6 @@
 #include "image.hpp"
 #include "stb_image.h"
 
-
 void Image1D::Open(const std::string& rcFilename) {
 
 	if (mData) {

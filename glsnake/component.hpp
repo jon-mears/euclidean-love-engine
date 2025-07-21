@@ -1,6 +1,10 @@
 #ifndef COMPONENT_HPP
 #define COMPONENT_HPP
 
+// every component MUST be associated to a GameObject!!!
+// (this is fine because it is certainly allowed to make
+// a GameObject with one component)
+
 class GameObject;
 
 class Component {
@@ -28,6 +32,8 @@ public:
 	inline bool IsActive() const { return mbActive; }
 	inline void SetActive(bool bActive) { mbActive = bActive; }
 	inline bool ToggleActive() { return mbActive = !mbActive; }
+
+	inline GameObject* GO() { return mpGO; }
 
 	friend class ObjectEditor; // to allow access to the component's
 							   // interface

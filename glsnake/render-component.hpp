@@ -58,6 +58,13 @@ public:
 
     inline void SetRenderMode(RenderMode eRenderMode) {
         meRenderMode = eRenderMode;
+
+        if (eRenderMode == RenderMode::UI) {
+            meLayer = Layer::TOP;
+        }
+        else {
+            meLayer = Layer::MAIN;
+        }
     }
 
     inline RenderMode GetRenderMode() {

@@ -24,8 +24,9 @@ UIRectangle::UIRectangle(float width, float height, Color color, CameraTag eCame
 	auto pRenderC = mpGameObject->Add<RenderComponent>();
 	pRenderC->SetRenderMode(RenderMode::UI);
 
+	pRenderC->SetProjection(new AspectProjection());
+
 	if (eCameraTag == CameraTag::ALL) {
-		std::cout << "here" << std::endl;
 		for (auto it = RenderEngine::Instance().CameraBegin();
 			it != RenderEngine::Instance().CameraEnd(); ++it) {
 			pRenderC->SetCamera(*it);
@@ -51,6 +52,8 @@ UIRectangle::UIRectangle(float width, float height, Texture2D* pTexture,
 	auto pRenderC = mpGameObject->Add<RenderComponent>();
 	pRenderC->SetRenderMode(RenderMode::UI);
 
+	pRenderC->SetProjection(new AspectProjection());
+
 	if (eCameraTag == CameraTag::ALL) {
 		for (auto it = RenderEngine::Instance().CameraBegin();
 			it != RenderEngine::Instance().CameraEnd(); ++it) {
@@ -62,6 +65,7 @@ UIRectangle::UIRectangle(float width, float height, Texture2D* pTexture,
 	auto mat = new Material(pShader);
 
 	mat->SetUniform("uSampler", pTexture);
+	mat->SetUniform("uColor", glm::vec4{ 1.0f, 1.0f, 1.0f, 1.0f });
 
 	pRenderC->SetMaterial(mat);
 	pRenderC->SetMesh(Primitives::Plane<Vertex::POSITION | Vertex::TEXTURE_COORD>());

@@ -16,7 +16,7 @@ class Image1D;
 class Image2D;
 class Image3D;
 
-class Texture1D {
+class Texture1D: public Resource {
 public:
 	struct ImageInfo {
 		Image1D* pImage;
@@ -78,7 +78,7 @@ public:
 	}
 };
 
-class Texture2D {
+class Texture2D : public Resource {
 
 public:
 	struct ImageInfo {
@@ -143,9 +143,17 @@ public:
 
 	void Read(glm::ivec2 position);
 	unsigned char* ReadTexel(glm::ivec2 position);
+
+	inline int Width() {
+		return mInfo.pImage->Width();
+	}
+
+	inline int Height() {
+		return mInfo.pImage->Height();
+	}
 };
 
-class Texture3D {
+class Texture3D : public Resource {
 public:
 	struct ImageInfo {
 		Image3D* pImage;

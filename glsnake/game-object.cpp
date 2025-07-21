@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-GameObject::GameObject() : mOwnedComponents{}, mSharedComponents{}, mAllComponents{} { }
+GameObject::GameObject() : Resource{}, mOwnedComponents {}, mSharedComponents{}, mAllComponents{} { }
 
 void GameObject::Update() {
 	for (Component* pComponent : mOwnedComponents) {

@@ -7,14 +7,16 @@
 #include <GLFW/glfw3.h>
 #include "stb_image.h"
 
-class Image1D {
+#include "resource.hpp"
+
+class Image1D : public Resource {
 private:
 	unsigned char* mData{nullptr};
 	int mWidth{0}, mNrChannels{0};
 	GLenum mFormat{GL_RGBA}, mType{GL_UNSIGNED_BYTE};
 	
 public:
-	Image1D() { };
+	Image1D() : Resource{} { };
 	~Image1D() {
 		Close();
 	}
@@ -28,14 +30,14 @@ public:
 	inline GLenum Type() { return mType; }
 };
 
-class Image2D {
+class Image2D : public Resource {
 private:
 	unsigned char* mData{nullptr};
 	int mWidth{ 0 }, mHeight{ 0 }, mNrChannels{ 0 };
 	GLenum mFormat{ GL_RGBA }, mType{ GL_UNSIGNED_BYTE };
 
 public:
-	Image2D() { };
+	Image2D() : Resource{ } { };
 	~Image2D() {
 		Close();
 	}
@@ -50,14 +52,14 @@ public:
 	inline GLenum Type() { return mType; }
 };
 
-class Image3D {
+class Image3D : public Resource {
 private:
 	unsigned char* mData{nullptr};
 	int mWidth{ 0 }, mHeight{ 0 }, mDepth{ 0 }, mNrChannels{ 0 };
 	GLenum mFormat{ GL_RGBA }, mType{ GL_UNSIGNED_BYTE };
 
 public:
-	Image3D() { };
+	Image3D() : Resource{}  { };
 	~Image3D() {
 		Close();
 	}

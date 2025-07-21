@@ -1,6 +1,7 @@
 #include "editor-manager.hpp"
 #include "hierarchy-view.hpp"
 #include "object-editor.hpp"
+#include "resource-browser.hpp"
 #include "ui-window.hpp"
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
@@ -19,12 +20,17 @@ void EditorManager::Startup() {
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 
 	ImGui::StyleColorsLight();
+
+	ImGuiStyle& style = ImGui::GetStyle();
+
+	style.FrameBorderSize = 1.0f;
 	
 	ImGui_ImplGlfw_InitForOpenGL(App::Instance().Window(), true);
 	ImGui_ImplOpenGL3_Init("#version 130");
 
 	mEditors.push_back(new HierarchyView());
 	mEditors.push_back(new ObjectEditor());
+	mEditors.push_back(new ResourceBrowser());
 }
 
 void EditorManager::Draw() {

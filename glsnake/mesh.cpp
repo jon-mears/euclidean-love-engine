@@ -133,4 +133,4 @@ void Mesh::VertexAttrib(Vertex::Attribute eAttrib, VertexData vdata) {
     mAttribType2VData[eAttrib] = vdata;
 }
 
-Mesh::Mesh() : mVAO(), mAttribLoc2VData(), mAttribType2VData() { }
+Mesh::Mesh() : Resource{}, mVAO(), mAttribLoc2VData(), mAttribType2VData() { }

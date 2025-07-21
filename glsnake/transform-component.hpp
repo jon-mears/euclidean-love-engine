@@ -136,10 +136,44 @@ public:
 
 	const glm::vec3 &Position() const;
 	const glm::vec3 &EulerRotation() const;
-	const glm::vec3 &Scale() const;
+	const glm::vec3& Scale() const;
+
+	inline void SetParent(TransformComponent* pTransformC) {
+		mpParent = pTransformC;
+		pTransformC->mChildren.push_back(this);
+	}
+
+	inline void SetParent(GameObject* pGO) {
+		auto pTransformC = pGO->Retrieve<TransformComponent>();
+		mpParent = pTransformC;
+		pTransformC->mChildren.push_back(this);
+	}
+
+	inline TransformComponent* Parent() {
+		return mpParent;
+	}
 
 	inline const glm::vec3& LocalX() {
 		return mLocalX;
+	}
+
+	inline std::size_t GetNumChildren() {
+		return mChildren.size();
+	}
+
+	inline std::vector<TransformComponent*> const& GetChildren() {
+		return mChildren;
+	}
+
+	inline void AddChild(TransformComponent* pTransformC) {
+		mChildren.push_back(pTransformC);
+		pTransformC->mpParent = this;
+	}
+
+	inline void AddChild(GameObject* pGameObject) {
+		auto pTransformC = pGameObject->Retrieve<TransformComponent>();
+		mChildren.push_back(pTransformC);
+		pTransformC->mpParent = this;
 	}
 
 	inline const glm::vec3& LocalY() {

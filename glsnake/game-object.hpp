@@ -9,7 +9,7 @@
 class Component;
 class App;
 
-class GameObject {
+class GameObject : public Resource {
 private:
 	std::vector<Component*> mOwnedComponents;
 	std::vector<Component*> mSharedComponents;

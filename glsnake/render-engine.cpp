@@ -26,8 +26,8 @@
 namespace FramebufferCallback {
 #ifdef _glfw3_h_
 	void FramebufferSizeCallback(GLFWwindow* window, int width, int height) {
-		//RenderEngine::Instance().SetWindowWidth(width);
-		//RenderEngine::Instance().SetWindowHeight(height);
+		RenderEngine::Instance().SetWindowWidth(width);
+		RenderEngine::Instance().SetWindowHeight(height);
 		glViewport(0, 0, width, height);
 	}
 #endif

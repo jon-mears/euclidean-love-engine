@@ -21,7 +21,7 @@ namespace Vertex {
 }
 
 
-class Mesh {
+class Mesh : public Resource {
 private:
 	GLuint mVAO;
 

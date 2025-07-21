@@ -11,7 +11,7 @@ struct DepthInfo;
 class Texture2D;
 class Renderbuffer;
 
-class Framebuffer {
+class Framebuffer : public Resource {
 private:
 	GLuint mID;
 public:

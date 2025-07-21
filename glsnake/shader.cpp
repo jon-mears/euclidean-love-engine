@@ -20,7 +20,7 @@
 #include "glsl-translator.hpp"
 #include "vertex-data.hpp"
 
-Shader::Shader() : mID{}, mVSource{}, mFSource{}, mUniformCodes{}, mAttribName2Type{}, mAttribName2Loc{} { }
+Shader::Shader() : Resource {}, mID {}, mVSource{}, mFSource{}, mUniformCodes{}, mAttribName2Type{}, mAttribName2Loc{} { }
 
 void Shader::Enable() {
 	glUseProgram(mID);

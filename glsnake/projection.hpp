@@ -12,8 +12,9 @@ public:
 
 class Orthographic : public Projection {
 private:
-	float mLeft{ -1 }, mRight{ 1 }, mTop{ 1 }, mBottom{ -1 };
+	float mLeft, mRight, mTop, mBottom, mNear{ 0.1 }, mFar{ 100 };
 public:
+	Orthographic();
 	virtual glm::mat4 ProjectionMatrix() override;
 };
 
@@ -26,6 +27,11 @@ public:
 };
 
 class NoProjection : public Projection {
+public:
+	virtual glm::mat4 ProjectionMatrix() override;
+};
+
+class AspectProjection : public Projection {
 public:
 	virtual glm::mat4 ProjectionMatrix() override;
 };
