@@ -8,11 +8,10 @@
 #include "game-object.hpp"
 #include "texture.hpp"
 
-class UIRectangle {
+class UIRectangle : public GameObject {
 private:
 	float mWidth, mHeight;
 	std::variant<Texture2D*, Color> mAppearance;
-	GameObject* mpGameObject;
 
 public:
 	UIRectangle(float width, float height, Color color = Color::WHITE, 

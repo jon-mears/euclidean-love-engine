@@ -14,6 +14,8 @@ private:
 	GameObject* mpClicked{ nullptr };
 
 	void DrawTree(TransformComponent* pTransformC);
+	void DrawHierarchy();
+	void DrawProperties();
 public:
 	virtual void Draw() override;
 };

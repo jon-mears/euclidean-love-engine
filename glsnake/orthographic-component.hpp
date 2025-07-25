@@ -14,5 +14,9 @@ public:
 
 	OrthographicComponent(GameObject* pGO);
 	virtual glm::mat4 ProjectionMatrix() override;
+
+	inline const char* Name() const {
+		return "Orthographic";
+	}
 };
 #endif

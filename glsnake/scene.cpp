@@ -1,5 +1,7 @@
 #include "scene.hpp"
 #include "app.hpp"
+#include "color.hpp"
+#include "line.hpp"
 #include "image.hpp"
 #include "texture.hpp" 
 #include "transform-component.hpp"
@@ -99,10 +101,39 @@ void InitSnake(App* pApp) {
 	pRenderC->SetCamera(pFreeCameraC);
 	pRenderC->SetProjection(new Perspective());
 
+	//new Line<
+	//	0, 0, 0,
+	//	1, 0, 0
+	//	>(pFreeCameraC, Color::RED);
+
+	//new Line<
+	//	0, 0, 0,
+	//	0, 1, 0
+	//>(pFreeCameraC, Color::GREEN);
+
+	//new Line<
+	//	0, 0, 0,
+	//	0, 0, 1
+	//>(pFreeCameraC, Color::BLUE);
+
+	rm.Add<GameObject>(
+		new Line<0, 0, 0, 1, 0, 0>(pFreeCameraC, Color::RED),
+		"X Axis"
+	);
+
+	rm.Add<GameObject>(
+		new Line<0, 0, 0, 0, 1, 0>(pFreeCameraC, Color::GREEN),
+		"Y Axis"
+	);
+
+	rm.Add<GameObject>(
+		new Line<0, 0, 0, 0, 0, 1>(pFreeCameraC, Color::BLUE),
+		"Z Axis"
+	);
+
 	// would be cool to allow the user to specify the size of the UI
 	// element using a UDL percentage (of the current window width/height) or using 
 	// GLFW (or windowing system) units
-	//new UIRectangle(0.5, 0.5, rm.Retrieve<Texture2D>("Container"));
 }
 
 void DeinitSnake(App* pApp) {

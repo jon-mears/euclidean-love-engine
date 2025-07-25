@@ -3,6 +3,9 @@
 
 #include <glm/glm.hpp>
 
+#include "vertex-data.hpp"
+#include "mesh.hpp"
+
 class Mesh;
 
 namespace Primitives {
@@ -154,7 +157,8 @@ namespace Primitives {
 		return pMesh;
 	}
 
-	template <int x, int y, int z>
+	template <int x1, int y1, int z1,
+			  int x2, int y2, int z2>
 	Mesh* Line() {
 		static Mesh* pMesh = nullptr;
 
@@ -162,8 +166,8 @@ namespace Primitives {
 			pMesh = new Mesh();
 
 			VertexData aPos = {
-				{0.0f, 0.0f, 0.0f},
-				{x, y, z}
+				{x1, y1, z1},
+				{x2, y2, z2}
 			};
 
 			pMesh->VertexAttrib(Vertex::POSITION, aPos);

@@ -37,5 +37,9 @@ public:
 	float mYOrbitSpeed = 0.1f;
 	float mXLookSpeed = 0.01f;
 	float mYLookSpeed = 0.01f;
+
+	inline const char* Name() const {
+		return "CameraControl";
+	}
 };
 #endif

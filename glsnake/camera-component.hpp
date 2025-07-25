@@ -38,6 +38,10 @@ public:
 		return mpFramebuffer;
 	}
 
+	inline const char* Name() const {
+		return "Camera";
+	}
+
 	inline void SetViewport(const int x, const int y, const int width, const int height) {
 		mOriginX = x; mOriginY = y;
 		mWidth = width; mHeight = height;

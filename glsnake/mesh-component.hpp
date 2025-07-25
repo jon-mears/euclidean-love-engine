@@ -25,5 +25,9 @@ public:
 	int NumVertices();
 	inline void SetPrimitiveType(GLenum ePrimitiveType) { mePrimitiveType = ePrimitiveType; }
 	inline GLenum GetPrimitiveType() { return mePrimitiveType; }
+
+	inline const char* Name() const {
+		return "Mesh";
+	}
 };
 #endif

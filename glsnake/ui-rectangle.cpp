@@ -15,13 +15,14 @@
 #include "transform-component.hpp"
 #include "game-object.hpp"
 
-UIRectangle::UIRectangle(float width, float height, Color color, CameraTag eCameraTag) : mWidth{ width }, mHeight{ height }, mAppearance{ color } {
-	mpGameObject = ResourceManager::Instance().New<GameObject>("UI Rectangle");
-	auto pTransformC = mpGameObject->Add<TransformComponent>();
+UIRectangle::UIRectangle(float width, float height, Color color, CameraTag eCameraTag) : GameObject(), mWidth{ width }, mHeight{ height }, mAppearance{ color } {
+	ResourceManager& rm = ResourceManager::Instance();
+
+	auto pTransformC = Add<TransformComponent>();
 
 	pTransformC->SetScale(glm::vec3{ width, height, 1.0f });
 	
-	auto pRenderC = mpGameObject->Add<RenderComponent>();
+	auto pRenderC = Add<RenderComponent>();
 	pRenderC->SetRenderMode(RenderMode::UI);
 
 	pRenderC->SetProjection(new AspectProjection());
@@ -33,7 +34,7 @@ UIRectangle::UIRectangle(float width, float height, Color color, CameraTag eCame
 		}
 	}
 
-	auto pShader = ResourceManager::Instance().Retrieve<Shader>("Color Shader");
+	auto pShader = rm.Retrieve<Shader>("Color Shader");
 	auto mat = new Material(pShader);
 
 	mat->SetUniform("uColor", color.value);
@@ -44,12 +45,13 @@ UIRectangle::UIRectangle(float width, float height, Color color, CameraTag eCame
 
 UIRectangle::UIRectangle(float width, float height, Texture2D* pTexture,
 	CameraTag eCameraTag) : mWidth{ width }, mHeight{ height }, mAppearance{ pTexture } {
-	mpGameObject = ResourceManager::Instance().New<GameObject>("UI Rectangle");
-	auto pTransformC = mpGameObject->Add<TransformComponent>();
+	ResourceManager& rm = ResourceManager::Instance();
+
+	auto pTransformC = Add<TransformComponent>();
 
 	pTransformC->SetScale(glm::vec3{ width, height, 1.0f });
 
-	auto pRenderC = mpGameObject->Add<RenderComponent>();
+	auto pRenderC = Add<RenderComponent>();
 	pRenderC->SetRenderMode(RenderMode::UI);
 
 	pRenderC->SetProjection(new AspectProjection());
@@ -61,7 +63,7 @@ UIRectangle::UIRectangle(float width, float height, Texture2D* pTexture,
 		}
 	}
 
-	auto pShader = ResourceManager::Instance().Retrieve<Shader>("Texture Shader");
+	auto pShader = rm.Retrieve<Shader>("Texture Shader");
 	auto mat = new Material(pShader);
 
 	mat->SetUniform("uSampler", pTexture);

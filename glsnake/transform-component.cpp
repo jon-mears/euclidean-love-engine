@@ -22,21 +22,41 @@ TransformComponent::TransformComponent(GameObject* pGO) : Component{ pGO }, mWor
 }
 
 void TransformComponent::SetPosition(const glm::vec3& position, Space* pSpace) {
+	glm::vec3 old_position = mWorldPosition;
+
 	mWorldPosition = position.x * pSpace->X() + position.y * pSpace->Y() + 
 		position.z * pSpace->Z() + pSpace->Origin();
 
-	//std::cout << glm::to_string(mWorldPosition) << std::endl;
+	glm::vec3 delta;
+
+	for (auto pChild : mChildren) {
+		delta = pChild->Position() - old_position;
+		pChild->SetPosition(mWorldPosition + delta);
+	}
 }
 
-void TransformComponent::Interface() {
-	ImGui::InputFloat3("Position", glm::value_ptr(mWorldPosition));
-	ImGui::InputFloat3("Rotation", glm::value_ptr(mEulerRotation));
-	ImGui::InputFloat3("Scale", glm::value_ptr(mScale));
+void TransformComponent::InterfaceMain() {
+	glm::vec3 world_position = mWorldPosition;
+	glm::vec3 euler_rotation = mEulerRotation;
+	glm::vec3 scale = mScale;
+
+	if (ImGui::DragFloat3("Position", glm::value_ptr(world_position))) {
+		SetPosition(world_position);
+	}
+
+	ImGui::DragFloat3("Rotation", glm::value_ptr(mEulerRotation));
+	ImGui::DragFloat3("Scale", glm::value_ptr(mScale));
 }
 
 void TransformComponent::Translate(const glm::vec3& translation, Space* pSpace) {
-	mWorldPosition += translation.x * pSpace->X() + translation.y * pSpace->Y() +
-		translation.z * pSpace->Z();
+	glm::vec3 transl = translation.x * pSpace->X() + translation.y *
+		pSpace->Y() + translation.z * pSpace->Z();
+
+	mWorldPosition += transl;
+
+	for (auto child : mChildren) {
+		child->Translate(transl);
+	}
 }
 
 void TransformComponent::SetEulerRotation(const glm::vec3& euler_rotation, 

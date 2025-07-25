@@ -7,9 +7,14 @@
 
 class GameObject;
 
+#include <string>
+#include <typeinfo>
+
 class Component {
 private:
-	virtual void Interface();
+	virtual void InterfaceHead();
+	virtual void InterfaceMain();
+	virtual void InterfaceTail();
 
 protected:
 	GameObject* mpGO;
@@ -24,6 +29,8 @@ public:
 	template <typename C>	
 	C* GetComponent();
 
+	virtual const char* Name() const = 0;
+
 	template <typename C>
 	const C* GetComponent() const;
 
@@ -35,8 +42,7 @@ public:
 
 	inline GameObject* GO() { return mpGO; }
 
-	friend class ObjectEditor; // to allow access to the component's
-							   // interface
+	virtual void Interface();
 };
 
 #include "component.ipp"

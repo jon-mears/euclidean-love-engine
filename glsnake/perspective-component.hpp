@@ -13,5 +13,9 @@ private:
 public:
 	PerspectiveComponent(GameObject* pGO);
 	virtual glm::mat4 ProjectionMatrix() override;
+
+	inline const char* Name() const {
+		return "Perspective";
+	}
 };
 #endif

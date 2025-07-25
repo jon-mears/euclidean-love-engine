@@ -193,7 +193,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GDEBUG</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GDEBUG;EDITOR</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Code\GLFW\include;C:\imgui\imgui;C:\imgui\imgui\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -240,6 +240,7 @@
     <ClCompile Include="color.cpp" />
     <ClCompile Include="component.cpp" />
     <ClCompile Include="eucmesh-scanner.cpp" />
+    <ClCompile Include="interface.cpp" />
     <ClCompile Include="projection.cpp" />
     <ClCompile Include="render-command.cpp" />
     <ClCompile Include="editor-manager.cpp" />
@@ -276,6 +277,7 @@
     <ClCompile Include="targeted-camera-component .cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="transform-component.cpp" />
+    <ClCompile Include="transform-gizmo.cpp" />
     <ClCompile Include="ui-rectangle.cpp" />
     <ClCompile Include="ui-window.cpp" />
     <ClCompile Include="uniform-holder.cpp" />
@@ -305,7 +307,10 @@
     <ClInclude Include="color.hpp" />
     <ClInclude Include="component.hpp" />
     <ClInclude Include="eucmesh-scanner.hpp" />
+    <ClInclude Include="gizmo.hpp" />
+    <ClInclude Include="interface.hpp" />
     <ClInclude Include="layer.hpp" />
+    <ClInclude Include="line.hpp" />
     <ClInclude Include="matrix.hpp" />
     <ClInclude Include="observer.hpp" />
     <ClInclude Include="projection.hpp" />
@@ -349,6 +354,8 @@
     <ClInclude Include="targeted-camera-component.hpp" />
     <ClInclude Include="texture.hpp" />
     <ClInclude Include="transform-component.hpp" />
+    <ClInclude Include="transform-gizmo.hpp" />
+    <ClInclude Include="transform-interface.hpp" />
     <ClInclude Include="ui-rectangle.hpp" />
     <ClInclude Include="ui-window.hpp" />
     <ClInclude Include="uniform-holder.hpp" />

@@ -48,6 +48,24 @@
     <Filter Include="Source Files\Systems">
       <UniqueIdentifier>{1b14a630-9a4e-4fa6-b6df-182db30505d0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Components\Interfaces">
+      <UniqueIdentifier>{3ccde157-dd78-4d17-9667-0f2fbed5eb0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\Interfaces">
+      <UniqueIdentifier>{783273a2-dcce-4c48-a1f9-d5e7bb1b6c4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components\Gizmos">
+      <UniqueIdentifier>{b90ed381-b7a7-47da-866f-e2d7a4d69be4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\Gizmos">
+      <UniqueIdentifier>{873b8f63-44f2-4a69-a54d-72d1615cade8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SceneObjects">
+      <UniqueIdentifier>{92a3d0f0-4382-4f8a-85f4-4a3b6520227a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SceneObjects">
+      <UniqueIdentifier>{c7335aec-45f7-4662-84fd-5cb75fa96963}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -191,9 +209,6 @@
     <ClCompile Include="color.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ui-rectangle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="transform-2d-component.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
@@ -216,9 +231,6 @@
       <Filter>Source Files\Resources</Filter>
     </ClCompile>
     <ClCompile Include="mesh.cpp">
-      <Filter>Source Files\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="game-object.cpp">
       <Filter>Source Files\Resources</Filter>
     </ClCompile>
     <ClCompile Include="framebuffer.cpp">
@@ -247,6 +259,18 @@
     </ClCompile>
     <ClCompile Include="editor-manager.cpp">
       <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="interface.cpp">
+      <Filter>Source Files\Components\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="transform-gizmo.cpp">
+      <Filter>Source Files\Components\Gizmos</Filter>
+    </ClCompile>
+    <ClCompile Include="game-object.cpp">
+      <Filter>Source Files\SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="ui-rectangle.cpp">
+      <Filter>Source Files\SceneObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -388,9 +412,6 @@
     <ClInclude Include="layer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ui-rectangle.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="color.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -427,9 +448,6 @@
     <ClInclude Include="framebuffer.hpp">
       <Filter>Header Files\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="game-object.hpp">
-      <Filter>Header Files\Resources</Filter>
-    </ClInclude>
     <ClInclude Include="image.hpp">
       <Filter>Header Files\Resources</Filter>
     </ClInclude>
@@ -460,6 +478,27 @@
     <ClInclude Include="resource-manager.hpp">
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
+    <ClInclude Include="interface.hpp">
+      <Filter>Header Files\Components\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="transform-interface.hpp">
+      <Filter>Header Files\Components\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="gizmo.hpp">
+      <Filter>Header Files\Components\Gizmos</Filter>
+    </ClInclude>
+    <ClInclude Include="transform-gizmo.hpp">
+      <Filter>Header Files\Components\Gizmos</Filter>
+    </ClInclude>
+    <ClInclude Include="game-object.hpp">
+      <Filter>Header Files\SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="ui-rectangle.hpp">
+      <Filter>Header Files\SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="line.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="scene.hpp">
@@ -472,7 +511,7 @@
       <Filter>Source Files\Scripts</Filter>
     </None>
     <None Include="game-object.ipp">
-      <Filter>Header Files\Resources</Filter>
+      <Filter>Header Files\SceneObjects</Filter>
     </None>
   </ItemGroup>
 </Project>

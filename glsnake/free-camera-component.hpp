@@ -24,5 +24,9 @@ public:
     virtual void ConstUpdate() const override;
 
     FreeCameraComponent(GameObject* pGO);
+
+    inline const char* Name() const {
+        return "FreeCamera";
+    }
 };
 #endif

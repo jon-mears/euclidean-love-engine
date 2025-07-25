@@ -15,5 +15,9 @@ public:
 	virtual void Start() override;
 	virtual void Update() override;
 	virtual void ConstUpdate() const override;
+
+	inline const char* Name() const {
+		return "Projection";
+	}
 };
 #endif

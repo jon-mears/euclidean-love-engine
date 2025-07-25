@@ -11,7 +11,8 @@
 #include <iostream>
 
 void HierarchyView::DrawTree(TransformComponent* pTransformC) {
-	ImGuiTreeNodeFlags node_flags = 0;
+	ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnDoubleClick |
+		ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
 	auto pGO = pTransformC->GO();
 
 	if (mSelection.count(pGO))
@@ -25,8 +26,8 @@ void HierarchyView::DrawTree(TransformComponent* pTransformC) {
 			mpClicked = pGO;
 
 		if (ImGui::BeginDragDropSource()) {
-			ImGui::SetDragDropPayload("SO", (void*)pGO,
-				sizeof(GameObject*));
+			ImGui::SetDragDropPayload("SO", pGO,
+				sizeof(GameObject));
 			ImGui::Text(pGO->Name().c_str());
 			ImGui::EndDragDropSource();
 		}
@@ -34,12 +35,17 @@ void HierarchyView::DrawTree(TransformComponent* pTransformC) {
 		if (ImGui::BeginDragDropTarget()) {
 			if (const ImGuiPayload* payload =
 				ImGui::AcceptDragDropPayload("SO")) {
-				//GameObject* pSource = (GameObject*)payload->Data;
-				//
-				//auto pSourceTC = pSource->Retrieve<TransformComponent>();
-				//pTransformC->AddChild(pSourceTC);
+				GameObject* pSource = (GameObject*)payload->Data;
+				
+				auto pSourceTC = pSource->Retrieve<TransformComponent>();
 
-				std::cout << "hi" << std::endl;
+				if (pSourceTC == nullptr) {
+					std::cout << "gameobject does not have a t component" <<
+						std::endl;
+				}
+				else {
+					pTransformC->AddChild(pSourceTC);
+				}
 			}
 
 			ImGui::EndDragDropTarget();
@@ -64,8 +70,8 @@ void HierarchyView::DrawTree(TransformComponent* pTransformC) {
 		}
 
 		if (ImGui::BeginDragDropSource()) {
-			ImGui::SetDragDropPayload("SO", (void*)pGO,
-				sizeof(GameObject*));
+			ImGui::SetDragDropPayload("SO", pGO,
+				sizeof(GameObject));
 			ImGui::Text(pGO->Name().c_str());
 			ImGui::EndDragDropSource();
 		}
@@ -73,22 +79,18 @@ void HierarchyView::DrawTree(TransformComponent* pTransformC) {
 		if (ImGui::BeginDragDropTarget()) {
 			if (const ImGuiPayload* payload =
 				ImGui::AcceptDragDropPayload("SO")) {
-				/*GameObject* pSource = (GameObject*)payload->Data;
+				GameObject* pSource = (GameObject*)payload->Data;
 
 				auto pSourceTC = pSource->Retrieve<TransformComponent>();
-				pTransformC->AddChild(pSourceTC);*/
-
-				std::cout << "hi" << std::endl;
+				pTransformC->AddChild(pSourceTC);
 			}
 
 			ImGui::EndDragDropTarget();
 		}
 	}
 }
-//
-void HierarchyView::Draw() {
-	ResourceManager& rm = ResourceManager::Instance();
 
+void HierarchyView::Draw() {
 	mpClicked = nullptr;
 
 	if (ImGui::Begin("Scene", &mbOpen, ImGuiWindowFlags_MenuBar)) {
@@ -100,52 +102,87 @@ void HierarchyView::Draw() {
 			ImGui::EndMenuBar();
 		}
 
-		for (auto it = rm.Begin<GameObject>(); it != rm.End<GameObject>();
-			++it) {
-			GameObject* pGO = it->second;
+		if (ImGui::BeginTable("split", 2, ImGuiTableFlags_BordersInnerV)) {
+			ImGui::TableNextRow();
+			ImGui::TableSetColumnIndex(0);
 
-			auto pTransformC1 = pGO->Retrieve<TransformComponent>();
+			DrawHierarchy();
 
-			if (pTransformC1 != nullptr) {
-				if (pTransformC1->Parent() != nullptr) continue;
-				DrawTree(pTransformC1);
-			}
-			else {
-				ImGui::TreeNodeEx(pGO->Name().c_str(),
-					ImGuiTreeNodeFlags_Leaf |
-					ImGuiTreeNodeFlags_NoTreePushOnOpen);
+			ImGui::TableSetColumnIndex(1);
 
-				if (ImGui::IsItemClicked() && !ImGui::IsItemToggledOpen()) {
-					mpClicked = pGO;
-				}
+			DrawProperties();
 
-				if (ImGui::BeginDragDropSource()) {
-					ImGui::SetDragDropPayload("SO", (void*)pGO,
-						sizeof(GameObject*));
-					ImGui::Text(pGO->Name().c_str());
-					ImGui::EndDragDropSource();
-				}
-			}
+			ImGui::EndTable();
 		}
 
-		if (mpClicked != nullptr) {
-			if (ImGui::GetIO().KeyCtrl) {
-				if (mSelection.count(mpClicked)) {
-					mSelection.erase(mpClicked);
-				} 
-				else {
-					mSelection.insert(mpClicked);
-				}
-			}
-			else {
-				mSelection.clear();
-				mSelection.insert(mpClicked);
-			}
-		}
-		
 		ImGui::End();
 	}
 	else {
 		ImGui::End();
+	}
+}
+
+void HierarchyView::DrawHierarchy() {
+	ResourceManager& rm = ResourceManager::Instance();
+
+	for (auto it = rm.Begin<GameObject>(); it != rm.End<GameObject>();
+		++it) {
+		GameObject* pGO = it->second;
+
+		auto pTransformC1 = pGO->Retrieve<TransformComponent>();
+
+		if (pTransformC1 != nullptr) {
+			if (pTransformC1->Parent() != nullptr) continue;
+			DrawTree(pTransformC1);
+		}
+		else {
+			ImGui::TreeNodeEx(pGO->Name().c_str(),
+				ImGuiTreeNodeFlags_Leaf |
+				ImGuiTreeNodeFlags_NoTreePushOnOpen |
+				ImGuiTreeNodeFlags_OpenOnDoubleClick |
+				ImGuiTreeNodeFlags_OpenOnArrow |
+				ImGuiTreeNodeFlags_SpanAvailWidth);
+
+			if (ImGui::IsItemClicked() && !ImGui::IsItemToggledOpen()) {
+				mpClicked = pGO;
+			}
+
+			if (ImGui::BeginDragDropSource()) {
+				ImGui::SetDragDropPayload("SO", pGO,
+					sizeof(GameObject));
+				ImGui::Text(pGO->Name().c_str());
+				ImGui::EndDragDropSource();
+			}
+		}
+	}
+
+	if (mpClicked != nullptr) {
+		if (ImGui::GetIO().KeyCtrl) {
+			if (mSelection.count(mpClicked)) {
+				mSelection.erase(mpClicked);
+			}
+			else {
+				mSelection.insert(mpClicked);
+			}
+		}
+		else {
+			mSelection.clear();
+			mSelection.insert(mpClicked);
+		}
+	}
+}
+
+
+void HierarchyView::DrawProperties() {
+	for (auto go = mSelection.begin(); go != mSelection.end(); ++go) {
+		ImGui::PushID("properties");
+		if (ImGui::CollapsingHeader((*go)->Name().c_str(),
+			ImGuiTreeNodeFlags_DefaultOpen)) {
+			for (auto cmpnt = (*go)->Begin<Component>(); cmpnt !=
+				(*go)->End<Component>(); ++cmpnt) {
+				(*cmpnt)->Interface();
+			}
+		}
+		ImGui::PopID();
 	}
 }

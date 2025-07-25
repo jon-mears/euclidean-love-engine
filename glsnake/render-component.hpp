@@ -26,7 +26,6 @@ private:
     RenderMode meRenderMode{RenderMode::NORMAL};
     Layer meLayer{ Layer::MAIN };
 
-
 public:
     virtual void Start() override;
     virtual void Update() override;
@@ -111,6 +110,10 @@ public:
 
     inline Layer GetLayer() {
         return meLayer;
+    }
+
+    inline const char* Name() const {
+        return "Render";
     }
 
     RenderComponent(GameObject* pGO);

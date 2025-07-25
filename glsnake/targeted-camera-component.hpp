@@ -19,6 +19,10 @@ public:
 	inline const glm::vec3& Target() const {
 		return mTarget;
 	}
+
+	inline const char* Name() const {
+		return "TargetedCamera";
+	}
 };
 
 #endif

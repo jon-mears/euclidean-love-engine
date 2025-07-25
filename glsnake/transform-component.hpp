@@ -1,6 +1,7 @@
 #ifndef TRANSFORM_COMPONENT_HPP
 #define TRANSFORM_COMPONENT_HPP
 
+#include <algorithm>
 #include <vector>
 
 #include "component.hpp"
@@ -68,6 +69,8 @@ public:
 class TransformComponent : public Component {
 private:
 	glm::vec3 mWorldPosition;
+	glm::vec3 mInterfaceWorldPosition;
+
 	glm::vec3 mLocalPosition;
 	glm::vec3 mLocalOrigin{ 0 };
 
@@ -87,7 +90,7 @@ private:
 	TransformComponent* mpParent{ nullptr };
 	std::vector<TransformComponent*> mChildren{};
 
-	virtual void Interface() override;
+	virtual void InterfaceMain() override;
 
 // everything is ultimately given to these methods in world 
 // coordinates, but of course the user may transform vectors 
@@ -139,14 +142,28 @@ public:
 	const glm::vec3& Scale() const;
 
 	inline void SetParent(TransformComponent* pTransformC) {
+		if (mpParent != nullptr) {
+			mpParent->RemoveChild(this);
+		}
+
 		mpParent = pTransformC;
 		pTransformC->mChildren.push_back(this);
 	}
 
 	inline void SetParent(GameObject* pGO) {
-		auto pTransformC = pGO->Retrieve<TransformComponent>();
-		mpParent = pTransformC;
-		pTransformC->mChildren.push_back(this);
+		SetParent(pGO->Retrieve<TransformComponent>());
+	}
+
+	inline void RemoveChild(TransformComponent* pTransformC) {
+		auto it = std::find(mChildren.begin(), mChildren.end(), pTransformC);
+		if (it != mChildren.end()) {
+			(*it)->mpParent = nullptr;
+			mChildren.erase(it);
+		}
+	}
+
+	inline void RemoveChild(GameObject* pGO) {
+		RemoveChild(pGO->Retrieve<TransformComponent>());
 	}
 
 	inline TransformComponent* Parent() {
@@ -166,14 +183,18 @@ public:
 	}
 
 	inline void AddChild(TransformComponent* pTransformC) {
+		auto pParent = pTransformC->mpParent;
+
+		if (pParent != nullptr) {
+			pParent->RemoveChild(pTransformC);
+		}
+
 		mChildren.push_back(pTransformC);
 		pTransformC->mpParent = this;
 	}
 
-	inline void AddChild(GameObject* pGameObject) {
-		auto pTransformC = pGameObject->Retrieve<TransformComponent>();
-		mChildren.push_back(pTransformC);
-		pTransformC->mpParent = this;
+	inline void AddChild(GameObject* pGO) {
+		AddChild(pGO->Retrieve<TransformComponent>());
 	}
 
 	inline const glm::vec3& LocalY() {
@@ -188,5 +209,10 @@ public:
 	virtual void Start() override;
 	virtual void Update() override;
 	virtual void ConstUpdate() const override;
+
+	inline const char* Name() const {
+		return "Transform";
+	}
+
 };
 #endif
