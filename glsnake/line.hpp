@@ -7,11 +7,15 @@
 #include "color.hpp"
 #include "game-object.hpp"
 #include "primitives.hpp"
+#include "layer.hpp"
 #include "render-engine.hpp"
 #include "resource-manager.hpp"
 #include "render-component.hpp"
+#include "shader.hpp"
 #include "transform-component.hpp"
-
+#include "material.hpp"
+#include "projection.hpp"
+	
 template <int x1, int y1, int z1,
 		  int x2, int y2, int z2>
 class Line : public GameObject {

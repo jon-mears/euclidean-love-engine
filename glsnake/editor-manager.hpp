@@ -5,14 +5,15 @@ class GameObject;
 class UIWindow;
 
 #include <vector>
+#include "camera-component.hpp"
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
 class EditorManager {
 private:
-
 	std::vector<UIWindow*> mEditors;
+	CameraComponent* mpCameraC{ nullptr };
 
 	void Startup();
 	void Draw();
@@ -37,6 +38,14 @@ public:
 	inline void EndFrame() {
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	}
+
+	inline void SetEditorCamera(CameraComponent* pCameraC) {
+		mpCameraC = pCameraC;
+	}
+
+	CameraComponent* EditorCamera() {
+		return mpCameraC;
 	}
 
 	friend class App;

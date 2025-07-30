@@ -497,7 +497,7 @@
       <Filter>Header Files\SceneObjects</Filter>
     </ClInclude>
     <ClInclude Include="line.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\SceneObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

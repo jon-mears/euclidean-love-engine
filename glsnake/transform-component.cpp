@@ -118,19 +118,25 @@ void TransformComponent::SetQuaternionRotation(glm::quat const&
 }
 
 glm::mat4 TransformComponent::ModelMatrix() {
-	glm::mat4 model = glm::mat4{ 1 };
-	model = glm::translate(model, mWorldPosition);
-	model = glm::rotate(model, glm::radians(mEulerRotation.y), glm::vec3(0, 1, 0));
-	model = glm::rotate(model, glm::radians(mEulerRotation.x), glm::vec3(1, 0, 0));
-	model = glm::rotate(model, glm::radians(mEulerRotation.z), glm::vec3(0, 0, 1));
-	model = glm::scale(model, mScale);
-	
-	return model;
+	if (mbModelMatrixReady) {
+		return mModel;
+	}
+	else {
+		glm::mat4 model = glm::mat4{ 1 };
+		model = glm::translate(model, mWorldPosition);
+		model = glm::rotate(model, glm::radians(mEulerRotation.y), glm::vec3(0, 1, 0));
+		model = glm::rotate(model, glm::radians(mEulerRotation.x), glm::vec3(1, 0, 0));
+		model = glm::rotate(model, glm::radians(mEulerRotation.z), glm::vec3(0, 0, 1));
+		model = glm::scale(model, mScale);
+
+		return model;
+	}
 }
 
 void TransformComponent::Start() { }
 
 void TransformComponent::Update() {  
+	mbModelMatrixReady = false;
 	// update local axes
 	//glm::quat qLocalz = mQuatRotation * glm::quat{ 0.0f, 0.0f, 0.0f, -1.0f } * glm::quat{ mQuatRotation.w, -mQuatRotation.x, -mQuatRotation.y, -mQuatRotation.z };
 

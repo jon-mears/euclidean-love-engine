@@ -1,4 +1,5 @@
 #include "game-object.hpp"
+#include "gizmo.hpp"
 #include "component.hpp"
 #include "app.hpp"
 
@@ -35,3 +36,8 @@ void GameObject::ShareAllFrom(GameObject* pGO) {
 		mAllComponents.push_back(*it);
 	}
 }
+
+//template<>
+//NoGizmo* GameObject::Add<NoGizmo>() {
+//	return nullptr;
+//}

@@ -1,7 +1,6 @@
 #include "scene.hpp"
 #include "app.hpp"
 #include "color.hpp"
-#include "line.hpp"
 #include "image.hpp"
 #include "texture.hpp" 
 #include "transform-component.hpp"
@@ -16,6 +15,7 @@
 #include "mesh-component.hpp"
 #include "primitives.hpp"
 #include "perspective-component.hpp"
+#include "editor-manager.hpp"
 #include "resource-manager.hpp"
 #include "input-manager.hpp"
 #include "camera-control-component.hpp"
@@ -23,6 +23,7 @@
 #include "render-component.hpp"
 #include "projection.hpp"
 #include "free-camera-component.hpp"
+#include "transform-gizmo.hpp"
 
 #include "ui-rectangle.hpp"
 
@@ -38,6 +39,9 @@ void InitSnake(App* pApp) {
 	// retrieve resource manager
 	ResourceManager& rm = ResourceManager::Instance();
 
+	// retrieve editor manager
+	EditorManager& em = EditorManager::Instance();
+
 	// setup camera
 	auto pCameraObj = rm.New<GameObject>("Camera");
 	auto pFreeCameraC = pCameraObj->Add<FreeCameraComponent>();
@@ -45,6 +49,9 @@ void InitSnake(App* pApp) {
 	auto pTransformC = pCameraObj->Add<TransformComponent>();
 	pTransformC->SetPosition(glm::vec3{ 0.0f, 0.0f, 0.5f });
 	pTransformC->SetEulerRotation(glm::vec3{ 0, 0, 0 });
+
+	// save camera info to editor manager
+	em.SetEditorCamera(pFreeCameraC);
 
 	// setup box object
 	auto pBoxObj = rm.New<GameObject>("Box");
@@ -73,6 +80,8 @@ void InitSnake(App* pApp) {
 	pRenderC->SetMesh(pBoxMesh);
 	pRenderC->SetCamera(pFreeCameraC);
 	pRenderC->SetProjection(new Perspective());
+
+	pBoxObj->Add<TransformGizmo>();
 
 	// setup stingray object
 	auto pStingrayObj = rm.New<GameObject>("Stingray");
@@ -116,20 +125,20 @@ void InitSnake(App* pApp) {
 	//	0, 0, 1
 	//>(pFreeCameraC, Color::BLUE);
 
-	rm.Add<GameObject>(
-		new Line<0, 0, 0, 1, 0, 0>(pFreeCameraC, Color::RED),
-		"X Axis"
-	);
+	//rm.Add<GameObject>(
+	//	new Line<0, 0, 0, 1, 0, 0>(pFreeCameraC, Color::RED),
+	//	"X Axis"
+	//);
 
-	rm.Add<GameObject>(
-		new Line<0, 0, 0, 0, 1, 0>(pFreeCameraC, Color::GREEN),
-		"Y Axis"
-	);
+	//rm.Add<GameObject>(
+	//	new Line<0, 0, 0, 0, 1, 0>(pFreeCameraC, Color::GREEN),
+	//	"Y Axis"
+	//);
 
-	rm.Add<GameObject>(
-		new Line<0, 0, 0, 0, 0, 1>(pFreeCameraC, Color::BLUE),
-		"Z Axis"
-	);
+	//rm.Add<GameObject>(
+	//	new Line<0, 0, 0, 0, 0, 1>(pFreeCameraC, Color::BLUE),
+	//	"Z Axis"
+	//);
 
 	// would be cool to allow the user to specify the size of the UI
 	// element using a UDL percentage (of the current window width/height) or using 

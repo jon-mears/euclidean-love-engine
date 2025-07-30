@@ -90,6 +90,9 @@ private:
 	TransformComponent* mpParent{ nullptr };
 	std::vector<TransformComponent*> mChildren{};
 
+	bool mbModelMatrixReady{ false };
+	glm::mat4 mModel;
+
 	virtual void InterfaceMain() override;
 
 // everything is ultimately given to these methods in world 
