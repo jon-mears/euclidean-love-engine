@@ -1,4 +1,5 @@
 #include "scene.hpp"
+#include "space.hpp"
 #include "app.hpp"
 #include "color.hpp"
 #include "image.hpp"
@@ -47,7 +48,7 @@ void InitSnake(App* pApp) {
 	auto pFreeCameraC = pCameraObj->Add<FreeCameraComponent>();
 
 	auto pTransformC = pCameraObj->Add<TransformComponent>();
-	pTransformC->SetPosition(glm::vec3{ 0.0f, 0.0f, 0.5f });
+	pTransformC->SetPosition(glm::vec3{ 0.0f, 0.0f, 8.0f });
 	pTransformC->SetEulerRotation(glm::vec3{ 0, 0, 0 });
 
 	// save camera info to editor manager
@@ -69,9 +70,9 @@ void InitSnake(App* pApp) {
 
 	// transform
 	auto pBoxTransformC = pBoxObj->Add<TransformComponent>();
-	pBoxTransformC->SetPosition(glm::vec3{ -0.1f, 0.0f, 0.0f });
+	pBoxTransformC->SetPosition(glm::vec3{ -2.0f, 0.0f, 0.0f });
 	pBoxTransformC->SetScale(
-		glm::vec3{ 1.0f / 30.0f, 1.0f / 30.0f, 1.0f / 30.0f }
+		glm::vec3{ 1.0f, 1.0f, 1.0f }
 	);
 
 	// render
@@ -97,11 +98,11 @@ void InitSnake(App* pApp) {
 
 	// transform
 	auto pStingTransformC = pStingrayObj->Add<TransformComponent>();
-	pStingTransformC->SetPosition(glm::vec3{ 0.1, 0.0f, 0.0f });
+	pStingTransformC->SetPosition(glm::vec3{ 2.0f, 0.0f, 0.0f });
 	pStingTransformC->SetScale(
-		glm::vec3{ 1.0f / 30.0f, 1.0f / 30.0f, 1.0f / 30.0f }
+		glm::vec3{ 1.0f, 1.0f, 1.0f }
 	);
-	pStingTransformC->SetParent(pBoxTransformC);
+	//pStingTransformC->SetParent(pBoxTransformC);
 
 	// render
 	pRenderC = pStingrayObj->Add<RenderComponent>();
@@ -143,6 +144,28 @@ void InitSnake(App* pApp) {
 	// would be cool to allow the user to specify the size of the UI
 	// element using a UDL percentage (of the current window width/height) or using 
 	// GLFW (or windowing system) units
+
+	glm::vec3 x1, y1, z1, o1, x2, y2, z2, o2;
+
+	x1 = glm::vec3{ 1,0,0 };
+	y1 = glm::vec3{ 0,1,0 };
+	z1 = glm::vec3{ 0,0,1 };
+	o1 = glm::vec3{ 0,0,0 };
+
+	x2 = glm::vec3{ 0,0,-1 };
+	y2 = glm::vec3{ 0,1,0 };
+	z2 = glm::vec3{ 1,0,0 };
+	o2 = glm::vec3{ 1,0,1 };
+
+	Space* pSpace1 = new Space(x1, y1, z1, o1);
+	Space* pSpace2 = new Space(x2, y2, z2, o2);
+
+	glm::vec3 point{ 5,3,2 };
+
+	glm::vec3 intermed = pSpace1->Space2World(point);
+	glm::vec3 result = pSpace2->World2Space(intermed);
+
+	std::cout << glm::to_string(result) << std::endl;
 }
 
 void DeinitSnake(App* pApp) {

@@ -2,11 +2,14 @@
 #define TRANSFORM_COMPONENT_HPP
 
 #include <algorithm>
+#include <iostream>
 #include <vector>
 
 #include "component.hpp"
+#include "space.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/string_cast.hpp>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -14,64 +17,12 @@
 class GameObject;
 class GLFWwindow;
 
-class Space {
-private:
-	const glm::vec3& mrcBasis1, mrcBasis2, mrcBasis3;
-	const glm::vec3& mrcOrigin;
-
-public:
-
-	inline const glm::vec3& X() { return mrcBasis1; }
-	inline const glm::vec3& Y() { return mrcBasis2; }
-	inline const glm::vec3& Z() { return mrcBasis3; }
-	inline const glm::vec3& Origin() { return mrcOrigin; }
-
-	Space(const glm::vec3& basis1, const glm::vec3& basis2, const glm::vec3& basis3,
-		const glm::vec3& origin) : mrcBasis1{ basis1 }, mrcBasis2{ basis2 }, mrcBasis3{ basis3 },
-		mrcOrigin{ origin } { }
-
-	const glm::mat3& World2SpaceMatrix() {
-		return glm::mat3{ mrcBasis1.x, mrcBasis2.x, mrcBasis3.x,
-		mrcBasis1.y, mrcBasis2.y, mrcBasis3.y,
-		mrcBasis1.z, mrcBasis2.z, mrcBasis3.z };
-	}
-
-	const glm::mat3& Space2WorldMatrix() {
-		return glm::mat3{ mrcBasis1.x, mrcBasis1.y, mrcBasis1.z,
-		mrcBasis2.x, mrcBasis2.y, mrcBasis2.z,
-		mrcBasis3.x, mrcBasis3.y, mrcBasis3.z };
-	}
-
-	glm::vec3 World2Space(const glm::vec3& vrcVec) {
-		return World2SpaceMatrix() * vrcVec;
-	}
-
-	glm::vec3 Space2World(const glm::vec3& vrcVec) {
-		return Space2WorldMatrix() * vrcVec;
-	}
-
-	static Space* World() {
-		static Space* spWorldSpace{ nullptr };
-
-		if (spWorldSpace == nullptr) {
-			static const glm::vec3 scWorldX{ 1.0f, 0.0f, 0.0f };
-			static const glm::vec3 scWorldY{ 0.0f, 1.0f, 0.0f };
-			static const glm::vec3 scWorldZ{ 0.0f, 0.0f, 1.0f };
-			static const glm::vec3 scWorldOrigin{ 0.0f, 0.0f, 0.0f };
-
-			spWorldSpace = new Space(scWorldX, scWorldY, scWorldZ, scWorldOrigin);
-		}
-
-		return spWorldSpace;
-	}
-};
-
 class TransformComponent : public Component {
 private:
 	glm::vec3 mWorldPosition;
 	glm::vec3 mInterfaceWorldPosition;
 
-	glm::vec3 mLocalPosition;
+	glm::vec3 mLocalPosition{ 0 };
 	glm::vec3 mLocalOrigin{ 0 };
 
 	glm::vec3 mEulerRotation;
@@ -110,7 +61,8 @@ public:
 	void QuaternionRotate(const glm::quat& q);
 	void RotateAboutAxis(const glm::vec3& axis, const float deg, 
 		const glm::vec3& rcOrigin = Space::World()->Origin());
-	void SetScale(const glm::vec3& new_scale);
+	void SetScale(const glm::vec3& new_scale, Space::Label
+	eSpace = Space::OBJECT);
 	void Scale(const glm::vec3& rhs);
 
 	//void AddChild(GameObject* pGO);
@@ -140,17 +92,23 @@ public:
 		LookAt(pGO->Retrieve<TransformComponent>()->Position());
 	}
 
-	const glm::vec3 &Position() const;
+	glm::vec3 Position(Space::Label eSpace =
+		Space::LOCAL) const;
 	const glm::vec3 &EulerRotation() const;
 	const glm::vec3& Scale() const;
 
 	inline void SetParent(TransformComponent* pTransformC) {
+		glm::vec3 world_position = Position(Space::WORLD);
+
 		if (mpParent != nullptr) {
 			mpParent->RemoveChild(this);
 		}
 
 		mpParent = pTransformC;
 		pTransformC->mChildren.push_back(this);
+
+		mLocalPosition = pTransformC->GetSpace()->
+			World2Space(world_position);
 	}
 
 	inline void SetParent(GameObject* pGO) {
@@ -160,7 +118,13 @@ public:
 	inline void RemoveChild(TransformComponent* pTransformC) {
 		auto it = std::find(mChildren.begin(), mChildren.end(), pTransformC);
 		if (it != mChildren.end()) {
+			glm::vec3 world_position = (*it)->Position(
+				Space::WORLD
+			);
+
 			(*it)->mpParent = nullptr;
+			(*it)->SetPosition(world_position);
+
 			mChildren.erase(it);
 		}
 	}
@@ -192,8 +156,26 @@ public:
 			pParent->RemoveChild(pTransformC);
 		}
 
+		glm::vec3 world_position =
+			pTransformC->Position(Space::WORLD);
+
 		mChildren.push_back(pTransformC);
 		pTransformC->mpParent = this;
+
+		std::cout << glm::to_string(mpObjectSpace->X()) <<
+			std::endl;
+
+		std::cout << glm::to_string(mpObjectSpace->Y()) <<
+			std::endl;
+
+		std::cout << glm::to_string(mpObjectSpace->Z()) <<
+			std::endl;
+
+		std::cout << glm::to_string(mpObjectSpace->O()) <<
+			std::endl;
+
+		pTransformC->mLocalPosition =
+			mpObjectSpace->World2Space(world_position);
 	}
 
 	inline void AddChild(GameObject* pGO) {
@@ -216,6 +198,5 @@ public:
 	inline const char* Name() const {
 		return "Transform";
 	}
-
 };
 #endif

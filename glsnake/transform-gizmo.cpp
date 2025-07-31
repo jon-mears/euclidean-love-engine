@@ -35,6 +35,10 @@ void TransformGizmo::Update() {
 
 	mpTransformZ->SetPosition(mpTransformC->Position());
 	mpTransformZ->SetEulerRotation(mpTransformC->EulerRotation());
+
+	mX->Update();
+	mY->Update();
+	mZ->Update();
 }
 
 void TransformGizmo::ConstUpdate() const { }
@@ -44,5 +48,4 @@ const char* TransformGizmo::Name() const {
 }
 
 TransformGizmo::TransformGizmo(GameObject* pGO) : Component(pGO) { 
-	std::cout << "in transform gizmo constructor" << std::endl;
 }

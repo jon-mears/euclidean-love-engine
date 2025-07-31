@@ -350,6 +350,7 @@
     <ClInclude Include="setup-draw-command.hpp" />
     <ClInclude Include="shader.hpp" />
     <ClInclude Include="shader-component.hpp" />
+    <ClInclude Include="space.hpp" />
     <ClInclude Include="subject.hpp" />
     <ClInclude Include="targeted-camera-component.hpp" />
     <ClInclude Include="texture.hpp" />

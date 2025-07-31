@@ -22,26 +22,28 @@ TransformComponent::TransformComponent(GameObject* pGO) : Component{ pGO }, mWor
 }
 
 void TransformComponent::SetPosition(const glm::vec3& position, Space* pSpace) {
-	glm::vec3 old_position = mWorldPosition;
 
-	mWorldPosition = position.x * pSpace->X() + position.y * pSpace->Y() + 
-		position.z * pSpace->Z() + pSpace->Origin();
+	mLocalPosition = position;
+	//glm::vec3 old_position = mWorldPosition;
 
-	glm::vec3 delta;
+	//mWorldPosition = position.x * pSpace->X() + position.y * pSpace->Y() + 
+	//	position.z * pSpace->Z() + pSpace->Origin();
 
-	for (auto pChild : mChildren) {
-		delta = pChild->Position() - old_position;
-		pChild->SetPosition(mWorldPosition + delta);
-	}
+	//glm::vec3 delta;
+
+	//for (auto pChild : mChildren) {
+	//	delta = pChild->Position() - old_position;
+	//	pChild->SetPosition(mWorldPosition + delta);
+	//}
 }
 
 void TransformComponent::InterfaceMain() {
-	glm::vec3 world_position = mWorldPosition;
+	glm::vec3 local_position = mLocalPosition;
 	glm::vec3 euler_rotation = mEulerRotation;
 	glm::vec3 scale = mScale;
 
-	if (ImGui::DragFloat3("Position", glm::value_ptr(world_position))) {
-		SetPosition(world_position);
+	if (ImGui::DragFloat3("Position", glm::value_ptr(local_position))) {
+		SetPosition(local_position);
 	}
 
 	ImGui::DragFloat3("Rotation", glm::value_ptr(mEulerRotation));
@@ -52,11 +54,11 @@ void TransformComponent::Translate(const glm::vec3& translation, Space* pSpace) 
 	glm::vec3 transl = translation.x * pSpace->X() + translation.y *
 		pSpace->Y() + translation.z * pSpace->Z();
 
-	mWorldPosition += transl;
+	mLocalPosition += transl;
 
-	for (auto child : mChildren) {
-		child->Translate(transl);
-	}
+	//for (auto child : mChildren) {
+	//	child->Translate(transl);
+	//}
 }
 
 void TransformComponent::SetEulerRotation(const glm::vec3& euler_rotation, 
@@ -92,16 +94,32 @@ void TransformComponent::RotateAboutAxis(const glm::vec3& axis, const float deg,
 	SetPosition(mWorldPosition, vpSpace);
 }
 
-void TransformComponent::SetScale(const glm::vec3& scale) {
-	mScale = scale;
+void TransformComponent::SetScale(const glm::vec3& scale,
+	Space::Label eSpace) {
+
+	switch (eSpace) {
+	case Space::OBJECT:
+		mScale = scale;
+	}
 }
 
 void TransformComponent::Scale(const glm::vec3& scale) {
 	mScale += scale;
 }
 
-const glm::vec3& TransformComponent::Position() const {
-	return mWorldPosition;
+glm::vec3 TransformComponent::Position(Space::Label
+eLabel) const {
+	switch (eLabel) {
+	case Space::LOCAL:
+		return mLocalPosition;
+	case Space::WORLD:
+		if (!mpParent) return mLocalPosition;
+		return mpParent->GetSpace()->Space2World(mLocalPosition);
+	case Space::OBJECT:
+		return glm::vec3{ 0 };
+	default:
+		return glm::vec3{ 0 };
+	}
 }
 
 const glm::vec3& TransformComponent::EulerRotation() const {
@@ -121,15 +139,22 @@ glm::mat4 TransformComponent::ModelMatrix() {
 	if (mbModelMatrixReady) {
 		return mModel;
 	}
-	else {
-		glm::mat4 model = glm::mat4{ 1 };
-		model = glm::translate(model, mWorldPosition);
-		model = glm::rotate(model, glm::radians(mEulerRotation.y), glm::vec3(0, 1, 0));
-		model = glm::rotate(model, glm::radians(mEulerRotation.x), glm::vec3(1, 0, 0));
-		model = glm::rotate(model, glm::radians(mEulerRotation.z), glm::vec3(0, 0, 1));
-		model = glm::scale(model, mScale);
 
-		return model;
+	else {
+		mModel = glm::mat4{ 1 };
+		mModel = glm::translate(mModel, mLocalPosition);
+		mModel = glm::rotate(mModel, glm::radians(mEulerRotation.y),
+			glm::vec3(0, 1, 0));
+		mModel = glm::rotate(mModel, glm::radians(mEulerRotation.x), glm::vec3(1, 0, 0));
+		mModel = glm::rotate(mModel, glm::radians(mEulerRotation.z), glm::vec3(0, 0, 1));
+		mModel = glm::scale(mModel, mScale);
+
+		if (mpParent) {
+			mModel = mpParent->ModelMatrix() * mModel;
+		}
+
+		mbModelMatrixReady = true;
+		return mModel;
 	}
 }
 
@@ -137,20 +162,13 @@ void TransformComponent::Start() { }
 
 void TransformComponent::Update() {  
 	mbModelMatrixReady = false;
-	// update local axes
-	//glm::quat qLocalz = mQuatRotation * glm::quat{ 0.0f, 0.0f, 0.0f, -1.0f } * glm::quat{ mQuatRotation.w, -mQuatRotation.x, -mQuatRotation.y, -mQuatRotation.z };
-
-	//mLocalZ = glm::vec3{ qLocalz.x, qLocalz.y, qLocalz.z };
-	//mLocalX = glm::cross(-mLocalZ, glm::vec3{ 0.0f, 1.0f, 0.0f });
-	//mLocalY = glm::cross(-mLocalZ, mLocalX);
-
-	//std::cout << glm::to_string(LocalZ()) << std::endl;
+	mpObjectSpace->SetO(Position(Space::WORLD));
 }
 
 void TransformComponent::ConstUpdate() const { }
 
 void TransformComponent::LookAt(const glm::vec3& crTarget) {
-	glm::vec3 dir = glm::normalize(mWorldPosition - crTarget);
+	glm::vec3 dir = glm::normalize(mLocalPosition - crTarget);
 	glm::vec3 right = glm::cross(dir, glm::vec3{ 0.0f, 1.0f, 0.0f });
 	glm::vec3 up = glm::cross(dir, right);
 
@@ -204,4 +222,8 @@ void TransformComponent::UpdateLocalAxes() {
 	mLocalZ = glm::normalize(rotation_mat * glm::vec3(0, 0, 1));
 	mLocalX = glm::normalize(rotation_mat * glm::vec3(1, 0, 0));
 	mLocalY = glm::normalize(glm::cross(mLocalZ, mLocalX));
+
+	mpObjectSpace->SetX(mLocalX);
+	mpObjectSpace->SetY(mLocalY);
+	mpObjectSpace->SetZ(mLocalZ);
 }

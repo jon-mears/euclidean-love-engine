@@ -4,6 +4,7 @@
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/string_cast.hpp>
 
+#include "render-engine.hpp"
 #include "camera-component.hpp"
 #include "free-camera-component.hpp"
 #include "component.hpp"
@@ -56,6 +57,12 @@ void FreeCameraComponent::Update() {
 
 void FreeCameraComponent::ConstUpdate() const {
 
+}
+
+void FreeCameraComponent::Start() {
+    mpTransform = GetComponent<TransformComponent>();
+    RenderEngine::Instance().AddCamera(this);
+    mRho = glm::length(mTarget - mpTransform->Position());
 }
 
 FreeCameraComponent::FreeCameraComponent(GameObject* pGO) : CameraComponent(pGO) { }
