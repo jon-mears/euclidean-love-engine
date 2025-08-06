@@ -16,38 +16,110 @@
 #include "input-manager.hpp"
 #include "math-3d.hpp"
 
-TransformComponent::TransformComponent(GameObject* pGO) : Component{ pGO }, mWorldPosition{ 0 }, mLocalPosition{ 0 }, mEulerRotation{}, mScale{ 1 }, mQuatRotation{ 0.0f, 0.0f, 0.0f, -1.0f }
+TransformComponent::TransformComponent(GameObject* pGO) : Component{ pGO }, mWorldPosition{ 0 }, mLocalPosition{ 0 }, mEulerRotation{}, mScale{ 1 }, mQuatRotation{ 0.0f, 0.0f, 0.0f, 0.0f }
 {
 	mpObjectSpace = new Space(mLocalX, mLocalY, mLocalZ, mWorldPosition);
 }
 
 void TransformComponent::SetPosition(const glm::vec3& position, Space* pSpace) {
-
 	mLocalPosition = position;
-	//glm::vec3 old_position = mWorldPosition;
+}
 
-	//mWorldPosition = position.x * pSpace->X() + position.y * pSpace->Y() + 
-	//	position.z * pSpace->Z() + pSpace->Origin();
-
-	//glm::vec3 delta;
-
-	//for (auto pChild : mChildren) {
-	//	delta = pChild->Position() - old_position;
-	//	pChild->SetPosition(mWorldPosition + delta);
-	//}
+void TransformComponent::SetPosition(const glm::vec3& new_position,
+	Space::Label eSpace) {
+	switch (eSpace) {
+	case Space::LOCAL:
+		mLocalPosition = new_position;
+		break;
+	case Space::WORLD:
+		if (!mpParent) mLocalPosition = new_position;
+		else
+		mLocalPosition = mpParent->GetSpace()->World2Space(
+			new_position
+		);
+		break;
+	case Space::OBJECT:
+		mLocalPosition += new_position.x * mpObjectSpace->X() +
+			new_position.y * mpObjectSpace->Y() +
+			new_position.z * mpObjectSpace->Z();
+		break;
+	default:
+		break;
+	}
 }
 
 void TransformComponent::InterfaceMain() {
-	glm::vec3 local_position = mLocalPosition;
-	glm::vec3 euler_rotation = mEulerRotation;
+
+	enum RotationT {
+		QUAT,
+		EULER,
+		ANGLE_AXIS
+	};
+
+	const char* options[] = {
+		"Euler Angles",
+		"Quaternion",
+		"Angle Axis"
+	};
+
+	static int selection = 0;
+
+	static Space::Label position_space = Space::LOCAL;
+	static Space::Label rotation_space = Space::OBJECT_WORLD;
+	static Space::Label scale_space = Space::OBJECT;
+
+	glm::vec3 local_position = Position(position_space);
+	glm::vec3 euler_rotation = EulerRotation();
 	glm::vec3 scale = mScale;
 
-	if (ImGui::DragFloat3("Position", glm::value_ptr(local_position))) {
-		SetPosition(local_position);
+	ImGui::Text("Position:");
+
+	ImGui::Indent();
+
+	if (ImGui::RadioButton("World", position_space == Space::WORLD)) position_space = Space::WORLD;
+
+	ImGui::SameLine();
+
+	if (ImGui::RadioButton("Local", position_space == Space::LOCAL)) position_space = Space::LOCAL;
+
+	ImGui::SameLine();
+
+	if (ImGui::RadioButton("Object", position_space == Space::OBJECT)) position_space = Space::OBJECT;
+
+	if (ImGui::DragFloat3("##Position", glm::value_ptr(local_position))) {
+		SetPosition(local_position, position_space);
 	}
 
-	ImGui::DragFloat3("Rotation", glm::value_ptr(mEulerRotation));
-	ImGui::DragFloat3("Scale", glm::value_ptr(mScale));
+	ImGui::Unindent();
+
+	ImGui::Text("Rotation:");
+
+	ImGui::Indent();
+
+	if (ImGui::BeginCombo("Format", options[selection])) {
+		for (int i = 0; i < IM_ARRAYSIZE(options); ++i) {
+			const bool is_selected = i == selection;
+			if (ImGui::Selectable(options[i], is_selected)) {
+				selection = i;
+			}
+		}
+
+		ImGui::EndCombo();
+	}
+
+	if (ImGui::DragFloat3("##Rotation", glm::value_ptr(euler_rotation))) {
+		SetEulerRotation(euler_rotation);
+	}
+
+	ImGui::Unindent();
+
+	ImGui::Text("Scale:");
+
+	ImGui::Indent();
+
+	ImGui::DragFloat3("##Scale", glm::value_ptr(mScale));
+
+	ImGui::Unindent();
 }
 
 void TransformComponent::Translate(const glm::vec3& translation, Space* pSpace) {
@@ -67,14 +139,23 @@ void TransformComponent::SetEulerRotation(const glm::vec3& euler_rotation,
 
 	mEulerRotation = euler_rotation.x * pSpace->X() + euler_rotation.y * pSpace->Y() +
 		euler_rotation.z * pSpace->Z();
+
+	mQuatDirty = true;
 }
 
 void TransformComponent::EulerRotate(const glm::vec3& rotation) {
+	if (mEulerDirty) UpdateEulerRotation();
+
 	mEulerRotation += rotation;
+	mQuatDirty = true;
 }
 
 void TransformComponent::QuaternionRotate(const glm::quat& quaternion) {
+	if (mQuatDirty) UpdateQuaternionRotation();
+
 	mQuatRotation = quaternion * mQuatRotation;
+
+	mEulerDirty = true;
 }
 	
 // axis should be normalized
@@ -122,8 +203,14 @@ eLabel) const {
 	}
 }
 
-const glm::vec3& TransformComponent::EulerRotation() const {
+glm::vec3 TransformComponent::EulerRotation() {
+	if (mEulerDirty) UpdateEulerRotation();
 	return mEulerRotation;
+}
+
+glm::quat TransformComponent::QuatRotation() {
+	if (mQuatDirty) UpdateQuaternionRotation();
+	return mQuatRotation;
 }
 
 const glm::vec3& TransformComponent::Scale() const {
@@ -133,6 +220,8 @@ const glm::vec3& TransformComponent::Scale() const {
 void TransformComponent::SetQuaternionRotation(glm::quat const&
 	quat_rotation) {
 	mQuatRotation = quat_rotation;
+
+	mEulerDirty = true;
 }
 
 glm::mat4 TransformComponent::ModelMatrix() {
@@ -143,10 +232,23 @@ glm::mat4 TransformComponent::ModelMatrix() {
 	else {
 		mModel = glm::mat4{ 1 };
 		mModel = glm::translate(mModel, mLocalPosition);
-		mModel = glm::rotate(mModel, glm::radians(mEulerRotation.y),
-			glm::vec3(0, 1, 0));
-		mModel = glm::rotate(mModel, glm::radians(mEulerRotation.x), glm::vec3(1, 0, 0));
-		mModel = glm::rotate(mModel, glm::radians(mEulerRotation.z), glm::vec3(0, 0, 1));
+
+		if (!mQuatDirty) {
+			if (mpGO->Name() == "Box") std::cout << "quat" << std::endl;
+			mModel = mModel * glm::toMat4(mQuatRotation);
+		}
+		else {
+			if (mpGO->Name() == "Box") std::cout << "euler" << std::endl;
+			glm::vec3 euler_rotation = EulerRotation();
+
+			mModel = glm::rotate(mModel, glm::radians(euler_rotation.y),
+				glm::vec3(0, 1, 0));
+			mModel = glm::rotate(mModel, glm::radians(euler_rotation.x),
+				glm::vec3(1, 0, 0));
+			mModel = glm::rotate(mModel, glm::radians(euler_rotation.z),
+				glm::vec3(0, 0, 1));
+		}
+
 		mModel = glm::scale(mModel, mScale);
 
 		if (mpParent) {
@@ -185,6 +287,8 @@ void TransformComponent::LookAt(const glm::vec3& crTarget) {
 
 void TransformComponent::UpdateEulerRotation() {
 	mEulerRotation = glm::eulerAngles(mQuatRotation);
+
+	mEulerDirty = false;
 }
 
 void TransformComponent::UpdateQuaternionRotation() {
@@ -212,6 +316,8 @@ void TransformComponent::UpdateQuaternionRotation() {
 		vMatrix[2][0]);
 	mQuatRotation.z = std::copysign(mQuatRotation.z, vMatrix[1][0] -
 		vMatrix[0][1]);
+
+	mQuatDirty = false;
 }
 
 void TransformComponent::UpdateLocalAxes() {

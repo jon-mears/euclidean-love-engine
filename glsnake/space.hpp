@@ -13,7 +13,8 @@ public:
 	enum Label {
 		WORLD,
 		LOCAL,
-		OBJECT
+		OBJECT,
+		OBJECT_WORLD // origin from object, axes from world
 	};
 
 	inline glm::vec3 X() { return mBasis1; }

@@ -26,9 +26,11 @@ private:
 	glm::vec3 mLocalOrigin{ 0 };
 
 	glm::vec3 mEulerRotation;
+	bool mEulerDirty{ false };
 
 	// should be a normalized quaternion
 	glm::quat mQuatRotation;
+	bool mQuatDirty{ false };
 
 	glm::vec3 mScale;
 
@@ -53,7 +55,9 @@ private:
 
 public:
 	TransformComponent(GameObject* pGO);
-	void SetPosition(const glm::vec3& new_position, Space* pSpace = Space::World());
+	void SetPosition(const glm::vec3& new_position, Space* pSpace);
+	void SetPosition(const glm::vec3& new_position, Space::Label
+		eSpace = Space::LOCAL);
 	void Translate(const glm::vec3& trans, Space* pSpace = Space::World());
 	void SetEulerRotation(const glm::vec3& euler_rotation, Space* pSpace = nullptr);
 	void SetQuaternionRotation(const glm::quat& quaternion_rotation);
@@ -94,7 +98,8 @@ public:
 
 	glm::vec3 Position(Space::Label eSpace =
 		Space::LOCAL) const;
-	const glm::vec3 &EulerRotation() const;
+	glm::vec3 EulerRotation();
+	glm::quat QuatRotation();
 	const glm::vec3& Scale() const;
 
 	inline void SetParent(TransformComponent* pTransformC) {
