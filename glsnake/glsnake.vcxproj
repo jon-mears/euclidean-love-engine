@@ -235,7 +235,6 @@
     <ClCompile Include="aabb.cpp" />
     <ClCompile Include="button.cpp" />
     <ClCompile Include="camera-component.cpp" />
-    <ClCompile Include="camera-control-component.cpp" />
     <ClCompile Include="check-error.cpp" />
     <ClCompile Include="color.cpp" />
     <ClCompile Include="component.cpp" />
@@ -257,12 +256,8 @@
     <ClCompile Include="material.cpp" />
     <ClCompile Include="math-3d.cpp" />
     <ClCompile Include="mesh.cpp" />
-    <ClCompile Include="mesh-component.cpp" />
     <ClCompile Include="object-editor.cpp" />
-    <ClCompile Include="orthographic-component.cpp" />
-    <ClCompile Include="perspective-component.cpp" />
     <ClCompile Include="primitives.cpp" />
-    <ClCompile Include="projection-component.cpp" />
     <ClCompile Include="renderbuffer.cpp" />
     <ClCompile Include="render-engine.cpp" />
     <ClCompile Include="resource-browser.cpp" />
@@ -321,7 +316,6 @@
     <ClInclude Include="math-3d.hpp" />
     <ClInclude Include="aabb.hpp" />
     <ClInclude Include="camera-component.hpp" />
-    <ClInclude Include="camera-control-component.hpp" />
     <ClInclude Include="editor-manager.hpp" />
     <ClInclude Include="factories.hpp" />
     <ClInclude Include="app.hpp" />
@@ -333,12 +327,8 @@
     <ClInclude Include="input-manager.hpp" />
     <ClInclude Include="key-mouse-input-service.hpp" />
     <ClInclude Include="mesh.hpp" />
-    <ClInclude Include="mesh-component.hpp" />
     <ClInclude Include="object-editor.hpp" />
-    <ClInclude Include="orthographic-component.hpp" />
-    <ClInclude Include="perspective-component.hpp" />
     <ClInclude Include="primitives.hpp" />
-    <ClInclude Include="projection-component.hpp" />
     <ClInclude Include="render-mode.hpp" />
     <ClInclude Include="renderbuffer.hpp" />
     <ClInclude Include="render-engine.hpp" />

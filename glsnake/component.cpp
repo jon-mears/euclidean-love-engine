@@ -1,9 +1,30 @@
+#include "component.hpp"
+
 #include "imgui.h"
 
-#include "component.hpp"
-#include "game-object.hpp"
+class GameObject;
 
-Component::Component(GameObject* pGO) : mpGO(pGO) { }
+Component::Component(GameObject* GO)
+	: mpGO{ GO }, mIsActive{ true }
+{ }
+
+Component::~Component() { }
+
+bool Component::IsActive() const noexcept {
+	return mIsActive;
+}
+
+void Component::SetActive(bool active) noexcept {
+	mIsActive = active;
+}
+
+bool Component::ToggleActive() noexcept {
+	return mIsActive = !mIsActive;
+}
+
+GameObject* Component::GO() noexcept {
+	return mpGO;
+}
 
 void Component::Interface() { 
 	InterfaceHead();

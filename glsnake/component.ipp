@@ -2,16 +2,16 @@
 #define COMPONENT_IPP
 
 #include "component.hpp"
+
 #include "game-object.hpp"
 
 template <typename C>
-C* Component::GetComponent() {
+C* Component::Get() {
 	return mpGO->Retrieve<C>();
 }
 
 template <typename C>
-const C* Component::GetComponent() const {
+C const* Component::Get() const {
 	return mpGO->Retrieve<C>();
 }
-
 #endif

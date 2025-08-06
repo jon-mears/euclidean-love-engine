@@ -39,7 +39,7 @@ public:
 	void VertexAttrib(Vertex::Attribute eAttrib, VertexData vdata);
 	void Compile();
 	void Enable();
-	int GetNumVertices();
+	int NumVertices();
 	VertexData GetAttrib(Vertex::Attribute eAttrib);
 
 	Mesh();

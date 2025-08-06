@@ -17,12 +17,12 @@ class Uniform;
 
 class Material {
 private:
-	Shader* const mpShader;
+	::Shader* const mpShader;
 	std::map<std::string, UniformHolder*> mUniforms{};
 	std::map<Uniform::Purpose, UniformHolder*> mPurpose2Uniform{};
 
 public:
-	Material(Shader* pShader) : mpShader{ pShader } { 
+	Material(::Shader* pShader) : mpShader{ pShader } { 
 		for (std::map<std::string, Uniform*>::iterator it = mpShader->mName2Uniform.begin();
 			it != mpShader->mName2Uniform.end(); ++it) {
 			mUniforms[it->first] = UniformHolder::Create(it->second);
@@ -30,7 +30,7 @@ public:
 		}
 	}
 
-	inline Shader* GetShader() {
+	inline ::Shader* Shader() {
 		return mpShader;
 	}
 

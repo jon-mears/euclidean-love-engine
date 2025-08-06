@@ -134,25 +134,10 @@
     <ClCompile Include="key-mouse-input-service.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="camera-control-component.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="camera-component.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="component.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="mesh-component.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="orthographic-component.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="perspective-component.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="projection-component.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="shader-component.cpp">
@@ -335,21 +320,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="camera-component.hpp">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="camera-control-component.hpp">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="mesh-component.hpp">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="orthographic-component.hpp">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="perspective-component.hpp">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="projection-component.hpp">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="shader-component.hpp">

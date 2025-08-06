@@ -1,69 +1,76 @@
-#include <iostream>
+#include "free-camera-component.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
-#include <glm/gtx/string_cast.hpp>
 
-#include "render-engine.hpp"
-#include "camera-component.hpp"
-#include "free-camera-component.hpp"
 #include "component.hpp"
 #include "input-manager.hpp"
+#include "render-engine.hpp"
 #include "transform-component.hpp"
-#include "math-3d.hpp"
+
+class CameraComponent;
+
+FreeCameraComponent::FreeCameraComponent(GameObject* GO)
+    : CameraComponent{ GO }, mTheta{ 0 }, mPhi{ 0 }, mRho{ 0 }, mTarget{ 0 },
+    mTumbleAmplitude{ 0.01f }, mTrackAmplitude{ 0.001f },
+    mDollyAmplitude{ 0.01f }
+{ }
+
+void FreeCameraComponent::Start() {
+    auto& re{ RenderEngine::Instance() };
+
+    mpTransform = Get<TransformComponent>();
+    mRho = glm::length(mTarget - mpTransform->Position());
+
+    re.AddCamera(this);
+}
 
 void FreeCameraComponent::Update() {
-    bool posUpdated = false;
+    auto& im{ InputManager::Instance() };
 
-    if (InputManager::Instance().EventActive(Input::ORBITING)) {
-        mTheta -= InputManager::Instance().RelativeAxis(Input::HORIZONTAL) *
-            kTumbleAmplitude;
-        mPhi -= InputManager::Instance().RelativeAxis(Input::VERTICAL) *
-            kTumbleAmplitude;
+    auto pos_updated{ false };
 
-        glm::quat q1 = glm::angleAxis(mTheta, glm::vec3(0, 1, 0));
-        glm::quat q2 = glm::angleAxis(mPhi, glm::vec3(1, 0, 0));
+    if (im.EventActive(Input::ORBITING)) {
+        mTheta -= im.RelativeAxis(Input::HORIZONTAL) * mTumbleAmplitude;
+        mPhi -= im.RelativeAxis(Input::VERTICAL) * mTumbleAmplitude;
+
+        auto q1{ glm::angleAxis(mTheta, glm::vec3(0, 1, 0)) };
+        auto q2{ glm::angleAxis(mPhi, glm::vec3(1, 0, 0)) };
+
         mpTransform->SetQuaternionRotation(q1 * q2);
         mpTransform->UpdateEulerRotation();
         mpTransform->UpdateLocalAxes();
 
-        posUpdated = true;
+        pos_updated = true;
     }
 
-    double scrollAmount = InputManager::Instance().RelativeAxis(Input::SCROLL);
+    auto scroll_amount{ im.RelativeAxis(Input::SCROLL) };
 
-    if (scrollAmount != 0) {
-        mRho -= scrollAmount * kDollyAmplitude;
-        posUpdated = true;
+    if (scroll_amount != 0) {
+        mRho -= scroll_amount * mDollyAmplitude;
+
+        pos_updated = true;
     }
 
-    if (InputManager::Instance().EventActive(Input::PANNING)) {
-        float xdelta = InputManager::Instance().RelativeAxis(Input::HORIZONTAL) * kTrackAmplitude;
-        float ydelta = InputManager::Instance().RelativeAxis(Input::VERTICAL) * kTrackAmplitude;
+    if (im.EventActive(Input::PANNING)) {
+        auto xdelta{ im.RelativeAxis(Input::HORIZONTAL) * mTrackAmplitude };
+        auto ydelta{ im.RelativeAxis(Input::VERTICAL) * mTrackAmplitude };
 
-        glm::vec3 localX = mpTransform->LocalX();
-        glm::vec3 localY = mpTransform->LocalY();
+        auto localX{ mpTransform->LocalX() };
+        auto localY{ mpTransform->LocalY() };
 
         mTarget += -xdelta * localX + ydelta * localY;
 
-        posUpdated = true;
+        pos_updated = true;
     }
 
-    if (posUpdated) {
+    if (pos_updated) {
         mpTransform->SetPosition(mTarget + mRho * mpTransform->LocalZ());
-        //mpTransform->SetPosition(Math3D::SphericalCoordinatesRad(mTarget, mPhi, mTheta, mRho));
     }
 }
 
-void FreeCameraComponent::ConstUpdate() const {
+void FreeCameraComponent::ConstUpdate() const { }
 
+char const* FreeCameraComponent::Name() const {
+    return "FreeCamera";
 }
-
-void FreeCameraComponent::Start() {
-    mpTransform = GetComponent<TransformComponent>();
-    RenderEngine::Instance().AddCamera(this);
-    mRho = glm::length(mTarget - mpTransform->Position());
-}
-
-FreeCameraComponent::FreeCameraComponent(GameObject* pGO) : CameraComponent(pGO) { }
-    

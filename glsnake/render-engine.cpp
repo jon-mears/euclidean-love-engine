@@ -40,21 +40,21 @@ void RenderEngine::Draw() {
 	ClearBuffers();
 
 	 for (RenderCommand* pRenderCommand : mRenderCommands) {
-		 if (pRenderCommand->mpRenderC->GetLayer() == Layer::BOTTOM)
+		 if (pRenderCommand->mpRenderC->Layer() == Layer::BOTTOM)
 			pRenderCommand->Execute();
 	 }
 
 	 glClear(GL_DEPTH_BUFFER_BIT);
 
 	 for (RenderCommand* pRenderCommand : mRenderCommands) {
-		 if (pRenderCommand->mpRenderC->GetLayer() == Layer::MAIN)
+		 if (pRenderCommand->mpRenderC->Layer() == Layer::MAIN)
 			 pRenderCommand->Execute();
 	 }
 
 	 glClear(GL_DEPTH_BUFFER_BIT);
 
 	 for (RenderCommand* pRenderCommand : mRenderCommands) {
-		 if (pRenderCommand->mpRenderC->GetLayer() == Layer::TOP)
+		 if (pRenderCommand->mpRenderC->Layer() == Layer::TOP)
 			 pRenderCommand->Execute();
 	 }
 

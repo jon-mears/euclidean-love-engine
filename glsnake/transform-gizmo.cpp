@@ -1,29 +1,35 @@
-#include <iostream>
-
-#include "camera-component.hpp"
-#include "editor-manager.hpp"
 #include "transform-gizmo.hpp"
 
+#include <memory>
+
+#include "editor-manager.hpp"
 #include "line.hpp"
 
+class CameraComponent;
+
+TransformGizmo::TransformGizmo(GameObject* GO)
+	: Component{ GO }, muX{ }, muY{ }, muZ{ }, mpTransformC{ nullptr },
+	mpTransformX{ nullptr }, mpTransformY{ nullptr }, mpTransformZ{ nullptr }
+{ }
+
 void TransformGizmo::Start() {
-	EditorManager& em = EditorManager::Instance();
+	auto& em{ EditorManager::Instance() };
 
-	CameraComponent* pCameraC = em.EditorCamera();
+	auto camera{ em.EditorCamera() };
 
-	mX = new Line<0, 0, 0, 1, 0, 0>(pCameraC, Color::RED);
-	mY = new Line<0, 0, 0, 0, 1, 0>(pCameraC, Color::GREEN);
-	mZ = new Line<0, 0, 0, 0, 0, 1>(pCameraC, Color::BLUE);
+	muX = std::make_unique<Line<0, 0, 0, 1, 0, 0>>(camera, Color::RED);
+	muY = std::make_unique<Line<0, 0, 0, 0, 1, 0>>(camera, Color::GREEN);
+	muZ = std::make_unique<Line<0, 0, 0, 0, 0, 1>>(camera, Color::BLUE);
 
 	mpTransformC = mpGO->Retrieve<TransformComponent>();
 
-	mpTransformX = mX->Retrieve<TransformComponent>();
-	mpTransformY = mY->Retrieve<TransformComponent>();
-	mpTransformZ = mZ->Retrieve<TransformComponent>();
+	mpTransformX = muX->Retrieve<TransformComponent>();
+	mpTransformY = muY->Retrieve<TransformComponent>();
+	mpTransformZ = muZ->Retrieve<TransformComponent>();
 
-	mX->Start();
-	mY->Start();
-	mZ->Start();
+	muX->Start();
+	muY->Start();
+	muZ->Start();
 }
 
 void TransformGizmo::Update() {
@@ -36,16 +42,13 @@ void TransformGizmo::Update() {
 	mpTransformZ->SetPosition(mpTransformC->Position());
 	mpTransformZ->SetEulerRotation(mpTransformC->EulerRotation());
 
-	mX->Update();
-	mY->Update();
-	mZ->Update();
+	muX->Update();
+	muY->Update();
+	muZ->Update();
 }
 
 void TransformGizmo::ConstUpdate() const { }
 
-const char* TransformGizmo::Name() const {
+char const* TransformGizmo::Name() const {
 	return "Transform Gizmo";
-}
-
-TransformGizmo::TransformGizmo(GameObject* pGO) : Component(pGO) { 
 }
