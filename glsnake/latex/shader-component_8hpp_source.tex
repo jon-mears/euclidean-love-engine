@@ -1,0 +1,46 @@
+\doxysection{shader-\/component.hpp}
+\hypertarget{shader-component_8hpp_source}{}\label{shader-component_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SHADER\_COMPONENT\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ SHADER\_COMPONENT\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}component.hpp"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <glm/glm.hpp>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_camera_component}{CameraComponent}};}
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_shader}{Shader}};}
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_game_object}{GameObject}};}
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_uniform}{Uniform}};}
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_texture2_d}{Texture2D}};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{typedef}\ void\ (*UniformUpdater)(\mbox{\hyperlink{class_game_object}{GameObject}}*,\ \mbox{\hyperlink{class_camera_component}{CameraComponent}}*);}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_shader_component}{ShaderComponent}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_component}{Component}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{class_shader}{Shader}}*\ mpShader;}
+\DoxyCodeLine{00022\ \ \ \ \ std::vector<UniformUpdater>\ mUniformUpdaters;}
+\DoxyCodeLine{00023\ \ \ \ \ std::map<std::string,\ Uniform*>\ mUniforms;}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{class_shader_component}{ShaderComponent}}(\mbox{\hyperlink{class_game_object}{GameObject}}*\ pGO);}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ SetShader(\mbox{\hyperlink{class_shader}{Shader}}*\ pShader);}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Start()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Update()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ ConstUpdate()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ AddUpdater(UniformUpdater\ uu);}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ UpdateUniforms(\mbox{\hyperlink{class_camera_component}{CameraComponent}}*\ pCamera);}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ Enable();}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ Disable();}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ SetUniform(\textcolor{keyword}{const}\ std::string\&\ name,\ \textcolor{keyword}{const}\ glm::mat4\&\ value);}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ SetUniform(\textcolor{keyword}{const}\ std::string\&\ name,\ \textcolor{keyword}{const}\ glm::vec3\&\ value);}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ SetUniform(\textcolor{keyword}{const}\ std::string\&\ name,\ \mbox{\hyperlink{class_texture2_d}{Texture2D}}*\ value);}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ SetUniform(\textcolor{keyword}{const}\ std::string\&\ name,\ \textcolor{keyword}{const}\ glm::vec4\&\ value);}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ UploadUniforms();}
+\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

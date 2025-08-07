@@ -1,0 +1,121 @@
+\doxysection{Render\+Component Class Reference}
+\hypertarget{class_render_component}{}\label{class_render_component}\index{RenderComponent@{RenderComponent}}
+Inheritance diagram for Render\+Component\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_render_component}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_render_component_a505f7ba9dd59e17ec3007634b8292171}{Start}} () override
+\item 
+virtual void \mbox{\hyperlink{class_render_component_a7f5570975c09d43d4c21a92c17c34355}{Update}} () override
+\item 
+virtual void \mbox{\hyperlink{class_render_component_ad07deb842aef099fc5ea2fb569a3f0be}{Const\+Update}} () const override
+\item 
+\Hypertarget{class_render_component_ac43c430608f48545510e69ef29af3336}\label{class_render_component_ac43c430608f48545510e69ef29af3336} 
+void {\bfseries Set\+Material} (\mbox{\hyperlink{class_material}{Material}} \texorpdfstring{$\ast$}{*}p\+Material)
+\item 
+\Hypertarget{class_render_component_a88e0eef70648d04fe888c0777a05914e}\label{class_render_component_a88e0eef70648d04fe888c0777a05914e} 
+\mbox{\hyperlink{class_material}{Material}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Material} ()
+\item 
+\Hypertarget{class_render_component_a3ab7a669eeaea8c7dca5ad6b041732d6}\label{class_render_component_a3ab7a669eeaea8c7dca5ad6b041732d6} 
+void {\bfseries Set\+Mesh} (\mbox{\hyperlink{class_mesh}{Mesh}} \texorpdfstring{$\ast$}{*}p\+Mesh)
+\item 
+\Hypertarget{class_render_component_a62f359f557ecdb9353cbfedd7557f37e}\label{class_render_component_a62f359f557ecdb9353cbfedd7557f37e} 
+\mbox{\hyperlink{class_mesh}{Mesh}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Mesh} ()
+\item 
+\Hypertarget{class_render_component_a80fe2e13e7f10b4ec1da3ae5f9653acb}\label{class_render_component_a80fe2e13e7f10b4ec1da3ae5f9653acb} 
+void {\bfseries Set\+Render\+Mode} (GLenum e\+Render\+Mode)
+\item 
+\Hypertarget{class_render_component_a95d8b87d212d95f9e1c3c768c989f58d}\label{class_render_component_a95d8b87d212d95f9e1c3c768c989f58d} 
+GLenum {\bfseries Get\+Render\+Mode} ()
+\item 
+\Hypertarget{class_render_component_a81741806b07c1e78199570914c1d127c}\label{class_render_component_a81741806b07c1e78199570914c1d127c} 
+int {\bfseries Get\+Num\+Vertices} ()
+\item 
+\Hypertarget{class_render_component_abe33ffe05f084572c5fa152284c7bd88}\label{class_render_component_abe33ffe05f084572c5fa152284c7bd88} 
+void {\bfseries Set\+Camera} (\mbox{\hyperlink{class_camera_component}{Camera\+Component}} \texorpdfstring{$\ast$}{*}p\+CameraC)
+\item 
+\Hypertarget{class_render_component_ace27c0f6bce9aa65c1043176dc93039d}\label{class_render_component_ace27c0f6bce9aa65c1043176dc93039d} 
+\mbox{\hyperlink{class_camera_component}{Camera\+Component}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Camera} ()
+\item 
+\Hypertarget{class_render_component_a8439137029e9ef0a4fe7ce6477698813}\label{class_render_component_a8439137029e9ef0a4fe7ce6477698813} 
+\mbox{\hyperlink{class_framebuffer}{Framebuffer}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Framebuffer} ()
+\item 
+\Hypertarget{class_render_component_a414633c56bbdc699973ce7a959bcf6c7}\label{class_render_component_a414633c56bbdc699973ce7a959bcf6c7} 
+\mbox{\hyperlink{class_shader}{Shader}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Shader} ()
+\item 
+\Hypertarget{class_render_component_ab57e98953980887d530af8cb5322ba12}\label{class_render_component_ab57e98953980887d530af8cb5322ba12} 
+void {\bfseries Set\+Projection} (\mbox{\hyperlink{class_projection}{Projection}} \texorpdfstring{$\ast$}{*}p\+Projection)
+\item 
+\Hypertarget{class_render_component_a7746ef5ac66420ad13078987ead22bf6}\label{class_render_component_a7746ef5ac66420ad13078987ead22bf6} 
+\mbox{\hyperlink{class_projection}{Projection}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Projection} ()
+\item 
+\Hypertarget{class_render_component_a7aba91edf5eb282cf27365e2cb1cb564}\label{class_render_component_a7aba91edf5eb282cf27365e2cb1cb564} 
+{\bfseries Render\+Component} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}p\+GO)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename C $>$ }\\C \texorpdfstring{$\ast$}{*} {\bfseries Get\+Component} ()
+\item 
+{\footnotesize template$<$typename C $>$ }\\const C \texorpdfstring{$\ast$}{*} {\bfseries Get\+Component} () const
+\item 
+{\bfseries Component} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}p\+GO)
+\item 
+bool {\bfseries Is\+Active} ()
+\item 
+void {\bfseries Set\+Active} (bool b\+Active)
+\item 
+bool {\bfseries Toggle\+Active} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*} {\bfseries mp\+GO}
+\item 
+bool {\bfseries mb\+Active} \{ true \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_render_component_ad07deb842aef099fc5ea2fb569a3f0be}\index{RenderComponent@{RenderComponent}!ConstUpdate@{ConstUpdate}}
+\index{ConstUpdate@{ConstUpdate}!RenderComponent@{RenderComponent}}
+\doxysubsubsection{\texorpdfstring{ConstUpdate()}{ConstUpdate()}}
+{\footnotesize\ttfamily \label{class_render_component_ad07deb842aef099fc5ea2fb569a3f0be} 
+void Render\+Component\+::\+Const\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_component}{Component}}.
+
+\Hypertarget{class_render_component_a505f7ba9dd59e17ec3007634b8292171}\index{RenderComponent@{RenderComponent}!Start@{Start}}
+\index{Start@{Start}!RenderComponent@{RenderComponent}}
+\doxysubsubsection{\texorpdfstring{Start()}{Start()}}
+{\footnotesize\ttfamily \label{class_render_component_a505f7ba9dd59e17ec3007634b8292171} 
+void Render\+Component\+::\+Start (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_component}{Component}}.
+
+\Hypertarget{class_render_component_a7f5570975c09d43d4c21a92c17c34355}\index{RenderComponent@{RenderComponent}!Update@{Update}}
+\index{Update@{Update}!RenderComponent@{RenderComponent}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_render_component_a7f5570975c09d43d4c21a92c17c34355} 
+void Render\+Component\+::\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_component}{Component}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+render-\/component.\+hpp\item 
+render-\/component.\+cpp\end{DoxyCompactItemize}

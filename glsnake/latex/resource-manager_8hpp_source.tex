@@ -1,0 +1,179 @@
+\doxysection{resource-\/manager.hpp}
+\hypertarget{resource-manager_8hpp_source}{}\label{resource-manager_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ RESOURCE\_MANAGER\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ RESOURCE\_MANAGER\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ RETRIEVE\_SPECIALIZATION(classname,\ containername)\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{template\ <>\ \(\backslash\)}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{classname*\ Retrieve<classname>(const\ std::string\&\ name)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\ \ \ \ return\ containername.at(name);\ \(\backslash\)}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ BEGIN\_SPECIALIZATION(classname,\ containername)\ \ \(\backslash\)}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{template\ <>\ \(\backslash\)}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{typename\ std::map<std::string,\ classname*>::iterator\ Begin<classname>()\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\ \ \ \ return\ containername.begin();\(\backslash\)}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ END\_SPECIALIZATION(classname,\ containername)\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{template\ <>\ \(\backslash\)}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{typename\ std::map<std::string,\ classname*>::iterator\ End<classname>()\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\ \ \ \ return\ containername.end();\(\backslash\)}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ NEW\_SPECIALIZATION(classname,\ containername)\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{template\ <>\ \(\backslash\)}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{classname*\ New<classname>(const\ std::string\&\ name)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\ \ \ \ classname*\ pResource\ =\ new\ classname();\ \(\backslash\)}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\ \ \ \ containername[name]\ =\ pResource;\ \(\backslash\)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\ \ \ \ return\ pResource;\ \(\backslash\)}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ ADD\_SPECIALIZATION(classname,\ containername)\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{template\ <>\ \(\backslash\)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{void\ Add<classname>(classname*\ pResource,\ const\ std::string\&\ name)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\ \ \ \ containername[name]\ =\ pResource;\ \(\backslash\)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ "{}shader.hpp"{}}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ "{}game-\/object.hpp"{}}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ "{}mesh.hpp"{}}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ "{}texture.hpp"{}}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ "{}framebuffer.hpp"{}}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ "{}renderbuffer.hpp"{}}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ "{}image.hpp"{}}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_resource}{Resource}};}
+\DoxyCodeLine{00049\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_game_object}{GameObject}};}
+\DoxyCodeLine{00050\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_node}{XMLNode}};}
+\DoxyCodeLine{00051\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_tree}{XMLTree}};}
+\DoxyCodeLine{00052\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_shader}{Shader}};}
+\DoxyCodeLine{00053\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_mesh}{Mesh}};}
+\DoxyCodeLine{00054\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_texture1_d}{Texture1D}};}
+\DoxyCodeLine{00055\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_texture2_d}{Texture2D}};}
+\DoxyCodeLine{00056\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_texture3_d}{Texture3D}};}
+\DoxyCodeLine{00057\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_image1_d}{Image1D}};}
+\DoxyCodeLine{00058\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_image2_d}{Image2D}};}
+\DoxyCodeLine{00059\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_image3_d}{Image3D}};}
+\DoxyCodeLine{00060\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_framebuffer}{Framebuffer}};}
+\DoxyCodeLine{00061\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_renderbuffer}{Renderbuffer}};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_resource_manager}{ResourceManager}}\ \{}
+\DoxyCodeLine{00064\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00065\ \ \ \ \ std::map<std::string,\ Resource*>\ mResources;}
+\DoxyCodeLine{00066\ \ \ \ \ std::map<std::string,\ Shader*>\ mShaders;}
+\DoxyCodeLine{00067\ \ \ \ \ std::map<std::string,\ GameObject*>\ mGameObjects;}
+\DoxyCodeLine{00068\ \ \ \ \ std::map<std::string,\ Mesh*>\ mMeshes;}
+\DoxyCodeLine{00069\ \ \ \ \ std::map<std::string,\ Texture1D*>\ mTexture1Ds;}
+\DoxyCodeLine{00070\ \ \ \ \ std::map<std::string,\ Texture2D*>\ mTexture2Ds;}
+\DoxyCodeLine{00071\ \ \ \ \ std::map<std::string,\ Texture3D*>\ mTexture3Ds;}
+\DoxyCodeLine{00072\ \ \ \ \ std::map<std::string,\ Image1D*>\ mImage1Ds;}
+\DoxyCodeLine{00073\ \ \ \ \ std::map<std::string,\ Image2D*>\ mImage2Ds;}
+\DoxyCodeLine{00074\ \ \ \ \ std::map<std::string,\ Image3D*>\ mImage3Ds;}
+\DoxyCodeLine{00075\ \ \ \ \ std::map<std::string,\ Framebuffer*>\ mFramebuffers;}
+\DoxyCodeLine{00076\ \ \ \ \ std::map<std::string,\ Renderbuffer*>\ mRenderbuffers;}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{class_resource_manager}{ResourceManager}}();}
+\DoxyCodeLine{00079\ \ \ \ \ \mbox{\hyperlink{class_resource_manager}{ResourceManager}}(\mbox{\hyperlink{class_resource_manager}{ResourceManager}}\ \&lhs)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00080\ \ \ \ \ \mbox{\hyperlink{class_resource_manager}{ResourceManager}}\&\ operator=(\mbox{\hyperlink{class_resource_manager}{ResourceManager}}\&\ lhs)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{class_resource_manager}{ResourceManager}}\&\ operator=(\mbox{\hyperlink{class_resource_manager}{ResourceManager}}\ lhs)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{void}\ Startup();}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{class\ }XMLResourceTreeParser\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ParseShader(\mbox{\hyperlink{class_x_m_l_node}{XMLNode}}*\ pNode);}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ParseTexture2D(\mbox{\hyperlink{class_x_m_l_node}{XMLNode}}*\ pNode);}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ParseMesh(\mbox{\hyperlink{class_x_m_l_node}{XMLNode}}*\ pNode);}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ParseTree(\mbox{\hyperlink{class_x_m_l_tree}{XMLTree}}*\ pTree);}
+\DoxyCodeLine{00092\ \ \ \ \ \}\ mXmlTreeParser;}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00096\ \ \ \ \ T*\ Retrieve(\textcolor{keyword}{const}\ std::string\&\ name)\ =\ \textcolor{keyword}{delete};\ \textcolor{comment}{//\ only\ allow\ specializations}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ RETRIEVE\_SPECIALIZATION(\mbox{\hyperlink{class_shader}{Shader}},\ mShaders)}
+\DoxyCodeLine{00099\ \ \ \ \ RETRIEVE\_SPECIALIZATION(\mbox{\hyperlink{class_game_object}{GameObject}},\ mGameObjects)}
+\DoxyCodeLine{00100\ \ \ \ \ RETRIEVE\_SPECIALIZATION(\mbox{\hyperlink{class_mesh}{Mesh}},\ mMeshes)}
+\DoxyCodeLine{00101\ \ \ \ \ RETRIEVE\_SPECIALIZATION(\mbox{\hyperlink{class_texture1_d}{Texture1D}},\ mTexture1Ds)}
+\DoxyCodeLine{00102\ \ \ \ \ RETRIEVE\_SPECIALIZATION(\mbox{\hyperlink{class_texture2_d}{Texture2D}},\ mTexture2Ds)}
+\DoxyCodeLine{00103\ \ \ \ \ RETRIEVE\_SPECIALIZATION(\mbox{\hyperlink{class_texture3_d}{Texture3D}},\ mTexture3Ds)}
+\DoxyCodeLine{00104\ \ \ \ \ RETRIEVE\_SPECIALIZATION(\mbox{\hyperlink{class_image1_d}{Image1D}},\ mImage1Ds)}
+\DoxyCodeLine{00105\ \ \ \ \ RETRIEVE\_SPECIALIZATION(\mbox{\hyperlink{class_image2_d}{Image2D}},\ mImage2Ds)}
+\DoxyCodeLine{00106\ \ \ \ \ RETRIEVE\_SPECIALIZATION(\mbox{\hyperlink{class_image3_d}{Image3D}},\ mImage3Ds)}
+\DoxyCodeLine{00107\ \ \ \ \ RETRIEVE\_SPECIALIZATION(\mbox{\hyperlink{class_framebuffer}{Framebuffer}},\ mFramebuffers)}
+\DoxyCodeLine{00108\ \ \ \ \ RETRIEVE\_SPECIALIZATION(\mbox{\hyperlink{class_renderbuffer}{Renderbuffer}},\ mRenderbuffers)}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{typename}\ std::map<std::string,\ T*>::iterator\ Begin()\ =\ \textcolor{keyword}{delete};\ \textcolor{comment}{//\ only\ allow\ specializations}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ BEGIN\_SPECIALIZATION(\mbox{\hyperlink{class_shader}{Shader}},\ mShaders)}
+\DoxyCodeLine{00114\ \ \ \ \ BEGIN\_SPECIALIZATION(\mbox{\hyperlink{class_game_object}{GameObject}},\ mGameObjects)}
+\DoxyCodeLine{00115\ \ \ \ \ BEGIN\_SPECIALIZATION(\mbox{\hyperlink{class_mesh}{Mesh}},\ mMeshes)}
+\DoxyCodeLine{00116\ \ \ \ \ BEGIN\_SPECIALIZATION(\mbox{\hyperlink{class_texture1_d}{Texture1D}},\ mTexture1Ds)}
+\DoxyCodeLine{00117\ \ \ \ \ BEGIN\_SPECIALIZATION(\mbox{\hyperlink{class_texture2_d}{Texture2D}},\ mTexture2Ds)}
+\DoxyCodeLine{00118\ \ \ \ \ BEGIN\_SPECIALIZATION(\mbox{\hyperlink{class_texture3_d}{Texture3D}},\ mTexture3Ds)}
+\DoxyCodeLine{00119\ \ \ \ \ BEGIN\_SPECIALIZATION(\mbox{\hyperlink{class_image1_d}{Image1D}},\ mImage1Ds)}
+\DoxyCodeLine{00120\ \ \ \ \ BEGIN\_SPECIALIZATION(\mbox{\hyperlink{class_image2_d}{Image2D}},\ mImage2Ds)}
+\DoxyCodeLine{00121\ \ \ \ \ BEGIN\_SPECIALIZATION(\mbox{\hyperlink{class_image3_d}{Image3D}},\ mImage3Ds)}
+\DoxyCodeLine{00122\ \ \ \ \ BEGIN\_SPECIALIZATION(\mbox{\hyperlink{class_framebuffer}{Framebuffer}},\ mFramebuffers)}
+\DoxyCodeLine{00123\ \ \ \ \ BEGIN\_SPECIALIZATION(\mbox{\hyperlink{class_renderbuffer}{Renderbuffer}},\ mRenderbuffers)}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keyword}{typename}\ std::map<std::string,\ T*>::iterator\ End()\ =\ \textcolor{keyword}{delete};\ \textcolor{comment}{//\ only\ allow\ specializations}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ END\_SPECIALIZATION(\mbox{\hyperlink{class_shader}{Shader}},\ mShaders)}
+\DoxyCodeLine{00129\ \ \ \ \ END\_SPECIALIZATION(\mbox{\hyperlink{class_game_object}{GameObject}},\ mGameObjects)}
+\DoxyCodeLine{00130\ \ \ \ \ END\_SPECIALIZATION(\mbox{\hyperlink{class_mesh}{Mesh}},\ mMeshes)}
+\DoxyCodeLine{00131\ \ \ \ \ END\_SPECIALIZATION(\mbox{\hyperlink{class_texture1_d}{Texture1D}},\ mTexture1Ds)}
+\DoxyCodeLine{00132\ \ \ \ \ END\_SPECIALIZATION(\mbox{\hyperlink{class_texture2_d}{Texture2D}},\ mTexture2Ds)}
+\DoxyCodeLine{00133\ \ \ \ \ END\_SPECIALIZATION(\mbox{\hyperlink{class_texture3_d}{Texture3D}},\ mTexture3Ds)}
+\DoxyCodeLine{00134\ \ \ \ \ END\_SPECIALIZATION(\mbox{\hyperlink{class_image1_d}{Image1D}},\ mImage1Ds)}
+\DoxyCodeLine{00135\ \ \ \ \ END\_SPECIALIZATION(\mbox{\hyperlink{class_image2_d}{Image2D}},\ mImage2Ds)}
+\DoxyCodeLine{00136\ \ \ \ \ END\_SPECIALIZATION(\mbox{\hyperlink{class_image3_d}{Image3D}},\ mImage3Ds)}
+\DoxyCodeLine{00137\ \ \ \ \ END\_SPECIALIZATION(\mbox{\hyperlink{class_framebuffer}{Framebuffer}},\ mFramebuffers)}
+\DoxyCodeLine{00138\ \ \ \ \ END\_SPECIALIZATION(\mbox{\hyperlink{class_renderbuffer}{Renderbuffer}},\ mRenderbuffers)}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00141\ \ \ \ \ T*\ New(\textcolor{keyword}{const}\ std::string\&\ name=\textcolor{stringliteral}{"{}"{}})\ =\ \textcolor{keyword}{delete};\ \textcolor{comment}{//\ only\ allow\ specializations}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ NEW\_SPECIALIZATION(\mbox{\hyperlink{class_shader}{Shader}},\ mShaders)}
+\DoxyCodeLine{00144\ \ \ \ \ NEW\_SPECIALIZATION(\mbox{\hyperlink{class_game_object}{GameObject}},\ mGameObjects)}
+\DoxyCodeLine{00145\ \ \ \ \ NEW\_SPECIALIZATION(\mbox{\hyperlink{class_mesh}{Mesh}},\ mMeshes)}
+\DoxyCodeLine{00146\ \ \ \ \ NEW\_SPECIALIZATION(\mbox{\hyperlink{class_texture1_d}{Texture1D}},\ mTexture1Ds)}
+\DoxyCodeLine{00147\ \ \ \ \ NEW\_SPECIALIZATION(\mbox{\hyperlink{class_texture2_d}{Texture2D}},\ mTexture2Ds)}
+\DoxyCodeLine{00148\ \ \ \ \ NEW\_SPECIALIZATION(\mbox{\hyperlink{class_texture3_d}{Texture3D}},\ mTexture3Ds)}
+\DoxyCodeLine{00149\ \ \ \ \ NEW\_SPECIALIZATION(\mbox{\hyperlink{class_image1_d}{Image1D}},\ mImage1Ds)}
+\DoxyCodeLine{00150\ \ \ \ \ NEW\_SPECIALIZATION(\mbox{\hyperlink{class_image2_d}{Image2D}},\ mImage2Ds)}
+\DoxyCodeLine{00151\ \ \ \ \ NEW\_SPECIALIZATION(\mbox{\hyperlink{class_image3_d}{Image3D}},\ mImage3Ds)}
+\DoxyCodeLine{00152\ \ \ \ \ NEW\_SPECIALIZATION(\mbox{\hyperlink{class_framebuffer}{Framebuffer}},\ mFramebuffers)}
+\DoxyCodeLine{00153\ \ \ \ \ NEW\_SPECIALIZATION(\mbox{\hyperlink{class_renderbuffer}{Renderbuffer}},\ mRenderbuffers)}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordtype}{void}\ Add(T*\ pItem,\ \textcolor{keyword}{const}\ std::string\&\ name\ =\ \textcolor{stringliteral}{"{}"{}})\ =\ \textcolor{keyword}{delete};\ \textcolor{comment}{//\ only\ allow\ specializations}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \ \ ADD\_SPECIALIZATION(\mbox{\hyperlink{class_shader}{Shader}},\ mShaders)}
+\DoxyCodeLine{00159\ \ \ \ \ ADD\_SPECIALIZATION(\mbox{\hyperlink{class_game_object}{GameObject}},\ mGameObjects)}
+\DoxyCodeLine{00160\ \ \ \ \ ADD\_SPECIALIZATION(\mbox{\hyperlink{class_mesh}{Mesh}},\ mMeshes)}
+\DoxyCodeLine{00161\ \ \ \ \ ADD\_SPECIALIZATION(\mbox{\hyperlink{class_texture1_d}{Texture1D}},\ mTexture1Ds)}
+\DoxyCodeLine{00162\ \ \ \ \ ADD\_SPECIALIZATION(\mbox{\hyperlink{class_texture2_d}{Texture2D}},\ mTexture2Ds)}
+\DoxyCodeLine{00163\ \ \ \ \ ADD\_SPECIALIZATION(\mbox{\hyperlink{class_texture3_d}{Texture3D}},\ mTexture3Ds)}
+\DoxyCodeLine{00164\ \ \ \ \ ADD\_SPECIALIZATION(\mbox{\hyperlink{class_image1_d}{Image1D}},\ mImage1Ds)}
+\DoxyCodeLine{00165\ \ \ \ \ ADD\_SPECIALIZATION(\mbox{\hyperlink{class_image2_d}{Image2D}},\ mImage2Ds)}
+\DoxyCodeLine{00166\ \ \ \ \ ADD\_SPECIALIZATION(\mbox{\hyperlink{class_image3_d}{Image3D}},\ mImage3Ds)}
+\DoxyCodeLine{00167\ \ \ \ \ ADD\_SPECIALIZATION(\mbox{\hyperlink{class_framebuffer}{Framebuffer}},\ mFramebuffers)}
+\DoxyCodeLine{00168\ \ \ \ \ ADD\_SPECIALIZATION(\mbox{\hyperlink{class_renderbuffer}{Renderbuffer}},\ mRenderbuffers)}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_resource_manager}{ResourceManager}}\&\ Instance();}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_app}{App}};}
+\DoxyCodeLine{00173\ \};}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

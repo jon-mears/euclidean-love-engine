@@ -20,7 +20,7 @@
 #include "glsl-translator.hpp"
 #include "vertex-data.hpp"
 
-Shader::Shader() : mID{}, mVSource{}, mFSource{}, mUniformCodes{}, mAttribName2Type{}, mAttribName2Loc{} { }
+Shader::Shader() : Resource {}, mID {}, mVSource{}, mFSource{}, mUniformCodes{}, mAttribName2Type{}, mAttribName2Loc{} { }
 
 void Shader::Enable() {
 	glUseProgram(mID);
@@ -196,18 +196,35 @@ void Shader::Compile() {
 		if (word == "uniform") {
 			vertexStream >> type;
 			vertexStream >> var;
-			var = var.substr(0, var.size() - 1); // get rid of semicolon at end
+
+			std::string::iterator it = std::find_if
+			(var.begin(), var.end(), [](char c) {
+				return std::ispunct(c);
+				});
+
+			var = std::string(var.begin(), it);
 
 			GLuint loc = glGetUniformLocation(mID, var.c_str());
 
-			mUniformCodes.push_back(Uniform::Encode(var, loc, type, 
-				mUniformName2Purpose[var]));
+			//mUniformCodes.push_back(Uniform::Encode(var, loc, type, 
+			//	mUniformName2Purpose[var]));
+
+			mName2Uniform[var] = Uniform::Create(var,
+				type, mUniformName2Purpose[var], loc);
+			mPurpose2Uniform[mUniformName2Purpose[var]] =
+				mName2Uniform[var];
 		}
 
 		if (word == "in") {
 			vertexStream >> type;
 			vertexStream >> var;
-			var = var.substr(0, var.size() - 1); // get rid of semicolon at end
+
+			std::string::iterator it = std::find_if
+			(var.begin(), var.end(), [](char c) {
+				return std::ispunct(c);
+				});
+			var = std::string(var.begin(), it); 
+
 			GLuint loc = glGetAttribLocation(mID, var.c_str());
 
 			mAttribName2Loc[var] = loc;
@@ -229,8 +246,13 @@ void Shader::Compile() {
 
 			GLuint loc = glGetUniformLocation(mID, var.c_str());
 
-			mUniformCodes.push_back(Uniform::Encode(var, loc, type, 
-				mUniformName2Purpose[var]));
+			//mUniformCodes.push_back(Uniform::Encode(var, loc, type, 
+			//	mUniformName2Purpose[var]));
+
+			mName2Uniform[var] = Uniform::Create(var,
+				type, mUniformName2Purpose[var], loc);
+			mPurpose2Uniform[mUniformName2Purpose[var]] =
+				mName2Uniform[var];
 		}
 	}
 }

@@ -1,15 +1,17 @@
 #ifndef GAME_OBJECT_HPP
 #define GAME_OBJECT_HPP
 
+#include <iostream>
 #include <vector>
 #include <string>
 
+#include "gizmo.hpp"
 #include "resource.hpp"
 
 class Component;
 class App;
 
-class GameObject {
+class GameObject : public Resource {
 private:
 	std::vector<Component*> mOwnedComponents;
 	std::vector<Component*> mSharedComponents;
@@ -20,6 +22,12 @@ public:
 
 	template <typename C>
 	C* Add();
+
+	//template <>
+	//NoGizmo* Add<NoGizmo>() {
+	//	std::cout << "in nogizmo specialization" << std::endl;
+	//	return nullptr;
+	//}
 
 	template <typename C>
 	void Erase();

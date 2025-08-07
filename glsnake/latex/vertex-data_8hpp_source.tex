@@ -1,0 +1,30 @@
+\doxysection{vertex-\/data.hpp}
+\hypertarget{vertex-data_8hpp_source}{}\label{vertex-data_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ VERTEX\_DATA\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ VERTEX\_DATA\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <initializer\_list>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_vertex_data}{VertexData}}\ \{}
+\DoxyCodeLine{00007\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00008\ \ \ \ \ std::vector<double>\ mData;}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{int}\ mNumVertices\ =\ -\/1;}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{int}\ mNumComponents\ =\ -\/1;}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{class_vertex_data}{VertexData}}();}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_vertex_data}{VertexData}}(std::initializer\_list<double>);}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{class_vertex_data}{VertexData}}(std::initializer\_list<std::vector<double>>);}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ AddVertex(\textcolor{keyword}{const}\ std::initializer\_list<double>\&\ rcVertex);}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{double}\&\ operator[](\textcolor{keywordtype}{size\_t}\ i);}
+\DoxyCodeLine{00020\ \ \ \ \ std::vector<double>::iterator\ Begin();\ }
+\DoxyCodeLine{00021\ \ \ \ \ std::vector<double>::iterator\ End();}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{int}\ NumVertices();}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{int}\ NumComponents();}
+\DoxyCodeLine{00024\ \};}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

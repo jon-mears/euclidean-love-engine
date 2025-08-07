@@ -1,0 +1,35 @@
+\doxysection{selector-\/component.hpp}
+\hypertarget{selector-component_8hpp_source}{}\label{selector-component_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\#ifndef\ SELECTOR\_COMPONENT\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\#define\ SELECTOR\_COMPONENT\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\#include\ "{}component.hpp"{}}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\#include\ <map>}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\#include\ <glm/glm.hpp>}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//class\ CameraComponent;}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//class\ Texture2D;}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//class\ GameObject;}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//class\ Framebuffer;}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//class\ SelectorComponent\ :\ public\ Component\ \{}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//private:}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ CameraComponent*\ mpParentCamera\{\ nullptr\ \};}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ \ GameObject*\ mpSelectorObject\{\ nullptr\ \};}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ \ Texture2D*\ mpTexture\{\ nullptr\ \};}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ std::map<glm::vec4,\ GameObject*>\ mColor2Object\{\};}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ \ glm::ivec4\ mNextColor\{\ 1,\ 1,\ 1,\ 1\};}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//public:}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ \ virtual\ void\ Start()\ override;}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ \ virtual\ void\ Update()\ override;}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ \ virtual\ void\ ConstUpdate()\ const\ override;}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ \ void\ RegisterSelectable(GameObject*\ pGO);}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\};}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\#endif}}
+
+\end{DoxyCode}

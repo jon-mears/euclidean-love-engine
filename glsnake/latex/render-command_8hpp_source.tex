@@ -1,0 +1,51 @@
+\doxysection{render-\/command.hpp}
+\hypertarget{render-command_8hpp_source}{}\label{render-command_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ RENDER\_COMMAND\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ RENDER\_COMMAND\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_render_command}{RenderCommand}};}
+\DoxyCodeLine{00005\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_render_component}{RenderComponent}};}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_render_command}{RenderCommand}}\ \{}
+\DoxyCodeLine{00008\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00009\ \ \ \ \ \mbox{\hyperlink{class_render_component}{RenderComponent}}*\ mpRenderC;}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ mfEnables\{\ 0x00\ \};}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ FRAMEBUFFER\ =\ 0x0001,}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ SHADER\ =\ 0x0002,}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ MESH\ =\ 0x0004,}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ MODEL\_MATRIX\ =\ 0x0008,}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ VIEW\_MATRIX\ =\ 0x0010,}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ PROJECTION\_MATRIX\ =\ 0x0020,}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ CLEAR\_COLOR\ =\ 0x0040,}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ CLEAR\_DEPTH\ =\ 0x0080,}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ DEPTH\_TEST\ =\ 0x0100}
+\DoxyCodeLine{00024\ \ \ \ \ \};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ UsesSameFramebuffer(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_render_command}{RenderCommand}}*\ pcLHS,}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_render_command}{RenderCommand}}*\ pcRHS);}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ UsesSameShader(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_render_command}{RenderCommand}}*\ pcLHS,}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_render_command}{RenderCommand}}*\ pcRHS);}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ UsesSameMesh(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_render_command}{RenderCommand}}*\ pcLHS,}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_render_command}{RenderCommand}}*\ pcRHS);}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ UsesSameModelMatrix(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_render_command}{RenderCommand}}*\ pcLHS,}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_render_command}{RenderCommand}}*\ pcRHS);}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ UsesSameViewMatrix(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_render_command}{RenderCommand}}*\ pcLHS,}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_render_command}{RenderCommand}}*\ pcRHS);}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ UsesSameProjectionMatrix(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_render_command}{RenderCommand}}*\ pcLHS,}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_render_command}{RenderCommand}}*\ pcRHS);}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{class_render_command}{RenderCommand}}(\mbox{\hyperlink{class_render_component}{RenderComponent}}*\ pRenderC);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ Enable(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ fEnables);}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ Execute();}
+\DoxyCodeLine{00042\ \};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{comment}{//\ idea\ to\ allow\ new\ arbitrary\ render\ commands\ to\ be\ defined}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

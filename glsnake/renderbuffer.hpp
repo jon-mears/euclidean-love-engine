@@ -5,8 +5,9 @@
 #include <GLFW/glfw3.h>
 
 #include "render-engine.hpp"
+#include "resource.hpp"
 
-class Renderbuffer {
+class Renderbuffer: public Resource {
 private:
 	GLuint mID{ 0 };
 public:

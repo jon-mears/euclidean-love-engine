@@ -1,0 +1,190 @@
+\doxysection{uniform-\/holder.hpp}
+\hypertarget{uniform-holder_8hpp_source}{}\label{uniform-holder_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ UNIFORM\_HOLDER\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ UNIFORM\_HOLDER\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <glm/glm.hpp>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}uniform.hpp"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_texture2_d}{Texture2D}};}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_uniform_holder}{UniformHolder}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keywordtype}{float}\ v0);}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keywordtype}{float}\ v0,\ \textcolor{keywordtype}{float}\ v1);}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keyword}{const}\ glm::vec2\&\ v);}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keywordtype}{float}\ v0,\ \textcolor{keywordtype}{float}\ v1,\ \textcolor{keywordtype}{float}\ v2);}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keyword}{const}\ glm::vec3\&\ v);}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keywordtype}{float}\ v0,\ \textcolor{keywordtype}{float}\ v1,\ \textcolor{keywordtype}{float}\ v2,\ \textcolor{keywordtype}{float}\ v3);}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keyword}{const}\ glm::vec4\&\ v);}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keywordtype}{int}\ v0);}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keywordtype}{int}\ v0,\ \textcolor{keywordtype}{int}\ v1);}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keyword}{const}\ glm::ivec2\&\ v);}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keywordtype}{int}\ v0,\ \textcolor{keywordtype}{int}\ v1,\ \textcolor{keywordtype}{int}\ v2);}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keyword}{const}\ glm::ivec3\&\ v);}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keywordtype}{int}\ v0,\ \textcolor{keywordtype}{int}\ v1,\ \textcolor{keywordtype}{int}\ v2,\ \textcolor{keywordtype}{int}\ v3);}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keyword}{const}\ glm::ivec4\&\ v);}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keyword}{const}\ glm::mat2\&\ matrix);}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keyword}{const}\ glm::mat3\&\ matrix);}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keyword}{const}\ glm::mat4\&\ matrix);}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\mbox{\hyperlink{class_texture2_d}{Texture2D}}*\ tex);}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_uniform_holder}{\string~UniformHolder}}()\ \{\ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Upload()\ =\ 0;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_uniform_holder}{UniformHolder}}*\ Create(\mbox{\hyperlink{class_uniform}{Uniform}}*\ pUniform);}
+\DoxyCodeLine{00035\ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_uniform1f_holder}{Uniform1fHolder}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_uniform_holder}{UniformHolder}}\ \{}
+\DoxyCodeLine{00038\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{float}\ mValue\{\ 0.0f\ \};}
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{class_uniform1f}{Uniform1f}}*\ \textcolor{keyword}{const}\ mcpUniform;}
+\DoxyCodeLine{00041\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{class_uniform1f_holder}{Uniform1fHolder}}(\mbox{\hyperlink{class_uniform1f}{Uniform1f}}*\ pUniform)\ :}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ mcpUniform\{\ pUniform\ \}\ \{\ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keywordtype}{float}\ v0)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Upload()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00047\ \};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_uniform2f_holder}{Uniform2fHolder}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_uniform_holder}{UniformHolder}}\ \{}
+\DoxyCodeLine{00050\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00051\ \ \ \ \ glm::vec2\ mValue\{\ 0.0f\ \};}
+\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{class_uniform2f}{Uniform2f}}*\ \textcolor{keyword}{const}\ mcpUniform;}
+\DoxyCodeLine{00053\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{class_uniform2f_holder}{Uniform2fHolder}}(\mbox{\hyperlink{class_uniform2f}{Uniform2f}}*\ pUniform)\ :}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ mcpUniform\{\ pUniform\ \}\ \{\ \}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keywordtype}{float}\ v0,\ \textcolor{keywordtype}{float}\ v1)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keyword}{const}\ glm::vec2\&\ v)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Upload()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00060\ \};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_uniform3f_holder}{Uniform3fHolder}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_uniform_holder}{UniformHolder}}\ \{}
+\DoxyCodeLine{00063\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00064\ \ \ \ \ glm::vec3\ mValue\{\ 0.0f\ \};}
+\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{class_uniform3f}{Uniform3f}}*\ \textcolor{keyword}{const}\ mcpUniform;}
+\DoxyCodeLine{00066\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{class_uniform3f_holder}{Uniform3fHolder}}(\mbox{\hyperlink{class_uniform3f}{Uniform3f}}*\ pUniform)\ :}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ mcpUniform\{\ pUniform\ \}\ \{\ \}}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keywordtype}{float}\ v0,\ \textcolor{keywordtype}{float}\ v1,\ \textcolor{keywordtype}{float}\ v2)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keyword}{const}\ glm::vec3\&\ v)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Upload()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00073\ \};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_uniform4f_holder}{Uniform4fHolder}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_uniform_holder}{UniformHolder}}\ \{}
+\DoxyCodeLine{00076\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00077\ \ \ \ \ glm::vec4\ mValue\{\ 0.0f\ \};}
+\DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{class_uniform4f}{Uniform4f}}*\ \textcolor{keyword}{const}\ mcpUniform;}
+\DoxyCodeLine{00079\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{class_uniform4f_holder}{Uniform4fHolder}}(\mbox{\hyperlink{class_uniform4f}{Uniform4f}}*\ pUniform)\ :}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ mcpUniform\{\ pUniform\ \}\ \{\ \}}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keywordtype}{float}\ v0,\ \textcolor{keywordtype}{float}\ v1,\ \textcolor{keywordtype}{float}\ v2,\ \textcolor{keywordtype}{float}\ v3)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keyword}{const}\ glm::vec4\&\ v)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Upload()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00086\ \};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_uniform1i_holder}{Uniform1iHolder}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_uniform_holder}{UniformHolder}}\ \{}
+\DoxyCodeLine{00089\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{int}\ mValue\{\ 0\ \};}
+\DoxyCodeLine{00091\ \ \ \ \ \mbox{\hyperlink{class_uniform1i}{Uniform1i}}*\ \textcolor{keyword}{const}\ mcpUniform;}
+\DoxyCodeLine{00092\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \mbox{\hyperlink{class_uniform1i_holder}{Uniform1iHolder}}(\mbox{\hyperlink{class_uniform1i}{Uniform1i}}*\ pUniform)\ :}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ mcpUniform\{\ pUniform\ \}\ \{\ \}}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keywordtype}{int}\ v0)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Upload()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00098\ \};}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_uniform2i_holder}{Uniform2iHolder}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_uniform_holder}{UniformHolder}}\ \{}
+\DoxyCodeLine{00101\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00102\ \ \ \ \ glm::ivec2\ mValue\{\ 0\ \};}
+\DoxyCodeLine{00103\ \ \ \ \ \mbox{\hyperlink{class_uniform2i}{Uniform2i}}*\ \textcolor{keyword}{const}\ mcpUniform;}
+\DoxyCodeLine{00104\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \mbox{\hyperlink{class_uniform2i_holder}{Uniform2iHolder}}(\mbox{\hyperlink{class_uniform2i}{Uniform2i}}*\ pUniform)\ :}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ mcpUniform\{\ pUniform\ \}\ \{\ \}}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keywordtype}{int}\ v0,\ \textcolor{keywordtype}{int}\ v1)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keyword}{const}\ glm::ivec2\&\ v)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Upload()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00111\ \};}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_uniform3i_holder}{Uniform3iHolder}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_uniform_holder}{UniformHolder}}\ \{}
+\DoxyCodeLine{00114\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00115\ \ \ \ \ glm::ivec3\ mValue\{\ 0\ \};}
+\DoxyCodeLine{00116\ \ \ \ \ \mbox{\hyperlink{class_uniform3i}{Uniform3i}}*\ \textcolor{keyword}{const}\ mcpUniform;}
+\DoxyCodeLine{00117\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \mbox{\hyperlink{class_uniform3i_holder}{Uniform3iHolder}}(\mbox{\hyperlink{class_uniform3i}{Uniform3i}}*\ pUniform)\ :}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ mcpUniform\{\ pUniform\ \}\ \{\ \}}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keywordtype}{int}\ v0,\ \textcolor{keywordtype}{int}\ v1,\ \textcolor{keywordtype}{int}\ v2)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keyword}{const}\ glm::ivec3\&\ v)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Upload()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00124\ \};}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_uniform4i_holder}{Uniform4iHolder}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_uniform_holder}{UniformHolder}}\ \{}
+\DoxyCodeLine{00127\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00128\ \ \ \ \ glm::ivec4\ mValue\{\ 0\ \};}
+\DoxyCodeLine{00129\ \ \ \ \ \mbox{\hyperlink{class_uniform4i}{Uniform4i}}*\ \textcolor{keyword}{const}\ mcpUniform;}
+\DoxyCodeLine{00130\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \mbox{\hyperlink{class_uniform4i_holder}{Uniform4iHolder}}(\mbox{\hyperlink{class_uniform4i}{Uniform4i}}*\ pUniform)\ :}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ mcpUniform\{\ pUniform\ \}\ \{\ \}}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keywordtype}{int}\ v0,\ \textcolor{keywordtype}{int}\ v1,\ \textcolor{keywordtype}{int}\ v2,\ \textcolor{keywordtype}{int}\ v3)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keyword}{const}\ glm::ivec4\&\ v)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Upload()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00137\ \};}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_uniform_mat2_holder}{UniformMat2Holder}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_uniform_holder}{UniformHolder}}\ \{}
+\DoxyCodeLine{00140\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00141\ \ \ \ \ glm::mat2\ mValue\{\ 0.0f\ \};}
+\DoxyCodeLine{00142\ \ \ \ \ \mbox{\hyperlink{class_uniform_mat2}{UniformMat2}}*\ \textcolor{keyword}{const}\ mcpUniform;}
+\DoxyCodeLine{00143\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \mbox{\hyperlink{class_uniform_mat2_holder}{UniformMat2Holder}}(\mbox{\hyperlink{class_uniform_mat2}{UniformMat2}}*\ pUniform)\ :}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ mcpUniform\{\ pUniform\ \}\ \{\ \}}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keyword}{const}\ glm::mat2\&\ matrix)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Upload()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00149\ \};}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_uniform_mat3_holder}{UniformMat3Holder}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_uniform_holder}{UniformHolder}}\ \{}
+\DoxyCodeLine{00152\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00153\ \ \ \ \ glm::mat3\ mValue\{\ 0.0f\ \};}
+\DoxyCodeLine{00154\ \ \ \ \ \mbox{\hyperlink{class_uniform_mat3}{UniformMat3}}*\ \textcolor{keyword}{const}\ mcpUniform;}
+\DoxyCodeLine{00155\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \mbox{\hyperlink{class_uniform_mat3_holder}{UniformMat3Holder}}(\mbox{\hyperlink{class_uniform_mat3}{UniformMat3}}*\ pUniform)\ :}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ mcpUniform\{\ pUniform\ \}\ \{\ \}}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keyword}{const}\ glm::mat3\&\ matrix)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Upload()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00161\ \};}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_uniform_mat4_holder}{UniformMat4Holder}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_uniform_holder}{UniformHolder}}\ \{}
+\DoxyCodeLine{00164\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00165\ \ \ \ \ glm::mat4\ mValue\{\ 0.0f\ \};}
+\DoxyCodeLine{00166\ \ \ \ \ \mbox{\hyperlink{class_uniform_mat4}{UniformMat4}}*\ \textcolor{keyword}{const}\ mcpUniform;}
+\DoxyCodeLine{00167\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \mbox{\hyperlink{class_uniform_mat4_holder}{UniformMat4Holder}}(\mbox{\hyperlink{class_uniform_mat4}{UniformMat4}}*\ pUniform)\ :}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ mcpUniform\{\ pUniform\ \}\ \{\ \}}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\textcolor{keyword}{const}\ glm::mat4\&\ matrix)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Upload()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00173\ \};}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_uniform_texture2_d_holder}{UniformTexture2DHolder}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_uniform_holder}{UniformHolder}}\ \{}
+\DoxyCodeLine{00176\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00177\ \ \ \ \ \mbox{\hyperlink{class_texture2_d}{Texture2D}}*\ mpValue\{\ \textcolor{keyword}{nullptr}\ \};}
+\DoxyCodeLine{00178\ \ \ \ \ \mbox{\hyperlink{class_uniform_texture2_d}{UniformTexture2D}}*\ \textcolor{keyword}{const}\ mcpUniform;}
+\DoxyCodeLine{00179\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00180\ \ \ \ \ \mbox{\hyperlink{class_uniform_texture2_d_holder}{UniformTexture2DHolder}}(\mbox{\hyperlink{class_uniform_texture2_d}{UniformTexture2D}}*\ pUniform)\ :}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ mcpUniform\{\ pUniform\ \}\ \{\ \}}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Set(\mbox{\hyperlink{class_texture2_d}{Texture2D}}*\ pTexture)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Upload()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00184\ \};}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

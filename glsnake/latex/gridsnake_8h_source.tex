@@ -1,0 +1,41 @@
+\doxysection{gridsnake.\+h}
+\hypertarget{gridsnake_8h_source}{}\label{gridsnake_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ GRIDSNAKE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ GRIDSNAKE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_grid_snake}{GridSnake}}\ \{}
+\DoxyCodeLine{00009\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keyword}{enum\ class}\ Direction\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ NORTH,}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ EAST,}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ SOUTH,}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ WEST}
+\DoxyCodeLine{00015\ \ \ \ \ \};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ std::pair<int,\ int>\ head;}
+\DoxyCodeLine{00018\ \ \ \ \ std::pair<int,\ int>\ tail;}
+\DoxyCodeLine{00019\ \ \ \ \ std::pair<int,\ int>\ new\_tail\_loc;}
+\DoxyCodeLine{00020\ \ \ \ \ }
+\DoxyCodeLine{00021\ \ \ \ \ std::vector<std::pair<int,\ int>>\ add;}
+\DoxyCodeLine{00022\ \ \ \ \ std::vector<std::pair<int,\ int>>\ remove;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ Direction\ head\_dir;}
+\DoxyCodeLine{00025\ \ \ \ \ Direction\ tail\_dir;}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{int}\ length;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ std::queue<Direction>\ dirs;}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ grow();}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{class_grid_snake}{GridSnake}}(\textcolor{keywordtype}{int}\ row,\ \textcolor{keywordtype}{int}\ col,\ \textcolor{keywordtype}{int}\ length\ =\ 1);}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ update();}
+\DoxyCodeLine{00035\ \};}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

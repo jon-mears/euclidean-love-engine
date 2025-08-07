@@ -1,0 +1,52 @@
+\doxysection{xml-\/parser.hpp}
+\hypertarget{xml-parser_8hpp_source}{}\label{xml-parser_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ XML\_PARSER\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ XML\_PARSER\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <stack>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{enum\ class}\ StateAction;}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_tree}{XMLTree}};}
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_state}{XMLState}};}
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_node}{XMLNode}};}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{typedef}\ std::pair<StateAction,\ XMLState*>\ StateCommand;}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ this\ can\ be\ easily\ generalized\ to\ an\ abstract\ pushdown\ automaton}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ text\ parser}}
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{class_x_m_l_tree}{XMLTree}}*\ mpTree;}
+\DoxyCodeLine{00022\ \ \ \ \ std::stack<XMLNode*>\ mNodes;}
+\DoxyCodeLine{00023\ \ \ \ \ std::stack<XMLState*>\ mStates;}
+\DoxyCodeLine{00024\ \ \ \ \ std::ifstream\ mFile;}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{char}\ mChar;}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ HandleEnter(\mbox{\hyperlink{class_x_m_l_state}{XMLState}}*\ pState);}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ HandleExit(\mbox{\hyperlink{class_x_m_l_state}{XMLState}}*\ pState);}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ ProcessCommand(\textcolor{keyword}{const}\ StateCommand\ \&rcCommand);}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ AddNode(\mbox{\hyperlink{class_x_m_l_node}{XMLNode}}*\ pNode);}
+\DoxyCodeLine{00031\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}();}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{class_x_m_l_tree}{XMLTree}}\ *Parse(\textcolor{keyword}{const}\ std::string\ \&rcFilename);}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ Reset();}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_begin}{XMLBegin}};}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_tag}{XMLTag}};}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_begin_tagname}{XMLBeginTagname}};}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_attrib_name}{XMLAttribName}};}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_attrib_value}{XMLAttribValue}};}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_content}{XMLContent}};}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_whitespace}{XMLWhitespace}};}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_tag_closer}{XMLTagCloser}};}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_attrib_name_closer}{XMLAttribNameCloser}};}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_end_tagname}{XMLEndTagname}};}
+\DoxyCodeLine{00046\ \};}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

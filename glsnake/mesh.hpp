@@ -21,7 +21,7 @@ namespace Vertex {
 }
 
 
-class Mesh {
+class Mesh : public Resource {
 private:
 	GLuint mVAO;
 
@@ -39,7 +39,7 @@ public:
 	void VertexAttrib(Vertex::Attribute eAttrib, VertexData vdata);
 	void Compile();
 	void Enable();
-	int GetNumVertices();
+	int NumVertices();
 	VertexData GetAttrib(Vertex::Attribute eAttrib);
 
 	Mesh();

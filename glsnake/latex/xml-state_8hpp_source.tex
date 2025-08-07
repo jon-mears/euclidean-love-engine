@@ -1,0 +1,117 @@
+\doxysection{xml-\/state.hpp}
+\hypertarget{xml-state_8hpp_source}{}\label{xml-state_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ XML\_STATE\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ XML\_STATE\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}};}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{enum\ class}\ StateAction\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ PUSH,}
+\DoxyCodeLine{00011\ \ \ \ \ POP,}
+\DoxyCodeLine{00012\ \ \ \ \ REPLACE,}
+\DoxyCodeLine{00013\ \ \ \ \ NIL}
+\DoxyCodeLine{00014\ \};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_state}{XMLState}};}
+\DoxyCodeLine{00017\ \textcolor{keyword}{typedef}\ std::pair<StateAction,\ XMLState*>\ StateCommand;}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_state}{XMLState}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_x_m_l_state}{\string~XMLState}}();}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Enter(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser);}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Process(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser)\ =\ 0;}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Exit(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser);}
+\DoxyCodeLine{00025\ \};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_begin}{XMLBegin}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_x_m_l_state}{XMLState}}\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Enter(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Process(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Exit(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_tag}{XMLTag}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_x_m_l_state}{XMLState}}\ \{}
+\DoxyCodeLine{00035\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Enter(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Process(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00038\ \};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_begin_tagname}{XMLBeginTagname}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_x_m_l_state}{XMLState}}\ \{}
+\DoxyCodeLine{00041\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{char}\ mTagname[256];}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ mIndex;}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Process(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Exit(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00048\ \};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_tag_closer}{XMLTagCloser}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_x_m_l_state}{XMLState}}\ \{}
+\DoxyCodeLine{00051\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Enter(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Process(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00054\ \};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_attrib_name}{XMLAttribName}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_x_m_l_state}{XMLState}}\ \{}
+\DoxyCodeLine{00057\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{char}\ mAttribName[256];}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ mIndex;}
+\DoxyCodeLine{00060\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Enter(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Process(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00063\ \};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_attrib_name_closer}{XMLAttribNameCloser}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_x_m_l_state}{XMLState}}\ \{}
+\DoxyCodeLine{00066\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ mAttribName;}
+\DoxyCodeLine{00068\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{class_x_m_l_attrib_name_closer}{XMLAttribNameCloser}}(\textcolor{keywordtype}{char}\ *pAttribName);\ }
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Process(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00072\ \};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_attrib_value}{XMLAttribValue}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_x_m_l_state}{XMLState}}\ \{}
+\DoxyCodeLine{00075\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ mAttribName;}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{char}\ mAttribValue[256];}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ mIndex;}
+\DoxyCodeLine{00079\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00080\ \ \ \ \ \mbox{\hyperlink{class_x_m_l_attrib_value}{XMLAttribValue}}(\textcolor{keywordtype}{char}*\ pAttribName);}
+\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{class_x_m_l_attrib_value}{XMLAttribValue}}(\textcolor{keyword}{const}\ std::string\&\ rcAttribName);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Enter(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Process(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Exit(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00086\ \};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_content}{XMLContent}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_x_m_l_state}{XMLState}}\ \{}
+\DoxyCodeLine{00089\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{char}\ mContent[1024];}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ mIndex;}
+\DoxyCodeLine{00092\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Process(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Exit(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00095\ \};}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_end_tagname}{XMLEndTagname}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_x_m_l_state}{XMLState}}\ \{}
+\DoxyCodeLine{00098\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{char}\ mTagname[512];}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ mIndex;}
+\DoxyCodeLine{00101\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Enter(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Process(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Exit(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00105\ \};}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_x_m_l_whitespace}{XMLWhitespace}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_x_m_l_state}{XMLState}}\ \{}
+\DoxyCodeLine{00108\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keyword}{virtual}\ StateCommand\ Process(\mbox{\hyperlink{class_x_m_l_parser}{XMLParser}}\&\ rParser)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00110\ \};}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

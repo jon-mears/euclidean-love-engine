@@ -3,6 +3,7 @@
 
 #include "camera-component.hpp"
 #include "framebuffer.hpp"
+#include "material.hpp"
 #include "mesh.hpp"
 #include "projection.hpp"
 #include "render-command.hpp"
@@ -16,7 +17,11 @@ RenderCommand::RenderCommand(RenderComponent* pRenderC) : mpRenderC{ pRenderC } 
 	mfEnables |= SHADER;
 	mfEnables |= MESH;
 	mfEnables |= MODEL_MATRIX;
-	mfEnables |= VIEW_MATRIX;
+
+	if (mpRenderC->RenderMode() != RenderMode::UI) {
+		mfEnables |= VIEW_MATRIX;
+	}
+
 	mfEnables |= PROJECTION_MATRIX;
 }
 
@@ -26,35 +31,38 @@ void RenderCommand::Execute() {
 	//}
 
 	if (mfEnables & SHADER) {
-		mpRenderC->GetMaterial()->Enable();
+		mpRenderC->Material()->Enable();
 	}
 
 	if (mfEnables & MESH) {
-		mpRenderC->GetMesh()->Enable();
+		mpRenderC->Mesh()->Enable();
 	}
 
 	// set individual matrices
 
 	if (mfEnables & MODEL_MATRIX) {
-		TransformComponent* pTransformC = mpRenderC->GetComponent<TransformComponent>();
+		TransformComponent* pTransformC = mpRenderC->Get<TransformComponent>();
 		RenderEngine::Instance().mMMatrix = pTransformC->ModelMatrix();
 	}
 
 	if (mfEnables & VIEW_MATRIX) {
-		CameraComponent* pCameraC = mpRenderC->GetCamera();
+		CameraComponent* pCameraC = mpRenderC->Camera();
 		RenderEngine::Instance().mVMatrix = pCameraC->ViewMatrix();
+	}
+	else {
+		RenderEngine::Instance().mVMatrix = glm::mat4{ 1 };
 	}
 
 	// set individual matrices & cache
 
 	if (mfEnables & PROJECTION_MATRIX) {
-		Projection* pProjection = mpRenderC->GetProjection();
+		Projection* pProjection = mpRenderC->Projection();
 		RenderEngine::Instance().mPMatrix = pProjection->ProjectionMatrix();
 		RenderEngine::Instance().mVPMatrix = RenderEngine::Instance().mPMatrix *
 			RenderEngine::Instance().mVMatrix; 
 		RenderEngine::Instance().mMVPMatrix = RenderEngine::Instance().mVPMatrix * RenderEngine::Instance().mMMatrix;
 
-		mpRenderC->GetMaterial()->SetUniform(Uniform::MVP_MATRIX,
+		mpRenderC->Material()->SetUniform(Uniform::MVP_MATRIX,
 			RenderEngine::Instance().mMVPMatrix);
 	}
 
@@ -65,7 +73,7 @@ void RenderCommand::Execute() {
 			RenderEngine::Instance().mVMatrix;
 		RenderEngine::Instance().mMVPMatrix = RenderEngine::Instance().mVPMatrix * RenderEngine::Instance().mMMatrix;
 
-		mpRenderC->GetMaterial()->SetUniform(Uniform::MVP_MATRIX,
+		mpRenderC->Material()->SetUniform(Uniform::MVP_MATRIX,
 			RenderEngine::Instance().mMVPMatrix);
 	}
 
@@ -74,7 +82,7 @@ void RenderCommand::Execute() {
 		RenderEngine::Instance().mMVPMatrix = RenderEngine::Instance().mVPMatrix *
 			RenderEngine::Instance().mMMatrix;
 
-		mpRenderC->GetMaterial()->SetUniform(Uniform::MVP_MATRIX,
+		mpRenderC->Material()->SetUniform(Uniform::MVP_MATRIX,
 			RenderEngine::Instance().mMVPMatrix);
 	}
 
@@ -90,37 +98,37 @@ void RenderCommand::Execute() {
 		glEnable(GL_DEPTH_TEST);
 	}
 
-	mpRenderC->GetMaterial()->UploadUniforms();
+	mpRenderC->Material()->UploadUniforms();
 
-	glDrawArrays(mpRenderC->GetRenderMode(), 0, 
-		mpRenderC->GetNumVertices());
+	glDrawArrays(mpRenderC->PrimitiveType(), 0, 
+		mpRenderC->Mesh()->NumVertices());
 }
 
 // static 
 bool RenderCommand::UsesSameFramebuffer(const RenderCommand* pcLHS, const RenderCommand*
 	pcRHS) {
-	return (*pcLHS->mpRenderC->GetFramebuffer()) == (*pcRHS->mpRenderC->GetFramebuffer());
+	return (*pcLHS->mpRenderC->Camera()->Framebuffer()) == (*pcRHS->mpRenderC->Camera()->Framebuffer());
 }
 
 bool RenderCommand::UsesSameShader(const RenderCommand* pcLHS, const RenderCommand*
 	pcRHS) {
-	return (*pcLHS->mpRenderC->GetShader()) == (*pcRHS->mpRenderC->GetShader());
+	return (*pcLHS->mpRenderC->Material()->Shader()) == (*pcRHS->mpRenderC->Material()->Shader());
 }
 
 bool RenderCommand::UsesSameMesh(const RenderCommand* pcLHS, const RenderCommand*
 	pcRHS) {
-	return (*pcLHS->mpRenderC->GetMesh()) == (*pcRHS->mpRenderC->GetMesh());
+	return (*pcLHS->mpRenderC->Mesh()) == (*pcRHS->mpRenderC->Mesh());
 }
 
 bool RenderCommand::UsesSameModelMatrix(const RenderCommand* pcLHS, const RenderCommand*
 	pcRHS) {
-	return pcLHS->mpRenderC->GetComponent<TransformComponent>() == pcRHS->mpRenderC->
-		GetComponent<TransformComponent>();
+	return pcLHS->mpRenderC->Get<TransformComponent>() == pcRHS->mpRenderC->
+		Get<TransformComponent>();
 }
 
 bool RenderCommand::UsesSameViewMatrix(const RenderCommand* pcLHS, const RenderCommand*
 	pcRHS) {
-	return pcLHS->mpRenderC->GetCamera() == pcRHS->mpRenderC->GetCamera();
+	return pcLHS->mpRenderC->Camera() == pcRHS->mpRenderC->Camera();
 }
 
 // should perhaps change to a deeper comparison,
@@ -129,7 +137,7 @@ bool RenderCommand::UsesSameViewMatrix(const RenderCommand* pcLHS, const RenderC
 
 bool RenderCommand::UsesSameProjectionMatrix(const RenderCommand* pcLHS, const RenderCommand*
 	pcRHS) {
-	return pcLHS->mpRenderC->GetProjection() == pcRHS->mpRenderC->GetProjection();
+	return pcLHS->mpRenderC->Projection() == pcRHS->mpRenderC->Projection();
 }
 
 void RenderCommand::Enable(unsigned short fEnables) {

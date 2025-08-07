@@ -1,4 +1,5 @@
 #include "render-command.hpp"
+#include "render-component.hpp"
 #include "render-engine.hpp"
 #include "resource-manager.hpp"
 #include "targeted-camera-component.hpp"
@@ -9,6 +10,8 @@
 
 #include "camera-component.hpp"
 #include "primitives.hpp"
+#include "check-error.hpp"
+#include "layer.hpp"
 
 #include <vector>
 #include <iostream>
@@ -23,21 +26,36 @@
 namespace FramebufferCallback {
 #ifdef _glfw3_h_
 	void FramebufferSizeCallback(GLFWwindow* window, int width, int height) {
-		//RenderEngine::Instance().SetWindowWidth(width);
-		//RenderEngine::Instance().SetWindowHeight(height);
+		RenderEngine::Instance().SetWindowWidth(width);
+		RenderEngine::Instance().SetWindowHeight(height);
 		glViewport(0, 0, width, height);
 	}
 #endif
 }
 
-RenderEngine::RenderEngine() : mfClearFlags{ 0 }, mWindowWidth{ 0 }, mWindowHeight{ 0 }, mpcWindowName{ nullptr } { }
+RenderEngine::RenderEngine() : mfClearFlags{ 0 }, mfTestFlags{ 0 }, mWindowWidth{ 0 }, mWindowHeight{ 0 }, mpcWindowName{ nullptr }, mpWindow{ nullptr } { }
 
 void RenderEngine::Draw() {
 
 	ClearBuffers();
 
 	 for (RenderCommand* pRenderCommand : mRenderCommands) {
+		 if (pRenderCommand->mpRenderC->Layer() == Layer::BOTTOM)
 			pRenderCommand->Execute();
+	 }
+
+	 glClear(GL_DEPTH_BUFFER_BIT);
+
+	 for (RenderCommand* pRenderCommand : mRenderCommands) {
+		 if (pRenderCommand->mpRenderC->Layer() == Layer::MAIN)
+			 pRenderCommand->Execute();
+	 }
+
+	 glClear(GL_DEPTH_BUFFER_BIT);
+
+	 for (RenderCommand* pRenderCommand : mRenderCommands) {
+		 if (pRenderCommand->mpRenderC->Layer() == Layer::TOP)
+			 pRenderCommand->Execute();
 	 }
 
 	//CameraComponent* pCamera = nullptr;
@@ -194,9 +212,13 @@ void RenderEngine::ClearBuffers() {
 void RenderEngine::Startup() {
 #ifdef _glfw3_h_
 	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+#ifdef GDEBUG
+	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
+#endif // GDEBUG
 
 	mpWindow = glfwCreateWindow(mWindowWidth, mWindowHeight, mpcWindowName, nullptr, nullptr);
 
@@ -215,7 +237,17 @@ void RenderEngine::Startup() {
 
 	glViewport(0, 0, mWindowWidth, mWindowHeight);
 
-#endif
+	int flags;
+	glGetIntegerv(GL_CONTEXT_FLAGS, &flags);
+
+	if (flags & GL_CONTEXT_FLAG_DEBUG_BIT) {
+		glEnable(GL_DEBUG_OUTPUT);
+		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+		glDebugMessageCallback(glDebugOutput, nullptr);
+		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
+	}
+
+#endif // GLFW
 }
 
 RenderEngine& RenderEngine::Instance() {

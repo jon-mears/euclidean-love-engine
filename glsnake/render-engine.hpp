@@ -7,6 +7,8 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
+#include "camera-component.hpp"
+
 class RenderCommand;
 
 namespace Render {
@@ -41,6 +43,7 @@ private:
 	glm::mat4 mPMatrix{ 1 };
 
 	std::vector<RenderCommand*> mRenderCommands{};
+	std::vector<CameraComponent*> mCameras{};
 
 #ifdef _glfw3_h_
 	GLFWwindow* mpWindow;
@@ -57,7 +60,6 @@ private:
 
 	void Startup();
 	void ClearBuffers();
-
 
 	inline void WindowInfo(int width, int height, const char* pcName) {
 		mWindowWidth = width;
@@ -84,6 +86,14 @@ public:
 
 	inline int WindowHeight() {
 		return mWindowHeight;
+	}
+
+	inline void SetWindowWidth(int window_width) {
+		mWindowWidth = window_width;
+	}
+
+	inline void SetWindowHeight(int window_height) {
+		mWindowHeight = window_height;
 	}
 
 	inline void InitTests(unsigned short fTestFlags) {
@@ -118,6 +128,18 @@ public:
 #ifdef _glfw3_h_
 		glfwSwapBuffers(mpWindow);
 #endif
+	}
+
+	inline std::vector<CameraComponent*>::iterator CameraBegin() {
+		return mCameras.begin();
+	}
+
+	inline std::vector<CameraComponent*>::iterator CameraEnd() {
+		return mCameras.end();
+	}
+
+	inline void AddCamera(CameraComponent* pCamera) {
+		mCameras.push_back(pCamera);
 	}
 	
 	static RenderEngine& Instance();

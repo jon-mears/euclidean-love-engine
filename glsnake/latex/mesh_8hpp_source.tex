@@ -1,0 +1,61 @@
+\doxysection{mesh.\+hpp}
+\hypertarget{mesh_8hpp_source}{}\label{mesh_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ MESH\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ MESH\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <glad/glad.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <GLFW/glfw3.h>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}vertex-\/data.hpp"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}resource.hpp"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }Vertex\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{enum}\ Attribute\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ NONE\ =\ 0x0001,}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ POSITION\ =\ 0x0002,}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ VERTEX\_COLOR\ =\ 0x0004,}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ TEXTURE\_COORD\ =\ 0x0008}
+\DoxyCodeLine{00020\ \ \ \ \ \};}
+\DoxyCodeLine{00021\ \}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_mesh}{Mesh}}\ \{}
+\DoxyCodeLine{00025\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00026\ \ \ \ \ GLuint\ mVAO;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ std::map<int,\ VertexData>\ mAttribLoc2VData;\ \textcolor{comment}{//\ attribute\ loc\ to\ data}}
+\DoxyCodeLine{00029\ \ \ \ \ std::map<Vertex::Attribute,\ VertexData>\ mAttribType2VData;\ \textcolor{comment}{//\ attribute\ type\ to\ data}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ std::vector<float>\ CollectData();}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{int}\ mNumVertices\{\ -\/1\ \};}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{int}\ mPositionAttrib\{\ -\/1\ \};}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{int}\ mVertexColorAttrib\{\ -\/1\ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ VertexAttrib(\textcolor{keywordtype}{int}\ attrib\_loc,\ \mbox{\hyperlink{class_vertex_data}{VertexData}}\ vdata,\ Vertex::Attribute\ eAttrib=Vertex::NONE);}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ VertexAttrib(Vertex::Attribute\ eAttrib,\ \mbox{\hyperlink{class_vertex_data}{VertexData}}\ vdata);}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ Compile();}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ Enable();}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{int}\ GetNumVertices();}
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{class_vertex_data}{VertexData}}\ GetAttrib(Vertex::Attribute\ eAttrib);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{class_mesh}{Mesh}}();}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{class_mesh}{\string~Mesh}}()\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ glDeleteVertexArrays(1,\ \&mVAO);}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_mesh}{Mesh}}\&\ rcRHS)\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mVAO\ ==\ rcRHS.mVAO;}
+\DoxyCodeLine{00053\ \ \ \ \ \}}
+\DoxyCodeLine{00054\ \};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

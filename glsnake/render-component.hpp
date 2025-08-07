@@ -6,84 +6,58 @@
 
 #include "camera-component.hpp"
 #include "component.hpp"
+#include "game-object.hpp"
+#include "layer.hpp"
 #include "material.hpp"
 #include "mesh.hpp"
-
-class CameraComponent;
-class GameObject;
-class Projection;
+#include "projection.hpp"
+#include "render-mode.hpp"
 
 class RenderComponent : public Component {
-private:
-    Material* mpMaterial{ nullptr };
-    Mesh* mpMesh{ nullptr };
-    CameraComponent* mpCameraC{ nullptr };
-    Projection* mpProjection{ nullptr };
-    GLenum meRenderMode{ GL_TRIANGLES };
-
 public:
+    RenderComponent(GameObject* GO);
+
     virtual void Start() override;
     virtual void Update() override;
     virtual void ConstUpdate() const override;
 
-    inline void SetMaterial(Material* pMaterial) {
-        mpMaterial = pMaterial;
-    }
+    virtual char const* Name() const override;
 
-    inline Material* GetMaterial() {
-        return mpMaterial;
-    }
+    ::Material* Material() const noexcept;
 
-    inline void SetMesh(Mesh* pMesh) {
-        mpMesh = pMesh;
-    }
+    void SetMaterial(::Material* material) noexcept;
 
-    inline Mesh* GetMesh() {
-        return mpMesh;
-    }
+    ::Mesh* Mesh() const noexcept;
 
-    inline void SetRenderMode(GLenum eRenderMode) {
-        meRenderMode = eRenderMode;
-    }
+    void SetMesh(::Mesh* mesh) noexcept;
 
-    inline GLenum GetRenderMode() {
-        return meRenderMode;
-    }
+    GLenum PrimitiveType() const noexcept;
 
-    inline int GetNumVertices() {
-        if (mpMesh != nullptr) {
-            return mpMesh->GetNumVertices();
-        }
+    void SetPrimitiveType(GLenum primitive_type) noexcept;
 
-        else {
-            return 0;
-        }
-    }
+    ::RenderMode RenderMode() const noexcept;
 
-    inline void SetCamera(CameraComponent* pCameraC) {
-        mpCameraC = pCameraC;
-    }
+    void SetRenderMode(::RenderMode render_mode) noexcept;
 
-    inline CameraComponent* GetCamera() {
-        return mpCameraC;
-    }
+    CameraComponent* Camera() const noexcept;
 
-    inline Framebuffer* GetFramebuffer() {
-        return mpCameraC->GetFramebuffer();
-    }
+    void SetCamera(CameraComponent* camera) noexcept;
 
-    inline Shader* GetShader() {
-        return mpMaterial->GetShader();
-    }
+    ::Projection* Projection() const noexcept;
 
-    inline void SetProjection(Projection* pProjection) {
-        mpProjection = pProjection;
-    }
+    void SetProjection(::Projection* projection) noexcept;
 
-    inline Projection* GetProjection() {
-        return mpProjection;
-    }
+    ::Layer Layer() const noexcept;
 
-    RenderComponent(GameObject* pGO);
+    void SetLayer(::Layer layer) noexcept;
+
+private:
+    ::Material* mpMaterial;
+    ::Mesh* mpMesh;
+    CameraComponent* mpCameraC;
+    ::Projection* mpProjection;
+    GLenum mPrimitiveType;
+    ::RenderMode mRenderMode;
+    ::Layer mLayer;
 };
 #endif

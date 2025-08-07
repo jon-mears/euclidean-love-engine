@@ -1,11 +1,12 @@
 #include "game-object.hpp"
+#include "gizmo.hpp"
 #include "component.hpp"
 #include "app.hpp"
 
 #include <string>
 #include <vector>
 
-GameObject::GameObject() : mOwnedComponents{}, mSharedComponents{}, mAllComponents{} { }
+GameObject::GameObject() : Resource{}, mOwnedComponents {}, mSharedComponents{}, mAllComponents{} { }
 
 void GameObject::Update() {
 	for (Component* pComponent : mOwnedComponents) {
@@ -17,7 +18,9 @@ void GameObject::Update() {
 
 void GameObject::ConstUpdate() const {
 	for (Component* pComponent : mOwnedComponents) {
-		pComponent->ConstUpdate();
+		if (pComponent->IsActive()) {
+			pComponent->ConstUpdate();
+		}
 	}
 }
 
@@ -28,8 +31,13 @@ void GameObject::Start() {
 }
 
 void GameObject::ShareAllFrom(GameObject* pGO) {
-	for (std::vector<Component*>::iterator it = Begin<Component>(); it != End<Component>(); ++it) {
+	for (std::vector<Component*>::iterator it = pGO->Begin<Component>(); it != pGO->End<Component>(); ++it) {
 		mSharedComponents.push_back(*it);
 		mAllComponents.push_back(*it);
 	}
 }
+
+//template<>
+//NoGizmo* GameObject::Add<NoGizmo>() {
+//	return nullptr;
+//}

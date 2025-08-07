@@ -2,7 +2,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-Renderbuffer::Renderbuffer() {
+Renderbuffer::Renderbuffer() : Resource{} {
 	glGenRenderbuffers(1, &mID);
 }
 

@@ -37,5 +37,9 @@ public:
 	void SetUniform(const std::string& name, Texture2D* value);
 	void SetUniform(const std::string& name, const glm::vec4& value);
 	void UploadUniforms();
+
+	inline const char* Name() const {
+		return "Shader";
+	}
 };
 #endif

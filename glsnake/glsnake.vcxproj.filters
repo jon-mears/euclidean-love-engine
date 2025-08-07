@@ -30,30 +30,51 @@
     <Filter Include="Header Files\Windows">
       <UniqueIdentifier>{4fe45326-ab24-41d8-9ca0-6c3d0312f4f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\UI %28ImGui%29 Windows">
+      <UniqueIdentifier>{dcf4ca13-74fb-4c48-ae08-f97feebdf889}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI %28ImGui%29 Windows">
+      <UniqueIdentifier>{10ae7c72-bee8-479b-87ff-1d77f0617725}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Resources">
+      <UniqueIdentifier>{e17fa4d2-70a6-4095-99d2-eb8172c186c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Resources">
+      <UniqueIdentifier>{6bc9b26d-91d8-4a53-bd46-ea3c587b3d59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Systems">
+      <UniqueIdentifier>{94ff8a57-f1c9-49b2-aa9e-136727e2cd7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Systems">
+      <UniqueIdentifier>{1b14a630-9a4e-4fa6-b6df-182db30505d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components\Interfaces">
+      <UniqueIdentifier>{3ccde157-dd78-4d17-9667-0f2fbed5eb0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\Interfaces">
+      <UniqueIdentifier>{783273a2-dcce-4c48-a1f9-d5e7bb1b6c4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components\Gizmos">
+      <UniqueIdentifier>{b90ed381-b7a7-47da-866f-e2d7a4d69be4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\Gizmos">
+      <UniqueIdentifier>{873b8f63-44f2-4a69-a54d-72d1615cade8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SceneObjects">
+      <UniqueIdentifier>{92a3d0f0-4382-4f8a-85f4-4a3b6520227a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SceneObjects">
+      <UniqueIdentifier>{c7335aec-45f7-4662-84fd-5cb75fa96963}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\Code\glad\glad.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="app.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="shader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="mesh.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="vertex-data.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game-object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="factories.cpp">
@@ -77,9 +98,6 @@
     <ClCompile Include="stb.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="resource-manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="xml-node.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -90,9 +108,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="xml-state.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="resource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\imgui\imgui\imgui.cpp">
@@ -116,43 +131,13 @@
     <ClCompile Include="..\..\..\..\..\..\imgui\imgui\backends\imgui_impl_glfw.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="ui-window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="object-editor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="hierarchy-view.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="editor-manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="input-manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="key-mouse-input-service.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="camera-control-component.cpp">
-      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="camera-component.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="component.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="mesh-component.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="orthographic-component.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="perspective-component.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="projection-component.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="shader-component.cpp">
@@ -161,25 +146,10 @@
     <ClCompile Include="transform-component.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="targeted_camera-component .cpp">
+    <ClCompile Include="targeted-camera-component .cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="render-engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="math-3d.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="framebuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="image.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="renderbuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="selector-component.cpp">
@@ -206,21 +176,90 @@
     <ClCompile Include="projection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="uniform-holder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="eucmesh-scanner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="free-camera-component.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="check-error.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\Code\glad\glad-4-6\src\glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="color.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="transform-2d-component.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="hierarchy-view.cpp">
+      <Filter>Source Files\UI %28ImGui%29 Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="ui-window.cpp">
+      <Filter>Source Files\UI %28ImGui%29 Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="object-editor.cpp">
+      <Filter>Source Files\UI %28ImGui%29 Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="resource-browser.cpp">
+      <Filter>Source Files\UI %28ImGui%29 Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="image.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="renderbuffer.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="framebuffer.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="resource.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="shader.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="texture.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="app.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="input-manager.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="render-engine.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="resource-manager.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="editor-manager.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="interface.cpp">
+      <Filter>Source Files\Components\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="transform-gizmo.cpp">
+      <Filter>Source Files\Components\Gizmos</Filter>
+    </ClCompile>
+    <ClCompile Include="game-object.cpp">
+      <Filter>Source Files\SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="ui-rectangle.cpp">
+      <Filter>Source Files\SceneObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="app.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game-object.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="shader.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="uniform.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="mesh.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="factories.hpp">
@@ -241,9 +280,6 @@
     <ClInclude Include="..\..\..\..\..\..\Code\stb\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource-manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="xml-parser.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -254,9 +290,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="xml-state.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\..\imgui\imgui\imconfig.h">
@@ -280,21 +313,6 @@
     <ClInclude Include="imgui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ui-window.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="object-editor.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="hierarchy-view.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="editor-manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="input-manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="input-service.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -302,21 +320,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="camera-component.hpp">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="camera-control-component.hpp">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="mesh-component.hpp">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="orthographic-component.hpp">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="perspective-component.hpp">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="projection-component.hpp">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="shader-component.hpp">
@@ -330,21 +333,6 @@
     </ClInclude>
     <ClInclude Include="targeted-camera-component.hpp">
       <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="render-engine.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="framebuffer.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="texture.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="image.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="renderbuffer.hpp">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="selector-component.hpp">
       <Filter>Header Files\Components</Filter>
@@ -376,12 +364,117 @@
     <ClInclude Include="projection.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="uniform-holder.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="eucmesh-scanner.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="free-camera-component.hpp">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="check-error.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="layer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="color.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="transform-2d-component.hpp">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="camera-tag.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="render-mode.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ui-window.hpp">
+      <Filter>Header Files\UI %28ImGui%29 Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="hierarchy-view.hpp">
+      <Filter>Header Files\UI %28ImGui%29 Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="object-editor.hpp">
+      <Filter>Header Files\UI %28ImGui%29 Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="resource-browser.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="subject.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="observer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.hpp">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="framebuffer.hpp">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="image.hpp">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh.hpp">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.hpp">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="renderbuffer.hpp">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="app.hpp">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="editor-manager.hpp">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="input-manager.hpp">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="render-engine.hpp">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="shader.hpp">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="resource-manager.hpp">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="interface.hpp">
+      <Filter>Header Files\Components\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="transform-interface.hpp">
+      <Filter>Header Files\Components\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="gizmo.hpp">
+      <Filter>Header Files\Components\Gizmos</Filter>
+    </ClInclude>
+    <ClInclude Include="transform-gizmo.hpp">
+      <Filter>Header Files\Components\Gizmos</Filter>
+    </ClInclude>
+    <ClInclude Include="game-object.hpp">
+      <Filter>Header Files\SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="ui-rectangle.hpp">
+      <Filter>Header Files\SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="line.hpp">
+      <Filter>Header Files\SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="space.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="scene.hpp">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="game-object.ipp">
       <Filter>Header Files</Filter>
     </None>
     <None Include="component.ipp">
@@ -389,6 +482,9 @@
     </None>
     <None Include="new-component.py">
       <Filter>Source Files\Scripts</Filter>
+    </None>
+    <None Include="game-object.ipp">
+      <Filter>Header Files\SceneObjects</Filter>
     </None>
   </ItemGroup>
 </Project>

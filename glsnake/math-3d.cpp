@@ -4,7 +4,17 @@
 
 namespace Math3D {
 	glm::vec3 SphericalCoordinates(const glm::vec3 center, const float latitude, const float longitude, const float radius) {
-		return glm::vec3{ radius * glm::sin(glm::radians(latitude)) * glm::cos(glm::radians(longitude)), radius * glm::sin(glm::radians(latitude)) * glm::sin(glm::radians(longitude)), radius * glm::cos(glm::radians(latitude)) };
+		return glm::vec3{ radius * glm::sin(glm::radians(longitude)) * glm::cos(glm::radians(latitude)), -radius * glm::sin(glm::radians(latitude)), radius * glm::cos(glm::radians(longitude)) * glm::cos(glm::radians(latitude)) } + center;
+	}
+
+	glm::vec3 SphericalCoordinatesDeg(const glm::vec3 center, const float latitude, const float longitude, const float radius) {
+		return SphericalCoordinates(center, latitude, longitude,
+			radius);
+	}
+
+	glm::vec3 SphericalCoordinatesRad(const glm::vec3 center,
+		const float latitude, const float longitude, const float radius) {
+		return SphericalCoordinates(center, glm::degrees(latitude), glm::degrees(longitude), radius);
 	}
 
 	glm::quat Quaternion(const float m00, const float m01, const float m02,

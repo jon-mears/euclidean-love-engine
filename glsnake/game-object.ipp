@@ -2,10 +2,12 @@
 #define GAME_OBJECT_IPP
 
 #include "game-object.hpp"
+#include "gizmo.hpp"
 
 #include <vector>
 
 #include <algorithm>
+#include <iostream>
 #include <typeinfo>
 
 class Component;
@@ -13,6 +15,12 @@ class Component;
 template <typename C>
 C* GameObject::Add() {
 	C* c = new C(this);
+
+//#if EDITOR
+//	std::cout << "in editor block" << std::endl;
+//	this->Add<Gizmo<C>>();
+//#endif
+
 	mOwnedComponents.push_back(c);
 	mAllComponents.push_back(c);
 

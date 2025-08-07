@@ -1,58 +1,39 @@
 #ifndef CAMERA_COMPONENT_HPP
 #define CAMERA_COMPONENT_HPP
-#include "component.hpp"
+
+#include <unordered_set>
+
 #include <glm/glm.hpp>
 
-#include <vector>
+#include "component.hpp"
 
 class TransformComponent;
 class GameObject;
 class Framebuffer;
 
 class CameraComponent : public Component {
-private:
-	std::vector<GameObject*> mViewables;
+public:
+	CameraComponent(GameObject* GO);
 
-	// std::vector<Render::Command*> mCommands;
+	virtual void Start() override;
+	virtual void Update() override;
+	virtual void ConstUpdate() const override;
+
+	virtual char const* Name() const override;
+
+	void AddViewable(GameObject* GO);
+
+	::Framebuffer* Framebuffer();
+
+	void SetFramebuffer(::Framebuffer* framebuffer);
+
+	virtual glm::mat4 ViewMatrix();
 
 protected:
 	TransformComponent* mpTransform;
-	Framebuffer* mpFramebuffer{nullptr};
-	int mWidth{ 600 }, mHeight{ 600 };
-	int mOriginX{ 0 }, mOriginY{ 0 };
+	::Framebuffer* mpFramebuffer;
 
-public:
-	void Start() override;
-	void Update() override;
-	void ConstUpdate() const override;
-
-	CameraComponent(GameObject* pGO);
-
-	void AddViewable(GameObject* pGO);
-
-	inline void SetFramebuffer(Framebuffer* pFramebuffer) {
-		mpFramebuffer = pFramebuffer;
-	}
-
-	inline Framebuffer* GetFramebuffer() {
-		return mpFramebuffer;
-	}
-
-	inline void SetViewport(const int x, const int y, const int width, const int height) {
-		mOriginX = x; mOriginY = y;
-		mWidth = width; mHeight = height;
-	}
-
-	void SetTests();
-
-	void Draw();
-	virtual glm::mat4 ViewMatrix();
-
-	inline int Width() { return mWidth; }
-	inline int Height() { return mHeight; }
-	inline int OriginX() { return mOriginX; }
-	inline int OriginY() { return mOriginY; }
-	
-	// add in id?
+private:
+	std::unordered_set<GameObject*> mViewables;
 };
 #endif

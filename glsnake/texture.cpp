@@ -4,7 +4,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-Texture1D::Texture1D() {
+Texture1D::Texture1D() : Resource{} {
 	glGenTextures(1, &mID);
 
 	Enable(); // set as texture1D
@@ -67,7 +67,7 @@ void Texture1D::SetParameter(GLenum eParam, GLenum eVal) {
 	Disable();
 }
 
-Texture2D::Texture2D() {
+Texture2D::Texture2D() : Resource{} {
 	glGenTextures(1, &mID);
 
 	Enable(); // set as texture2D
@@ -155,7 +155,7 @@ unsigned char* Texture2D::ReadTexel(glm::ivec2 position) {
 	return data;
 }
 
-Texture3D::Texture3D() {
+Texture3D::Texture3D() : Resource{} {
 	glGenTextures(1, &mID);
 
 	Enable(); // set as texture3D

@@ -6,11 +6,10 @@ class RenderComponent;
 
 class RenderCommand {
 private:
-	RenderComponent* mpRenderC;
 	unsigned short mfEnables{ 0x00 };
 
 public:
-
+	RenderComponent* mpRenderC;
 	enum {
 		FRAMEBUFFER = 0x0001,
 		SHADER = 0x0002,

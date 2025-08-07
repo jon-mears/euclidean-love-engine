@@ -1,0 +1,54 @@
+\doxysection{Grid\+Object\+Component Class Reference}
+\hypertarget{class_grid_object_component}{}\label{class_grid_object_component}\index{GridObjectComponent@{GridObjectComponent}}
+Inheritance diagram for Grid\+Object\+Component\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_grid_object_component}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_grid_object_component_aad27615d0c400289bde4a4996019287b}\label{class_grid_object_component_aad27615d0c400289bde4a4996019287b} 
+void {\bfseries add\+\_\+cell} (Cell c)
+\item 
+\Hypertarget{class_grid_object_component_a8bfc98620aa0db754d67c8a89df229a0}\label{class_grid_object_component_a8bfc98620aa0db754d67c8a89df229a0} 
+void {\bfseries remove\+\_\+cell} (Cell c)
+\item 
+\Hypertarget{class_grid_object_component_a8b1cb41167c1418ce6479584bc9d7b24}\label{class_grid_object_component_a8b1cb41167c1418ce6479584bc9d7b24} 
+void {\bfseries clear\+\_\+stamp} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void {\bfseries Start} ()=0
+\item 
+virtual void {\bfseries Update} ()=0
+\item 
+virtual void {\bfseries Const\+Update} () const =0
+\item 
+{\footnotesize template$<$typename C $>$ }\\C \texorpdfstring{$\ast$}{*} {\bfseries Get\+Component} ()
+\item 
+{\footnotesize template$<$typename C $>$ }\\const C \texorpdfstring{$\ast$}{*} {\bfseries Get\+Component} () const
+\item 
+{\bfseries Component} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}p\+GO)
+\item 
+bool {\bfseries Is\+Active} ()
+\item 
+void {\bfseries Set\+Active} (bool b\+Active)
+\item 
+bool {\bfseries Toggle\+Active} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*} {\bfseries mp\+GO}
+\item 
+bool {\bfseries mb\+Active} \{ true \}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+gridobjectcomponent.\+h\end{DoxyCompactItemize}

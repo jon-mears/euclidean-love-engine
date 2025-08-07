@@ -1,0 +1,108 @@
+\doxysection{Targeted\+Camera\+Component Class Reference}
+\hypertarget{class_targeted_camera_component}{}\label{class_targeted_camera_component}\index{TargetedCameraComponent@{TargetedCameraComponent}}
+Inheritance diagram for Targeted\+Camera\+Component\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_targeted_camera_component}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_targeted_camera_component_a88ada44fd80d21194c84963648d8b026}\label{class_targeted_camera_component_a88ada44fd80d21194c84963648d8b026} 
+{\bfseries Targeted\+Camera\+Component} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}p\+GO)
+\item 
+virtual glm\+::mat4 \mbox{\hyperlink{class_targeted_camera_component_afb5e458b2e8764cfb9137b0aeddcd243}{View\+Matrix}} () override
+\item 
+\Hypertarget{class_targeted_camera_component_a07cb91095c932b83dd2ea878bdf06e4e}\label{class_targeted_camera_component_a07cb91095c932b83dd2ea878bdf06e4e} 
+void {\bfseries Set\+Target} (const glm\+::vec3 target)
+\item 
+\Hypertarget{class_targeted_camera_component_adb86a77c68c889689faeab43f6f8d846}\label{class_targeted_camera_component_adb86a77c68c889689faeab43f6f8d846} 
+const glm\+::vec3 \& {\bfseries Target} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_camera_component}{Camera\+Component}}}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_camera_component_aa181187764b65cdd763c66477e51a9c3}{Start}} () override
+\item 
+void \mbox{\hyperlink{class_camera_component_a4485cdb5929b9550edafc64c7a3f34cb}{Update}} () override
+\item 
+void \mbox{\hyperlink{class_camera_component_a8985d31535c3634c4d0ea2fb1ef30495}{Const\+Update}} () const override
+\item 
+{\bfseries Camera\+Component} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}p\+GO)
+\item 
+void {\bfseries Add\+Viewable} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}p\+GO)
+\item 
+void {\bfseries Set\+Framebuffer} (\mbox{\hyperlink{class_framebuffer}{Framebuffer}} \texorpdfstring{$\ast$}{*}p\+Framebuffer)
+\item 
+\mbox{\hyperlink{class_framebuffer}{Framebuffer}} \texorpdfstring{$\ast$}{*} {\bfseries Get\+Framebuffer} ()
+\item 
+void {\bfseries Set\+Viewport} (const int x, const int y, const int width, const int height)
+\item 
+void {\bfseries Set\+Tests} ()
+\item 
+int {\bfseries Width} ()
+\item 
+int {\bfseries Height} ()
+\item 
+int {\bfseries OriginX} ()
+\item 
+int {\bfseries OriginY} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename C $>$ }\\C \texorpdfstring{$\ast$}{*} {\bfseries Get\+Component} ()
+\item 
+{\footnotesize template$<$typename C $>$ }\\const C \texorpdfstring{$\ast$}{*} {\bfseries Get\+Component} () const
+\item 
+{\bfseries Component} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}p\+GO)
+\item 
+bool {\bfseries Is\+Active} ()
+\item 
+void {\bfseries Set\+Active} (bool b\+Active)
+\item 
+bool {\bfseries Toggle\+Active} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_camera_component}{Camera\+Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_transform_component}{Transform\+Component}} \texorpdfstring{$\ast$}{*} {\bfseries mp\+Transform}
+\item 
+\mbox{\hyperlink{class_framebuffer}{Framebuffer}} \texorpdfstring{$\ast$}{*} {\bfseries mp\+Framebuffer} \{nullptr\}
+\item 
+int {\bfseries m\+Width} \{ 600 \}
+\item 
+int {\bfseries m\+Height} \{ 600 \}
+\item 
+int {\bfseries m\+OriginX} \{ 0 \}
+\item 
+int {\bfseries m\+OriginY} \{ 0 \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*} {\bfseries mp\+GO}
+\item 
+bool {\bfseries mb\+Active} \{ true \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_targeted_camera_component_afb5e458b2e8764cfb9137b0aeddcd243}\index{TargetedCameraComponent@{TargetedCameraComponent}!ViewMatrix@{ViewMatrix}}
+\index{ViewMatrix@{ViewMatrix}!TargetedCameraComponent@{TargetedCameraComponent}}
+\doxysubsubsection{\texorpdfstring{ViewMatrix()}{ViewMatrix()}}
+{\footnotesize\ttfamily \label{class_targeted_camera_component_afb5e458b2e8764cfb9137b0aeddcd243} 
+glm\+::mat4 Targeted\+Camera\+Component\+::\+View\+Matrix (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_camera_component}{Camera\+Component}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+targeted-\/camera-\/component.\+hpp\item 
+targeted\+\_\+camera-\/component .\+cpp\end{DoxyCompactItemize}

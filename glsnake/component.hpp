@@ -4,33 +4,38 @@
 class GameObject;
 
 class Component {
-private:
-	virtual void Interface();
-
-protected:
-	GameObject* mpGO;
-	bool mbActive{ true };
 public:
-	virtual ~Component() { }
+	Component(GameObject* pGO);
+	virtual ~Component();
 
 	virtual void Start() = 0;
 	virtual void Update() = 0;
 	virtual void ConstUpdate() const = 0;
 
-	template <typename C>	
-	C* GetComponent();
+	virtual char const* Name() const = 0;
 
 	template <typename C>
-	const C* GetComponent() const;
+	C* Get();
 
-	Component(GameObject* pGO);
+	template <typename C>
+	C const* Get() const;
 
-	inline bool IsActive() { return mbActive; }
-	inline void SetActive(bool bActive) { mbActive = bActive; }
-	inline bool ToggleActive() { return mbActive = !mbActive; }
+	bool IsActive() const noexcept;
+	void SetActive(bool active) noexcept;
+	bool ToggleActive() noexcept;
 
-	friend class ObjectEditor; // to allow access to the component's
-							   // interface
+	GameObject* GO() noexcept;
+
+	void Interface();
+
+protected:
+	GameObject* mpGO;
+	bool mIsActive;
+
+private:
+	void InterfaceHead();
+	virtual void InterfaceMain();
+	void InterfaceTail();
 };
 
 #include "component.ipp"

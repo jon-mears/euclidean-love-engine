@@ -9,6 +9,7 @@
 
 #include "shader.hpp"
 #include "uniform.hpp"
+#include "uniform-holder.hpp"
 
 class Shader;
 class Texture2D;
@@ -16,24 +17,20 @@ class Uniform;
 
 class Material {
 private:
-	Shader* mpShader;
-	std::map<std::string, Uniform*> mUniforms{};
-	std::map<Uniform::Purpose, Uniform*> mPurpose2Uniform{};
+	::Shader* const mpShader;
+	std::map<std::string, UniformHolder*> mUniforms{};
+	std::map<Uniform::Purpose, UniformHolder*> mPurpose2Uniform{};
 
 public:
-
-	Material() : mpShader{ nullptr } { }
-	Material(Shader* pShader) : mpShader{ pShader } { 
-		for (std::vector<std::string>::iterator it = pShader->UniformCodes().begin();
-			it != pShader->UniformCodes().end(); ++it) {
-			Uniform* pUniform = Uniform::Decode(*it);
-			mUniforms[pUniform->mName] = pUniform;
-			mPurpose2Uniform[pUniform->GetPurpose()] = pUniform;
+	Material(::Shader* pShader) : mpShader{ pShader } { 
+		for (std::map<std::string, Uniform*>::iterator it = mpShader->mName2Uniform.begin();
+			it != mpShader->mName2Uniform.end(); ++it) {
+			mUniforms[it->first] = UniformHolder::Create(it->second);
+			mPurpose2Uniform[it->second->GetPurpose()] = mUniforms[it->first];
 		}
 	}
 
-	void SetShader(Shader* pShader);
-	inline Shader* GetShader() {
+	inline ::Shader* Shader() {
 		return mpShader;
 	}
 

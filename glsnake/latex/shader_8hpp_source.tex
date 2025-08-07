@@ -1,0 +1,60 @@
+\doxysection{shader.\+hpp}
+\hypertarget{shader_8hpp_source}{}\label{shader_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SHADER\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ SHADER\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <glad/glad.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <glfw/glfw3.h>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <glm/glm.hpp>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}resource.hpp"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}vertex-\/data.hpp"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}uniform.hpp"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}mesh.hpp"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{enum\ class}\ Attribute;}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_uniform}{Uniform}};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_shader}{Shader}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00021\ \ \ \ \ GLuint\ mID;}
+\DoxyCodeLine{00022\ \ \ \ \ GLuint\ mVShaderID\{\ 0\ \};}
+\DoxyCodeLine{00023\ \ \ \ \ GLuint\ mFShaderID\{\ 0\ \};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ std::string\ mVSource;}
+\DoxyCodeLine{00026\ \ \ \ \ std::string\ mFSource;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ std::vector<std::string>\ mUniformCodes;}
+\DoxyCodeLine{00029\ \ \ \ \ std::map<std::string,\ Uniform*>\ mName2Uniform\{\};}
+\DoxyCodeLine{00030\ \ \ \ \ std::map<Uniform::Purpose,\ Uniform*>\ mPurpose2Uniform\{\};}
+\DoxyCodeLine{00031\ \ \ \ \ std::map<std::string,\ Vertex::Attribute>\ mAttribName2Type;}
+\DoxyCodeLine{00032\ \ \ \ \ std::map<std::string,\ GLuint>\ mAttribName2Loc;}
+\DoxyCodeLine{00033\ \ \ \ \ std::map<std::string,\ Uniform::Purpose>\ mUniformName2Purpose;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_shader}{Shader}}();}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ ProvideVertexSource(\textcolor{keyword}{const}\ std::string\&\ rcSource);}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ ProvideFragmentSource(\textcolor{keyword}{const}\ std::string\&\ rcSource);}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ Enable();}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ Disable();}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ Compile();}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ std::vector<std::string>\ \&UniformCodes();}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ LabelAttrib(\textcolor{keyword}{const}\ std::string\&\ name,\ Vertex::Attribute\ eAttrib);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_shader}{Shader}}\&\ rcRHS)\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mID\ ==\ rcRHS.mID;}
+\DoxyCodeLine{00050\ \ \ \ \ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_material}{Material}};}
+\DoxyCodeLine{00053\ \};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,32 @@
+\doxysection{projection.\+hpp}
+\hypertarget{projection_8hpp_source}{}\label{projection_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ PROJECTION\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ PROJECTION\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <glm/glm.hpp>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <glm/gtc/type\_ptr.hpp>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_projection}{Projection}}\ \{}
+\DoxyCodeLine{00008\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00009\ \ \ \ \ \mbox{\hyperlink{class_projection}{\string~Projection}}()\ \{\ \}}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keyword}{virtual}\ glm::mat4\ ProjectionMatrix()\ =\ 0;}
+\DoxyCodeLine{00011\ \};}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_orthographic}{Orthographic}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_projection}{Projection}}\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{float}\ mLeft\{\ -\/1\ \},\ mRight\{\ 1\ \},\ mTop\{\ 1\ \},\ mBottom\{\ -\/1\ \};}
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{virtual}\ glm::mat4\ ProjectionMatrix()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00018\ \};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_perspective}{Perspective}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_projection}{Projection}}\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{float}\ mFOVY\{\ 45.0f\ \},\ mAspect\{\ 0.0f\ \},\ mZNear\{\ 0.5f\ \},\ mZFar\{\ 100.0f\ \};}
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{class_perspective}{Perspective}}();}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{virtual}\ glm::mat4\ ProjectionMatrix()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

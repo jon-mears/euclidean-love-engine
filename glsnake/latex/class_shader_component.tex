@@ -1,0 +1,111 @@
+\doxysection{Shader\+Component Class Reference}
+\hypertarget{class_shader_component}{}\label{class_shader_component}\index{ShaderComponent@{ShaderComponent}}
+Inheritance diagram for Shader\+Component\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_shader_component}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_shader_component_a7fdfaa6884ba2b2165fcbd60cd11eb4a}\label{class_shader_component_a7fdfaa6884ba2b2165fcbd60cd11eb4a} 
+{\bfseries Shader\+Component} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}p\+GO)
+\item 
+\Hypertarget{class_shader_component_a598ee27dfd292138a2cb62c234f4009c}\label{class_shader_component_a598ee27dfd292138a2cb62c234f4009c} 
+void {\bfseries Set\+Shader} (\mbox{\hyperlink{class_shader}{Shader}} \texorpdfstring{$\ast$}{*}p\+Shader)
+\item 
+virtual void \mbox{\hyperlink{class_shader_component_a4e8c473baf7def011091152222dfd5c4}{Start}} () override
+\item 
+virtual void \mbox{\hyperlink{class_shader_component_a2493a400604dd37d5121630782ad3d09}{Update}} () override
+\item 
+virtual void \mbox{\hyperlink{class_shader_component_a53e3d3164d4e7f6867245700325226e6}{Const\+Update}} () const override
+\item 
+\Hypertarget{class_shader_component_a6e8bf9a3ae991dc670738ef7a27acbeb}\label{class_shader_component_a6e8bf9a3ae991dc670738ef7a27acbeb} 
+void {\bfseries Add\+Updater} (Uniform\+Updater uu)
+\item 
+\Hypertarget{class_shader_component_ab09f3f846536a9fc92cebb741e02d9b4}\label{class_shader_component_ab09f3f846536a9fc92cebb741e02d9b4} 
+void {\bfseries Update\+Uniforms} (\mbox{\hyperlink{class_camera_component}{Camera\+Component}} \texorpdfstring{$\ast$}{*}p\+Camera)
+\item 
+\Hypertarget{class_shader_component_ada206c72546021122b5b749bed1eef53}\label{class_shader_component_ada206c72546021122b5b749bed1eef53} 
+void {\bfseries Enable} ()
+\item 
+\Hypertarget{class_shader_component_a84572f1101a33ba4dcae9c2fa750c900}\label{class_shader_component_a84572f1101a33ba4dcae9c2fa750c900} 
+void {\bfseries Disable} ()
+\item 
+\Hypertarget{class_shader_component_a223749629b53f3a4c1f6c59f80b4cdc1}\label{class_shader_component_a223749629b53f3a4c1f6c59f80b4cdc1} 
+void {\bfseries Set\+Uniform} (const std\+::string \&name, const glm\+::mat4 \&value)
+\item 
+\Hypertarget{class_shader_component_a26709d806a2db51869b82b5ae592909f}\label{class_shader_component_a26709d806a2db51869b82b5ae592909f} 
+void {\bfseries Set\+Uniform} (const std\+::string \&name, const glm\+::vec3 \&value)
+\item 
+\Hypertarget{class_shader_component_a26fc3bfc9e22e8791ce1577ac1291b14}\label{class_shader_component_a26fc3bfc9e22e8791ce1577ac1291b14} 
+void {\bfseries Set\+Uniform} (const std\+::string \&name, \mbox{\hyperlink{class_texture2_d}{Texture2D}} \texorpdfstring{$\ast$}{*}value)
+\item 
+\Hypertarget{class_shader_component_afa2fe96998d1ad5fdcb58749d38e7fab}\label{class_shader_component_afa2fe96998d1ad5fdcb58749d38e7fab} 
+void {\bfseries Set\+Uniform} (const std\+::string \&name, const glm\+::vec4 \&value)
+\item 
+\Hypertarget{class_shader_component_adf8b3e505a462328437803899648581b}\label{class_shader_component_adf8b3e505a462328437803899648581b} 
+void {\bfseries Upload\+Uniforms} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename C $>$ }\\C \texorpdfstring{$\ast$}{*} {\bfseries Get\+Component} ()
+\item 
+{\footnotesize template$<$typename C $>$ }\\const C \texorpdfstring{$\ast$}{*} {\bfseries Get\+Component} () const
+\item 
+{\bfseries Component} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}p\+GO)
+\item 
+bool {\bfseries Is\+Active} ()
+\item 
+void {\bfseries Set\+Active} (bool b\+Active)
+\item 
+bool {\bfseries Toggle\+Active} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*} {\bfseries mp\+GO}
+\item 
+bool {\bfseries mb\+Active} \{ true \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_shader_component_a53e3d3164d4e7f6867245700325226e6}\index{ShaderComponent@{ShaderComponent}!ConstUpdate@{ConstUpdate}}
+\index{ConstUpdate@{ConstUpdate}!ShaderComponent@{ShaderComponent}}
+\doxysubsubsection{\texorpdfstring{ConstUpdate()}{ConstUpdate()}}
+{\footnotesize\ttfamily \label{class_shader_component_a53e3d3164d4e7f6867245700325226e6} 
+virtual void Shader\+Component\+::\+Const\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_component}{Component}}.
+
+\Hypertarget{class_shader_component_a4e8c473baf7def011091152222dfd5c4}\index{ShaderComponent@{ShaderComponent}!Start@{Start}}
+\index{Start@{Start}!ShaderComponent@{ShaderComponent}}
+\doxysubsubsection{\texorpdfstring{Start()}{Start()}}
+{\footnotesize\ttfamily \label{class_shader_component_a4e8c473baf7def011091152222dfd5c4} 
+virtual void Shader\+Component\+::\+Start (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_component}{Component}}.
+
+\Hypertarget{class_shader_component_a2493a400604dd37d5121630782ad3d09}\index{ShaderComponent@{ShaderComponent}!Update@{Update}}
+\index{Update@{Update}!ShaderComponent@{ShaderComponent}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_shader_component_a2493a400604dd37d5121630782ad3d09} 
+virtual void Shader\+Component\+::\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_component}{Component}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+shader-\/component.\+hpp\end{DoxyCompactItemize}

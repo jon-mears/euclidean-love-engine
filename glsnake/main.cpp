@@ -8,11 +8,6 @@
 #include <iostream>
 
 int main() {
-	//App::Instance().RegisterScene(Scene::SNAKE, InitSnake, DeinitSnake);
-	//if (App::Instance().Init() == -1) {
-	//	return -1;
-	//}
-
 	App::Instance().RegisterScene(Scene::SNAKE, InitSnake, DeinitSnake);
 	App::Instance().Init();
 	App::Instance().Loop();

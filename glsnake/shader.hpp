@@ -16,7 +16,7 @@
 enum class Attribute;
 class Uniform;
 
-class Shader {
+class Shader : public Resource {
 private:
 	GLuint mID;
 	GLuint mVShaderID{ 0 };
@@ -26,6 +26,8 @@ private:
 	std::string mFSource;
 
 	std::vector<std::string> mUniformCodes;
+	std::map<std::string, Uniform*> mName2Uniform{};
+	std::map<Uniform::Purpose, Uniform*> mPurpose2Uniform{};
 	std::map<std::string, Vertex::Attribute> mAttribName2Type;
 	std::map<std::string, GLuint> mAttribName2Loc;
 	std::map<std::string, Uniform::Purpose> mUniformName2Purpose;
@@ -38,6 +40,7 @@ public:
 	void Enable();
 	void Disable();
 	void Compile();
+
 	std::vector<std::string> &UniformCodes();
 
 	void LabelAttrib(const std::string& name, Vertex::Attribute eAttrib);
@@ -45,6 +48,8 @@ public:
 	inline bool operator==(const Shader& rcRHS) {
 		return mID == rcRHS.mID;
 	}
+
+	friend class Material;
 };
 
 #endif

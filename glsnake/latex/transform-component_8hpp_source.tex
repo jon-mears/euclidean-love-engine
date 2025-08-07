@@ -1,0 +1,165 @@
+\doxysection{transform-\/component.hpp}
+\hypertarget{transform-component_8hpp_source}{}\label{transform-component_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ TRANSFORM\_COMPONENT\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ TRANSFORM\_COMPONENT\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}component.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <glm/glm.hpp>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <glm/gtc/quaternion.hpp>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <glad/glad.h>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <GLFW/glfw3.h>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_game_object}{GameObject}};}
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }GLFWwindow;}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_space}{Space}}\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{const}\ glm::vec3\&\ mrcBasis1,\ mrcBasis2,\ mrcBasis3;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{const}\ glm::vec3\&\ mrcOrigin;}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ glm::vec3\&\ X()\ \{\ \textcolor{keywordflow}{return}\ mrcBasis1;\ \}}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ glm::vec3\&\ Y()\ \{\ \textcolor{keywordflow}{return}\ mrcBasis2;\ \}}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ glm::vec3\&\ Z()\ \{\ \textcolor{keywordflow}{return}\ mrcBasis3;\ \}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ glm::vec3\&\ Origin()\ \{\ \textcolor{keywordflow}{return}\ mrcOrigin;\ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{class_space}{Space}}(\textcolor{keyword}{const}\ glm::vec3\&\ basis1,\ \textcolor{keyword}{const}\ glm::vec3\&\ basis2,\ \textcolor{keyword}{const}\ glm::vec3\&\ basis3,}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::vec3\&\ origin)\ :\ mrcBasis1\{\ basis1\ \},\ mrcBasis2\{\ basis2\ \},\ mrcBasis3\{\ basis3\ \},}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ mrcOrigin\{\ origin\ \}\ \{\ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{const}\ glm::mat3\&\ World2SpaceMatrix()\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ glm::mat3\{\ mrcBasis1.x,\ mrcBasis2.x,\ mrcBasis3.x,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ mrcBasis1.y,\ mrcBasis2.y,\ mrcBasis3.y,}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ mrcBasis1.z,\ mrcBasis2.z,\ mrcBasis3.z\ \};}
+\DoxyCodeLine{00036\ \ \ \ \ \}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{const}\ glm::mat3\&\ Space2WorldMatrix()\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ glm::mat3\{\ mrcBasis1.x,\ mrcBasis1.y,\ mrcBasis1.z,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ mrcBasis2.x,\ mrcBasis2.y,\ mrcBasis2.z,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ mrcBasis3.x,\ mrcBasis3.y,\ mrcBasis3.z\ \};}
+\DoxyCodeLine{00042\ \ \ \ \ \}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ glm::vec3\ World2Space(\textcolor{keyword}{const}\ glm::vec3\&\ vrcVec)\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ World2SpaceMatrix()\ *\ vrcVec;}
+\DoxyCodeLine{00046\ \ \ \ \ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ glm::vec3\ Space2World(\textcolor{keyword}{const}\ glm::vec3\&\ vrcVec)\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Space2WorldMatrix()\ *\ vrcVec;}
+\DoxyCodeLine{00050\ \ \ \ \ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_space}{Space}}*\ World()\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_space}{Space}}*\ spWorldSpace\{\ \textcolor{keyword}{nullptr}\ \};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (spWorldSpace\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ glm::vec3\ scWorldX\{\ 1.0f,\ 0.0f,\ 0.0f\ \};}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ glm::vec3\ scWorldY\{\ 0.0f,\ 1.0f,\ 0.0f\ \};}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ glm::vec3\ scWorldZ\{\ 0.0f,\ 0.0f,\ 1.0f\ \};}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ glm::vec3\ scWorldOrigin\{\ 0.0f,\ 0.0f,\ 0.0f\ \};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ spWorldSpace\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_space}{Space}}(scWorldX,\ scWorldY,\ scWorldZ,\ scWorldOrigin);}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ spWorldSpace;}
+\DoxyCodeLine{00065\ \ \ \ \ \}}
+\DoxyCodeLine{00066\ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_transform_component}{TransformComponent}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_component}{Component}}\ \{}
+\DoxyCodeLine{00069\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00070\ \ \ \ \ glm::vec3\ mWorldPosition;}
+\DoxyCodeLine{00071\ \ \ \ \ glm::vec3\ mLocalPosition;}
+\DoxyCodeLine{00072\ \ \ \ \ glm::vec3\ mLocalOrigin\{\ 0\ \};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ glm::vec3\ mEulerRotation;}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{comment}{//\ should\ be\ a\ normalized\ quaternion}}
+\DoxyCodeLine{00076\ \ \ \ \ glm::quat\ mQuatRotation;}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ glm::vec3\ mScale;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ glm::vec3\ mLocalX\ =\ glm::vec3\{\ 1.0f,\ 0.0f,\ 0.0f\ \};}
+\DoxyCodeLine{00081\ \ \ \ \ glm::vec3\ mLocalY\ =\ glm::vec3\{\ 0.0f,\ 1.0f,\ 0.0f\ \};}
+\DoxyCodeLine{00082\ \ \ \ \ glm::vec3\ mLocalZ\ =\ glm::vec3\{\ 0.0f,\ 0.0f,\ 1.0f\ \};}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ GLFWwindow*\ mpWindow;}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \mbox{\hyperlink{class_space}{Space}}*\ mpObjectSpace\{\ \textcolor{keyword}{nullptr}\ \};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \mbox{\hyperlink{class_transform_component}{TransformComponent}}*\ mpParent\{\ \textcolor{keyword}{nullptr}\ \};}
+\DoxyCodeLine{00089\ \ \ \ \ std::vector<TransformComponent*>\ mChildren\{\};}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Interface()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{comment}{//\ everything\ is\ ultimately\ given\ to\ these\ methods\ in\ world\ }}
+\DoxyCodeLine{00094\ \textcolor{comment}{//\ coordinates,\ but\ of\ course\ the\ user\ may\ transform\ vectors\ }}
+\DoxyCodeLine{00095\ \textcolor{comment}{//\ that\ are\ not\ originally\ in\ world\ coordinates\ to\ world\ }}
+\DoxyCodeLine{00096\ \textcolor{comment}{//\ coordinates}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00099\ \ \ \ \ \mbox{\hyperlink{class_transform_component}{TransformComponent}}(\mbox{\hyperlink{class_game_object}{GameObject}}*\ pGO);}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{void}\ SetPosition(\textcolor{keyword}{const}\ glm::vec3\&\ new\_position);}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{void}\ Translate(\textcolor{keyword}{const}\ glm::vec3\&\ trans);}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{void}\ SetEulerRotation(\textcolor{keyword}{const}\ glm::vec3\&\ euler\_rotation);}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{void}\ EulerRotate(\textcolor{keyword}{const}\ glm::vec3\&\ degs);}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{void}\ QuaternionRotate(\textcolor{keyword}{const}\ glm::quat\&\ q);}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{void}\ RotateAboutAxis(\textcolor{keyword}{const}\ glm::vec3\&\ axis,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ deg);}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{void}\ SetScale(\textcolor{keyword}{const}\ glm::vec3\&\ new\_scale);}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{void}\ Scale(\textcolor{keyword}{const}\ glm::vec3\&\ rhs);}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{void}\ AddChild(\mbox{\hyperlink{class_game_object}{GameObject}}*\ pGO);}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{void}\ AddChild(\mbox{\hyperlink{class_transform_component}{TransformComponent}}*\ pTransformC);}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{void}\ RemoveChild(\mbox{\hyperlink{class_game_object}{GameObject}}*\ pGO);}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ RemoveChild(\mbox{\hyperlink{class_transform_component}{TransformComponent}}*\ pTransformC);}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{void}\ SetParent(\mbox{\hyperlink{class_game_object}{GameObject}}*\ pGO);}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{void}\ SetParent(\mbox{\hyperlink{class_transform_component}{TransformComponent}}*\ pTransformC);}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{void}\ UpdateQuaternionRotation();}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{void}\ UpdateEulerRotation();}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ RemoveParent()\ \{\ mpParent-\/>RemoveChild(\textcolor{keyword}{this});\ mpParent\ =\ \textcolor{keyword}{nullptr};\ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_space}{Space}}*\ GetSpace()\ \{\ \textcolor{keywordflow}{return}\ mpObjectSpace;\ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{void}\ LookAt(\textcolor{keyword}{const}\ glm::vec3\&\ target);}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ LookAt(\mbox{\hyperlink{class_transform_component}{TransformComponent}}*\ pTransform)\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ LookAt(pTransform-\/>Position());}
+\DoxyCodeLine{00129\ \ \ \ \ \}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ LookAt(\mbox{\hyperlink{class_game_object}{GameObject}}*\ pGO)\ \{}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ LookAt(pGO-\/>Retrieve<\mbox{\hyperlink{class_transform_component}{TransformComponent}}>()-\/>Position());}
+\DoxyCodeLine{00133\ \ \ \ \ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{void}\ SetWindow(GLFWwindow*\ pWindow);}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keyword}{const}\ glm::vec3\ \&Position()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keyword}{const}\ glm::vec3\ \&EulerRotation()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keyword}{const}\ glm::vec3\ \&Scale()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keyword}{const}\ GLFWwindow*\ \mbox{\hyperlink{class_window}{Window}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ glm::vec3\&\ LocalX()\ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mLocalX;}
+\DoxyCodeLine{00144\ \ \ \ \ \}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ glm::vec3\&\ LocalY()\ \{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mLocalY;}
+\DoxyCodeLine{00148\ \ \ \ \ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ glm::vec3\&\ LocalZ()\ \{}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mLocalZ;}
+\DoxyCodeLine{00152\ \ \ \ \ \}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ glm::mat4\ ModelMatrix();}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Start()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Update()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ ConstUpdate()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00158\ \};}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

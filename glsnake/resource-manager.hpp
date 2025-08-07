@@ -1,6 +1,8 @@
 #ifndef RESOURCE_MANAGER_HPP
 #define RESOURCE_MANAGER_HPP
 
+//class Resource;
+
 #define RETRIEVE_SPECIALIZATION(classname, containername)	\
 template <> \
 classname* Retrieve<classname>(const std::string& name) { \
@@ -23,19 +25,74 @@ typename std::map<std::string, classname*>::iterator End<classname>() { \
 template <>	\
 classname* New<classname>(const std::string& name) { \
 	classname* pResource = new classname(); \
-	containername[name] = pResource; \
+	if (name == "") { \
+		std::string new_name = ""; \
+		new_name += #classname; \
+		new_name += " ("; \
+		new_name += std::to_string(containername.size()); \
+		new_name += ")"; \
+		pResource->mName = new_name; \
+		containername[new_name] = pResource; \
+	} else if (containername.count(name) > 0) { \
+		int idx = 2; \
+		while (containername.count(name + " (" + std::to_string(idx) + ")")) { \
+			++idx; \
+		} \
+		pResource->mName = " (" + std::to_string(idx) + ")"; \
+		containername[pResource->mName] = pResource; \
+	} else { \
+		pResource->mName = name; \
+		containername[name] = pResource; \
+	} \
 	return pResource; \
 }
+
+//#define NEW_SPECIALIZATION(classname, containername)	\
+//template <>	\
+//classname* New<classname>(const std::string& name) { \
+//	classname* pResource = new classname(); \
+//	containername[name] = pResource; \
+//	return pResource; \
+//}
 
 #define ADD_SPECIALIZATION(classname, containername)	\
 template <> \
 void Add<classname>(classname* pResource, const std::string& name) { \
-	containername[name] = pResource; \
+	if (name == "") { \
+		std::string new_name = ""; \
+		new_name += #classname; \
+		new_name += " ("; \
+		new_name += std::to_string(containername.size()); \
+		new_name += ")"; \
+		pResource->mName = new_name; \
+		containername[new_name] = pResource; \
+	} else if (containername.count(name) > 0) { \
+		int idx = 2; \
+		while (containername.count(name + " (" + std::to_string(idx) + ")")) { \
+			++idx; \
+		} \
+		pResource->mName = name + " (" + std::to_string(idx) + ")"; \
+		containername[pResource->mName] = pResource; \
+	} else { \
+		pResource->mName = name; \
+		containername[name] = pResource; \
+	} \
 }
+
+#define COUNT_SPECIALIZATION(classname, containername)	\
+template<>	\
+std::size_t Count<classname>() { \
+	return containername.size(); \
+}
+
+//#define ADD_SPECIALIZATION(classname, containername)	\
+//template <> \
+//void Add<classname>(classname* pResource, const std::string& name) { \
+//	containername[name] = pResource; \
+//}
 
 #include <map>
 #include <string>
-#include <map>
 
 #include "shader.hpp"
 #include "game-object.hpp"
@@ -86,6 +143,7 @@ private:
 	private:
 		void ParseShader(XMLNode* pNode);
 		void ParseTexture2D(XMLNode* pNode);
+		void ParseMesh(XMLNode* pNode);
 	public:
 		void ParseTree(XMLTree* pTree);
 	} mXmlTreeParser;
@@ -165,6 +223,21 @@ public:
 	ADD_SPECIALIZATION(Image3D, mImage3Ds)
 	ADD_SPECIALIZATION(Framebuffer, mFramebuffers)
 	ADD_SPECIALIZATION(Renderbuffer, mRenderbuffers)
+
+	template <typename T>
+	std::size_t Count() = delete; // only allow specializations
+
+	COUNT_SPECIALIZATION(Shader, mShaders)
+	COUNT_SPECIALIZATION(GameObject, mGameObjects)
+	COUNT_SPECIALIZATION(Mesh, mMeshes)
+	COUNT_SPECIALIZATION(Texture1D, mTexture1Ds)
+	COUNT_SPECIALIZATION(Texture2D, mTexture2Ds)
+	COUNT_SPECIALIZATION(Texture3D, mTexture3Ds)
+	COUNT_SPECIALIZATION(Image1D, mImage1Ds)
+	COUNT_SPECIALIZATION(Image2D, mImage2Ds)
+	COUNT_SPECIALIZATION(Image3D, mImage3Ds)
+	COUNT_SPECIALIZATION(Framebuffer, mFramebuffers)
+	COUNT_SPECIALIZATION(Renderbuffer, mRenderbuffers)
 
 	static ResourceManager& Instance();
 

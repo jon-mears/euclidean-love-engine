@@ -32,6 +32,7 @@
 
 #include "key-mouse-input-service.hpp"
 #include "render-engine.hpp"
+#include "check-error.hpp"
 
 App::App() : mInitScene{nullptr}, mDeinitScene{nullptr}, mpWindow(nullptr),
 mpRootWindow{ nullptr } { }
@@ -98,7 +99,7 @@ void App::Loop() {
 		// update gameobjects
 		Update();
 
-		// draw scene
+		// draw scene	
 		RenderEngine::Instance().Draw();
 		
 		// draw ui
@@ -111,6 +112,8 @@ void App::Loop() {
 
 		// swap buffers
 		RenderEngine::Instance().EndFrame();
+
+		LogErrors();
 	}
 }
 
@@ -168,7 +171,7 @@ void App::StartSystems() {
 	RenderEngine::Instance().EnableTests(Render::TEST_DEPTH);
 	RenderEngine::Instance().EnableClears(Render::CLEAR_COLOR | Render::CLEAR_DEPTH);
 
-	 mpWindow = RenderEngine::Instance().mpWindow;
+	mpWindow = RenderEngine::Instance().mpWindow;
 
 	// pRenderEngine->startup(pWindow);
 
@@ -185,7 +188,7 @@ void App::StartSystems() {
 }
 
 void App::StartRootWindow() {
-	mpRootWindow = new RootWindow();
+	//mpRootWindow = new RootWindow();
 	//mpRootWindow->Draw();
 }
 

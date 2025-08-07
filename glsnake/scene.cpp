@@ -1,9 +1,10 @@
 #include "scene.hpp"
+#include "space.hpp"
 #include "app.hpp"
+#include "color.hpp"
 #include "image.hpp"
 #include "texture.hpp" 
 #include "transform-component.hpp"
-#include "orthographic-component.hpp"
 #include "game-object.hpp"
 #include "camera-component.hpp"
 #include "shader-component.hpp"
@@ -11,15 +12,17 @@
 #include "mesh.hpp"
 #include "vertex-data.hpp"
 #include "material.hpp"
-#include "mesh-component.hpp"
 #include "primitives.hpp"
-#include "perspective-component.hpp"
+#include "editor-manager.hpp"
 #include "resource-manager.hpp"
 #include "input-manager.hpp"
-#include "camera-control-component.hpp"
 #include "targeted-camera-component.hpp"
 #include "render-component.hpp"
 #include "projection.hpp"
+#include "free-camera-component.hpp"
+#include "transform-gizmo.hpp"
+
+#include "ui-rectangle.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -29,70 +32,136 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-void UniformFunction(GameObject* pGO, CameraComponent* pCameraC) {
-	ShaderComponent* pShaderC = pGO->Retrieve<ShaderComponent>();
-	TransformComponent* pTransformC = pGO->Retrieve<TransformComponent>();
-	OrthographicComponent* pOrthoC = pGO->Retrieve<OrthographicComponent>();
-
-	glm::mat4 model = pTransformC->ModelMatrix();
-
-	glm::mat4 proj = pOrthoC->ProjectionMatrix();
-
-	glm::mat4 view = pCameraC->ViewMatrix();
-
-	glm::mat4 MVP = proj * view * model;
-
-	pShaderC->SetUniform("uMVP", MVP);
-	pShaderC->UploadUniforms();
-}
-
 void InitSnake(App* pApp) {
-	Shader *pBoxShader = ResourceManager::Instance().Retrieve<Shader>("Texture Shader");
-	Mesh* pBoxMesh = Primitives::Cube<Vertex::POSITION | Vertex::TEXTURE_COORD>();
+	// retrieve resource manager
+	ResourceManager& rm = ResourceManager::Instance();
 
-	Texture2D* pBoxTexture = ResourceManager::Instance().Retrieve<Texture2D>("Container");
+	// retrieve editor manager
+	EditorManager& em = EditorManager::Instance();
 
-	GameObject* pBoxObj = ResourceManager::Instance().New<GameObject>("Box");
+	// setup camera
+	auto pCameraObj = rm.New<GameObject>("Camera");
+	auto pFreeCameraC = pCameraObj->Add<FreeCameraComponent>();
 
-	GameObject* pBoxObj2 = ResourceManager::Instance().New<GameObject>("Box2");
+	auto pTransformC = pCameraObj->Add<TransformComponent>();
+	pTransformC->SetPosition(glm::vec3{ 0.0f, 0.0f, 8.0f });
+	pTransformC->SetEulerRotation(glm::vec3{ 0, 0, 0 });
 
-	TransformComponent* pTransformC = pBoxObj->Add<TransformComponent>();
-	pTransformC->SetScale(1.0f, 1.0f, 1.0f);
-	pTransformC->SetWindow(App::Instance().Window());
+	// save camera info to editor manager
+	em.SetEditorCamera(pFreeCameraC);
 
-	pTransformC = pBoxObj2->Add<TransformComponent>();
-	pTransformC->SetPosition(0.5f, 0.0f, 0.0f);
+	// setup box object
+	auto pBoxObj = rm.New<GameObject>("Box");
 
-	GameObject* pCameraObj = ResourceManager::Instance().New<GameObject>("Camera");
-		
-	pTransformC = pCameraObj->Add<TransformComponent>();
-	pTransformC->SetPosition(0.0f, 0.0f, 0.5f);
-	pTransformC->SetWindow(App::Instance().Window());
+	// shader/material
+	auto pBoxShader = rm.Retrieve<Shader>("Texture Shader");
+	auto pBoxTexture = rm.Retrieve<Texture2D>("Container");
+	auto pBoxMaterial = new Material(pBoxShader);
+	pBoxMaterial->SetUniform("uSampler", pBoxTexture);
+	pBoxMaterial->SetUniform("uColor", glm::vec4{ 1.0f, 1.0f, 1.0f, 1.0f });
 
-	TargetedCameraComponent* pCameraC = pCameraObj->Add<TargetedCameraComponent>();
+	// mesh
+	auto pBoxMesh =
+		Primitives::Cube<Vertex::POSITION | Vertex::TEXTURE_COORD>();
 
-	CameraControlComponent* pCameraControl = pCameraObj->Add<CameraControlComponent>();
+	// transform
+	auto pBoxTransformC = pBoxObj->Add<TransformComponent>();
+	pBoxTransformC->SetPosition(glm::vec3{ -2.0f, 0.0f, 0.0f });
+	pBoxTransformC->SetScale(
+		glm::vec3{ 1.0f, 1.0f, 1.0f }
+	);
 
-	// secretly adds gameobject to engine dstructure to render objects in order
+	// render
 	RenderComponent* pRenderC = pBoxObj->Add<RenderComponent>();
-	Material* pBoxMaterial = new Material(pBoxShader);
 	pRenderC->SetMaterial(pBoxMaterial);
 	pRenderC->SetMesh(pBoxMesh);
-	pRenderC->SetCamera(pCameraC);
-	pRenderC->SetProjection(new Orthographic());
-	//pRenderC->SetLayer(0);
-	pBoxMaterial->SetUniform("uColor", glm::vec4{ 1.0f, 1.0f, 1.0f, 1.0f });
-	pBoxMaterial->SetUniform("uSampler", pBoxTexture);
+	pRenderC->SetCamera(pFreeCameraC);
+	pRenderC->SetProjection(new Perspective());
 
-	pRenderC = pBoxObj2->Add<RenderComponent>();
-	Material* pBoxMaterial2 = new Material(pBoxShader);
-	pRenderC->SetMaterial(pBoxMaterial2);
-	pRenderC->SetMesh(pBoxMesh);
-	pRenderC->SetCamera(pCameraC);
-	pRenderC->SetProjection(new Orthographic());
-	//pRenderC->SetLayer(0);
-	pBoxMaterial2->SetUniform("uColor", glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
-	pBoxMaterial2->SetUniform("uSampler", pBoxTexture);
+	pBoxObj->Add<TransformGizmo>();
+
+	// setup stingray object
+	auto pStingrayObj = rm.New<GameObject>("Stingray");
+	
+	// shader/material
+	auto pStingrayShader = rm.Retrieve<Shader>("Color Shader");
+	auto pStingrayMaterial = new Material(pStingrayShader);
+	pStingrayMaterial->SetUniform("uColor",
+		glm::vec4{ 1.0f, 1.0f, 1.0f, 1.0f });
+
+	// mesh
+	auto pStingrayMesh = rm.Retrieve<Mesh>("Stingray");
+
+	// transform
+	auto pStingTransformC = pStingrayObj->Add<TransformComponent>();
+	pStingTransformC->SetPosition(glm::vec3{ 2.0f, 0.0f, 0.0f });
+	pStingTransformC->SetScale(
+		glm::vec3{ 1.0f, 1.0f, 1.0f }
+	);
+	//pStingTransformC->SetParent(pBoxTransformC);
+
+	// render
+	pRenderC = pStingrayObj->Add<RenderComponent>();
+	pRenderC->SetMaterial(pStingrayMaterial);
+	pRenderC->SetMesh(pStingrayMesh);
+	pRenderC->SetCamera(pFreeCameraC);
+	pRenderC->SetProjection(new Perspective());
+
+	//new Line<
+	//	0, 0, 0,
+	//	1, 0, 0
+	//	>(pFreeCameraC, Color::RED);
+
+	//new Line<
+	//	0, 0, 0,
+	//	0, 1, 0
+	//>(pFreeCameraC, Color::GREEN);
+
+	//new Line<
+	//	0, 0, 0,
+	//	0, 0, 1
+	//>(pFreeCameraC, Color::BLUE);
+
+	//rm.Add<GameObject>(
+	//	new Line<0, 0, 0, 1, 0, 0>(pFreeCameraC, Color::RED),
+	//	"X Axis"
+	//);
+
+	//rm.Add<GameObject>(
+	//	new Line<0, 0, 0, 0, 1, 0>(pFreeCameraC, Color::GREEN),
+	//	"Y Axis"
+	//);
+
+	//rm.Add<GameObject>(
+	//	new Line<0, 0, 0, 0, 0, 1>(pFreeCameraC, Color::BLUE),
+	//	"Z Axis"
+	//);
+
+	// would be cool to allow the user to specify the size of the UI
+	// element using a UDL percentage (of the current window width/height) or using 
+	// GLFW (or windowing system) units
+
+	glm::vec3 x1, y1, z1, o1, x2, y2, z2, o2;
+
+	x1 = glm::vec3{ 1,0,0 };
+	y1 = glm::vec3{ 0,1,0 };
+	z1 = glm::vec3{ 0,0,1 };
+	o1 = glm::vec3{ 0,0,0 };
+
+	x2 = glm::vec3{ 0,0,-1 };
+	y2 = glm::vec3{ 0,1,0 };
+	z2 = glm::vec3{ 1,0,0 };
+	o2 = glm::vec3{ 1,0,1 };
+
+	Space* pSpace1 = new Space(x1, y1, z1, o1);
+	Space* pSpace2 = new Space(x2, y2, z2, o2);
+
+	glm::vec3 point{ 5,3,2 };
+
+	glm::vec3 intermed = pSpace1->Space2World(point);
+	glm::vec3 result = pSpace2->World2Space(intermed);
+
+	std::cout << glm::to_string(result) << std::endl;
 }
 
 void DeinitSnake(App* pApp) {

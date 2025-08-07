@@ -3,6 +3,9 @@
 
 #include <glm/glm.hpp>
 
+#include "vertex-data.hpp"
+#include "mesh.hpp"
+
 class Mesh;
 
 namespace Primitives {
@@ -15,47 +18,47 @@ namespace Primitives {
 
 			if (fAttribs & Vertex::POSITION) {
 				VertexData aPos = {
-					{-0.5f, -0.5f, -0.5f},
-					{0.5f, -0.5f, -0.5f},
-					{0.5f, 0.5f, -0.5f},
-					{0.5f, 0.5f, -0.5f},
-					{-0.5f, 0.5f, -0.5f},
-					{-0.5f, -0.5f, -0.5f},
+					{-1.0f, -1.0f, -1.0f},
+					{1.0f, -1.0f, -1.0f},
+					{1.0f, 1.0f, -1.0f},
+					{1.0f, 1.0f, -1.0f},
+					{-1.0f, 1.0f, -1.0f},
+					{-1.0f, -1.0f, -1.0f},
 
-					{-0.5f, -0.5f, 0.5f},
-					{0.5f, -0.5f, 0.5f},
-					{0.5f, 0.5f, 0.5f},
-					{0.5f, 0.5f, 0.5f},
-					{-0.5f, 0.5f, 0.5f},
-					{-0.5f, -0.5f, 0.5f},
+					{-1.0f, -1.0f, 1.0f},
+					{1.0f, -1.0f, 1.0f},
+					{1.0f, 1.0f, 1.0f},
+					{1.0f, 1.0f, 1.0f},
+					{-1.0f, 1.0f, 1.0f},
+					{-1.0f, -1.0f, 1.0f},
 
-					{-0.5f, 0.5f, 0.5f},
-					{-0.5f, 0.5f, -0.5f},
-					{-0.5f, -0.5f, -0.5f},
-					{-0.5f, -0.5f, -0.5f},
-					{-0.5f, -0.5f, 0.5f},
-					{-0.5f, 0.5f, 0.5f},
+					{-1.0f, 1.0f, 1.0f},
+					{-1.0f, 1.0f, -1.0f},
+					{-1.0f, -1.0f, -1.0f},
+					{-1.0f, -1.0f, -1.0f},
+					{-1.0f, -1.0f, 1.0f},
+					{-1.0f, 1.0f, 1.0f},
 
-					{0.5f, 0.5f, 0.5f},
-					{0.5f, 0.5f, -0.5f},
-					{0.5f, -0.5f, -0.5f},
-					{0.5f, -0.5f, -0.5f},
-					{0.5f, -0.5f, 0.5f},
-					{0.5f, 0.5f, 0.5f},
+					{1.0f, 1.0f, 1.0f},
+					{1.0f, 1.0f, -1.0f},
+					{1.0f, -1.0f, -1.0f},
+					{1.0f, -1.0f, -1.0f},
+					{1.0f, -1.0f, 1.0f},
+					{1.0f, 1.0f, 1.0f},
 
-					{-0.5f, -0.5f, -0.5f},
-					{0.5f, -0.5f, -0.5f},
-					{0.5f, -0.5f, 0.5f},
-					{0.5f, -0.5f, 0.5f},
-					{-0.5f, -0.5f, 0.5f},
-					{-0.5f, -0.5f, -0.5f},
+					{-1.0f, -1.0f, -1.0f},
+					{1.0f, -1.0f, -1.0f},
+					{1.0f, -1.0f, 1.0f},
+					{1.0f, -1.0f, 1.0f},
+					{-1.0f, -1.0f, 1.0f},
+					{-1.0f, -1.0f, -1.0f},
 
-					{-0.5f, 0.5f, -0.5f},
-					{0.5f, 0.5f, -0.5f},
-					{0.5f, 0.5f, 0.5f},
-					{0.5f, 0.5f, 0.5f},
-					{-0.5f, 0.5f, 0.5f},
-					{-0.5f, 0.5f, -0.5f}
+					{-1.0f, 1.0f, -1.0f},
+					{1.0f, 1.0f, -1.0f},
+					{1.0f, 1.0f, 1.0f},
+					{1.0f, 1.0f, 1.0f},
+					{-1.0f, 1.0f, 1.0f},
+					{-1.0f, 1.0f, -1.0f}
 				};
 
 				pMesh->VertexAttrib(Vertex::POSITION, aPos);
@@ -115,9 +118,47 @@ namespace Primitives {
 		return pMesh;
 	}
 
-	Mesh* Plane(char bitmask);
+	template <unsigned char fAttribs>
+	Mesh* Plane() {
+		static Mesh* pMesh = nullptr;
 
-	template <int x, int y, int z>
+		if (pMesh == nullptr) {
+			pMesh = new Mesh();
+
+			if (fAttribs & Vertex::POSITION) {
+				VertexData aPos = {
+					{-1.0f, 1.0f, 0.0f},   // top left
+					{-1.0f, -1.0f, 0.0f},  // bottom left
+					{1.0f, -1.0f, 0.0f},    // bottom right
+					{-1.0f, 1.0f, 0.0f},   // top left
+					{1.0f, 1.0f, 0.0f},    // top right
+					{1.0f, -1.0f, 0.0f}    // bottom right
+				};
+
+				pMesh->VertexAttrib(Vertex::POSITION, aPos);
+			}
+
+			if (fAttribs & Vertex::TEXTURE_COORD) {
+				VertexData aTexCoord = {
+					{0.0f, 1.0f}, // top left
+					{0.0f, 0.0f}, // bottom left
+					{1.0f, 0.0f}, // bottom right
+					{0.0f, 1.0f}, // top left
+					{1.0f, 1.0f}, // top right
+					{1.0f, 0.0f}  // bottom right
+				};
+
+				pMesh->VertexAttrib(Vertex::TEXTURE_COORD, aTexCoord);
+			}
+
+			pMesh->Compile();
+		}
+
+		return pMesh;
+	}
+
+	template <int x1, int y1, int z1,
+			  int x2, int y2, int z2>
 	Mesh* Line() {
 		static Mesh* pMesh = nullptr;
 
@@ -125,8 +166,8 @@ namespace Primitives {
 			pMesh = new Mesh();
 
 			VertexData aPos = {
-				{0.0f, 0.0f, 0.0f},
-				{x, y, z}
+				{x1, y1, z1},
+				{x2, y2, z2}
 			};
 
 			pMesh->VertexAttrib(Vertex::POSITION, aPos);

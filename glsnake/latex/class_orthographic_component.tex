@@ -1,0 +1,84 @@
+\doxysection{Orthographic\+Component Class Reference}
+\hypertarget{class_orthographic_component}{}\label{class_orthographic_component}\index{OrthographicComponent@{OrthographicComponent}}
+Inheritance diagram for Orthographic\+Component\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_orthographic_component}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_orthographic_component_a20db36779a7b382e3d0a85830113bcf3}\label{class_orthographic_component_a20db36779a7b382e3d0a85830113bcf3} 
+{\bfseries Orthographic\+Component} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}p\+GO)
+\item 
+virtual glm\+::mat4 \mbox{\hyperlink{class_orthographic_component_a72667c53f8562f6ee05d02c5e68adc38}{Projection\+Matrix}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_projection_component}{Projection\+Component}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Projection\+Component} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}p\+GO)
+\item 
+virtual void \mbox{\hyperlink{class_projection_component_a9fcd06c4f4c7ca013d3cde38fb025426}{Start}} () override
+\item 
+virtual void \mbox{\hyperlink{class_projection_component_aae4da65eea30eaee9ac3316ca65e7e2a}{Update}} () override
+\item 
+virtual void \mbox{\hyperlink{class_projection_component_aa50489f6ad62df66444958f501a8baae}{Const\+Update}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename C $>$ }\\C \texorpdfstring{$\ast$}{*} {\bfseries Get\+Component} ()
+\item 
+{\footnotesize template$<$typename C $>$ }\\const C \texorpdfstring{$\ast$}{*} {\bfseries Get\+Component} () const
+\item 
+{\bfseries Component} (\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*}p\+GO)
+\item 
+bool {\bfseries Is\+Active} ()
+\item 
+void {\bfseries Set\+Active} (bool b\+Active)
+\item 
+bool {\bfseries Toggle\+Active} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_orthographic_component_a1c41936cfcac544338aced9cf3331aeb}\label{class_orthographic_component_a1c41936cfcac544338aced9cf3331aeb} 
+float {\bfseries m\+Left}
+\item 
+\Hypertarget{class_orthographic_component_a73c5481500711cf9c0566703b68a85a0}\label{class_orthographic_component_a73c5481500711cf9c0566703b68a85a0} 
+float {\bfseries m\+Right}
+\item 
+\Hypertarget{class_orthographic_component_a69f27a1bd79f1111fb2eef9bd7c1cdb1}\label{class_orthographic_component_a69f27a1bd79f1111fb2eef9bd7c1cdb1} 
+float {\bfseries m\+Top}
+\item 
+\Hypertarget{class_orthographic_component_a37406354f49955effb05e2550742e795}\label{class_orthographic_component_a37406354f49955effb05e2550742e795} 
+float {\bfseries m\+Bottom}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_component}{Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_game_object}{Game\+Object}} \texorpdfstring{$\ast$}{*} {\bfseries mp\+GO}
+\item 
+bool {\bfseries mb\+Active} \{ true \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_orthographic_component_a72667c53f8562f6ee05d02c5e68adc38}\index{OrthographicComponent@{OrthographicComponent}!ProjectionMatrix@{ProjectionMatrix}}
+\index{ProjectionMatrix@{ProjectionMatrix}!OrthographicComponent@{OrthographicComponent}}
+\doxysubsubsection{\texorpdfstring{ProjectionMatrix()}{ProjectionMatrix()}}
+{\footnotesize\ttfamily \label{class_orthographic_component_a72667c53f8562f6ee05d02c5e68adc38} 
+glm\+::mat4 Orthographic\+Component\+::\+Projection\+Matrix (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_projection_component}{Projection\+Component}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+orthographic-\/component.\+hpp\item 
+orthographic-\/component.\+cpp\end{DoxyCompactItemize}

@@ -51,6 +51,7 @@ namespace {
 	typedef GLFWkeyfun KeyCallback;
 	typedef GLFWmousebuttonfun MouseButtonCallback;
 	typedef GLFWcursorposfun CursorPosCallback;
+	typedef GLFWscrollfun ScrollCallback;
 #endif
 }
 
@@ -76,6 +77,10 @@ bool KeyMouseInputService::EventActive(Input::Event eEvent) {
 		return IsDown(MIDDLE_MOUSE_BUTTON, LEFT_SHIFT | LEFT_CTRL);
 	case Input::LOOKING:
 		return IsDown(MIDDLE_MOUSE_BUTTON | LEFT_CTRL);
+	case Input::W_DOWN:
+		return IsDown(W);
+	case Input::MMOUSE_PRESSED:
+		return Pressed(MIDDLE_MOUSE_BUTTON);
 	default:
 		std::cout << "input event not yet implemented!" << std::endl;
 	}
@@ -110,6 +115,8 @@ float KeyMouseInputService::RelativeAxis(Input::Axis eAxis) {
 		return mXMousePos - mPrevXMousePos;
 	case Input::VERTICAL:
 		return mYMousePos - mPrevYMousePos;
+	case Input::SCROLL:
+		return mPrevScrollAmount;
 	default:
 		return 0.0f;
 	}
@@ -129,6 +136,9 @@ void KeyMouseInputService::PollEvents() {
 
 	mButtonDowns = mButtons & (mButtons ^ mPrevButtons);
 	mButtonUps = ~mButtons & (mButtons ^ mPrevButtons);
+
+	mPrevScrollAmount = mScrollAmount;
+	mScrollAmount = 0;
 }
 
 void KeyMouseInputService::KeyCallback(GLFWwindow* pWindow, int key, int scancode, int action, int mods) {
@@ -389,6 +399,14 @@ void KeyMouseInputService::CursorPosCallback(GLFWwindow* pWindow, double xpos, d
 	mBufYMousePos = ypos;
 }
 
+void KeyMouseInputService::ScrollCallback(GLFWwindow* pWindow, double xoffset, double yoffset) {
+	if (mPrevScrollCallback != nullptr) {
+		mPrevScrollCallback(pWindow, xoffset, yoffset);
+	}
+
+	mScrollAmount = yoffset;
+}
+
 void KeyMouseInputService::Startup() {
 	glfwSetWindowUserPointer(InputManager::Instance().Window(), this);
 
@@ -397,6 +415,10 @@ void KeyMouseInputService::Startup() {
 	mPrevMouseButtonCallback = glfwSetMouseButtonCallback(InputManager::Instance().Window(), KeyMouseInputService::MouseButtonCallbackForwarder);
 
 	mPrevCursorPosCallback = glfwSetCursorPosCallback(InputManager::Instance().Window(), KeyMouseInputService::CursorPosCallbackForwarder);
+
+	mPrevScrollCallback = glfwSetScrollCallback
+		(InputManager::Instance().Window(),
+			KeyMouseInputService::ScrollCallbackForwarder);
 }
 
 void KeyMouseInputService::KeyCallbackForwarder(GLFWwindow* pWindow, int key, int scancode, int action, int mods) {
@@ -414,6 +436,14 @@ void KeyMouseInputService::MouseButtonCallbackForwarder(GLFWwindow* pWindow, int
 void KeyMouseInputService::CursorPosCallbackForwarder(GLFWwindow* pWindow, double xpos, double ypos) {
 	KeyMouseInputService* pService = static_cast<KeyMouseInputService*>(glfwGetWindowUserPointer(pWindow));
 	pService->CursorPosCallback(pWindow, xpos, ypos);
+}
+
+void KeyMouseInputService::ScrollCallbackForwarder
+(GLFWwindow* pWindow, double xoffset, double yoffset) {
+	KeyMouseInputService* pService =
+		static_cast<KeyMouseInputService*>
+		(glfwGetWindowUserPointer(pWindow));
+	pService->ScrollCallback(pWindow, xoffset, yoffset);
 }
 
 #else // not GLFW3
