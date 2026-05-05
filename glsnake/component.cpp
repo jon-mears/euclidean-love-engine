@@ -4,8 +4,8 @@
 
 class GameObject;
 
-Component::Component(GameObject* GO)
-	: mpGO{ GO }, mIsActive{ true }
+Component::Component(GameObject* GO) :
+	mpGO{ GO }, mIsActive{ true }
 { }
 
 Component::~Component() { }

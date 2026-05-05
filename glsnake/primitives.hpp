@@ -176,5 +176,7 @@ namespace Primitives {
 
 		return pMesh;
 	}
+
+	Mesh* Point();
 }
 #endif

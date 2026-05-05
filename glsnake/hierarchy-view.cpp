@@ -18,7 +18,7 @@ void HierarchyView::DrawTree(TransformComponent* pTransformC) {
 	if (mSelection.count(pGO))
 		node_flags |= ImGuiTreeNodeFlags_Selected;
 
-	if (pTransformC->GetNumChildren()) {
+	if (pTransformC->NumChildren()) {
 		bool node_open = ImGui::TreeNodeEx(pGO->Name().c_str(),
 			node_flags);
 
@@ -52,7 +52,7 @@ void HierarchyView::DrawTree(TransformComponent* pTransformC) {
 		}
 
 		if (node_open) {
-			for (auto child : pTransformC->GetChildren()) {
+			for (auto child : pTransformC->Children()) {
 				DrawTree(child);
 			}
 

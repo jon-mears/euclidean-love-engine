@@ -11,8 +11,8 @@
 class Framebuffer;
 class GameObject;
 
-CameraComponent::CameraComponent(GameObject* GO)
-	: Component{ GO }, mpTransform{ nullptr }, mpFramebuffer{ nullptr },
+CameraComponent::CameraComponent(GameObject* GO) :
+	Component{ GO }, mpTransform{ nullptr }, mpFramebuffer{ nullptr },
 	mViewables{ }
 { }
 
@@ -47,9 +47,9 @@ void CameraComponent::SetFramebuffer(::Framebuffer* framebuffer) {
 glm::mat4 CameraComponent::ViewMatrix() {
 	glm::vec3 pos{ mpTransform->Position() };
 
-	glm::vec3 x{ mpTransform->LocalX() };
-	glm::vec3 y{ mpTransform->LocalY() };
-	glm::vec3 z{ mpTransform->LocalZ() };
+	glm::vec3 x{ mpTransform->X() };
+	glm::vec3 y{ mpTransform->Y() };
+	glm::vec3 z{ mpTransform->Z() };
 
 	glm::mat4 rotation_matrix{
 		x.x, y.x, z.x, 0,

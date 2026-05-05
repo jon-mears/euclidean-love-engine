@@ -2,7 +2,6 @@
 #include "render-component.hpp"
 #include "render-engine.hpp"
 #include "resource-manager.hpp"
-#include "targeted-camera-component.hpp"
 #include "game-object.hpp"
 #include "editor-manager.hpp"
 #include "transform-component.hpp"
@@ -246,6 +245,8 @@ void RenderEngine::Startup() {
 		glDebugMessageCallback(glDebugOutput, nullptr);
 		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
 	}
+
+	glPointSize(20.0f);
 
 #endif // GLFW
 }

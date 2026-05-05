@@ -4,7 +4,8 @@
 #include <memory>
 
 #include "component.hpp"
-#include "line.hpp"	
+#include "line.hpp"
+#include "point.hpp"
 
 class GameObject;
 class TransformComponent;
@@ -23,11 +24,13 @@ private:
 	std::unique_ptr<Line<0, 0, 0, 1, 0, 0>> muX;
 	std::unique_ptr<Line<0, 0, 0, 0, 1, 0>> muY;
 	std::unique_ptr<Line<0, 0, 0, 0, 0, 1>> muZ;
+	std::unique_ptr<Point> muO;
 
 	TransformComponent *mpTransformC,
 		*mpTransformX,
 		*mpTransformY,
-		*mpTransformZ;
+		*mpTransformZ,
+		*mpTransformO;
 };
 
 //template <>
