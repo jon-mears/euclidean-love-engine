@@ -18,7 +18,6 @@
 #include "transform-component.hpp"
 #include "resource-manager.hpp"
 #include "ui-window.hpp"
-#include "targeted-camera-component.hpp"
 
 #include "object-editor.hpp"
 #include "hierarchy-view.hpp"

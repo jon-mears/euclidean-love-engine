@@ -140,20 +140,11 @@
     <ClCompile Include="component.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="shader-component.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="transform-component.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="targeted-camera-component .cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="math-3d.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="selector-component.cpp">
-      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="material.cpp">
       <Filter>Source Files</Filter>
@@ -193,9 +184,6 @@
     </ClCompile>
     <ClCompile Include="color.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="transform-2d-component.cpp">
-      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="hierarchy-view.cpp">
       <Filter>Source Files\UI %28ImGui%29 Windows</Filter>
@@ -257,7 +245,25 @@
     <ClCompile Include="ui-rectangle.cpp">
       <Filter>Source Files\SceneObjects</Filter>
     </ClCompile>
-  </ItemGroup>
+    <ClCompile Include="angles.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="space.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="transform-gizmo-2.cpp">
+      <Filter>Source Files\Components\Gizmos</Filter>
+    </ClCompile>
+    <ClCompile Include="test-component.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="doc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="to-string.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  <ClCompile Include="unit-transformation-component.cpp"><Filter>Source Files\Components</Filter></ClCompile><ClCompile Include="scale-component.cpp"><Filter>Source Files\Components</Filter></ClCompile><ClCompile Include="rotation-component.cpp"><Filter>Source Files\Components</Filter></ClCompile></ItemGroup>
   <ItemGroup>
     <ClInclude Include="uniform.hpp">
       <Filter>Header Files</Filter>
@@ -322,20 +328,11 @@
     <ClInclude Include="camera-component.hpp">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="shader-component.hpp">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="transform-component.hpp">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="math-3d.hpp">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="targeted-camera-component.hpp">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="selector-component.hpp">
-      <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="component.hpp">
       <Filter>Header Files\Components</Filter>
@@ -384,9 +381,6 @@
     </ClInclude>
     <ClInclude Include="color.hpp">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="transform-2d-component.hpp">
-      <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="camera-tag.hpp">
       <Filter>Header Files</Filter>
@@ -472,7 +466,22 @@
     <ClInclude Include="space.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
+    <ClInclude Include="angles.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="transform-component.ipp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="point.hpp">
+      <Filter>Header Files\SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="test-component.hpp">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="to-string.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  <ClInclude Include="unit-transformation-component.hpp"><Filter>Header Files\Components</Filter></ClInclude><ClInclude Include="scale-component.hpp"><Filter>Header Files\Components</Filter></ClInclude><ClInclude Include="rotation-component.hpp"><Filter>Header Files\Components</Filter></ClInclude></ItemGroup>
   <ItemGroup>
     <None Include="scene.hpp">
       <Filter>Header Files</Filter>

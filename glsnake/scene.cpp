@@ -7,7 +7,6 @@
 #include "transform-component.hpp"
 #include "game-object.hpp"
 #include "camera-component.hpp"
-#include "shader-component.hpp"
 #include "shader.hpp"
 #include "mesh.hpp"
 #include "vertex-data.hpp"
@@ -16,10 +15,10 @@
 #include "editor-manager.hpp"
 #include "resource-manager.hpp"
 #include "input-manager.hpp"
-#include "targeted-camera-component.hpp"
 #include "render-component.hpp"
 #include "projection.hpp"
 #include "free-camera-component.hpp"
+#include "test-component.hpp"
 #include "transform-gizmo.hpp"
 
 #include "ui-rectangle.hpp"
@@ -45,20 +44,27 @@ void InitSnake(App* pApp) {
 
 	auto pTransformC = pCameraObj->Add<TransformComponent>();
 	pTransformC->SetPosition(glm::vec3{ 0.0f, 0.0f, 8.0f });
-	pTransformC->SetEulerRotation(glm::vec3{ 0, 0, 0 });
+	pTransformC->SetEulerRotation(Rad(0.0f), Rad(0.0f), Rad(0.0f));
+
+	pCameraObj->Add<TestComponent>();
 
 	// save camera info to editor manager
 	em.SetEditorCamera(pFreeCameraC);
 
 	// setup box object
-	auto pBoxObj = rm.New<GameObject>("Box");
+	auto pBoxObj = rm.New<GameObject>("Box1");
+	auto pBoxObj2 = rm.New<GameObject>("Box2");
 
 	// shader/material
 	auto pBoxShader = rm.Retrieve<Shader>("Texture Shader");
 	auto pBoxTexture = rm.Retrieve<Texture2D>("Container");
 	auto pBoxMaterial = new Material(pBoxShader);
+	auto pBoxMaterial2 = new Material(pBoxShader);
 	pBoxMaterial->SetUniform("uSampler", pBoxTexture);
 	pBoxMaterial->SetUniform("uColor", glm::vec4{ 1.0f, 1.0f, 1.0f, 1.0f });
+
+	pBoxMaterial2->SetUniform("uSampler", pBoxTexture);
+	pBoxMaterial2->SetUniform("uColor", glm::vec4{ 1.0f, 1.0f, 1.0f, 1.0f });
 
 	// mesh
 	auto pBoxMesh =
@@ -71,6 +77,12 @@ void InitSnake(App* pApp) {
 		glm::vec3{ 1.0f, 1.0f, 1.0f }
 	);
 
+	auto pBoxTransformC2 = pBoxObj2->Add<TransformComponent>();
+	pBoxTransformC2->SetPosition(glm::vec3{ 2.0f, 0.0f, 0.0f });
+	pBoxTransformC2->SetScale(
+		glm::vec3{ 1.0f, 1.0f, 1.0f }
+	);
+
 	// render
 	RenderComponent* pRenderC = pBoxObj->Add<RenderComponent>();
 	pRenderC->SetMaterial(pBoxMaterial);
@@ -79,6 +91,14 @@ void InitSnake(App* pApp) {
 	pRenderC->SetProjection(new Perspective());
 
 	pBoxObj->Add<TransformGizmo>();
+
+	pRenderC = pBoxObj2->Add<RenderComponent>();
+	pRenderC->SetMaterial(pBoxMaterial2);
+	pRenderC->SetMesh(pBoxMesh);
+	pRenderC->SetCamera(pFreeCameraC);
+	pRenderC->SetProjection(new Perspective());
+
+	pBoxObj2->Add<TransformGizmo>();
 
 	// setup stingray object
 	auto pStingrayObj = rm.New<GameObject>("Stingray");
@@ -94,11 +114,13 @@ void InitSnake(App* pApp) {
 
 	// transform
 	auto pStingTransformC = pStingrayObj->Add<TransformComponent>();
-	pStingTransformC->SetPosition(glm::vec3{ 2.0f, 0.0f, 0.0f });
+	pStingTransformC->SetPosition(glm::vec3{ 0.0f, 2.0f, 0.0f });
 	pStingTransformC->SetScale(
 		glm::vec3{ 1.0f, 1.0f, 1.0f }
 	);
-	//pStingTransformC->SetParent(pBoxTransformC);
+	
+	pBoxTransformC->AddChild(pStingTransformC);
+	pStingTransformC->AddChild(pBoxTransformC2);
 
 	// render
 	pRenderC = pStingrayObj->Add<RenderComponent>();
@@ -106,6 +128,8 @@ void InitSnake(App* pApp) {
 	pRenderC->SetMesh(pStingrayMesh);
 	pRenderC->SetCamera(pFreeCameraC);
 	pRenderC->SetProjection(new Perspective());
+
+	pStingrayObj->Add<TransformGizmo>();
 
 	//new Line<
 	//	0, 0, 0,
@@ -160,8 +184,6 @@ void InitSnake(App* pApp) {
 
 	glm::vec3 intermed = pSpace1->Space2World(point);
 	glm::vec3 result = pSpace2->World2Space(intermed);
-
-	std::cout << glm::to_string(result) << std::endl;
 }
 
 void DeinitSnake(App* pApp) {

@@ -71,6 +71,8 @@ bool KeyMouseInputService::EventActive(Input::Event eEvent) {
 		return Pressed(A);
 	case Input::B_PRESSED:
 		return Pressed(B);
+	case Input::C_PRESSED:
+		return Pressed(C);
 	case Input::PANNING:
 		return IsDown(MIDDLE_MOUSE_BUTTON | LEFT_SHIFT);
 	case Input::ORBITING:
