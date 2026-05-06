@@ -289,7 +289,7 @@
     <ClCompile Include="render-component.cpp" />
     <ClCompile Include="free-camera-component.cpp" />
     <ClCompile Include="test-component.cpp" />
-  <ClCompile Include="unit-transformation-component.cpp" /><ClCompile Include="scale-component.cpp" /></ItemGroup>
+  <ClCompile Include="unit-transformation-component.cpp" /><ClCompile Include="scale-component.cpp" /><ClCompile Include="rotation-component.cpp" /></ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\..\Code\stb\stb_image.h" />
     <ClInclude Include="..\..\..\..\..\..\imgui\imgui\backends\imgui_impl_glfw.h" />
@@ -363,7 +363,7 @@
     <ClInclude Include="render-component.hpp" />
     <ClInclude Include="free-camera-component.hpp" />
     <ClInclude Include="test-component.hpp" />
-  <ClInclude Include="unit-transformation-component.hpp" /><ClInclude Include="scale-component.hpp" /></ItemGroup>
+  <ClInclude Include="unit-transformation-component.hpp" /><ClInclude Include="scale-component.hpp" /><ClInclude Include="rotation-component.hpp" /></ItemGroup>
   <ItemGroup>
     <None Include="component.ipp" />
     <None Include="game-object.ipp" />

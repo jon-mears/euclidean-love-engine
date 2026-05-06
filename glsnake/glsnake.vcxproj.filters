@@ -263,7 +263,7 @@
     <ClCompile Include="to-string.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  <ClCompile Include="unit-transformation-component.cpp"><Filter>Source Files\Components</Filter></ClCompile><ClCompile Include="scale-component.cpp"><Filter>Source Files\Components</Filter></ClCompile></ItemGroup>
+  <ClCompile Include="unit-transformation-component.cpp"><Filter>Source Files\Components</Filter></ClCompile><ClCompile Include="scale-component.cpp"><Filter>Source Files\Components</Filter></ClCompile><ClCompile Include="rotation-component.cpp"><Filter>Source Files\Components</Filter></ClCompile></ItemGroup>
   <ItemGroup>
     <ClInclude Include="uniform.hpp">
       <Filter>Header Files</Filter>
@@ -481,7 +481,7 @@
     <ClInclude Include="to-string.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-  <ClInclude Include="unit-transformation-component.hpp"><Filter>Header Files\Components</Filter></ClInclude><ClInclude Include="scale-component.hpp"><Filter>Header Files\Components</Filter></ClInclude></ItemGroup>
+  <ClInclude Include="unit-transformation-component.hpp"><Filter>Header Files\Components</Filter></ClInclude><ClInclude Include="scale-component.hpp"><Filter>Header Files\Components</Filter></ClInclude><ClInclude Include="rotation-component.hpp"><Filter>Header Files\Components</Filter></ClInclude></ItemGroup>
   <ItemGroup>
     <None Include="scene.hpp">
       <Filter>Header Files</Filter>
