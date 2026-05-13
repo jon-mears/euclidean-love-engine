@@ -17,31 +17,33 @@ void UnitTransformationComponent::ConstUpdate() const {
 }
 
 glm::mat4 UnitTransformationComponent::Matrix(unsigned fTransformations) {
-    if (mClean[fTransformations]) {
-        return mMatrix[fTransformations];
-    }
-    else {
+    if (!mClean[fTransformations]) {
         mClean[fTransformations] = true;
         mMatrix[fTransformations] = mpParent->Matrix(fTransformations);
         if (mfType & fTransformations ||
             fTransformations == Transformation::ALL) {
-            mMatrix[fTransformations] *= LocalMatrix();
+            mMatrix[fTransformations] = ApplyRHS(mMatrix[fTransformations]);
         }
-        return mMatrix[fTransformations];
     }
+    return mMatrix[fTransformations];
+}
+
+glm::mat4 UnitTransformationComponent::LocalMatrix() {
+    if (!mLocalClean) {
+        mLocalClean = true;
+        mLocalMatrix = ApplyRHS(glm::mat4{ 1 });
+    }
+    return mLocalMatrix;
 }
 
 // avoids the if-statement if _all_ transformations are desired (which is most
 // common)
 glm::mat4 UnitTransformationComponent::Matrix() {
-    if (mClean[Transformation::ALL]) {
-        return mMatrix[Transformation::ALL];
-    }
-    else {
+    if (!mClean[Transformation::ALL]) {
         mClean[Transformation::ALL] = true;
-        mMatrix[Transformation::ALL] = mpParent->Matrix() * LocalMatrix();
-        return mMatrix[Transformation::ALL];
+        mMatrix[Transformation::ALL] = ApplyRHS(mpParent->Matrix());
     }
+    return mMatrix[Transformation::ALL];
 }
 
 glm::mat4 UnitTransformationComponent::InverseMatrix(unsigned fTransformations) {

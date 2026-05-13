@@ -145,4 +145,150 @@ used.
 [---------------] Local
 [01234567000000e] Left [0 is local]
 [e00000076543210] Right [0 is local]
+
+[---x-----------]
+[012x00000000000]
+[000x00076543210]
+
+[---------------]
+[012000000000000]
+[000000076543210]
+
+[---------------]
+[012345600000000]
+[000000076543210]
+
+[---------------]
+[01234560000000e]
+[e00000076543210]
+
+[----------x----]
+[0123456000x0000]
+[0000000000x3210]
+
+[---------------]
+[0123456789a0000]
+[000000000003210]
+
+What is the best cache?
+
+[---------------]
+[0123456789abcde]
+[210210210210210] (Ideal for translation->rotation->scaling)
+(Since translations are probably most common, followed by rotations, followed
+by scalings.)
+
+This is where statistics could be helpful.
+
+Will probably just implement the right-side product stuff later on; the naive
+approach uses the same kind of left-side product stuff.
+
+Could make things even more granular by having rotation about each axis be its
+own component.
+
+Do not necessarily need to even save the local matrix in the typical flow of
+execution if it is more efficient to just apply the transformation to a matrix
+rather than computing the local matrix and then multiplying it with another
+matrix. But in situations where the local matrix is often needed on its own
+it can be better to store it.
+
+Could have a weird statistical optimization where different approaches are
+tested and the one with fewer operations over unit time and typical conditions
+is selected.
+
+Could if I so choose separate each directional transformation into its own
+component.
+
+This approach allows non-matrix transformations to be included in the chain
+which are cached by manipulating the vertices in main (non-video) RAM. Not
+necessarily efficient but a nice generalization.
+
+Translation
+|
+Rotation
+| - - - - - - - - *
+Scaling           |
+|                 |
+Scene Object      |
+|                 |
+Translation       Translation
+|				  |
+Rotation		  |
+| - - - - - - - - Translation (could share the local components)
+Scaling
+|
+Scene Object
+
+Instead of using the maps could just have a weird complicated branching
+structure.
+Could have a normalize component? But the map structure is just unappealing.
+
+But the idea of decoupling the transformation components from the caching
+functionality is appealing.
+
+Should create a tree GUI in which transformations can be added ad libitum.
+
+Think of translation, rotation, etcetera as operations performed on matrices.
+
+RotateMatrix.
+
+Wrapper - - - - - *
+|                 |
+Operation         Cache(s)
+
+Operation: Apply(x) => y.
+Operation: State which affects how the operation is applied.
+
+Can think of these wrappers as having arbitrarily many edges emanating from
+them.
+
+OR the edges themselves could be classes?
+
+|
+|
+Cache
+|
+|
+Operation
+
+Like a tap.
+
+Apply(Cache(1));
+
+Wrapper.Result(Path);
+
+A tree class?
+
+Since each node has at most one parent the path can be identified by a node.
+
+Tree.Result(Node);
+
+Yes. If you want to avoid a certain type of operation you just have to create a
+new branch. Can use the same local operations to have some level of
+inheritance. The cache will be maintained by the straightforward cache I've
+been using up until now, applied to several different branches.
+
+Hierarchy
+|
+Wrapper - - - *
+|             |
+Operation     Cache
+Child,Parent
+
+Wrapper.SetParent(Parent, std::vector<Wrapper*> pExclude);
+Wrapper.SetParent(Parent, unsigned fExclude);
+
+The parent is the preceding value.
+
+Can still include a local cache within the operation. But that makes sense;
+it's just a cache that doesn't change unless the interal state of the operation
+changes. It's relevant even if you just apply it to values not in a sequence.
+
+I think it'll be good to support these types of exclusions but the
+transformation gizmo will likely just finish with a Normalize operation.
+
+Exclude<type1,type2,type3>() might work.
+
+template <typename... Ts>
+No this won't work.
 */
