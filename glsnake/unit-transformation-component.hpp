@@ -38,10 +38,12 @@ public:
     virtual glm::mat4 Matrix(unsigned fTransformations);
 
     // this returns just the local matrix
-    virtual glm::mat4 LocalMatrix() = 0;
+    virtual glm::mat4 LocalMatrix();
 
     virtual glm::mat4 InverseMatrix(unsigned fTransformations =
         Transformation::ALL);
+
+    virtual glm::mat4 ApplyRHS(glm::mat4 const& lhs) = 0;
 
     UnitTransformationComponent(GameObject* pGO);
 

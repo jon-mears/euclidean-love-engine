@@ -17,12 +17,10 @@ private:
 public:
     virtual void Start() override;
     virtual void Update() override;
-    virtual glm::mat4 Matrix(unsigned fTransformations) override;
-    virtual glm::mat4 LocalMatrix(unsigned fTransformations =
-    Transformation::ALL) override;
     virtual void ConstUpdate() const override;
+    glm::mat4 ApplyRHS(glm::mat4 const& lhs);
 
-    virtual const char* Name() override;
+    virtual const char* Name() const override;
 
     RotationComponent(GameObject* pGO);
 };
