@@ -291,4 +291,294 @@ Exclude<type1,type2,type3>() might work.
 
 template <typename... Ts>
 No this won't work.
+
+For the relative spaces, one needs to specify the source space, the destination
+space, and the sequence of transformations. Actually, no. The analogy is
+ultimately derived from the idea of a point's position described with respect
+to a coordinate space. This is related to the idea of translating an object
+after it has been scaled then rotated under the canonical sequence of
+scale->rotate->translate. So the direct analogue would be to describe the
+scaling/rotation that would need to take place in the context of this canonical
+sequence to arrive at the destination space (which is relatively
+straightforward). Valid such transformations do _not_ depend upon previous
+transformations in the sequence. If I specify some other type of sequence, it
+is likely that there will be at least one such dependence.
+
+So translate wrt to this space means to edit the position of the object such
+that such-and-such translation occurs as the final step in the canonical
+transformation sequence from the source space to the destination space.
+This is tantamount to just multiplying another translation matrix at the end
+of the sequence. Since the last matrix is already a translation matrix, this
+has no qualitative effect. 
+
+Parent transformations occur first. But now we're thinking of each individual
+transformation as a parent. So we have to think about where the frame currently
+is due to all preceding transformations. The problem is that I might want to
+specify a transformation from a different starting point.
+
+Remember this. It goes
+Parent X Child X Vector. And each (conventional) matrix goes 
+Translate X Rotate X Scale = Matrix.
+
+So
+(Translate_p x Rotate_p x Scale_p) X (Translate_c x Rotate_c x Scale_c) x 
+Vector.
+
+Should have an ApplyLHS function as well. Remember: although matrix
+multiplication is not commutative, it _is_ associative.
+
+Should keep a central Transform Component to make it easier to locate the
+transformations. Also because I don't yet know if it's a good idea to allow
+multiple of the same component.
+
+TransformComponent:
+	Parent -> [Translate -> Rotate -> Scale]
+	Starts off like:
+	_ -> [_]
+	The parent can be thought of as providing _all_ preceding transformations.
+	SetParent(Object, "!Scale")
+	Can have some kind of interpreted String which indicates the rule for
+	including parent transformations. Or if the second argument is not provided,
+	all transformations are included along with their caches.
+	[Scale, Shear, Translate] -> []
+	SetParent(Object, "!Scale"]
+	Check Translate: not scale, so include along with right cache.
+	Check Shear: not scale, so include along with right cache.
+
+	Maybe there's two passes?
+	LTR:
+		Scale is Scale, so exclude and reset left to 0.
+		Shear is not Scale, so include and include left_cache[left=0].
+		Increment left.
+		Translate is not Scale, so include and include left_cache[left=1].
+		Increment left.
+		Done!
+	RTL:
+		Translate is not Scale, so include and include right_cache[right=0].
+		Increment right.
+		Rotate is not Scale, so include and include right_cache[right=1].
+		Increment right.
+		Scale is Scale, so exclude and reset right to 0.
+
+	Reified Transformation List:
+		[Shear -> Translate]
+
+	Transformations owned by the object and those owned by parent objects.
+	The transformations owned by the object can have completely logical caches
+	but extra information is needed to use the transformations owned by the parent
+	effectively.
+
+	Can also think of the arrow as being a cache object.
+
+	Also have to think about what happens when a new transformation is added to
+	the middle of the sequence.
+
+	For the time being it probably is just best to use a completely new cache for
+	the child object. 
+
+	Can do something where new GameObjects are formed when a special parent-child
+	relationship is requested.
+
+	Parent-child gameobjects and sibling gameobjects?
+
+	But already a sibling gameobjects make sense, it's just gameobjects that share
+	a parent.
+
+	Friend gameobjects? Or twin gameobjects?
+
+	Better than just having to apply the rule up the hierarchy.
+
+	How to maintain a cache when the transformation sequences of parent objects
+	might change. Add in a new transformation object with its flag set to not
+	clean. (This is the default for newly created CachedObjects.) When you
+	SetParent or AddChild, all the descendants have their clean flags set to
+	false. 
+
+	Transform.GetModelMatrix(). This starts with the lowest down transformation
+	for the object and applys itself to its parent. If the cached parent is not
+	clean it requests the parent's model matrix and so on while caching the
+	results.
+
+	For now I'll just use the typical left-by-one cache but ideally I'd eventually
+	generalize.
+
+	Transform.GetParent(); Transform.GetTwin(); Transform.GetRule();
+	Transform.GetTransformations();
+
+	Transform.mChildren and Transform.mFans
+
+	Transform.mParent and Transform.mIdol
+
+	fans and idols?
+
+	Transform.SetParent(); => Set all descendants and fans to dirty.
+
+	Transformation list and cache list.
+
+	There is the classic technique of creating empty GameObjects which have as
+	siblings the gameobject with the scale applied and then the other object
+	without the scale applied.
+
+	Root
+	|
+	|
+	|
+	Translate
+	|
+	Rotate----
+	|        |
+	Scale    Object
+	|
+	Object
+
+	Root
+	|
+	Translate
+	|
+	Rotate -
+	|      |
+	Scale  |
+	|      |
+	Translate
+	|   |
+	Rotate ------
+	|          |
+	Scale      Object
+	|
+	Object
+
+	Some visual indication that some of these relationships are formed via the
+	idol procedure.
+
+	The transformation is wrapped in a box which contains a list of caches with
+	relation instructions.
+
+	Wrapper.path[0].cache; Wrapper.path[1].parent;
+	Wrapper.parent;
+
+	Wrapper.SetParent(wrapper);
+	Go through each path and observe whether the passed transformation is allowed
+	and set accordingly. An id/index should be used.
+
+	Translate
+	|
+	Rotate
+	|
+	Scale
+	|
+	Object
+
+	Transform.SetProc(GameObject, {Transform::Scale})
+
+	Maybe an Observer pattern is used?
+
+	Can conceivably have a kind of node editor to string these different
+	transformations together in different ways.
+
+	Translation
+	|
+	Rotation
+	|
+	Scaling - - - - - Object1
+	|
+	Translation - - - - Object2
+
+	Object3
+
+	Transform[0].After(new Rotation());
+	Transform.Head(new Translate());
+	Transform.Tail(new Scale());
+
+	Transform[0].After(bundle);
+
+	So Transformation has a Parent but that is _just_ a simple wrapper around one
+	of the base transformation objects.
+
+	Object3.SetHierarchy("Object2:!Translation")
+	Object2.GetParent().GetParent()
+
+	The idea is that each colored branch should represent a particular cached
+	value. Cannot have two edges between the same two vertices. A cached value is
+	only ever realized if it leads to an object. 
+
+	Object1.GetTransform().GetSource()
+
+	This GetSource just gets the "box" containing the cached value.
+
+	CacheContainer
+	|
+	Cache1 ... Cache2 ... Cache3 ... Transformation
+
+	Could eventually implement the observer pattern but tbh this seems better.
+
+	Instead of "cache" maybe "node"? Or "step"?
+
+	Object1.GetTransform().GetParent().GetGroup().GetTransformation()
+
+	So there's a parent-child relationship between nodes and between groups.
+
+	Better to force the user to add new transformations via the TransformComponent
+	which then notifies its listeners to restructure their hierarchies.
+
+Blender gizmos remain the same size even as the camera zooms out/in. Also, 
+during transformation, the gizmo disappears. Blender also allows the creation
+of "orientations" based on objects. Rotating with respect to an "orientation"
+does not rotate with respect to the origin of that object, but just with
+respect to its axes grafted to the location of the target object. But now I'm
+doing something similar to most packages where I just use the transformation
+hierarchy for this kind of task.
+
+Can any sequence of affine transformations be expressed as some version of
+Translate->Rotate->Scale? So the current status of an object can be "compiled
+down?"
+
+Blender also only shows gizmos for the currently active object.
+
+A lot of this stuff could be good as compilation optimization routines.
+
+Doing the inverse scale at just the beginning or the end does not seem to work
+very well because if there are rotations it won't necessarily be along the same
+axes.
+
+So the object should just be Rotation. auto r = new Rotation(); Then can apply
+to matrices or vectors.
+
+Some coordinate spaces/techniques are good for only one of setting/updating the
+arrangement of objects. For example, spherical coordinates work well for
+setting an initial orientation, but not so well for updating the orientation.
+
+For maximum generalizability the cache should look like
+std::vector<matrix> left_cache; and
+std::vector<matrix> right_cache;, where left_cache[0] and right_cache[0]
+represent the result of applying the transformation to the identity, whereas
+(for example) left_cache[1] represents the result of applying the
+transformation to the result of left_cache[0] for the transformation
+"to the left" of the transformation in question. It should be easy to see how
+this generalizes.
+
+would need left_clean<bool> and right_clean<bool> as well.
+
+Let's think about how I would go about implementing observation within the
+engine.
+
+
+
+Just read a very interesting Reddit post about parent classes versus
+interfaces. Seems _very_ similar to the problems I'm trying to solve with the
+metadata system. The idea is that interfaces simply describe behavior in a
+modular way whereas classes can be used to essentially declare outright what an
+object is. For example, a bird (Bird class) might be able to fly (IFly
+interface) and/or swim (ISwim interface). We might feel tempted to declare that
+Fly is simply a method of Bird, but then a Penguin couldn't inherit from Bird
+because it _can't_ fly. So instead we use modular interfaces to define the
+capabilities of the object and Bird simply to annotate outright what the object
+is. A Penguin is certainly a Bird, but it can't fly.
+
+Attach(Class::int (*)(int, float))
+
+The thing is even if a particular instance is not observed the existence of
+even one observed instance incurs the cost for every instance.
+
+Can perhaps have an interface to provide the world matrix. So the Transform
+component is not necessarily needed.
 */

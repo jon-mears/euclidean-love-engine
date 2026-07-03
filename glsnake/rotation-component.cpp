@@ -42,4 +42,5 @@ const char* RotationComponent::Name() const {
 }
 
 RotationComponent::RotationComponent(GameObject* pGO) :
-    UnitTransformationComponent(pGO) { }
+    UnitTransformationComponent(pGO), mEuler{ 0 }, mEulerClean{ true },
+    mQuat{ }, mQuatClean{ true } { }

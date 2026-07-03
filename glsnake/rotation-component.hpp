@@ -21,7 +21,7 @@ public:
     glm::mat4 ApplyRHS(glm::mat4 const& lhs);
 
     virtual const char* Name() const override;
-
+    
     RotationComponent(GameObject* pGO);
 };
 #endif
